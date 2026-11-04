@@ -2,6 +2,7 @@
 # Builds the parcel PMTiles from build_county_data.py output.
 #
 #   ./build_tiles.sh out            # reads out/parcels.geojsonl, writes out/bucket/harris_parcels.pmtiles
+#   ./build_tiles.sh out lean       # single-file local build: out/bucket/harris_parcels_lean.pmtiles
 #
 # Needs tippecanoe 2.17 or later (PMTiles support): `brew install tippecanoe` on a Mac,
 # or `pip install tippecanoe` (bundles felt/tippecanoe binaries), plus `pip install pmtiles`
@@ -16,8 +17,11 @@
 # countywide zone tile is about 250 KB). With a limit, tippecanoe can loop retrying a dense tile.
 set -euo pipefail
 OUT="${1:-out}"
+MODE="${2:-hosted}"   # "lean": parcels stored once at tile z13 (finer grid) and stretched for closer zooms.
+                      # About a quarter of the size; meant for single-file local builds (inject.py --embed)
 SRC="$OUT/parcels.geojsonl"
 DST="$OUT/bucket/harris_parcels.pmtiles"
+[ "$MODE" = "lean" ] && DST="$OUT/bucket/harris_parcels_lean.pmtiles"
 TMP="$OUT/tiles_tmp"
 mkdir -p "$TMP" "$OUT/bucket"
 
@@ -28,7 +32,8 @@ tippecanoe -o "$TMP/zones.pmtiles" --force -P -l zones -Z7 -z12 \
   --simplification=4 --low-detail=10 --no-tile-size-limit \
   "$TMP/zones.geojsonl"
 
-tippecanoe -o "$TMP/parcels.pmtiles" --force -P -l parcels -Z13 -z16 \
+PZ="-Z13 -z16"; [ "$MODE" = "lean" ] && PZ="-Z13 -z13 -d13"
+tippecanoe -o "$TMP/parcels.pmtiles" --force -P -l parcels $PZ \
   -y a -y c -y t -y v --detect-shared-borders \
   --no-tiny-polygon-reduction --no-feature-limit --no-tile-size-limit \
   "$SRC"

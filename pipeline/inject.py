@@ -13,8 +13,8 @@ Assembles the deployable page from web/tax-rate-map-template.html.
 --data    base URL of combos.json and boundaries/ (web/data/), relative to the page or absolute, ends with /
 --embed   OUT folder from build_county_data.py + build_tiles.sh. Packs tiles, combos, boundaries and account
           records into the one HTML file so it opens from disk with no server (search scans the records in
-          memory). Practical up to a few hundred thousand parcels, e.g. a --bbox build of a submarket; the full
-          county is far too large for one file.
+          memory). Uses harris_parcels_lean.pmtiles when present (build_tiles.sh OUT lean). Countywide that is
+          a file of roughly 90 to 100 MB; a --bbox submarket build is 5 to 15 MB.
 
   python inject.py --key "$GMAPS_KEY" --embed out --out ship-channel-map.html
 """
@@ -43,14 +43,20 @@ if a.embed:
         for r in json.load(open(f))["r"]:
             recs[r[0]] = r
     records = sorted(recs.values(), key=lambda r: -(r[5] or 0))   # highest appraised value first
+    # columnar: one array per field compresses far better than one array per record
+    names = ["acct", "owner", "addr", "city", "cls", "val", "bld", "land", "combo", "x", "y"]
+    cols = {n: [r[i] for r in records] for i, n in enumerate(names)}
     if len(records) > 400_000:
         print(f"warning: {len(records):,} accounts; the file will be very large and slow to open. Use a --bbox build.")
     bounds = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f))
               for f in glob.glob(os.path.join(o, "web", "data", "boundaries", "*.json"))}
     bundle = {"combos": json.load(open(os.path.join(o, "web", "data", "combos.json"))),
-              "boundaries": bounds, "records": records}
+              "boundaries": bounds, "cols": cols}
     data_b64 = base64.b64encode(gzip.compress(json.dumps(bundle, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode(), 9)).decode()
-    tiles_b64 = base64.b64encode(open(os.path.join(o, "bucket", "harris_parcels.pmtiles"), "rb").read()).decode()
+    lean = os.path.join(o, "bucket", "harris_parcels_lean.pmtiles")
+    tpath = lean if os.path.exists(lean) else os.path.join(o, "bucket", "harris_parcels.pmtiles")
+    tiles_b64 = base64.b64encode(open(tpath, "rb").read()).decode()
+    print(f"tiles from {tpath}")
     embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
              f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
     cfg.update({"embed": True, "tiles": "", "shards": "", "data": ""})

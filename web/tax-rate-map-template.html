@@ -320,8 +320,9 @@ try{
   if(CONFIG.embed){
     [EMB,TILEBUF]=await Promise.all([b64Buf('emb-data').then(gunzipJSON),b64Buf('emb-tiles')]);
     CB=EMB.combos; MAN={a:{base:4,split:[]},s:{base:3,split:[]}};
-    EMB.byAcct=new Map(EMB.records.map(r=>[r[0],r]));
-    EMB.text=EMB.records.map(r=>' '+words(r[1]+' '+r[2]+' '+r[0]).join(' ')+' ');
+    const C=EMB.cols; EMB.n=C.acct.length; EMB.byAcct=new Map(); for(let i=0;i<EMB.n;i++) EMB.byAcct.set(C.acct[i],i);
+    EMB.row=i=>[C.acct[i],C.owner[i],C.addr[i],C.city[i],C.cls[i],C.val[i],C.bld[i],C.land[i],C.combo[i],C.x[i],C.y[i]];
+    EMB.text=null;   // search text, built on first search
   } else {
     [CB,MAN]=await Promise.all([getJSON(CONFIG.data+'combos.json'),getJSON(CONFIG.shards+'manifest.json')]);
   }
@@ -376,6 +377,7 @@ const rateOfId=c=>c>=0&&c<=MAXID?rateArr[c]:RMIN;
 // in-memory PMTiles source for the embedded build
 const memSource=buf=>({getKey:()=>'embedded',getBytes:async(offset,length)=>({data:buf.slice(offset,offset+length)})});
 const PM=new pmtiles.PMTiles(TILEBUF?memSource(TILEBUF):CONFIG.tiles);
+let TILE_MAXZ=16; try{ TILE_MAXZ=(await PM.getHeader()).maxZoom||16; }catch(e){}   // lean builds stop at 13 and stretch
 const baseFetch=deck.Layer.defaultProps.fetch.value;
 async function tileFetch(url,ctx){
   if(typeof url!=='string'||!url.startsWith('pmtiles://')) return baseFetch(url,ctx);
@@ -396,7 +398,7 @@ function filterRange(){
 }
 function parcelLayer(){
   return new deck.MVTLayer({
-    id:'parcels',data:'pmtiles://{z}/{x}/{y}',fetch:tileFetch,minZoom:7,maxZoom:16,binary:true,
+    id:'parcels',data:'pmtiles://{z}/{x}/{y}',fetch:tileFetch,minZoom:7,maxZoom:TILE_MAXZ,binary:true,
     loadOptions:{mvt:{workerUrl:MVT_WORKER}},
     uniqueIdProperty:'a',pickable:true,autoHighlight:true,highlightColor:[255,255,255,110],
     filled:true,stroked:true,lineWidthUnits:'pixels',
@@ -667,7 +669,7 @@ function shard(kind,key){
 }
 const recOf=r=>({acct:r[0],owner:r[1],addr:r[2],city:r[3],cls:r[4],val:r[5],bld:r[6],land:r[7],combo:r[8],lon:r[9]==null?null:r[9]/1e5,lat:r[10]==null?null:r[10]/1e5});
 async function getAccount(acct){
-  if(EMB){ const r=EMB.byAcct.get(acct); return r?recOf(r):null; }
+  if(EMB){ const i=EMB.byAcct.get(acct); return i==null?null:recOf(EMB.row(i)); }
   const s=await shard('a',shardKey('a',acct)); const r=s.r.find(x=>x[0]===acct); return r?recOf(r):null;
 }
 const qEl=$('q'), sres=$('sres'); let qSeq=0, results=[], act=-1;
@@ -680,15 +682,18 @@ async function runSearch(q){
   let list=[], partial=false;
   if(EMB){
     // embedded build: scan the in-memory records (already ordered by appraised value, highest first)
+    const C=EMB.cols;
     if(/^\d{6,13}$/.test(digits)){
-      for(const r of EMB.records) if(r[0].startsWith(digits)){ list.push({acct:r[0],owner:r[1],addr:r[2],full:r}); if(list.length>500) break; }
+      for(let i=0;i<EMB.n;i++) if(C.acct[i].startsWith(digits)){ const r=EMB.row(i); list.push({acct:r[0],owner:r[1],addr:r[2],full:r}); if(list.length>500) break; }
     } else {
       const qw=words(raw);
       if(!qw.some(w=>w.length>=3&&!STOP.has(w))){ showMsg('Type a longer owner name, street name or account number.'); return; }
       const pre=qw.map(q=>' '+q), ex=qw.map(q=>' '+q+' '), joined=' '+qw.join(' ');
-      for(let i=0;i<EMB.records.length;i++){
+      if(!EMB.text){ EMB.text=new Array(EMB.n); for(let i=0;i<EMB.n;i++) EMB.text[i]=' '+words(C.owner[i]+' '+C.addr[i]+' '+C.acct[i]).join(' ')+' '; }
+      for(let i=0;i<EMB.n;i++){
         const t=EMB.text[i]; if(!pre.every(q=>t.includes(q))) continue;
-        const r=EMB.records[i], score=ex.filter(q=>t.includes(q)).length+((' '+words(r[2]).join(' ')).startsWith(joined)?2:0);
+        if(list.length>=5000) break;
+        const r=EMB.row(i), score=ex.filter(q=>t.includes(q)).length+((' '+words(r[2]).join(' ')).startsWith(joined)?2:0);
         list.push({acct:r[0],owner:r[1],addr:r[2],full:r,score});
       }
       list.sort((a,b)=>b.score-a.score);
