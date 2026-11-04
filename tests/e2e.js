@@ -85,9 +85,9 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const box = await page.evaluate(() => {
     const r = document.getElementById('map').getBoundingClientRect();
     const d = window.__ovl ? window.__ovl._deck : null;
-    if (d) { const hits = d.pickObjects({ x: r.width * 0.3, y: r.height * 0.3, width: r.width * 0.4, height: r.height * 0.4 })
-      .filter(h => h.object && h.object.properties && h.object.properties.a);
-      if (hits.length) { const h = hits[Math.floor(hits.length / 2)]; return [r.x + h.x, r.y + h.y]; } }
+    if (d) { for (let gy = 0.3; gy <= 0.7; gy += 0.05) for (let gx = 0.3; gx <= 0.7; gx += 0.05) {
+      const o = d.pickObject({ x: r.width * gx, y: r.height * gy });
+      if (o && o.object && o.object.properties && o.object.properties.a) return [r.x + r.width * gx, r.y + r.height * gy]; } }
     return [r.x + r.width / 2, r.y + r.height / 2];
   });
   await page.mouse.move(box[0] - 30, box[1] - 30); await page.mouse.move(box[0], box[1]);

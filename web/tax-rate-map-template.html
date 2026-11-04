@@ -378,13 +378,13 @@ function parcelLayer(){
     uniqueIdProperty:'a',pickable:true,autoHighlight:true,highlightColor:[255,255,255,110],
     filled:true,stroked:true,lineWidthUnits:'pixels',
     getFillColor:f=>fillOf(f.properties.c),
-    getLineColor:f=>f.properties.a===state.sel?SEL:state.shade?[255,255,255,130]:[0,30,90,150],
-    getLineWidth:f=>f.properties.a===state.sel?3.5:0.6,
+    getLineColor:f=>f.properties.a===state.sel?SEL:state.shade?[255,255,255,130]:[0,30,90,190],
+    getLineWidth:f=>f.properties.a===state.sel?3.5:state.shade?0.6:0.9,
     extensions:[filterExt],
     getFilterValue:f=>{const p=f.properties,c=p.c==null?-1:p.c; return [rateOfId(c),p.v||0,comboPass(c)&&typeOk[p.t|0]?1:0];},
     filterRange:filterRange(),
     opacity:state.shade?state.opacity:1,
-    updateTriggers:{getFillColor:colorVer,getLineColor:[state.sel,state.shade],getLineWidth:state.sel,getFilterValue:filterVer},
+    updateTriggers:{getFillColor:colorVer,getLineColor:[state.sel,state.shade],getLineWidth:[state.sel,state.shade],getFilterValue:filterVer},
     renderSubLayers:p=>{
       const zone=p.tile.index.z<PARCEL_TZ;
       return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade,highlightedObjectIndex:-1,
