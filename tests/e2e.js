@@ -81,7 +81,15 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   // click a parcel on the map
   await page.evaluate(() => { window.__app.state.sel = null; document.getElementById('drawerHost').innerHTML = ''; window.__app.setView(-95.2118, 29.7206, 16); });
   await waitFoot(/parcels in view match/); await waitIdle(3000);
-  const box = await page.$eval('#map', e => { const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+  // find a screen point that has a parcel under it (the view center can fall on a street)
+  const box = await page.evaluate(() => {
+    const r = document.getElementById('map').getBoundingClientRect();
+    const d = window.__ovl ? window.__ovl._deck : null;
+    if (d) { const hits = d.pickObjects({ x: r.width * 0.3, y: r.height * 0.3, width: r.width * 0.4, height: r.height * 0.4 })
+      .filter(h => h.object && h.object.properties && h.object.properties.a);
+      if (hits.length) { const h = hits[Math.floor(hits.length / 2)]; return [r.x + h.x, r.y + h.y]; } }
+    return [r.x + r.width / 2, r.y + r.height / 2];
+  });
   await page.mouse.move(box[0] - 30, box[1] - 30); await page.mouse.move(box[0], box[1]);
   await page.waitForFunction(() => document.getElementById('tip').style.display === 'block', null, { timeout: 20000 }).catch(() => {});
   const tipShown = await page.$eval('#tip', e => e.style.display === 'block' ? e.innerText : '');
