@@ -340,7 +340,15 @@ const state={mgmt:false,shade:true,opacity:0.85,rate:[0,0],types:[],isd:[],city:
 const binOf=r=>{let b=0;while(b<BREAKS.length&&r>=BREAKS[b])b++;return b;};
 const rateOfC=c=>!c?null:state.mgmt?c.b+c.m:c.b;
 const missOf=c=>!c||(state.mgmt?c.mb+c.mm>0:c.mb>0);
-function rateBounds(){let lo=9,hi=0; for(const c of CB.combos){ if(!c.acc)continue; const r=rateOfC(c); if(r>0){lo=Math.min(lo,r);hi=Math.max(hi,r);} } return [Math.floor(lo*10)/10,Math.ceil(hi*10)/10];}
+// Slider span: 0.5th to 99.5th percentile of accounts, so a few outliers do not stretch it.
+// At either end stop the filter is open-ended, so those outliers still show.
+function rateBounds(){
+  const rs=[]; let tot=0; for(const c of CB.combos){ const r=rateOfC(c); if(c.acc&&r>0){rs.push([r,c.acc]); tot+=c.acc;} }
+  rs.sort((a,b)=>a[0]-b[0]); let cum=0, lo=rs.length?rs[0][0]:0, hi=rs.length?rs[rs.length-1][0]:4, gotLo=false;
+  for(const [r,n] of rs){ cum+=n; if(!gotLo&&cum>=tot*0.005){lo=r;gotLo=true;} if(cum>=tot*0.995){hi=r;break;} }
+  return [Math.floor(lo*10)/10,Math.ceil(hi*10)/10];
+}
+const rLoEff=()=>state.rate[0]<=RMIN+1e-9?-1:state.rate[0], rHiEff=()=>state.rate[1]>=RMAX-1e-9?99:state.rate[1];
 let [RMIN,RMAX]=rateBounds(); state.rate=[RMIN,RMAX];
 
 // per-combo lookups, rebuilt when the basis or filters change
@@ -384,7 +392,7 @@ const collideExt=new deck.CollisionFilterExtension();
 let lastTiles=[];
 function filterRange(){
   const [vl,vh]=state.val;
-  return [[state.rate[0]-1e-6,state.rate[1]+1e-6],[vl==null?-1:vl,vh==null?1e13:vh],[0.5,1.5]];
+  return [[rLoEff()-1e-6,rHiEff()+1e-6],[vl==null?-1:vl,vh==null?1e13:vh],[0.5,1.5]];
 }
 function parcelLayer(){
   return new deck.MVTLayer({
@@ -540,7 +548,7 @@ function tileFeatures(tile){
 function updateStats(){
   const counts=new Array(7).fill(0); let match=0; const pm=parcelMode();
   if(pm){
-    const b=state.bounds, seen=new Set(), [vl,vh]=state.val, [rl,rh]=state.rate;
+    const b=state.bounds, seen=new Set(), [vl,vh]=state.val, rl=rLoEff(), rh=rHiEff();
     for(const tile of lastTiles){
       if(!tile||tile.index.z<PARCEL_TZ) continue;
       const F=tileFeatures(tile); if(!F) continue;
@@ -557,7 +565,7 @@ function updateStats(){
       }
     }
   } else {
-    const [rl,rh]=state.rate;
+    const rl=rLoEff(), rh=rHiEff();
     for(const c of CB.combos){
       if(!passNoBin[c.id]) continue; const r=rateArr[c.id]; if(r<rl-1e-6||r>rh+1e-6) continue;
       let n=0; for(let t=0;t<7;t++) if(typeOk[t]) n+=c.n[t];

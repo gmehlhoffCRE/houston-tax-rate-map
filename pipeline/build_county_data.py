@@ -3,7 +3,7 @@ Countywide data export for the tiled Harris County map.
 
 Inputs
   --gis    folder with Parcels.gdb (or pass --parcels) and the overlay downloads
-           (City, School, Water_district, Emergency, Special, TIRZ: unzipped folders or the .zip files)
+           (City, School, Water_district, Emergency, Special, TIRZ, County: unzipped folders or the .zip files)
   --cama   Real_acct_owner.zip (or an extracted real_acct.txt)
   --rates  folder with build_rates.py outputs: hcad_account_rates.csv.gz, hcad_combos.csv, hcad_rate_table.csv
 
@@ -202,6 +202,15 @@ def export_boundaries(a, outdir):
     if a.bbox:
         W, S, E, N = a.bbox
         clip = shapely.box(W - .02, S - .02, E + .02, N + .02)
+    # Boundary lines stop just inside the county line: some HCAD layers extend to a rectangle beyond the
+    # county, and lines along the county edge itself add nothing.
+    inside = None
+    csrc = find_source(a.gis, "County")
+    if csrc:
+        cty = pyogrio.read_dataframe(csrc, force_2d=True)
+        cty = cty.to_crs(2278) if cty.crs and cty.crs != "EPSG:2278" else cty
+        inside = gpd.GeoSeries([cty.geometry.union_all().buffer(-60)], crs=2278).to_crs(4326).iloc[0]
+        log("  clipping boundary lines to the county outline")
     for key, name in OVERLAYS:
         src = find_source(a.gis, name)
         if not src:
@@ -227,7 +236,14 @@ def export_boundaries(a, outdir):
             if r.geometry is None or r.geometry.is_empty:
                 continue
             lp = r.geometry.representative_point()
-            line = shapely.transform(r.geometry.boundary, lambda c: np.round(c, 5))
+            line = r.geometry.boundary
+            if inside is not None:
+                line = line.intersection(inside)
+                if line.is_empty:
+                    continue
+                if not inside.contains(lp):
+                    lp = r.geometry.intersection(inside).representative_point()
+            line = shapely.transform(line, lambda c: np.round(c, 5))
             feats.append({"type": "Feature", "properties": {"name": r["name"], "lp": [round(lp.x, 5), round(lp.y, 5)]},
                           "geometry": json.loads(shapely.to_geojson(line))})
         with open(os.path.join(outdir, key + ".json"), "w") as f:
