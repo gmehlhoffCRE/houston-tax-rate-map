@@ -8,8 +8,8 @@
 # for the merge step (merge_pmtiles.py; the zoom ranges do not overlap, so tile-join is not needed).
 #
 # Two layers in one archive. The page draws 512 px tiles, so tile zoom z is shown at Google zoom z+1.
-#   zones    tile z7-12  (Google zoom 8-13)   combo id + type group only; neighboring parcels with the
-#                                             same values are merged, so the county view stays light
+#   zones    tile z7-12  (Google zoom 8-13)   combo id + type group only; parcels dissolved into block-sized
+#                                             shapes by build_zones.py, so the county view stays light
 #   parcels  tile z13-16 (Google zoom 14+)    one feature per parcel: a acct, c combo, t type, v value.
 #                                             Never dropped or merged; z16 is overzoomed past Google zoom 17
 set -euo pipefail
@@ -19,10 +19,12 @@ DST="$OUT/bucket/harris_parcels.pmtiles"
 TMP="$OUT/tiles_tmp"
 mkdir -p "$TMP" "$OUT/bucket"
 
+# zones: parcels dissolved by combo and type first (build_zones.py), then tiled
+python "$(dirname "$0")/build_zones.py" "$SRC" "$TMP/zones.geojsonl"
 tippecanoe -o "$TMP/zones.pmtiles" --force -P -l zones -Z7 -z12 \
   -y c -y t --reorder --coalesce --detect-shared-borders \
   --simplification=4 --coalesce-densest-as-needed \
-  "$SRC"
+  "$TMP/zones.geojsonl"
 
 tippecanoe -o "$TMP/parcels.pmtiles" --force -P -l parcels -Z13 -z16 \
   -y a -y c -y t -y v --detect-shared-borders \
