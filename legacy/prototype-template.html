@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cresa Houston Property Tax Rate Map</title>
+<style>
+:root{
+  --navy:#001E5A; --navyLight:#0A2D6E; --gold:#FFB600; --goldSoft:#FFE9B0;
+  --blueSoft:#E8EFF8; --blueSofter:#F4F7FC;
+  --ink:#0E1220; --ink2:#2B3350; --ink3:#5A6580; --ink4:#8A93A8;
+  --line:#E4E8F0; --lineSoft:#EEF1F6; --bg:#F6F7FB; --ok:#1B8F6A; --warn:#B54708;
+  --shadow1:0 1px 2px rgba(0,30,90,0.05), 0 1px 3px rgba(0,30,90,0.04);
+  --shadow3:0 10px 40px rgba(0,30,90,0.18);
+}
+html,body{margin:0;padding:0;height:100%;width:100%}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);overflow:hidden;color:var(--ink)}
+*{box-sizing:border-box}
+button{font-family:inherit}
+.app{height:100vh;min-height:640px;display:flex;flex-direction:column;overflow:hidden}
+
+/* top bar */
+.topbar{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px;box-shadow:0 1px 0 rgba(0,30,90,0.03);flex-shrink:0;position:relative;z-index:30}
+.vrule{width:1px;background:var(--line)}
+.title{font-size:14px;font-weight:700;color:var(--navy);line-height:1.1}
+.status{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:10.5px;font-weight:600;color:var(--navy);white-space:nowrap}
+.status i{width:7px;height:7px;border-radius:4px;background:var(--ok)}
+
+/* main */
+.main{display:flex;flex:1;min-height:0;padding:16px 22px 22px;gap:14px}
+.rail{width:280px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.rail-h{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;min-height:44px}
+.rail-h .t{font-size:13px;font-weight:700;color:var(--navy)}
+.badge{background:var(--navy);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:9px}
+.link{font-size:11px;color:var(--navy);font-weight:600;cursor:pointer;background:none;border:0;padding:0}
+.search{margin:12px 16px 8px;height:34px;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:0 10px;display:flex;align-items:center;gap:8px}
+.search input{flex:1;border:0;background:transparent;outline:none;font-size:12px;color:var(--ink);min-width:0}
+.seg{margin:0 16px 10px;display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px;gap:2px}
+.seg button{height:26px;border:0;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;background:transparent;color:var(--ink3);transition:background .12s,color .12s}
+.seg button.on{background:var(--navy);color:#fff}
+.rail-b{padding:14px 16px 16px;flex:1;overflow:auto}
+.fs{margin-bottom:18px}
+.fs-t{font-size:10.5px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.row2{display:flex;gap:6px;align-items:center}
+.row2 .dash{color:var(--ink4)}
+.tin{height:32px;border:1px solid var(--line);background:#fff;border-radius:5px;padding:0 10px;font-size:12px;color:var(--ink);flex:1;min-width:0;outline:none}
+.tin:focus{border-color:var(--navy);box-shadow:0 0 0 3px var(--blueSofter)}
+.dr{position:relative;height:28px;margin-top:10px}
+.dr .track{position:absolute;left:0;right:0;top:12px;height:6px;background:var(--blueSofter);border-radius:3px}
+.dr .fill{position:absolute;top:12px;height:6px;background:var(--navy);border-radius:3px}
+.cresa-range{position:absolute;left:0;right:0;top:0;width:100%;height:28px;background:transparent;appearance:none;-webkit-appearance:none;pointer-events:none;margin:0;padding:0}
+.cresa-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:8px;background:#fff;border:2px solid var(--navy);cursor:grab;pointer-events:auto;box-shadow:0 1px 3px rgba(0,30,90,0.2)}
+.cresa-range::-webkit-slider-thumb:hover{box-shadow:0 1px 4px rgba(0,30,90,0.3),0 0 0 6px rgba(0,30,90,0.08)}
+.cresa-range::-moz-range-thumb{width:16px;height:16px;border-radius:8px;background:#fff;border:2px solid var(--navy);cursor:grab;pointer-events:auto;box-shadow:0 1px 3px rgba(0,30,90,0.2)}
+.cresa-range::-webkit-slider-runnable-track,.cresa-range::-moz-range-track{background:transparent}
+.cresa-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(255,182,0,.5)}
+
+/* histogram */
+.hist{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;align-items:end;height:58px;margin-top:4px}
+.hist button{border:0;padding:0;border-radius:2px 2px 0 0;min-height:3px;cursor:pointer;position:relative;transition:opacity .15s}
+.hist button.off{opacity:.18}
+.hist button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hticks{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:4px;font-size:9.5px;color:var(--ink4);text-align:center}
+
+/* multiselect */
+.ms{position:relative}
+.ms-btn{height:32px;width:100%;border:1px solid var(--line);background:#fff;border-radius:5px;padding:0 10px;display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--ink4);text-align:left;transition:border-color .15s,box-shadow .15s}
+.ms-btn.has{color:var(--ink)}
+.ms.open .ms-btn{border-color:var(--navy);box-shadow:0 0 0 3px var(--blueSofter)}
+.ms-btn .lab{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ms-btn .badge{display:none}.ms-btn.has .badge{display:inline-block}
+.ms-pop{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,30,90,0.12);padding:4px;max-height:240px;overflow:auto;display:none}
+.ms.open .ms-pop{display:block}
+.ms-opt{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:4px;cursor:pointer;font-size:12px;color:var(--ink)}
+.ms-opt:hover{background:var(--bg)}
+.ms-opt.on{background:var(--blueSofter)}
+.ms-opt .box{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ms-opt.on .box{border-color:var(--navy);background:var(--navy)}
+.ms-opt .n{margin-left:auto;color:var(--ink4);font-size:11px}
+
+/* checkboxes for boundaries */
+.chk{display:flex;align-items:center;gap:9px;padding:5px 0;cursor:pointer;font-size:12px;color:var(--ink)}
+.chk input{position:absolute;opacity:0;width:0;height:0}
+.chk .box{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chk input:checked+.box{border-color:var(--navy);background:var(--navy)}
+.chk input:focus-visible+.box{box-shadow:0 0 0 3px rgba(255,182,0,.5)}
+.chk .sw{width:18px;height:0;border-top:2.5px solid;flex-shrink:0}
+.chk .sw.dash{border-top-style:dashed}
+.pinned{padding:12px 16px 8px;border-top:1px solid var(--line);flex-shrink:0;background:#fff}
+.pinned .chk{padding:4px 0}
+.rail-f{padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3)}
+.rail-f b{color:var(--navy)}
+
+/* map */
+.mapwrap{flex:1;position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow1);background:#fff;min-width:0}
+#map{position:absolute;inset:0}
+.toolbar{position:absolute;top:12px;left:12px;z-index:10;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow1);padding:3px;display:flex;gap:2px}
+.mt{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:4px;border:1px solid transparent;background:transparent;color:var(--ink2);font-size:11.5px;font-weight:600;cursor:pointer;letter-spacing:-.1px}
+.mt:hover{background:var(--bg)}
+.mt.on{border-color:var(--gold);background:var(--goldSoft);color:var(--navy)}
+.legend{position:absolute;left:12px;bottom:12px;z-index:10;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow1);padding:9px 11px}
+.legend .t{font-size:9.5px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.legend .ramp{display:flex}
+.legend .ramp div{width:30px;height:9px}
+.legend .ramp div:first-child{border-radius:2px 0 0 2px}.legend .ramp div:last-child{border-radius:0 2px 2px 0}
+.legend .lab{display:flex;font-size:9.5px;color:var(--ink4);margin-top:3px}
+.legend .lab span{width:30px;text-align:center}
+#tip{position:absolute;pointer-events:none;z-index:15;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,30,90,0.12);padding:7px 10px;font-size:11.5px;color:var(--ink2);display:none;max-width:260px}
+#tip b{color:var(--navy);font-size:13px}
+.attr{position:absolute;right:6px;bottom:3px;font-size:9.5px;color:var(--ink3);background:rgba(255,255,255,.8);padding:1px 4px;z-index:5}
+
+/* detail drawer */
+.drawer{position:absolute;top:16px;right:16px;bottom:16px;width:400px;max-width:calc(100% - 32px);background:#fff;border-radius:12px;box-shadow:var(--shadow3);display:flex;flex-direction:column;overflow:hidden;z-index:40;border:1px solid var(--line);animation:slideIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes slideIn{from{transform:translateX(24px);opacity:0}to{transform:translateX(0);opacity:1}}
+.hero{position:relative;flex-shrink:0;padding:12px 52px 12px 18px;border-bottom:1px solid var(--line);background:var(--blueSofter);min-height:54px;display:flex;align-items:center}
+.hero .x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:15px;background:rgba(255,255,255,0.95);box-shadow:var(--shadow1);display:flex;align-items:center;justify-content:center;cursor:pointer;border:0}
+.hero .x:focus-visible{outline:2px solid var(--gold)}
+.hero .tags{display:flex;gap:6px}
+.hero .tags span{padding:4px 10px;background:#fff;border:1px solid var(--line);color:var(--navy);font-size:10px;font-weight:700;border-radius:12px}
+.d-body{flex:1;overflow:auto;padding:16px 18px}
+.d-title{font-size:18px;font-weight:700;color:var(--navy);letter-spacing:-.3px}
+.d-sub{font-size:12px;color:var(--ink3);margin-top:2px}
+.pills{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.pills span{padding:4px 10px;background:var(--blueSoft);color:var(--navy);font-size:11px;font-weight:600;border-radius:12px}
+.pills span.gold{background:var(--goldSoft);color:var(--ink2)}
+.kpis{display:flex;gap:10px;margin-top:14px;padding:12px 14px;background:var(--blueSofter);border-radius:8px;border:1px solid var(--line)}
+.kpis > div{flex:1;text-align:center;min-width:0}
+.kpis .sep{flex:0 0 1px;background:var(--line)}
+.kpis .k{font-size:9px;color:var(--ink4);letter-spacing:.7px;text-transform:uppercase}
+.kpis .v{font-size:20px;font-weight:700;color:var(--navy);letter-spacing:-.5px;margin-top:2px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;margin-top:6px}
+.f{padding:10px 0;border-bottom:1px solid var(--lineSoft);min-width:0}
+.f.full{grid-column:span 2}
+.f .k{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px}
+.f .v{font-size:13.5px;font-weight:600;color:var(--ink);margin-top:2px;overflow-wrap:anywhere}
+.sec{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 6px}
+.brk .r{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:5px 0}
+.brk .r .n{font-size:12px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brk .r .w{font-size:12px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.brk .r .m{grid-column:1/-1;height:5px;background:var(--blueSofter);border-radius:3px;overflow:hidden}
+.brk .r .m i{display:block;height:100%;background:var(--navy);border-radius:3px}
+.brk .r.mg .m i{background:var(--gold)}
+.brk .tot{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:4px;padding-top:7px;font-size:12px;font-weight:700;color:var(--navy)}
+.note{padding:10px 12px;background:var(--blueSofter);border:1px solid var(--line);border-radius:6px;font-size:12px;line-height:1.5;color:var(--ink2);margin-top:8px}
+.note.gold{background:#FFF8E6;border-color:var(--goldSoft)}
+.d-act{padding:14px;border-top:1px solid var(--line);display:flex;gap:8px}
+.btn{height:34px;padding:0 14px;border-radius:6px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;letter-spacing:-.1px;white-space:nowrap;text-decoration:none;flex:1}
+.btn.primary{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+.btn.primary:hover{background:var(--navyLight)}
+.btn.outline{background:#fff;color:var(--ink2);border:1px solid var(--line)}
+.btn.outline:hover{background:var(--bg)}
+.btn:focus-visible,.mt:focus-visible,.seg button:focus-visible,.ms-btn:focus-visible,.link:focus-visible,.more:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.toast{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:6px;z-index:50;box-shadow:var(--shadow3);display:none}
+
+@media (max-width:820px){
+  body{overflow:auto}.app{height:auto}
+  .main{flex-direction:column;padding:12px}
+  .rail{width:100%;max-height:none}
+  .mapwrap{height:70vh;flex:none}
+  .drawer{top:8px;right:8px;bottom:8px;left:8px;width:auto;max-width:none}
+  .topbar .status{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    __MARK__
+    <div class="vrule" style="height:28px"></div>
+    <div class="title">Houston Property Tax Rate Map</div>
+    <div style="flex:1"></div>
+    <div class="status" title="Rates from HCAD, applied to appraisal values"><i></i><span id="statusTxt"></span></div>
+  </div>
+
+  <div class="main">
+    <div class="rail">
+      <div class="rail-h">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#001E5A" stroke-width="1.75" stroke-linecap="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+        <div class="t">Filters</div>
+        <div class="badge" id="fCount" style="display:none"></div>
+        <div style="flex:1"></div>
+        <button class="link" id="fClear" style="display:none">Clear</button>
+      </div>
+      <div class="search">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8A93A8" stroke-width="1.75" stroke-linecap="round"><path d="M11 19a8 8 0 1 1 5.3-2L21 22"/></svg>
+        <input id="q" placeholder="Search address, owner, account" aria-label="Search parcels">
+      </div>
+      <div class="seg" role="group" aria-label="Rate basis">
+        <button class="on" data-m="0">Base rate</button>
+        <button data-m="1">Incl. mgmt districts</button>
+      </div>
+      <div class="rail-b">
+        <div class="fs">
+          <div class="fs-t">Combined rate per $100</div>
+          <div class="row2"><input class="tin" id="rLo" inputmode="decimal" aria-label="Minimum rate"><span class="dash">–</span><input class="tin" id="rHi" inputmode="decimal" aria-label="Maximum rate"></div>
+          <div class="dr"><div class="track"></div><div class="fill" id="rFill"></div>
+            <input type="range" class="cresa-range" id="rA" step="0.01" aria-label="Minimum rate slider" style="z-index:3">
+            <input type="range" class="cresa-range" id="rB" step="0.01" aria-label="Maximum rate slider" style="z-index:4">
+          </div>
+          <div class="hist" id="hist"></div>
+          <div class="hticks" id="hticks"></div>
+        </div>
+        <div class="fs"><div class="fs-t">Property type</div><div class="ms" id="msType"></div></div>
+        <div class="fs"><div class="fs-t">School district</div><div class="ms" id="msIsd"></div></div>
+        <div class="fs"><div class="fs-t">City</div><div class="ms" id="msCity"></div></div>
+          <div class="fs"><div class="fs-t">Appraised value</div>
+            <div class="row2"><input class="tin" id="vLo" inputmode="numeric" placeholder="Min" aria-label="Minimum value"><span class="dash">–</span><input class="tin" id="vHi" inputmode="numeric" placeholder="Max" aria-label="Maximum value"></div>
+          </div>
+          <div class="fs"><div class="fs-t">Water district</div><div class="ms" id="msWater"></div></div>
+      </div>
+      <div class="pinned"><div class="fs-t">Boundaries</div><div id="layers"></div></div>
+      <div class="rail-f"><b id="mCount">0</b> parcels match</div>
+    </div>
+
+    <div class="mapwrap" id="mapwrap">
+      <div id="map"></div>
+      <div class="toolbar" id="mtBar" style="display:none">
+        <button class="mt on" data-t="cresa">Map</button>
+        <button class="mt" data-t="satellite">Satellite</button>
+        <button class="mt" data-t="hybrid">Hybrid</button>
+      </div>
+      <div class="legend"><div class="t">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div></div>
+      <div id="tip"></div>
+      <div class="toast" id="toast"></div>
+      <div id="drawerHost"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const GOOGLE_MAPS_API_KEY = "__GKEY__"; // same Maps JavaScript key as the comps database
+</script>
+<script src="https://cdn.jsdelivr.net/npm/deck.gl@9.0.38/dist.min.js"></script>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('data').textContent);
+const BREAKS=[2.0,2.2,2.4,2.5,2.6,2.8];
+const COLORS=['#001E5A','#2A3F92','#5566AD','#9AA6CF','#FFE29A','#FFCB45','#FFB600'];
+const TICKS=['<2.0','2.0','2.2','2.4','2.5','2.6','2.8+'];
+const RGB=COLORS.map(h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)));
+const CRESA_STYLES=[{elementType:"geometry",stylers:[{color:"#F1F4F9"}]},{elementType:"labels.text.fill",stylers:[{color:"#5A6580"}]},{elementType:"labels.text.stroke",stylers:[{color:"#FFFFFF"},{weight:3}]},{elementType:"labels.icon",stylers:[{visibility:"off"}]},{featureType:"poi",elementType:"labels",stylers:[{visibility:"off"}]},{featureType:"poi.business",stylers:[{visibility:"off"}]},{featureType:"transit",stylers:[{visibility:"off"}]},{featureType:"poi.park",elementType:"geometry",stylers:[{color:"#DCE6DC"}]},{featureType:"administrative",elementType:"geometry.stroke",stylers:[{color:"#BAC3D2"},{weight:0.7}]},{featureType:"administrative.locality",elementType:"labels.text.fill",stylers:[{color:"#1E2A47"}]},{featureType:"administrative.locality",elementType:"labels.text.stroke",stylers:[{color:"#FFFFFF"},{weight:3.5}]},{featureType:"administrative.neighborhood",elementType:"labels.text.fill",stylers:[{color:"#8A93A8"}]},{featureType:"landscape.natural",elementType:"geometry",stylers:[{color:"#E9EDF5"}]},{featureType:"landscape.man_made",elementType:"geometry",stylers:[{color:"#F1F4F9"}]},{featureType:"road",elementType:"labels.icon",stylers:[{visibility:"off"}]},{featureType:"road.local",elementType:"geometry.fill",stylers:[{color:"#FFFFFF"}]},{featureType:"road.local",elementType:"geometry.stroke",stylers:[{color:"#E4E8F1"},{weight:0.35}]},{featureType:"road.local",elementType:"labels.text.fill",stylers:[{color:"#8A93A8"}]},{featureType:"road.arterial",elementType:"geometry.fill",stylers:[{color:"#EDF0F7"}]},{featureType:"road.arterial",elementType:"labels.text.fill",stylers:[{color:"#6B7488"}]},{featureType:"road.highway",elementType:"geometry.fill",stylers:[{color:"#DEE3EF"}]},{featureType:"road.highway",elementType:"geometry.stroke",stylers:[{color:"#93A0BE"},{weight:0.4}]},{featureType:"road.highway.controlled_access",elementType:"geometry.fill",stylers:[{color:"#D2DAE8"}]},{featureType:"road.highway.controlled_access",elementType:"geometry.stroke",stylers:[{color:"#8492B2"},{weight:0.5}]},{featureType:"road.highway",elementType:"labels.text.fill",stylers:[{color:"#5A6A92"}]},{featureType:"water",elementType:"geometry.fill",stylers:[{color:"#C6D8EC"}]},{featureType:"water",elementType:"labels.text.fill",stylers:[{color:"#3A5488"}]},{featureType:"water",elementType:"labels.text.stroke",stylers:[{color:"#C6D8EC"},{weight:2}]}];
+const TYPES={res:'Residential',com:'Commercial',ind:'Industrial',vac:'Vacant land',util:'Utility',ex:'Exempt',other:'Other'};
+const typeOf=c=>!c?'other':'ABE'.includes(c[0])?'res':c.startsWith('F1')?'com':c.startsWith('F2')?'ind':c[0]==='C'?'vac':c[0]==='J'?'util':c[0]==='X'?'ex':'other';
+const CLASS_NAME={A:'Single-family residential',B:'Multifamily',C:'Vacant land',D:'Agricultural',E:'Farm and ranch',F1:'Commercial real property',F2:'Industrial real property',J:'Utility',X:'Exempt',L:'Personal property',O:'Residential inventory'};
+const OVERLAYS=[
+  {key:'city',label:'City limits',color:[0,30,90],width:2.5,on:true},
+  {key:'isd',label:'School districts',color:[196,30,58],width:3,on:true},
+  {key:'special',label:'Industrial and improvement districts',color:[110,60,150],width:2,on:true,dash:true},
+  {key:'water',label:'Water districts',color:[0,140,170],width:2,on:false},
+  {key:'esd',label:'Emergency service districts',color:[150,90,30],width:2,on:false},
+  {key:'tirz',label:'TIRZ',color:[27,143,106],width:2,on:false,dash:true}
+];
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tc=s=>String(s||'').toLowerCase().replace(/\b(\w)/g,m=>m.toUpperCase())
+  .replace(/\b(Isd|Hc|Esd|Ems|Wcid|Fwsd|Mud|Id|Tirz|Wa|Ud)\b/g,m=>m.toUpperCase()).replace(/\bOf\b/g,'of')
+  .replace(/\bInd Dist\b/,'Industrial District').replace(/\bCo\b/g,'Co.');
+const money=v=>v==null?'—':'$'+Math.round(v).toLocaleString();
+const short$=v=>v>=1e9?'$'+(v/1e9).toFixed(2)+'B':v>=1e6?'$'+(v/1e6).toFixed(1)+'M':v>=1e3?'$'+(v/1e3).toFixed(0)+'K':'$'+Math.round(v);
+
+// ---------- decode parcels
+const [ox,oy]=D.origin, sc=D.scale, N=D.props.length;
+const features=new Array(N), cx=new Float64Array(N), cy=new Float64Array(N);
+const P=D.props.map(p=>({acct:p[0],cid:p[1],owner:p[2],addr:p[3],city:p[4],cls:p[5],val:p[6],bld:p[7],land:p[8]}));
+for(let i=0;i<N;i++){
+  let minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9;
+  const polys=D.geoms[i].map(poly=>poly.map(ring=>{const out=[];let x=0,y=0;
+    for(let k=0;k<ring.length;k+=2){x+=ring[k];y+=ring[k+1];const X=ox+x/sc,Y=oy+y/sc;out.push([X,Y]);
+      if(X<minx)minx=X;if(X>maxx)maxx=X;if(Y<miny)miny=Y;if(Y>maxy)maxy=Y;}
+    return out;}));
+  cx[i]=(minx+maxx)/2; cy[i]=(miny+maxy)/2;
+  const c=D.combos[P[i].cid]||{};
+  P[i].t=typeOf(P[i].cls); P[i].isd=c.isd||''; P[i].cityJ=c.city||'Unincorporated'; P[i].water=c.water||'None';
+  P[i].sq=(P[i].addr+' '+P[i].owner+' '+P[i].acct).toLowerCase();
+  features[i]={type:'Feature',geometry:{type:'MultiPolygon',coordinates:polys},properties:{i}};
+}
+
+// ---------- state
+const state={mgmt:false,q:'',rate:[0,0],types:[],isd:[],city:[],water:[],val:[null,null],binsOff:new Set(),
+  layers:Object.fromEntries(OVERLAYS.map(o=>[o.key,o.on])),sel:null,bounds:null};
+const rateOf=i=>{const c=D.combos[P[i].cid]; if(!c) return null; return state.mgmt?c.b+c.m:c.b;};
+const binOf=r=>{let b=0;while(b<BREAKS.length&&r>=BREAKS[b])b++;return b;};
+let RMIN=9,RMAX=0; for(let i=0;i<N;i++){const r=rateOf(i); if(r!=null&&r>0){RMIN=Math.min(RMIN,r);RMAX=Math.max(RMAX,r);}}
+RMIN=Math.floor(RMIN*10)/10; let RMAX0=Math.ceil(RMAX*10)/10, RMAXm=RMAX0;
+state.rate=[RMIN,RMAX0];
+const pass=new Uint8Array(N);
+function applyFilters(){
+  const q=state.q.trim().toLowerCase(), [rl,rh]=state.rate, [vl,vh]=state.val;
+  let n=0;
+  for(let i=0;i<N;i++){
+    const r=rateOf(i); let ok=r!=null;
+    if(ok&&(r<rl-1e-9||r>rh+1e-9))ok=false;
+    if(ok&&state.binsOff.has(binOf(r)))ok=false;
+    if(ok&&state.types.length&&!state.types.includes(TYPES[P[i].t]))ok=false;
+    if(ok&&state.isd.length&&!state.isd.includes(tc(P[i].isd)))ok=false;
+    if(ok&&state.city.length&&!state.city.includes(tc(P[i].cityJ)))ok=false;
+    if(ok&&state.water.length&&!state.water.includes(tc(P[i].water)))ok=false;
+    if(ok&&vl!=null&&(P[i].val==null||P[i].val<vl))ok=false;
+    if(ok&&vh!=null&&(P[i].val==null||P[i].val>vh))ok=false;
+    if(ok&&q&&!P[i].sq.includes(q))ok=false;
+    pass[i]=ok?1:0; n+=pass[i];
+  }
+  document.getElementById('mCount').textContent=n.toLocaleString();
+  const active=(q?1:0)+(state.rate[0]>RMIN||state.rate[1]<RMAXm?1:0)+(state.binsOff.size?1:0)+(state.types.length?1:0)+(state.isd.length?1:0)+(state.city.length?1:0)+(state.water.length?1:0)+(vl!=null||vh!=null?1:0);
+  const fc=document.getElementById('fCount'); fc.textContent=active; fc.style.display=active?'':'none';
+  document.getElementById('fClear').style.display=active?'':'none';
+  state.active=active;
+  refresh(); updateStats();
+}
+
+// ---------- layers
+let filterVersion=0;
+function buildLayers(){
+  filterVersion++;
+  const L=[new deck.GeoJsonLayer({
+    id:'parcels',data:features,pickable:true,stroked:true,filled:true,
+    getFillColor:f=>{const i=f.properties.i,r=rateOf(i); if(r==null)return [190,196,208,70]; if(!pass[i])return [170,178,195,22]; return [...RGB[binOf(r)],210];},
+    getLineColor:f=>f.properties.i===state.sel?[201,59,59,255]:(pass[f.properties.i]?[255,255,255,120]:[255,255,255,30]),
+    getLineWidth:f=>f.properties.i===state.sel?3.5:0.6,lineWidthUnits:'pixels',
+    updateTriggers:{getFillColor:filterVersion,getLineColor:[filterVersion,state.sel],getLineWidth:state.sel},
+    autoHighlight:true,highlightColor:[255,255,255,120],
+    onHover,onClick:info=>select(info.object?info.object.properties.i:null)
+  })];
+  for(const o of OVERLAYS){
+    if(!state.layers[o.key]||!D.layers[o.key])continue;
+    L.push(new deck.GeoJsonLayer({id:'ov-'+o.key,data:D.layers[o.key],stroked:true,filled:false,pickable:false,
+      getLineColor:[...o.color,230],getLineWidth:o.width,lineWidthUnits:'pixels',
+      ...(o.dash?{getDashArray:[4,3],dashJustified:true,extensions:[new deck.PathStyleExtension({dash:true})]}:{})}));
+    L.push(new deck.TextLayer({id:'lbl-'+o.key,data:D.layers[o.key].features,getPosition:f=>f.properties.lp,
+      getText:f=>tc(f.properties.name),getSize:12,getColor:[...o.color,255],fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',
+      outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto'}));
+  }
+  return L;
+}
+
+// ---------- map engines
+const mapEl=document.getElementById('map'), wrap=document.getElementById('mapwrap'), tip=document.getElementById('tip');
+let overlay=null, deckgl=null, gmap=null, baseTile=null, usingGoogle=false;
+function refresh(){const l=buildLayers(); if(overlay)overlay.setProps({layers:l}); if(deckgl)deckgl.setProps({layers:[baseTile,...l]});}
+function fitView(){return new deck.WebMercatorViewport({width:mapEl.clientWidth,height:mapEl.clientHeight}).fitBounds([[D.bbox[0],D.bbox[1]],[D.bbox[2],D.bbox[3]]],{padding:10});}
+function initDeck(){
+  if(deckgl)return; usingGoogle=false;
+  if(gmap){mapEl.innerHTML='';overlay&&overlay.setMap(null);overlay=null;gmap=null;}
+  document.getElementById('mtBar').style.display='none';
+  const f=fitView(); const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom};
+  baseTile=new deck.TileLayer({id:'base',data:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',maxZoom:16,tileSize:256,
+    renderSubLayers:p=>{const b=p.tile.boundingBox;return new deck.BitmapLayer(p,{data:null,image:p.data,bounds:[b[0][0],b[0][1],b[1][0],b[1][1]]});}});
+  deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>isHovering?'pointer':'grab',
+    layers:[baseTile,...buildLayers()],
+    onViewStateChange:({viewState})=>setBounds(new deck.WebMercatorViewport({...viewState,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds())});
+  const a=document.createElement('div');a.className='attr';a.textContent='Basemap: Esri, HERE, Garmin, OpenStreetMap contributors';wrap.appendChild(a);
+  setBounds(new deck.WebMercatorViewport({...iv,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds());
+}
+function initGoogle(){
+  usingGoogle=true;
+  gmap=new google.maps.Map(mapEl,{center:{lat:(D.bbox[1]+D.bbox[3])/2,lng:(D.bbox[0]+D.bbox[2])/2},zoom:13,mapTypeControl:false,
+    zoomControl:true,zoomControlOptions:{position:google.maps.ControlPosition.RIGHT_BOTTOM},
+    streetViewControl:true,streetViewControlOptions:{position:google.maps.ControlPosition.RIGHT_BOTTOM},fullscreenControl:false,clickableIcons:false,
+    styles:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'poi.business',stylers:[{visibility:'off'}]}]});
+  gmap.mapTypes.set('cresa',new google.maps.StyledMapType(CRESA_STYLES,{name:'Map'})); gmap.setMapTypeId('cresa');
+  const fit=()=>gmap.fitBounds({west:D.bbox[0],south:D.bbox[1],east:D.bbox[2],north:D.bbox[3]},0);
+  fit(); google.maps.event.addListenerOnce(gmap,'idle',fit);
+  overlay=new deck.GoogleMapsOverlay({interleaved:false,layers:buildLayers()}); overlay.setMap(gmap);
+  gmap.addListener('idle',()=>{const b=gmap.getBounds(); if(!b)return; const ne=b.getNorthEast(),sw=b.getSouthWest(); setBounds([sw.lng(),sw.lat(),ne.lng(),ne.lat()]);});
+  gmap.addListener('click',e=>{ if(!overlay)return; });
+  document.getElementById('mtBar').style.display='flex';
+}
+window.gm_authFailure=()=>{ initDeck(); };
+if(GOOGLE_MAPS_API_KEY&&!GOOGLE_MAPS_API_KEY.startsWith('__')){
+  window.__initMap=()=>{try{initGoogle();}catch(e){initDeck();}};
+  const s=document.createElement('script');s.src='https://maps.googleapis.com/maps/api/js?key='+encodeURIComponent(GOOGLE_MAPS_API_KEY)+'&callback=__initMap&v=weekly';
+  s.async=true;s.onerror=initDeck;document.head.appendChild(s);
+} else initDeck();
+document.querySelectorAll('.mt').forEach(b=>b.onclick=()=>{ if(!gmap)return; gmap.setMapTypeId(b.dataset.t);
+  document.querySelectorAll('.mt').forEach(x=>x.classList.toggle('on',x===b)); });
+
+// ---------- tooltip
+function onHover(info){
+  if(!info.object){tip.style.display='none';return;}
+  const i=info.object.properties.i,p=P[i],r=rateOf(i);
+  tip.innerHTML=`<b>${r==null?'—':r.toFixed(4)}</b> <span style="color:#8A93A8">per $100</span><br>${esc(p.addr||p.owner||p.acct)}`;
+  tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px';
+}
+
+// ---------- stats
+let bt=null; function setBounds(b){clearTimeout(bt);bt=setTimeout(()=>{state.bounds=b;updateStats();},120);}
+let ALL=null;
+function computeStats(useFilter){
+  const b=state.bounds, rates=[]; let val=0,tax=0; const counts=new Array(7).fill(0);
+  for(let i=0;i<N;i++){
+    if(b&&(cx[i]<b[0]||cx[i]>b[2]||cy[i]<b[1]||cy[i]>b[3]))continue;
+    const r=rateOf(i); if(r==null)continue;
+    if(useFilter){
+      // histogram ignores the bin toggles so hidden bars still show their counts
+      const saved=pass[i];
+      if(!saved && !(state.binsOff.has(binOf(r)) && passesExceptBins(i))) continue;
+      counts[binOf(r)]++; if(!saved)continue;
+    }
+    rates.push(r); if(P[i].val){val+=P[i].val;tax+=P[i].val*r/100;}
+  }
+  rates.sort((a,b)=>a-b);
+  return {n:rates.length,med:rates.length?rates[rates.length>>1]:null,lo:rates[0],hi:rates[rates.length-1],val,tax,counts};
+}
+function passesExceptBins(i){
+  const off=state.binsOff; state.binsOff=new Set(); const keep=pass[i];
+  const q=state.q.trim().toLowerCase(),[rl,rh]=state.rate,[vl,vh]=state.val,r=rateOf(i);
+  let ok=r>=rl-1e-9&&r<=rh+1e-9;
+  if(ok&&state.types.length&&!state.types.includes(TYPES[P[i].t]))ok=false;
+  if(ok&&state.isd.length&&!state.isd.includes(tc(P[i].isd)))ok=false;
+  if(ok&&state.city.length&&!state.city.includes(tc(P[i].cityJ)))ok=false;
+  if(ok&&state.water.length&&!state.water.includes(tc(P[i].water)))ok=false;
+  if(ok&&vl!=null&&(P[i].val==null||P[i].val<vl))ok=false;
+  if(ok&&vh!=null&&(P[i].val==null||P[i].val>vh))ok=false;
+  if(ok&&q&&!P[i].sq.includes(q))ok=false;
+  state.binsOff=off; return ok;
+}
+function updateStats(){
+  const s=computeStats(true);
+  const mx=Math.max(1,...s.counts);
+  [...hist.children].forEach((el,k)=>{el.style.height=(s.counts[k]?Math.max(4,s.counts[k]/mx*52):3)+'px'; el.title=`${TICKS[k]}: ${s.counts[k].toLocaleString()} parcels`;});
+}
+
+// ---------- controls
+const hist=document.getElementById('hist'), hticks=document.getElementById('hticks'), ramp=document.getElementById('ramp'), rampLab=document.getElementById('rampLab');
+COLORS.forEach((c,k)=>{
+  const b=document.createElement('button'); b.style.background=c; b.setAttribute('aria-pressed','true'); b.setAttribute('aria-label','Rate band '+TICKS[k]);
+  b.onclick=()=>{state.binsOff.has(k)?state.binsOff.delete(k):state.binsOff.add(k); b.classList.toggle('off',state.binsOff.has(k)); b.setAttribute('aria-pressed',String(!state.binsOff.has(k))); applyFilters();};
+  hist.appendChild(b); const t=document.createElement('div'); t.textContent=TICKS[k]; hticks.appendChild(t);
+  const r=document.createElement('div'); r.style.background=c; ramp.appendChild(r); const l=document.createElement('span'); l.textContent=TICKS[k]; rampLab.appendChild(l);
+});
+const rA=document.getElementById('rA'), rB=document.getElementById('rB'), rLo=document.getElementById('rLo'), rHi=document.getElementById('rHi'), rFill=document.getElementById('rFill');
+function syncRate(){
+  [rA,rB].forEach(x=>{x.min=RMIN;x.max=RMAXm;}); rA.value=state.rate[0]; rB.value=state.rate[1];
+  rLo.value=state.rate[0].toFixed(2); rHi.value=state.rate[1].toFixed(2);
+  const pct=v=>(v-RMIN)/(RMAXm-RMIN)*100; rFill.style.left=pct(state.rate[0])+'%'; rFill.style.right=(100-pct(state.rate[1]))+'%';
+}
+let ft=null; const later=fn=>{clearTimeout(ft);ft=setTimeout(fn,60);};
+rA.oninput=()=>{state.rate[0]=Math.min(+rA.value,state.rate[1]);syncRate();later(applyFilters);};
+rB.oninput=()=>{state.rate[1]=Math.max(+rB.value,state.rate[0]);syncRate();later(applyFilters);};
+rLo.onchange=()=>{const v=parseFloat(rLo.value); if(!isNaN(v))state.rate[0]=Math.max(RMIN,Math.min(v,state.rate[1])); syncRate(); applyFilters();};
+rHi.onchange=()=>{const v=parseFloat(rHi.value); if(!isNaN(v))state.rate[1]=Math.min(RMAXm,Math.max(v,state.rate[0])); syncRate(); applyFilters();};
+const vLo=document.getElementById('vLo'), vHi=document.getElementById('vHi');
+const pnum=s=>{const n=parseInt(String(s).replace(/[$,\s]/g,''),10);return isNaN(n)?null:n;};
+vLo.onchange=()=>{state.val[0]=pnum(vLo.value); vLo.value=state.val[0]==null?'':state.val[0].toLocaleString(); applyFilters();};
+vHi.onchange=()=>{state.val[1]=pnum(vHi.value); vHi.value=state.val[1]==null?'':state.val[1].toLocaleString(); applyFilters();};
+const qEl=document.getElementById('q');
+qEl.oninput=()=>{state.q=qEl.value; later(applyFilters);};
+qEl.onkeydown=e=>{ if(e.key==='Enter'){ for(let i=0;i<N;i++) if(pass[i]){ select(i); flyTo(i); break; } } };
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+  state.mgmt=b.dataset.m==='1'; document.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x===b));
+  RMAXm=state.mgmt?Math.ceil(Math.max(...Object.values(D.combos).map(c=>c.b+c.m))*10)/10:RMAX0;
+  if(state.rate[1]>=RMAX0-1e-9||state.rate[1]>RMAXm) state.rate[1]=RMAXm; syncRate(); applyFilters(); if(state.sel!=null)renderDrawer(state.sel);
+});
+function multiSelect(el,placeholder,options,key){
+  el.innerHTML=`<button class="ms-btn" aria-haspopup="listbox"><span class="lab">${esc(placeholder)}</span><span class="badge"></span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="ms-pop" role="listbox" aria-multiselectable="true"></div>`;
+  const btn=el.querySelector('.ms-btn'), pop=el.querySelector('.ms-pop');
+  const render=()=>{
+    const v=state[key]; btn.classList.toggle('has',v.length>0);
+    btn.querySelector('.lab').textContent=v.length===0?placeholder:v.length<=2?v.join(', '):v.length+' selected';
+    btn.querySelector('.badge').textContent=v.length;
+    pop.innerHTML=options.map(([o,n])=>`<div class="ms-opt ${v.includes(o)?'on':''}" role="option" tabindex="0" aria-selected="${v.includes(o)}" data-o="${esc(o)}"><div class="box">${v.includes(o)?'<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>':''}</div><div>${esc(o)}</div><span class="n">${n.toLocaleString()}</span></div>`).join('');
+    pop.querySelectorAll('.ms-opt').forEach(d=>{const tog=()=>{const o=d.dataset.o; state[key]=v.includes(o)?v.filter(x=>x!==o):[...v,o]; render(); applyFilters();};
+      d.onclick=tog; d.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tog();}};});
+  };
+  btn.onclick=()=>{document.querySelectorAll('.ms.open').forEach(x=>x!==el&&x.classList.remove('open')); el.classList.toggle('open');};
+  el._render=render; render();
+}
+document.addEventListener('mousedown',e=>{document.querySelectorAll('.ms.open').forEach(x=>{if(!x.contains(e.target))x.classList.remove('open');});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.ms.open').forEach(x=>x.classList.remove('open')); if(state.sel!=null)select(null);}});
+const countBy=f=>{const m=new Map(); for(let i=0;i<N;i++){const k=f(i); if(k)m.set(k,(m.get(k)||0)+1);} return [...m.entries()].sort((a,b)=>b[1]-a[1]);};
+multiSelect(document.getElementById('msType'),'All property types',countBy(i=>TYPES[P[i].t]),'types');
+multiSelect(document.getElementById('msIsd'),'All school districts',countBy(i=>P[i].isd?tc(P[i].isd):null),'isd');
+multiSelect(document.getElementById('msCity'),'All cities',countBy(i=>tc(P[i].cityJ)),'city');
+multiSelect(document.getElementById('msWater'),'All water districts',countBy(i=>tc(P[i].water)),'water');
+const layersEl=document.getElementById('layers');
+for(const o of OVERLAYS){ if(!D.layers[o.key])continue;
+  const l=document.createElement('label'); l.className='chk';
+  l.innerHTML=`<input type="checkbox" ${o.on?'checked':''}><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ${o.dash?'dash':''}" style="border-color:rgb(${o.color})"></span><span>${o.label}</span>`;
+  l.querySelector('input').onchange=e=>{state.layers[o.key]=e.target.checked; refresh();};
+  layersEl.appendChild(l);
+}
+document.getElementById('fClear').onclick=()=>{
+  Object.assign(state,{q:'',rate:[RMIN,RMAXm],types:[],isd:[],city:[],water:[],val:[null,null]}); state.binsOff.clear();
+  qEl.value='';vLo.value='';vHi.value=''; [...hist.children].forEach(b=>{b.classList.remove('off');b.setAttribute('aria-pressed','true');});
+  document.querySelectorAll('.ms').forEach(m=>m._render&&m._render()); syncRate(); applyFilters();
+};
+document.getElementById('statusTxt').textContent=`${D.taxYear} RATES · ${N.toLocaleString()} PARCELS`;
+
+// ---------- drawer
+function flyTo(i){
+  if(gmap){gmap.panTo({lat:cy[i],lng:cx[i]}); if(gmap.getZoom()<16)gmap.setZoom(16);}
+  else if(deckgl){deckgl.setProps({initialViewState:{longitude:cx[i],latitude:cy[i],zoom:16,transitionDuration:600,transitionInterpolator:new deck.FlyToInterpolator()}});}
+}
+function select(i){ state.sel=i; refresh(); renderDrawer(i); }
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',1800);}
+function renderDrawer(i){
+  const host=document.getElementById('drawerHost');
+  if(i==null){host.innerHTML='';return;}
+  const p=P[i], c=D.combos[p.cid]||{p:[],b:0,m:0}, r=rateOf(i);
+  const tax=p.val!=null&&r!=null?p.val*r/100:null;
+  const clsName=CLASS_NAME[p.cls]||CLASS_NAME[(p.cls||'')[0]]||p.cls||'Unknown';
+  const acres=p.land?(p.land/43560):null;
+  const rows=c.p.filter(([code])=>{const j=D.jur[code]; return j&&(state.mgmt||j[2]!=='mgmt');}).sort((a,b)=>b[1]-a[1]);
+  const mx=Math.max(0.0001,...rows.map(x=>x[1]));
+  const tz=c.tirz?[...new Set(c.tirz.split(';').map(s=>s.replace(/\(\d{3}\)/,'').trim()))].join(', '):'';
+  const F=(k,v,full)=>`<div class="f ${full?'full':''}"><div class="k">${k}</div><div class="v">${v||'—'}</div></div>`;
+  let h=`<div class="drawer" role="dialog" aria-label="Parcel details">
+    <div class="hero">
+      <button class="x" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#001E5A" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></button>
+      <div class="tags"><span>${esc(TYPES[p.t].toUpperCase())}</span><span>${esc(p.cls||'N/A')}</span></div>
+    </div>
+    <div class="d-body">
+      <div class="d-title">${esc(p.addr||'No site address')}</div>
+      <div class="d-sub">${esc(p.owner)}${p.city?' · '+esc(tc(p.city))+', TX':''}</div>
+      <div class="pills">${c.isd?`<span>${esc(tc(c.isd))}</span>`:''}<span>${esc(c.city?tc(c.city):'Unincorporated')}</span>${tz?`<span class="gold">TIRZ ${esc(tc(tz))}</span>`:''}</div>
+      <div class="kpis">
+        <div><div class="k">Rate / $100</div><div class="v">${r==null?'—':r.toFixed(4)}</div></div><div class="sep"></div>
+        <div><div class="k">Est. annual tax</div><div class="v">${tax==null?'—':short$(tax)}</div></div><div class="sep"></div>
+        <div><div class="k">Tax / bldg SF</div><div class="v">${tax!=null&&p.bld?'$'+(tax/p.bld).toFixed(2):'—'}</div></div>
+      </div>
+      <div class="grid">
+        ${F('Owner',esc(p.owner),true)}
+        ${F('HCAD account',esc(p.acct))}
+        ${F('Property class',esc(clsName))}
+        ${F(D.valueYear+' appraised value',money(p.val))}
+        ${F('Est. annual tax',money(tax))}
+        ${F('Building area',p.bld?p.bld.toLocaleString()+' SF':'—')}
+        ${F('Land area',acres!=null?(acres>=1?acres.toFixed(2)+' AC':p.land.toLocaleString()+' SF'):'—')}
+        ${F('School district',esc(tc(c.isd)))}
+        ${F('City',esc(c.city?tc(c.city):'Unincorporated'))}
+        ${F('Water district',esc(c.water?tc(c.water):'None'))}
+        ${F('Emergency services',esc(c.esd?tc(c.esd):'None'))}
+        ${F('College district',esc(tc(c.college)),true)}
+      </div>
+      <div class="sec">Rate by jurisdiction</div>
+      <div class="brk">${rows.map(([code,w])=>{const j=D.jur[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
+        <div class="tot"><span>Combined</span><span>${r==null?'—':r.toFixed(4)}</span></div></div>`;
+  const notes=[];
+  if(c.m>0&&!state.mgmt) notes.push(['gold',`Also in ${esc(tc(c.mgmtN))}, which levies ${c.m.toFixed(4)}. Switch to "Incl. mgmt districts" to add it.`]);
+  if(tz) notes.push(['',`Inside TIRZ ${esc(tc(tz))}. A TIRZ redirects tax growth to the zone but adds no rate.`]);
+  if(c.miss>0) notes.push(['gold',`${c.miss} jurisdiction${c.miss>1?'s':''} on this account had no rate in the HCAD file, so the total may be understated.`]);
+  if(!c.city&&p.t==='ind') notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);
+  notes.push(['',`Uses ${D.taxYear} adopted rates on ${D.valueYear} appraised values. Exemptions and abatements are not applied.`]);
+  h+=`<div class="sec">Notes</div>${notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}
+    </div>
+    <div class="d-act">
+      <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${cy[i].toFixed(6)},${cx[i].toFixed(6)}">Open in Google Maps</a>
+      <button class="btn primary" id="copyAcct">Copy HCAD account</button>
+    </div></div>`;
+  host.innerHTML=h;
+  host.querySelector('.x').onclick=()=>select(null);
+  host.querySelector('#copyAcct').onclick=()=>{ (navigator.clipboard?navigator.clipboard.writeText(p.acct):Promise.reject()).then(()=>toast('Copied account '+p.acct)).catch(()=>toast('Account '+p.acct)); };
+  host.querySelector('.x').focus({preventScroll:true});
+}
+
+syncRate(); applyFilters();
+window.__select=select;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+053,BUNKER HILL VILLAGE,C,City,base,1408,0.271,0.271,0.271,False
+051,CITY OF BAYTOWN,C,City,base,27151,0.69803,0.69803,0.69803,False
+052,CITY OF BELLAIRE,C,City,base,6705,0.4174,0.0,0.4174,False
+054,CITY OF DEER PARK,C,City,base,11606,0.72,0.72,0.72,False
+056,CITY OF EL LAGO,C,City,base,1166,0.45661,0.0,0.45661,False
+058,CITY OF FRIENDSWOOD,C,City,base,3927,0.514172,0.524843,0.514172,False
+057,CITY OF GALENA PARK,C,City,base,3388,0.93802,0.0,0.93802,False
+061,CITY OF HOUSTON,C,City,base,681271,0.51919,0.51919,0.51919,False
+062,CITY OF HUMBLE,C,City,base,6432,0.258171,0.0,0.258171,False
+066,CITY OF JACINTO CITY,C,City,base,3021,0.603444,0.0,0.603444,False
+063,CITY OF KATY,C,City,base,5968,0.425,0.0,0.425,False
+071,CITY OF LAPORTE,C,City,base,17056,0.71,0.71,0.71,False
+067,CITY OF LEAGUE CITY,C,City,base,633,0.36355,0.356505,0.36355,False
+072,CITY OF MORGANS POINT,C,City,base,360,0.931988,0.93199,0.931988,False
+073,CITY OF NASSAU BAY,C,City,base,1636,0.670499,0.0,0.670499,False
+074,CITY OF PASADENA,C,City,base,42995,0.465586,0.0,0.465586,False
+059,CITY OF PEARLAND,C,City,base,4091,0.63,0.627892,0.63,False
+076,CITY OF SEABROOK,C,City,base,5735,0.464152,0.0,0.464152,False
+078,CITY OF SOUTH HOUSTON,C,City,base,5629,0.569559,0.0,0.569559,False
+079,CITY OF SOUTHSIDE PL,C,City,base,562,0.340896,0.0,0.340896,False
+080,CITY OF SPRING VALLEY,C,City,base,1718,0.395,0.394434,0.395,False
+081,CITY OF STAFFORD,C,City,base,7,0.0,0.0,0.0,True
+083,CITY OF TOMBALL,C,City,base,8019,0.34094,0.0,0.34094,False
+086,CITY OF WALLER,C,City,base,987,0.4464,0.5294,0.4464,False
+084,CITY OF WEBSTER,C,City,base,2981,0.37106,0.0,0.37106,False
+055,HEDWIG VILLAGE,C,City,base,932,0.336334,0.336334,0.336334,False
+060,HILSHIRE VILLAGE,C,City,base,348,0.529226,0.509702,0.529226,False
+065,HUNTERS CREEK VILLAGE,C,City,base,1595,0.205164,0.205164,0.205164,False
+070,JERSEY VILLAGE,C,City,base,2604,0.814625,0.0,0.814625,False
+064,MISSOURI CITY,C,City,base,1996,0.570825,0.578363,0.570825,False
+075,PINEY POINT VILLAGE,C,City,base,1203,0.25514,0.25514,0.25514,False
+082,TAYLOR LAKE VILLAGE,C,City,base,1566,0.2293,0.0,0.2293,False
+085,WEST UNIVERSITY PLACE,C,City,base,5652,0.229441,0.0,0.229441,False
+981,CITY OF HO IND 1,N,City Industrial District,base,1,0.0,0.0,0.0,True
+574,CITY OF PASADENA ID,N,City Industrial District,base,1,0.0,0.0,0.0,True
+048,HOUSTON CITY COLLEGE,J,College District,base,551570,0.098802,0.0,0.098802,False
+046,LEE JR COLLEGE DIST,J,College District,base,43466,0.18706,0.18706,0.18706,False
+045,LONE STAR COLLEGE SYS,J,College District,base,581107,0.106,0.1058,0.106,False
+047,SAN JACINTO COM COL D,J,College District,base,174224,0.154615,0.0,0.154615,False
+035,FORT BEND COUNTY,T,County / Countywide,base,8,0.0,0.0,0.0,True
+044,HARRIS CO EDUC DEPT,T,County / Countywide,base,1615776,0.004798,0.0,0.004798,False
+041,HARRIS CO FLOOD CNTRL,T,County / Countywide,base,1615776,0.04966,0.0,0.04966,False
+043,HARRIS CO HOSP DIST,T,County / Countywide,base,1615776,0.18761,0.0,0.18761,False
+040,HARRIS COUNTY,T,County / Countywide,base,1615776,0.38096,0.0,0.38096,False
+038,MONTGOMERY COUNTY,T,County / Countywide,base,2,0.0,0.0,0.0,True
+042,PORT OF HOUSTON AUTHY,T,County / Countywide,base,1615776,0.0059,0.0,0.0059,False
+567,CROSBY MUD (DA 1),A,Defined Area,base,476,0.86,0.86,0.86,False
+A22,CROSBY MUD DA 2,A,Defined Area,base,612,0.86,0.86,0.86,False
+412,DOWDELL PUD (DA),A,Defined Area,base,13,0.38,0.0,0.38,False
+A83,FALLBROOK UD DA 1,A,Defined Area,base,1,0.0,0.0,0.0,True
+345,HC ID 18 (DA 1),A,Defined Area,base,316,0.27,0.0,0.27,False
+562,HC MUD 105 (DA),A,Defined Area,base,322,0.0,0.0,0.0,True
+557,HC MUD 165 (DA 1),A,Defined Area,base,2014,0.68,0.0,0.68,False
+A65,HC MUD 165 (DA) 3,A,Defined Area,base,1266,0.68,0.0,0.68,False
+050,HC MUD 165 DA 2,A,Defined Area,base,2946,0.58,0.0,0.58,False
+742,HC MUD 248 DEFINED AREA,A,Defined Area,base,14,0.33,0.0,0.33,False
+096,HC MUD 82 (DEFINED AREA 1),A,Defined Area,base,2403,0.3,0.0,0.3,False
+438,NEWPORT MUD (DA) 1,A,Defined Area,base,417,0.7422,0.68599,0.7422,False
+A31,NEWPORT MUD DA 2,A,Defined Area,base,287,0.7422,0.68599,0.7422,False
+347,NORTHAMPTON MUD (DA),A,Defined Area,base,577,0.595,0.0,0.595,False
+A51,NW HC MUD 12 (DA),A,Defined Area,base,174,0.67,0.0,0.67,False
+022,SE REGIONAL MGMT DIST DA 1,A,Defined Area,base,362,0.25,0.0,0.25,False
+A35,SUNBELT FWSD DEFINED AREA 1,A,Defined Area,base,16,0.46,0.0,0.46,False
+917,WILLOW FORK DRNG DIST,D,Drainage District,base,1067,0.145,0.145,0.145,False
+677,HARRIS-FT BND ESD 100,B,ESD,base,16377,0.1,0.0,0.1,False
+666,HC EMERG SERV DIST 11,E,ESD,base,198881,0.038078,0.0,0.038078,False
+667,HC EMERG SERV DIST 50,B,ESD,base,17038,0.05,0.0,0.05,False
+676,HC EMERG SERV DIST 6,E,ESD,base,13346,0.03,0.0,0.03,False
+679,HC EMERG SERV DIST 8,E,ESD,base,16494,0.099659,0.0,0.099659,False
+671,HC EMERG SRV DIST 1,E,ESD,base,82270,0.085145,0.0,0.085145,False
+641,HC EMERG SRV DIST 10,F,ESD,base,25912,0.1,0.0,0.1,False
+668,HC EMERG SRV DIST 12,F,ESD,base,13286,0.05,0.0,0.05,False
+634,HC EMERG SRV DIST 13,F,ESD,base,27095,0.1,0.0,0.1,False
+640,HC EMERG SRV DIST 14,B,ESD,base,8946,0.085,0.0,0.085,False
+635,HC EMERG SRV DIST 16,F,ESD,base,58132,0.05,0.0,0.05,False
+647,HC EMERG SRV DIST 17,F,ESD,base,25604,0.1,0.0,0.1,False
+649,HC EMERG SRV DIST 19,F,ESD,base,3279,0.03,0.0,0.03,False
+672,HC EMERG SRV DIST 2,E,ESD,base,19404,0.03,0.0,0.03,False
+636,HC EMERG SRV DIST 20,F,ESD,base,26152,0.099814,0.0,0.099814,False
+648,HC EMERG SRV DIST 21,F,ESD,base,22409,0.1,0.0,0.1,False
+639,HC EMERG SRV DIST 24,F,ESD,base,15156,0.09824,0.0,0.09824,False
+642,HC EMERG SRV DIST 25,F,ESD,base,13759,0.1,0.0,0.1,False
+637,HC EMERG SRV DIST 28,F,ESD,base,11909,0.1,0.0,0.1,False
+645,HC EMERG SRV DIST 29,F,ESD,base,10492,0.1,0.0,0.1,False
+673,HC EMERG SRV DIST 3,E,ESD,base,22502,0.1,0.0,0.1,False
+674,HC EMERG SRV DIST 4,B,ESD,base,10510,0.1,0.0,0.1,False
+631,HC EMERG SRV DIST 46,B,ESD,base,29739,0.1,0.0,0.1,False
+638,HC EMERG SRV DIST 47,B,ESD,base,12611,0.098888,0.0,0.098888,False
+643,HC EMERG SRV DIST 48,B,ESD,base,41307,0.099995,0.0,0.099995,False
+675,HC EMERG SRV DIST 5,E,ESD,base,21594,0.03,0.0,0.03,False
+670,HC EMERG SRV DIST 60,F,ESD,base,20300,0.0842,0.0,0.0842,False
+550,HC EMERG SRV DIST 7,F,ESD,base,61638,0.1,0.0,0.1,False
+664,HC EMERG SRV DIST 75,B,ESD,base,7865,0.1,0.0,0.1,False
+669,HC EMERG SRV DIST 80,F,ESD,base,23534,0.046106,0.0,0.046106,False
+633,HC EMERG SRV DIST 9,B,ESD,base,184127,0.038831,0.0,0.038831,False
+665,HC ESD 15,F,ESD,base,8072,0.05,0.0,0.05,False
+678,WALLER-HARRIS ESD 200,B,ESD,base,29492,0.1,0.0,0.1,False
+009,ALDINE ISD,I,ISD,base,92062,1.034,1.0144,1.034,False
+008,ALIEF ISD,I,ISD,base,54554,1.0072,1.0204,1.0072,False
+006,CHANNELVIEW ISD,I,ISD,base,16739,0.9617,0.9611,0.9617,False
+027,CLEAR CREEK ISD,I,ISD,base,50675,0.969,0.969,0.969,False
+005,CROSBY ISD,I,ISD,base,24091,1.2241,1.1811,1.2241,False
+004,CYPRESS-FAIRBANKS ISD,I,ISD,base,209607,1.0669,0.0,1.0669,False
+028,DAYTON ISD,I,ISD,base,91,0.9572,0.9336,0.9572,False
+002,DEER PARK ISD,I,ISD,base,18124,1.1389,0.0,1.1389,False
+015,GALENA PARK ISD,I,ISD,base,26147,1.2499,1.28301,1.2499,False
+016,GOOSE CREEK CISD,I,ISD,base,43467,1.07,1.07,1.07,False
+001,HOUSTON ISD,I,ISD,base,496938,0.8783,0.8421,0.8783,False
+030,HUFFMAN ISD,I,ISD,base,14212,1.0637,1.0637,1.0637,False
+018,HUMBLE ISD,I,ISD,base,83934,1.1052,1.1052,1.1052,False
+019,KATY ISD,I,ISD,base,90839,1.1171,0.0,1.1171,False
+017,KLEIN ISD,I,ISD,base,95025,1.0119,0.0,1.0119,False
+020,LA PORTE ISD,I,ISD,base,20700,1.0641,1.0673,1.0641,False
+007,NEW CANEY ISD,I,ISD,base,434,1.2552,1.2393,1.2552,False
+021,PASADENA ISD,I,ISD,base,69850,1.1722,1.1654,1.1722,False
+029,PEARLAND ISD,I,ISD,base,709,1.135,1.135,1.135,False
+023,SHELDON ISD,I,ISD,base,18283,1.2552,1.2552,1.2552,False
+025,SPRING BRANCH ISD,I,ISD,base,56539,1.0231,1.0563,1.0231,False
+024,SPRING ISD,I,ISD,base,61296,1.1369,1.1569,1.1369,False
+031,STAFFORD MSD,I,ISD,base,105,1.002121,1.002121,1.002121,False
+026,TOMBALL ISD,I,ISD,base,41428,1.0629,1.0558,1.0629,False
+003,WALLER ISD,I,ISD,base,31636,1.0626,1.0528,1.0626,False
+995,EAST DOWNTOWN MNG DST,Z,Management / Improvement District,mgmt,2525,0.125,0.0,0.125,False
+976,EAST END DISTRICT,Z,Management / Improvement District,mgmt,22287,0.15,0.0,0.15,False
+934,FIVE CORNERS IMPR DISTRICT,Z,Management / Improvement District,mgmt,21421,0.1,0.0,0.1,False
+949,GRTR NRTHSD MGMT DIST,Z,Management / Improvement District,mgmt,45151,0.0,0.0,0.0,True
+944,GRTR SE MGMT DIST,Z,Management / Improvement District,mgmt,18324,0.115,0.0,0.115,False
+928,GULFTON AREA MUNICIPAL MGMT DIST,Z,Management / Improvement District,mgmt,2001,0.1,0.0,0.1,False
+950,H C ID 5,Z,Management / Improvement District,mgmt,22834,0.1,0.0,0.1,False
+A37,HC ID 10,Z,Management / Improvement District,mgmt,20032,0.0,0.0,0.0,True
+262,HC ID 2,Z,Management / Improvement District,mgmt,269,0.0,0.0,0.0,True
+569,HC ID 24,Z,Management / Improvement District,mgmt,6,0.12,0.0,0.12,False
+997,HC ID 4/ENER CORRIDOR,Z,Management / Improvement District,mgmt,724,0.1,0.0,0.1,False
+269,HC MUN MGMT DIST 1,Z,Management / Improvement District,mgmt,330,0.065,0.0,0.065,False
+A73,HC MUNICIPAL MGMT DIST 1 DA 1,Z,Management / Improvement District,mgmt,75,0.035,0.0,0.035,False
+A74,HC MUNICIPAL MGMT DIST 1 DA 2,Z,Management / Improvement District,mgmt,39,0.035,0.0,0.035,False
+943,HOBBY AREA DISTRICT,Z,Management / Improvement District,mgmt,12419,0.125,0.0,0.125,False
+265,HOUSTON D'TOWN MGMT D,Z,Management / Improvement District,mgmt,1974,0.1695,0.0,0.1695,False
+931,INTERNATIONAL MANAGEMENT DISTRICT,Z,Management / Improvement District,mgmt,21020,0.1,0.0,0.1,False
+977,MEMORIAL CITY,Z,Management / Improvement District,mgmt,434,0.0,0.0,0.0,True
+953,MIDTOWN MGMT DIST,Z,Management / Improvement District,mgmt,3415,0.1181,0.0,0.1181,False
+A21,MONTROSE MGMT DIST,Z,Management / Improvement District,mgmt,11825,0.0,0.0,0.0,True
+941,NEAR NW MGMT DISTRICT,Z,Management / Improvement District,mgmt,17343,0.139,0.0,0.139,False
+266,NORTH HOUSTON DISTRICT,Z,Management / Improvement District,mgmt,2835,0.16742,0.0,0.16742,False
+942,NW MGMT DIST (RES),Z,Management / Improvement District,mgmt,132,0.0,0.0,0.0,True
+791,PID 175,Z,Management / Improvement District,mgmt,1092,0.0,0.0,0.0,True
+792,"PID, 223",Z,Management / Improvement District,mgmt,140,0.0,0.0,0.0,True
+947,SOUTHWEST MGMT DIST,Z,Management / Improvement District,mgmt,15366,0.08,0.0,0.08,False
+793,SPRING BRANCH MGT DIST,Z,Management / Improvement District,mgmt,31697,0.1,0.0,0.1,False
+885,WESTCHASE DISTRICT,Z,Management / Improvement District,mgmt,874,0.11,0.0,0.11,False
+A16,BARRETT MANAGEMENT DISTRICT,M,Management District,mgmt,2126,0.0,0.0,0.0,True
+720,E ALDINE MGMT DIST (DA 1),M,Management District,mgmt,198,1.25,0.0,1.25,False
+921,FALL CREEK MGMT DIST,M,Management District,mgmt,91,0.285,0.0,0.285,False
+366,GENERATION PARK MGMT DIST,M,Management District,mgmt,129,1.33,0.0,1.33,False
+A70,GRAND NORTHWEST MMD,M,Management District,mgmt,10,0.0,0.0,0.0,True
+910,KATY MGMT DISTRICT 1,M,Management District,mgmt,92,0.8,0.0,0.8,False
+154,LOWER KIRBY PEARLAND MGMT DIST,M,Management District,mgmt,282,0.7,0.0,0.7,False
+244,PEARLAND MUNI MGMT DIST 1,M,Management District,mgmt,6,0.0,0.0,0.0,True
+341,PEARLAND MUNICIPAL MGMT 2,M,Management District,mgmt,17,0.06598,0.07615,0.06598,False
+A19,PLUM CREEK MGMT DISTRICT 1A,M,Management District,mgmt,428,1.25,0.0,1.25,False
+A93,RICE VILLAGE MD,M,Management District,mgmt,40,0.0,0.0,0.0,True
+410,SE REGIONAL MGMT DIST,M,Management District,mgmt,2137,1.23,0.0,1.23,False
+428,ST GEORGE PLACE MGMT DIST,M,Management District,mgmt,616,0.115,0.0,0.115,False
+125,THE WOODLANDS TOWNSHIP,M,Management District,mgmt,6198,0.1714,0.1694,0.1714,False
+120,WEST RANCH MGMT DIST,M,Management District,mgmt,1,0.2,0.193,0.2,False
+A04,WESTWOOD MGMT DISTRICT,M,Management District,mgmt,2,0.92,0.9,0.92,False
+203,(not in HCAD rate file),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+620,(not in HCAD rate file),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+736,(not in HCAD rate file),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+882,(not in HCAD rate file),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+998,ABATEMENT/SPEC EXEMPT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+102,ALDINE PUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+103,ARCADIAN GARDENS MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A54,BAY CREEK PID (BAYTOWN USE ONLY),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+113,BAYFIELD PUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+114,BAYSHORE MUD (071),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+918,BAYTOWN TIRZ EXPNSN (040),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+863,BAYTOWN TIRZ EXPSN 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+216,BELTWAY 8 MUD 1,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+217,BELTWAY 8 MUD 2,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+218,BELTWAY 8 MUD 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+119,BRAES UD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+049,BRAZORIA COUNTY,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+132,CANDLEWOOD MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+987,CAPITOL APPRAISAL,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+133,CARPENTERS BAYOU MUD - INACTIVE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+034,CHAMBERS COUNTY,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+912,CINCO MUD 5,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+951,CITY OF BAYTOWN ID,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+954,CITY OF DEER PARK IND,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+984,CITY OF DEER PARK IND,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+982,CITY OF HO IND 2,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+983,CITY OF HO IND 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+661,CITY OF HOUSTON ID,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+571,CITY OF LA PORTE ID,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+985,CITY OF LAPORTE IND,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+068,CITY OF MEADOWS,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+986,CITY OF PASADENA IND,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+143,CLEAR WOODS ID (058),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+144,COLLEGE VIEW MUD(071),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+970,COMPLEX/INDUSTRIAL,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+166,ENCHANTED PLACE PUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A94,FENSKE ROAD MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+173,FOREST COVE MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+204,FOREST POINT MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+032,FORT BEND ISD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+932,FORT BEND ISD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+036,GALVESTON COUNTY,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+181,GLEN HOLLOW PUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+214,GRAND NORTHWEST MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+991,GRTR E END MGMT RES,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+945,GRTR SE MGMT DIST RES,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+184,GULFWAY UD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+033,HARRIS CO EDUC DIST,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A99,HARRIS WALLER COUNTIES MUD 13,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+245,HC FWSD 045,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+263,HC FWSD 063 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+201,HC FWSD 1B,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+939,HC ID 11,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A97,HC ID 29,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+852,HC ID 3 (RESIDENTIAL),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+930,HC ID 6,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+303,HC MUD 003 (051),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+315,HC MUD 015 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+317,HC MUD 017,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+322,HC MUD 022,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+328,HC MUD 028 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+329,HC MUD 029 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+330,HC MUD 030,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+335,HC MUD 035 (HC MUD 1),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+352,HC MUD 052,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+367,HC MUD 067 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+373,HC MUD 073,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+377,HC MUD 077,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+380,HC MUD 080,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+390,HC MUD 090 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+391,HC MUD 091,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+393,HC MUD 093 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+397,HC MUD 097,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+398,HC MUD 098 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+310,HC MUD 10 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+401,HC MUD 101,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+407,HC MUD 107 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+415,HC MUD 115,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+423,HC MUD 123 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+426,HC MUD 126,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+437,HC MUD 137,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+439,HC MUD 139 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+314,HC MUD 14 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+445,HC MUD 145 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+446,HC MUD 145 - ANNEXED INTO 061,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+459,HC MUD 159 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+469,HC MUD 169,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+475,HC MUD 175 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+477,HC MUD 177,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+481,HC MUD 181,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+492,HC MUD 192(313),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+494,HC MUD 194,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+495,HC MUD 195 DISSOLVED,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+497,HC MUD 197,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+499,HC MUD 199 (070),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+320,HC MUD 20,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+503,HC MUD 203 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+512,HC MUD 212,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+513,HC MUD 213,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+518,HC MUD 218 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+523,HC MUD 223 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+536,HC MUD 236 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+537,HC MUD 237 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+191,HC MUD 240,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+543,HC MUD 243,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+546,HC MUD 246,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+547,HC MUD 247 (070),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+540,HC MUD 254 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+104,HC MUD 256,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+109,HC MUD 259,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+192,HC MUD 262 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+122,HC MUD 263,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+127,HC MUD 265,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+123,HC MUD 266 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+167,HC MUD 271,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+107,HC MUD 272,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+130,HC MUD 277,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+157,HC MUD 279,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+194,HC MUD 283,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+188,HC MUD 288,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+168,HC MUD 289,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+160,HC MUD 291,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+158,HC MUD 292,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+169,HC MUD 294,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+210,HC MUD 306,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+196,HC MUD 315,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+211,HC MUD 324,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+198,HC MUD 325,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+199,HC MUD 327,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+209,HC MUD 332 - INACTIVE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+126,HC MUD 341 - INACTIVE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+221,HC MUD 343,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+226,HC MUD 347,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+219,HC MUD 348,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+212,HC MUD 350 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+223,HC MUD 351,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+215,HC MUD 356 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+270,HC MUD 375,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+271,HC MUD 376,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+272,HC MUD 377,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+273,HC MUD 378,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+274,HC MUD 379,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+275,HC MUD 380,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+250,HC MUD 402,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+233,HC MUD 435,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+240,HC MUD 454,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+239,HC MUD 479,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A98,HC MUD 612,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+644,HC RFPD 049,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+646,HC RURAL FPD 15,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+551,HC UD 001 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+552,HC UD 002 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+553,HC UD 003 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+554,HC UD 004 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+558,HC UD 008 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+560,HC UD 010 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+563,HC UD 013,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+608,HC WCID 076 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+621,HC WCID 108 (058),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+607,HC WCID 75 (CONSOLIDATED 142),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+012,HOUSTON ISD (FORMERLY NFISD),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+653,HUFFSMITH ROAD PUD - INACTIVE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+655,HUNTERWOOD MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+403,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+440,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+561,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+663,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+689,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+737,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+860,INACTIVE - IS CODED TO ONE PP ACCOUNT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+434,INACTIVE - IS CODED TO TWO PP ACCOUNTS,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+688,INACTIVE - IS CODED TO TWO PP ACCOUNTS,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+659,INTERWOOD MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+979,JACINTOPORT AREA,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+680,KINGWOOD PLACE MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+686,KUYKENDAHL ROAD PUD 002,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+685,KUYKENDAHL ROAD PUD 1,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+980,LAKE HOUSTON SPECIAL,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+698,LAPORTE WA,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+037,LIBERTY COUNTY,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+965,LYONDELL-CITGO FTZ,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+281,MARKET SQUARE ADDITN (040),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+700,MELROSE PARK MUD(061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+708,MEMORIAL WEST UD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+713,MOSSY OLDS UD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+733,N GATE CROSSING MUD 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+996,NEAR NW MNGMNT DIST,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+990,NON-ABATED 998 IMP/PP,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+723,NORTHBOROUGH MUD(061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+729,NORTHWAY MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+069,NOT USED,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+747,NW HC MUD 007,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+748,NW HC MUD 008 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+751,NW HC MUD 011,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+757,NW HC MUD 017,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+765,NW HC MUD 025 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+767,NW HC MUD 027,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+773,NW HC PUD 003,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+946,NW MNGMNT DISTRICT 1,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+948,NW MNGMNT DISTRICT 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+782,PARK TEN MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+988,PRITCHARD & ABBOTT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+812,REMINGTON MUD 2,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+813,REMINGTON MUD 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+202,RESERVED FOR COUNTY USE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+774,RESERVED HC,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+805,ROBIN PUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+808,ROSEWOOD MUD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+817,SAN JACINTO MUD 1,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+818,SAN JACINTO MUD 2,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+819,SAN JACINTO MUD 3,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+820,SAN JACINTO MUD 4,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+815,SHARPSTOWN PID (947),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+834,SO MISSION GLEN MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+821,SOUTHBEND MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+828,SPENWICK PL MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+956,STATE COMPTROLLER,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+955,STATE OF TEXAS,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+989,THOMAS Y PICKETT,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+843,THOMPSON ROAD UD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+845,TIDWELL TIMBERS MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+089,TIRZ 1 CITY OF BAYTOWN EXPN 5 (051),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+798,TIRZ 10 - LAKE HOUSTON ANNX 4 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+881,TIRZ 17 MEMORIAL CITY ANNEX 3 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A27,TIRZ 23 HARRISBURG ZONE E END 3 (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+A90,TIRZ 3 MARKET SQUARE (040),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+849,TOWER OAKS PLAZA MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+853,VILLAGE TIRZ (001),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+578,VILLAGE TIRZ (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+039,WALLER COUNTY,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+904,WEST FORK MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+868,WEST HC MUD 008,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+878,WEST HC MUD 020,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+891,WEST HOUSTON MUD(061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+892,WESTHEIMER RD MUD:061,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+898,WESTWAY UD (061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+905,WHITE OAK 1960 MUD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+900,WILLOW CHASE MUD(061),,Not assigned to any account,base,0,0.0,0.0,0.0,False
+906,WILLOW FORK DRAINAGE,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+903,WOODFOREST NORTH UD,,Not assigned to any account,base,0,0.0,0.0,0.0,False
+572,18 FIFTH WARD:ANNEX (061),Z,TIRZ,excluded,786,0.0,0.0,0.0,False
+A66,ALDINE TIRZ (040),Z,TIRZ,excluded,9633,0.0,0.0,0.0,False
+957,AVONDALE T I F,Z,TIRZ,excluded,860,0.0,0.0,0.0,False
+279,BAYTOWN TIRZ 1 (040),Z,TIRZ,excluded,512,0.0,0.0,0.0,False
+999,BELLAIRE T I F,Z,TIRZ,excluded,112,0.0,0.0,0.0,False
+933,CITY OF BAYTOWN TIRZ,Z,TIRZ,excluded,753,0.0,0.0,0.0,False
+889,CITY OF LAPORTE TIRZ 1 (071),Z,TIRZ,excluded,834,0.0,0.0,0.0,False
+859,CITY OF LAPORTE TIRZ 1 EXPNSN (071),Z,TIRZ,excluded,86,0.0,0.0,0.0,False
+278,CITY OF NASSAU BAY TIRZ 1 (073),Z,TIRZ,excluded,135,0.0,0.0,0.0,False
+969,CITY PARK (001),Z,TIRZ,excluded,75,0.0,0.0,0.0,False
+591,CITY PARK (061),Z,TIRZ,excluded,75,0.0,0.0,0.0,False
+940,CTY OF LAPORTE TIRZ 1 (020),Z,TIRZ,excluded,836,0.0,0.0,0.0,False
+283,CTY OF LAPORTE TIRZ 1 (040),Z,TIRZ,excluded,836,0.0,0.0,0.0,False
+975,EAST DOWNTOWN (001),Z,TIRZ,excluded,355,0.0,0.0,0.0,False
+596,EAST DOWNTOWN (061),Z,TIRZ,excluded,355,0.0,0.0,0.0,False
+923,EAST DOWNTOWN TIRZ (040),Z,TIRZ,excluded,355,0.0,0.0,0.0,False
+929,EAST DOWNTOWN TIRZ - ANNEX (040),Z,TIRZ,excluded,1045,0.0,0.0,0.0,False
+938,EAST DOWNTOWN TIRZ - ANNEX (061),Z,TIRZ,excluded,1045,0.0,0.0,0.0,False
+961,EASTSIDE 6 (001),Z,TIRZ,excluded,150,0.0,0.0,0.0,False
+584,EASTSIDE 6 (061),Z,TIRZ,excluded,150,0.0,0.0,0.0,False
+973,FIFTH WARD (001),Z,TIRZ,excluded,941,0.0,0.0,0.0,False
+594,FIFTH WARD (061),Z,TIRZ,excluded,941,0.0,0.0,0.0,False
+993,FOURTH WARD (001),Z,TIRZ,excluded,1102,0.0,0.0,0.0,False
+599,FOURTH WARD (061),Z,TIRZ,excluded,1102,0.0,0.0,0.0,False
+937,FOURTH WARD TIRZ - ANNEX (061),Z,TIRZ,excluded,106,0.0,0.0,0.0,False
+919,GREATER HOUSTON ZONE TIRZ (040),Z,TIRZ,excluded,8317,0.0,0.0,0.0,False
+920,GREATER HOUSTON ZONE TIRZ (061),Z,TIRZ,excluded,8317,0.0,0.0,0.0,False
+968,GREENSPOINT 11 TIRZ (009),Z,TIRZ,excluded,1128,0.0,0.0,0.0,False
+297,GREENSPOINT 11 TIRZ (024),Z,TIRZ,excluded,472,0.0,0.0,0.0,False
+293,GREENSPOINT 11 TIRZ (040),Z,TIRZ,excluded,1599,0.0,0.0,0.0,False
+570,GREENSPOINT 11 TIRZ (045),Z,TIRZ,excluded,1599,0.0,0.0,0.0,False
+590,GREENSPOINT 11 TIRZ (061),Z,TIRZ,excluded,1597,0.0,0.0,0.0,False
+974,GULF GATE ADDITION (001),Z,TIRZ,excluded,127,0.0,0.0,0.0,False
+296,GULF GATE ADDITION (040),Z,TIRZ,excluded,127,0.0,0.0,0.0,False
+595,GULF GATE ADDITION (061),Z,TIRZ,excluded,127,0.0,0.0,0.0,False
+966,GULFGATE TIRZ (001),Z,TIRZ,excluded,13,0.0,0.0,0.0,False
+291,GULFGATE TIRZ (040),Z,TIRZ,excluded,13,0.0,0.0,0.0,False
+588,GULFGATE TIRZ (061),Z,TIRZ,excluded,13,0.0,0.0,0.0,False
+794,HARDY YARD TIRZ,Z,TIRZ,excluded,516,0.0,0.0,0.0,False
+925,HARRISBURG ZONE TIRZ (061),Z,TIRZ,excluded,2635,0.0,0.0,0.0,False
+857,HIRAM CLARKE/FB HOU ZN (061),Z,TIRZ,excluded,2077,0.0,0.0,0.0,False
+962,LAKE HOUSTON 10 (018),Z,TIRZ,excluded,1731,0.0,0.0,0.0,False
+288,LAKE HOUSTON 10 (040),Z,TIRZ,excluded,1731,0.0,0.0,0.0,False
+585,LAKE HOUSTON 10 (061),Z,TIRZ,excluded,1731,0.0,0.0,0.0,False
+926,LAKE HOUSTON TIRZ EXPNSN (061),Z,TIRZ,excluded,14,0.0,0.0,0.0,False
+952,LAKE HOUSTON:ANNEX (018),Z,TIRZ,excluded,1199,0.0,0.0,0.0,False
+284,LAKE HOUSTON:ANNEX (040),Z,TIRZ,excluded,1199,0.0,0.0,0.0,False
+580,LAKE HOUSTON:ANNEX (061),Z,TIRZ,excluded,1199,0.0,0.0,0.0,False
+690,LAMAR TERRACE PID 2 (001),Z,TIRZ,excluded,662,0.0,0.0,0.0,False
+282,LAMAR TERRACE PID 2 (040),Z,TIRZ,excluded,662,0.0,0.0,0.0,False
+577,LAMAR TERRACE PID 2 (061),Z,TIRZ,excluded,662,0.0,0.0,0.0,False
+795,LELAND WOODS REINV ZN,Z,TIRZ,excluded,377,0.0,0.0,0.0,False
+936,MAIN ST/MARKET SQ TIRZ - ANNEX (061),Z,TIRZ,excluded,16,0.0,0.0,0.0,False
+924,MARKET SQ AREA EXPNSN TIRZ (061),Z,TIRZ,excluded,97,0.0,0.0,0.0,False
+260,MARKET SQ EXPANSION TIRZ - CITY ONLY (061),Z,TIRZ,excluded,1,0.0,0.0,0.0,False
+259,MARKET SQ EXPANSION TIRZ - COUNTY ONLY,Z,TIRZ,excluded,3,0.0,0.0,0.0,False
+267,MARKET SQ RINVST ZONE (001),Z,TIRZ,excluded,35,0.0,0.0,0.0,False
+280,MARKET SQ RINVST ZONE (040),Z,TIRZ,excluded,35,0.0,0.0,0.0,False
+575,MARKET SQ RINVST ZONE (061),Z,TIRZ,excluded,35,0.0,0.0,0.0,False
+268,MARKET SQUARE ADDITN (001),Z,TIRZ,excluded,873,0.0,0.0,0.0,False
+576,MARKET SQUARE ADDITN (061),Z,TIRZ,excluded,873,0.0,0.0,0.0,False
+927,MEMORIAL CITY ANNEX (061),Z,TIRZ,excluded,4,0.0,0.0,0.0,False
+307,MEMORIAL HEIGHTS TIRZ:EXPNSN (061),Z,TIRZ,excluded,18,0.0,0.0,0.0,False
+935,MEMORIAL HEIGHTS:ANNEX (061),Z,TIRZ,excluded,99,0.0,0.0,0.0,False
+960,MEMORIAL-HEIGHTS TIRZ (001),Z,TIRZ,excluded,368,0.0,0.0,0.0,False
+287,MEMORIAL-HEIGHTS TIRZ (040),Z,TIRZ,excluded,368,0.0,0.0,0.0,False
+583,MEMORIAL-HEIGHTS TIRZ (061),Z,TIRZ,excluded,368,0.0,0.0,0.0,False
+309,MEMORIAL-HEIGHTS TIRZ EXPNSN 3 (061),Z,TIRZ,excluded,1,0.0,0.0,0.0,False
+958,MIDTOWN TIRZ 1 (001),Z,TIRZ,excluded,1641,0.0,0.0,0.0,False
+285,MIDTOWN TIRZ 1 (040),Z,TIRZ,excluded,1641,0.0,0.0,0.0,False
+300,MIDTOWN TIRZ 1 (048),Z,TIRZ,excluded,1641,0.0,0.0,0.0,False
+581,MIDTOWN TIRZ 1 (061),Z,TIRZ,excluded,1641,0.0,0.0,0.0,False
+959,MIDTOWN TIRZ 2 (001),Z,TIRZ,excluded,705,0.0,0.0,0.0,False
+286,MIDTOWN TIRZ 2 (040),Z,TIRZ,excluded,705,0.0,0.0,0.0,False
+302,MIDTOWN TIRZ 2 (048),Z,TIRZ,excluded,703,0.0,0.0,0.0,False
+582,MIDTOWN TIRZ 2 (061),Z,TIRZ,excluded,705,0.0,0.0,0.0,False
+972,MIDTOWN TIRZ 2A (001),Z,TIRZ,excluded,1073,0.0,0.0,0.0,False
+295,MIDTOWN TIRZ 2A (040),Z,TIRZ,excluded,1073,0.0,0.0,0.0,False
+304,MIDTOWN TIRZ 2A (048),Z,TIRZ,excluded,1073,0.0,0.0,0.0,False
+593,MIDTOWN TIRZ 2A (061),Z,TIRZ,excluded,1073,0.0,0.0,0.0,False
+312,MIDTOWN TIRZ 2B ANNEX (061),Z,TIRZ,excluded,8,0.0,0.0,0.0,False
+971,OLD SIXTH WARD (001),Z,TIRZ,excluded,573,0.0,0.0,0.0,False
+294,OLD SIXTH WARD (040),Z,TIRZ,excluded,573,0.0,0.0,0.0,False
+592,OLD SIXTH WARD (061),Z,TIRZ,excluded,573,0.0,0.0,0.0,False
+922,OLD SIXTH WARD TIRZ ANNEX (061),Z,TIRZ,excluded,69,0.0,0.0,0.0,False
+963,OST/ALMEDA 7 (001),Z,TIRZ,excluded,1914,0.0,0.0,0.0,False
+289,OST/ALMEDA 7 (040),Z,TIRZ,excluded,1914,0.0,0.0,0.0,False
+586,OST/ALMEDA 7 (061),Z,TIRZ,excluded,1914,0.0,0.0,0.0,False
+964,OST/ALMEDA 7:EXPNSN (001),Z,TIRZ,excluded,1034,0.0,0.0,0.0,False
+290,OST/ALMEDA 7:EXPNSN (040),Z,TIRZ,excluded,1034,0.0,0.0,0.0,False
+587,OST/ALMEDA 7:EXPNSN (061),Z,TIRZ,excluded,1034,0.0,0.0,0.0,False
+573,OST/ALMEDA TIRZ ANNEX,Z,TIRZ,excluded,29,0.0,0.0,0.0,False
+967,SOUTH POST OAK TIRZ (001),Z,TIRZ,excluded,500,0.0,0.0,0.0,False
+292,SOUTH POST OAK TIRZ (040),Z,TIRZ,excluded,500,0.0,0.0,0.0,False
+589,SOUTH POST OAK TIRZ (061),Z,TIRZ,excluded,500,0.0,0.0,0.0,False
+994,SW HOUSTON AREA TIRZ,Z,TIRZ,excluded,3829,0.0,0.0,0.0,False
+855,SW HOUSTON TIRZ ANNX (061),Z,TIRZ,excluded,975,0.0,0.0,0.0,False
+010,TIRZ 1 (CITY OF BAYTOWN EXPN 6) (040),Z,TIRZ,excluded,505,0.0,0.0,0.0,False
+A45,TIRZ 1 CITY OF BAYTOWN AMD 8 (051),Z,TIRZ,excluded,20,0.0,0.0,0.0,False
+A43,TIRZ 1 CITY OF FRIENDSWOOD (058),Z,TIRZ,excluded,23,0.0,0.0,0.0,False
+092,TIRZ 1 EXPANSION (051),Z,TIRZ,excluded,564,0.0,0.0,0.0,False
+887,TIRZ 1 EXPNSN 2 (040),Z,TIRZ,excluded,2,0.0,0.0,0.0,False
+890,TIRZ 1 EXPNSN 2 (051),Z,TIRZ,excluded,2,0.0,0.0,0.0,False
+A55,TIRZ 1 LAMAR TRCE ST GEORGE PLACE EXPN (040),Z,TIRZ,excluded,2174,0.0,0.0,0.0,False
+A47,TIRZ 1 LEMAR TERRACE ZONE (040),Z,TIRZ,excluded,662,0.0,0.0,0.0,False
+A20,TIRZ 1- CITY OF LAPORTE ANNEX 2,Z,TIRZ,excluded,29,0.0,0.0,0.0,False
+800,TIRZ 1- ST GEORGE PLACE ANNX (061),Z,TIRZ,excluded,2176,0.0,0.0,0.0,False
+858,TIRZ 10 LAKE HOUSTON ANNEX 3(061),Z,TIRZ,excluded,888,0.0,0.0,0.0,False
+099,TIRZ 10 LAKE HOUSTON ENL (061),Z,TIRZ,excluded,5,0.0,0.0,0.0,False
+A86,TIRZ 11 GRTR GREENSPOINT ZONE ENL (061),Z,TIRZ,excluded,7,0.0,0.0,0.0,False
+775,TIRZ 11 GRTR GRNSPNT AREA 2 (061),Z,TIRZ,excluded,91,0.0,0.0,0.0,False
+098,TIRZ 12 CITY PARK ENL (061),Z,TIRZ,excluded,1038,0.0,0.0,0.0,False
+772,TIRZ 14 FOURTH WARD ANNEX 2 (061),Z,TIRZ,excluded,46,0.0,0.0,0.0,False
+097,TIRZ 14 FOURTH WARD ENL (061),Z,TIRZ,excluded,59,0.0,0.0,0.0,False
+A68,TIRZ 16 UPTOWN (040),Z,TIRZ,excluded,2981,0.0,0.0,0.0,False
+908,TIRZ 17 MEMORIAL CITY ANNEX 2 (061),Z,TIRZ,excluded,7,0.0,0.0,0.0,False
+A62,TIRZ 17 MEMORIAL CITY ZN (061),Z,TIRZ,excluded,2,0.0,0.0,0.0,False
+835,TIRZ 18 - FIFTH WARD ANNX 2 (061),Z,TIRZ,excluded,312,0.0,0.0,0.0,False
+766,TIRZ 18 FIFTH WARD ANNEX 3 (061),Z,TIRZ,excluded,220,0.0,0.0,0.0,False
+A24,TIRZ 18 FIFTH WARD ANNEX 4 (061),Z,TIRZ,excluded,30,0.0,0.0,0.0,False
+A48,TIRZ 18 FIFTH WARD ZONE (040),Z,TIRZ,excluded,2273,0.0,0.0,0.0,False
+836,TIRZ 19 - UPPER KIRBY ANNX (061),Z,TIRZ,excluded,516,0.0,0.0,0.0,False
+814,TIRZ 2 - MIDTOWN 2C (061),Z,TIRZ,excluded,232,0.0,0.0,0.0,False
+A44,TIRZ 2 CITY OF BAYTOWN (051),Z,TIRZ,excluded,1897,0.0,0.0,0.0,False
+744,TIRZ 2 CITY OF JERSEY VILLAGE (070),Z,TIRZ,excluded,94,0.0,0.0,0.0,False
+743,TIRZ 2 MIDTOWN ENL (061),Z,TIRZ,excluded,1,0.0,0.0,0.0,False
+A87,TIRZ 2 NORTHEAST (040),Z,TIRZ,excluded,1310,0.0,0.0,0.0,False
+837,TIRZ 20 - SW HOUSTON ANNX 2 (061),Z,TIRZ,excluded,273,0.0,0.0,0.0,False
+A25,TIRZ 20 SW HOUSTON ANNEX 3 (061),Z,TIRZ,excluded,603,0.0,0.0,0.0,False
+A61,TIRZ 20 SW HOUSTON ZN (061),Z,TIRZ,excluded,32,0.0,0.0,0.0,False
+A63,TIRZ 20 SW HOUSTON ZN ANNX 5 (061),Z,TIRZ,excluded,195,0.0,0.0,0.0,False
+A49,TIRZ 20 SW HOUSTON ZONE (040),Z,TIRZ,excluded,5074,0.0,0.0,0.0,False
+A26,TIRZ 21 HARDY NEAR NS ZONE 3 (061),Z,TIRZ,excluded,25,0.0,0.0,0.0,False
+758,TIRZ 21 HARDY/NEAR NRTHSD ZONE2 (061),Z,TIRZ,excluded,3303,0.0,0.0,0.0,False
+754,TIRZ 22 LELAND WOODS 2 (061),Z,TIRZ,excluded,2715,0.0,0.0,0.0,False
+A36,TIRZ 23 - HARRISBURG EAST END 3 (061),Z,TIRZ,excluded,3,0.0,0.0,0.0,False
+753,TIRZ 23 HARRISBURG ZN EAST END 2 (061),Z,TIRZ,excluded,157,0.0,0.0,0.0,False
+A50,TIRZ 23 HARRISBURG ZONE (040),Z,TIRZ,excluded,2791,0.0,0.0,0.0,False
+A85,TIRZ 23 HARRISBURG ZONE ENLARGING (061),Z,TIRZ,excluded,5,0.0,0.0,0.0,False
+873,TIRZ 24 - GRTR HOUSTON ZN ANNX (040),Z,TIRZ,excluded,258,0.0,0.0,0.0,False
+839,TIRZ 24 - GRTR HOUSTON ZN ANNX (061),Z,TIRZ,excluded,258,0.0,0.0,0.0,False
+A64,TIRZ 25 HIRAM CLARKE FB ZN (061),Z,TIRZ,excluded,13,0.0,0.0,0.0,False
+840,TIRZ 26 - SUNNYSIDE (061),Z,TIRZ,excluded,4117,0.0,0.0,0.0,False
+094,TIRZ 26 SUNNYSIDE ENL (061),Z,TIRZ,excluded,2586,0.0,0.0,0.0,False
+872,TIRZ 27 - MONTROSE ZN (061),Z,TIRZ,excluded,2120,0.0,0.0,0.0,False
+093,TIRZ 27 MONTROSE ENL (061),Z,TIRZ,excluded,30,0.0,0.0,0.0,False
+A28,TIRZ 28 MEDICAL CTR AREA ZONE (061),Z,TIRZ,excluded,346,0.0,0.0,0.0,False
+A34,TIRZ 3 - CITY OF TOMBALL (083),Z,TIRZ,excluded,20,0.0,0.0,0.0,False
+A23,TIRZ 3 - MAIN ST MKT SQ ZONE D (061),Z,TIRZ,excluded,20,0.0,0.0,0.0,False
+088,TIRZ 3 CITY OF JV (070),Z,TIRZ,excluded,32,0.0,0.0,0.0,False
+A88,TIRZ 3 NORTHWEST (040),Z,TIRZ,excluded,99,0.0,0.0,0.0,False
+A92,TIRZ 4 HARRIS COUNTY (040),Z,TIRZ,excluded,4739,0.0,1.5,0.0,False
+816,TIRZ 5 - MEMORIAL HEIGHTS ANNX 4 (061),Z,TIRZ,excluded,2423,0.0,0.0,0.0,False
+780,TIRZ 7 OLD SPANISH TRL ALMEDA ANNEX 4 (061),Z,TIRZ,excluded,163,0.0,0.0,0.0,False
+888,TIRZ 7 OST ALMEDA ANNX 2 (061),Z,TIRZ,excluded,1640,0.0,0.0,0.0,False
+A60,TIRZ 7 OST ALMEDA CORRIDORS ZN (061),Z,TIRZ,excluded,15,0.0,0.0,0.0,False
+909,TIRZ 8  GULFGATE ANNEX (061),Z,TIRZ,excluded,9841,0.0,0.0,0.0,False
+799,TIRZ 8 - GULFGATE ANNX 2 (061),Z,TIRZ,excluded,1,0.0,0.0,0.0,False
+741,TIRZ 8 GULFGATE ENL (061),Z,TIRZ,excluded,127,0.0,0.0,0.0,False
+A84,TIRZ 8 GULFGATE ZONE ENLARGING (061),Z,TIRZ,excluded,50,0.0,0.0,0.0,False
+830,TIRZ 9 - S POST OAK ANNX (061),Z,TIRZ,excluded,1294,0.0,0.0,0.0,False
+796,TRIZ 3 MAIN ST MKT SQ ANNX 3 (061),Z,TIRZ,excluded,291,0.0,0.0,0.0,False
+992,UPPER KIRBY TIRZ (001),Z,TIRZ,excluded,2092,0.0,0.0,0.0,False
+598,UPPER KIRBY TIRZ (061),Z,TIRZ,excluded,2092,0.0,0.0,0.0,False
+856,UPTOWN ANNEX TIRZ (061),Z,TIRZ,excluded,23,0.0,0.0,0.0,False
+978,UPTOWN TIRZ (001),Z,TIRZ,excluded,2889,0.0,0.0,0.0,False
+597,UPTOWN TIRZ (061),Z,TIRZ,excluded,2890,0.0,0.0,0.0,False
+299,UPTOWN TIRZ EXPANSION (061),Z,TIRZ,excluded,70,0.0,0.0,0.0,False
+579,VILLAGE TIRZ (1966) (061),Z,TIRZ,excluded,107,0.0,0.0,0.0,False
+854,VILLAGE TIRZ (1996) (001),Z,TIRZ,excluded,107,0.0,0.0,0.0,False
+277,WEBSTER RE-INV ZONE 1,Z,TIRZ,excluded,2,0.0,0.0,0.0,False
+298,WEBSTER RE-INV ZONE 1 (040),Z,TIRZ,excluded,2,0.0,0.0,0.0,False
+101,ADDICKS UD,W,Water District (MUD/WCID/UD),base,1810,0.49,0.49,0.49,False
+110,BAKER ROAD MUD,W,Water District (MUD/WCID/UD),base,387,0.279,0.275,0.279,False
+111,BAMMEL UD,W,Water District (MUD/WCID/UD),base,1757,0.43,0.0,0.43,False
+112,BARKER-CYPRESS MUD,W,Water District (MUD/WCID/UD),base,2236,0.674,0.725,0.674,False
+408,BAUER LANDING WCID,W,Water District (MUD/WCID/UD),base,1467,0.65,0.0,0.65,False
+124,BAYBROOK MUD 1,W,Water District (MUD/WCID/UD),base,411,1.11,0.0,1.11,False
+116,BEECHNUT MUD,W,Water District (MUD/WCID/UD),base,487,0.51,0.0,0.51,False
+117,BILMA PUD,W,Water District (MUD/WCID/UD),base,1867,0.44,0.47,0.44,False
+118,BISSONNET MUD,W,Water District (MUD/WCID/UD),base,2407,0.485,0.0,0.485,False
+703,BRAZORIA CO MUD 28,W,Water District (MUD/WCID/UD),base,514,0.56,0.56,0.56,False
+253,BRAZORIA COUNTY MUD 18,W,Water District (MUD/WCID/UD),base,1071,0.18,0.17,0.18,False
+464,BRAZORIA MUD 23,W,Water District (MUD/WCID/UD),base,3,0.36,0.33,0.36,False
+121,BRIDGESTONE MUD,W,Water District (MUD/WCID/UD),base,6585,0.49,0.0,0.49,False
+153,CAMFIELD MUD,W,Water District (MUD/WCID/UD),base,16,0.5,0.5,0.5,False
+134,CASTLEWOOD MUD,W,Water District (MUD/WCID/UD),base,901,0.41,0.43,0.41,False
+135,CEDAR BAYOU PARK UD,W,Water District (MUD/WCID/UD),base,182,0.08315,0.0,0.08315,False
+252,CHAMPIONS MUD,W,Water District (MUD/WCID/UD),base,1441,0.325,0.0,0.325,False
+136,CHARTERWOOD MUD,W,Water District (MUD/WCID/UD),base,1380,0.325,0.0,0.325,False
+137,CHELFORD CITY MUD,W,Water District (MUD/WCID/UD),base,1216,0.313,0.0,0.313,False
+138,CHELFORD ONE MUD,W,Water District (MUD/WCID/UD),base,1264,0.46,0.0,0.46,False
+139,CHIMNEY HILL MUD,W,Water District (MUD/WCID/UD),base,1851,0.57,0.57,0.57,False
+140,CIMARRON MUD,W,Water District (MUD/WCID/UD),base,1891,0.275,0.0,0.275,False
+911,CINCO MUD 3,W,Water District (MUD/WCID/UD),base,61,0.232,0.147,0.232,False
+913,CINCO MUD 6,W,Water District (MUD/WCID/UD),base,381,0.2454,0.1504,0.2454,False
+914,CINCO MUD 9,W,Water District (MUD/WCID/UD),base,627,0.2942,0.294684,0.2942,False
+141,CLAY ROAD MUD,W,Water District (MUD/WCID/UD),base,1480,0.538,0.565,0.538,False
+313,CLEAR BROOK CITY MUD,W,Water District (MUD/WCID/UD),base,6045,0.49,0.0,0.49,False
+142,CLEAR LAKE CITY WA,W,Water District (MUD/WCID/UD),base,20951,0.25,0.0,0.25,False
+131,CNP UD,W,Water District (MUD/WCID/UD),base,734,0.29,0.29,0.29,False
+145,CORNERSTONES MUD,W,Water District (MUD/WCID/UD),base,1309,0.2325,0.0,0.2325,False
+146,CROSBY MUD,W,Water District (MUD/WCID/UD),base,2798,0.28,0.28,0.28,False
+147,CY-CHAMP PUD,W,Water District (MUD/WCID/UD),base,1276,0.35,0.0,0.35,False
+148,CYPRESS CREEK UD,W,Water District (MUD/WCID/UD),base,1019,0.393,0.0,0.393,False
+149,CYPRESS FOREST PUD,W,Water District (MUD/WCID/UD),base,2046,0.247,0.0,0.247,False
+150,CYPRESS HILL MUD 1,W,Water District (MUD/WCID/UD),base,3815,0.51,0.51,0.51,False
+151,CYPRESS KLEIN UD,W,Water District (MUD/WCID/UD),base,1001,0.103,0.103,0.103,False
+152,CYPRESSWOOD UD,W,Water District (MUD/WCID/UD),base,1276,0.309,0.0,0.309,False
+162,DOWDELL PUD,W,Water District (MUD/WCID/UD),base,2674,0.66,0.0,0.66,False
+163,EL DORADO UD,W,Water District (MUD/WCID/UD),base,992,0.39,0.37,0.39,False
+164,EMERALD FOREST UD,W,Water District (MUD/WCID/UD),base,1912,0.615,0.0,0.615,False
+165,ENCANTO REAL UD,W,Water District (MUD/WCID/UD),base,1367,0.74,0.74,0.74,False
+A14,ENCLAVE AT THE WOODLANDS DA,W,Water District (MUD/WCID/UD),base,163,0.52,0.0,0.52,False
+171,FALLBROOK UD,W,Water District (MUD/WCID/UD),base,2095,0.23,0.0,0.23,False
+172,FAULKEY-GULLY MUD,W,Water District (MUD/WCID/UD),base,2803,0.334,0.334,0.334,False
+A89,FB COUNTY MUD 163,W,Water District (MUD/WCID/UD),base,1,0.0,0.0,0.0,True
+174,FOREST HILLS MUD,W,Water District (MUD/WCID/UD),base,1162,0.88,0.0,0.88,False
+662,FORT BEND CO MUD 30,W,Water District (MUD/WCID/UD),base,10,0.41,0.0,0.41,False
+175,FOUNTAINHEAD MUD,W,Water District (MUD/WCID/UD),base,1892,0.422,0.422,0.422,False
+176,FRY ROAD MUD,W,Water District (MUD/WCID/UD),base,737,0.32825,0.0,0.32825,False
+916,FT BEND WCID 2,W,Water District (MUD/WCID/UD),base,131,0.2125,0.2125,0.2125,False
+182,GRANT ROAD PUD,W,Water District (MUD/WCID/UD),base,1228,0.44,0.0,0.44,False
+185,GREEN TRAILS MUD,W,Water District (MUD/WCID/UD),base,731,0.2586,0.2586,0.2586,False
+186,GREENS PARKWAY MUD,W,Water District (MUD/WCID/UD),base,129,0.25,0.0,0.25,False
+183,GREENWOOD UD,W,Water District (MUD/WCID/UD),base,3786,0.725,0.745,0.725,False
+246,H C MUD 432,W,Water District (MUD/WCID/UD),base,2174,1.06,0.0,1.06,False
+257,H C MUD 500,W,Water District (MUD/WCID/UD),base,61,0.85,0.0,0.85,False
+255,H C MUD 501,W,Water District (MUD/WCID/UD),base,1908,0.5972,0.0,0.5972,False
+327,HARRIS - WALLER COUNTIES MUD 2,W,Water District (MUD/WCID/UD),base,165,0.65,0.0,0.65,False
+354,HARRIS - WALLER COUNTIES MUD 3,W,Water District (MUD/WCID/UD),base,6,0.88,0.88,0.88,False
+256,HARRIS BRAZORIA CO MUD 509,W,Water District (MUD/WCID/UD),base,1378,0.67,0.67,0.67,False
+735,HARRIS WALLER CNTS MUD 4,W,Water District (MUD/WCID/UD),base,1,1.5,0.0,1.5,False
+738,HARRIS WALLER CNTS MUD 5,W,Water District (MUD/WCID/UD),base,436,1.5,0.0,1.5,False
+A71,HARRIS WALLER COUNTIES MUD 10,W,Water District (MUD/WCID/UD),base,562,1.5,0.0,1.5,False
+A11,HARRIS WALLER COUNTIES MUD 12,W,Water District (MUD/WCID/UD),base,594,0.99,0.99,0.99,False
+A32,HARRIS WALLER COUNTIES MUD 7,W,Water District (MUD/WCID/UD),base,69,1.5,0.0,1.5,False
+660,HARRIS-FT BEND CO MUD 3,W,Water District (MUD/WCID/UD),base,816,0.54,0.5725,0.54,False
+650,HARRIS-FT BEND MUD 1,W,Water District (MUD/WCID/UD),base,220,0.5436,0.0,0.5436,False
+395,HARRIS-MONTGOMERY CO MUD 386,W,Water District (MUD/WCID/UD),base,6182,0.43,0.0,0.43,False
+200,HC FWSD 1A,W,Water District (MUD/WCID/UD),base,1445,0.0,0.25,0.0,True
+227,HC FWSD 27,W,Water District (MUD/WCID/UD),base,807,0.484,0.482,0.484,False
+247,HC FWSD 47,W,Water District (MUD/WCID/UD),base,1448,0.6555,0.0,0.6555,False
+443,HC FWSD 48,W,Water District (MUD/WCID/UD),base,10,1.5,0.0,1.5,False
+251,HC FWSD 51,W,Water District (MUD/WCID/UD),base,3934,0.12,0.0,0.12,False
+258,HC FWSD 58,W,Water District (MUD/WCID/UD),base,815,0.565,0.0,0.565,False
+206,HC FWSD 6,W,Water District (MUD/WCID/UD),base,1284,0.17145,0.16852,0.17145,False
+261,HC FWSD 61,W,Water District (MUD/WCID/UD),base,4180,0.26,0.0,0.26,False
+264,HC ID 1,W,Water District (MUD/WCID/UD),base,1133,0.14345,0.0,0.14345,False
+338,HC ID 12,W,Water District (MUD/WCID/UD),base,218,0.553829,0.0,0.553829,False
+424,HC ID 13,W,Water District (MUD/WCID/UD),base,35,1.0,1.0,1.0,False
+425,HC ID 14,W,Water District (MUD/WCID/UD),base,1303,1.35,1.35,1.35,False
+368,HC ID 15,W,Water District (MUD/WCID/UD),base,25,1.25,0.0,1.25,False
+178,HC ID 18,W,Water District (MUD/WCID/UD),base,321,0.68,0.0,0.68,False
+429,HC ID 23,W,Water District (MUD/WCID/UD),base,34,0.25,0.0,0.25,False
+618,HC ID 25,W,Water District (MUD/WCID/UD),base,176,0.625,0.0,0.625,False
+850,HC ID 3,W,Water District (MUD/WCID/UD),base,757,0.13,0.0,0.13,False
+363,HC MUD 063,W,Water District (MUD/WCID/UD),base,235,0.03,0.0,0.03,False
+301,HC MUD 1,W,Water District (MUD/WCID/UD),base,3792,0.57,0.0,0.57,False
+402,HC MUD 102,W,Water District (MUD/WCID/UD),base,2983,0.41,0.41,0.41,False
+404,HC MUD 104,W,Water District (MUD/WCID/UD),base,1578,0.333509,0.34154,0.333509,False
+405,HC MUD 105,W,Water District (MUD/WCID/UD),base,4849,0.61,0.0,0.61,False
+406,HC MUD 106,W,Water District (MUD/WCID/UD),base,1421,0.74,0.0,0.74,False
+409,HC MUD 109,W,Water District (MUD/WCID/UD),base,3258,0.435,0.0,0.435,False
+311,HC MUD 11,W,Water District (MUD/WCID/UD),base,1299,0.695,0.0,0.695,False
+418,HC MUD 118,W,Water District (MUD/WCID/UD),base,1755,0.415,0.4,0.415,False
+419,HC MUD 119,W,Water District (MUD/WCID/UD),base,1657,0.541,0.0,0.541,False
+420,HC MUD 120,W,Water District (MUD/WCID/UD),base,2889,0.4,0.0,0.4,False
+422,HC MUD 122,W,Water District (MUD/WCID/UD),base,422,0.49,0.0,0.49,False
+427,HC MUD 127,W,Water District (MUD/WCID/UD),base,2771,0.449,0.0,0.449,False
+430,HC MUD 130,W,Water District (MUD/WCID/UD),base,666,0.31,0.0,0.31,False
+432,HC MUD 132,W,Water District (MUD/WCID/UD),base,1802,0.06877,0.0,0.06877,False
+436,HC MUD 136,W,Water District (MUD/WCID/UD),base,1091,0.155,0.0,0.155,False
+444,HC MUD 144,W,Water District (MUD/WCID/UD),base,802,0.46,0.485,0.46,False
+447,HC MUD 147,W,Water District (MUD/WCID/UD),base,880,0.42734,0.0,0.42734,False
+448,HC MUD 148,W,Water District (MUD/WCID/UD),base,1861,0.74,0.0,0.74,False
+449,HC MUD 149,W,Water District (MUD/WCID/UD),base,1220,0.637,0.0,0.637,False
+450,HC MUD 150,W,Water District (MUD/WCID/UD),base,2573,0.45,0.46,0.45,False
+451,HC MUD 151,W,Water District (MUD/WCID/UD),base,2560,0.298,0.321,0.298,False
+452,HC MUD 152,W,Water District (MUD/WCID/UD),base,2477,0.24,0.24,0.24,False
+453,HC MUD 153,W,Water District (MUD/WCID/UD),base,3004,0.3915,0.0,0.3915,False
+454,HC MUD 154,W,Water District (MUD/WCID/UD),base,3272,0.54,0.0,0.54,False
+455,HC MUD 155,W,Water District (MUD/WCID/UD),base,827,0.65,0.0,0.65,False
+456,HC MUD 156,W,Water District (MUD/WCID/UD),base,572,0.63,0.65,0.63,False
+457,HC MUD 157,W,Water District (MUD/WCID/UD),base,4244,0.517,0.0,0.517,False
+458,HC MUD 158,W,Water District (MUD/WCID/UD),base,2308,0.36,0.0,0.36,False
+316,HC MUD 16,W,Water District (MUD/WCID/UD),base,928,0.567,0.0,0.567,False
+462,HC MUD 162,W,Water District (MUD/WCID/UD),base,866,0.395,0.0,0.395,False
+463,HC MUD 163,W,Water District (MUD/WCID/UD),base,1856,0.14944,0.0,0.14944,False
+465,HC MUD 165,W,Water District (MUD/WCID/UD),base,14837,0.82,0.0,0.82,False
+466,HC MUD 166,W,Water District (MUD/WCID/UD),base,1105,0.57,0.0,0.57,False
+467,HC MUD 167,W,Water District (MUD/WCID/UD),base,4635,0.84,0.86,0.84,False
+468,HC MUD 168,W,Water District (MUD/WCID/UD),base,1737,0.38,0.0,0.38,False
+470,HC MUD 170,W,Water District (MUD/WCID/UD),base,54,0.38,0.0,0.38,False
+471,HC MUD 171,W,Water District (MUD/WCID/UD),base,61,1.39,0.0,1.39,False
+472,HC MUD 172,W,Water District (MUD/WCID/UD),base,1361,0.58,0.0,0.58,False
+473,HC MUD 173,W,Water District (MUD/WCID/UD),base,1354,0.36962,0.0,0.36962,False
+479,HC MUD 179,W,Water District (MUD/WCID/UD),base,296,0.215464,0.212388,0.215464,False
+318,HC MUD 18,W,Water District (MUD/WCID/UD),base,1403,0.3075,0.33,0.3075,False
+480,HC MUD 180,W,Water District (MUD/WCID/UD),base,1780,0.847,0.0,0.847,False
+482,HC MUD 182,W,Water District (MUD/WCID/UD),base,61,0.45,0.0,0.45,False
+483,HC MUD 183,W,Water District (MUD/WCID/UD),base,1356,0.4546,0.0,0.4546,False
+485,HC MUD 185,W,Water District (MUD/WCID/UD),base,37,0.25,0.25,0.25,False
+486,HC MUD 186,W,Water District (MUD/WCID/UD),base,832,0.18189,0.0,0.18189,False
+488,HC MUD 188,W,Water District (MUD/WCID/UD),base,680,0.41,0.41,0.41,False
+489,HC MUD 189,W,Water District (MUD/WCID/UD),base,973,0.62,0.69,0.62,False
+491,HC MUD 191,W,Water District (MUD/WCID/UD),base,975,0.215,0.0,0.215,False
+496,HC MUD 196,W,Water District (MUD/WCID/UD),base,2197,0.48,0.0,0.48,False
+500,HC MUD 200,W,Water District (MUD/WCID/UD),base,1651,0.72,0.785,0.72,False
+502,HC MUD 202,W,Water District (MUD/WCID/UD),base,1309,0.85,0.0,0.85,False
+505,HC MUD 205,W,Water District (MUD/WCID/UD),base,114,0.57,0.6,0.57,False
+508,HC MUD 208,W,Water District (MUD/WCID/UD),base,1221,0.36,0.0,0.36,False
+511,HC MUD 211,W,Water District (MUD/WCID/UD),base,206,0.36,0.0,0.36,False
+374,HC MUD 213A,W,Water District (MUD/WCID/UD),base,3023,1.38,0.0,1.38,False
+375,HC MUD 213B,W,Water District (MUD/WCID/UD),base,401,0.75,0.785,0.75,False
+515,HC MUD 215,W,Water District (MUD/WCID/UD),base,24,0.72,0.795,0.72,False
+516,HC MUD 216,W,Water District (MUD/WCID/UD),base,227,0.445,0.0,0.445,False
+517,HC MUD 217,W,Water District (MUD/WCID/UD),base,844,0.65,0.0,0.65,False
+514,HC MUD 220,W,Water District (MUD/WCID/UD),base,608,0.62,0.0,0.62,False
+521,HC MUD 221,W,Water District (MUD/WCID/UD),base,1806,0.303,0.3225,0.303,False
+522,HC MUD 222,W,Water District (MUD/WCID/UD),base,1161,0.24,0.0,0.24,False
+323,HC MUD 23,W,Water District (MUD/WCID/UD),base,1548,0.393,0.0,0.393,False
+530,HC MUD 230,W,Water District (MUD/WCID/UD),base,932,0.377,0.0,0.377,False
+531,HC MUD 231,W,Water District (MUD/WCID/UD),base,35,0.87,0.0,0.87,False
+533,HC MUD 233,W,Water District (MUD/WCID/UD),base,569,0.5,0.0,0.5,False
+538,HC MUD 238,W,Water District (MUD/WCID/UD),base,2655,0.39,0.39,0.39,False
+539,HC MUD 239,W,Water District (MUD/WCID/UD),base,1906,0.52,0.54978,0.52,False
+324,HC MUD 24,W,Water District (MUD/WCID/UD),base,3520,0.353,0.0,0.353,False
+548,HC MUD 248,W,Water District (MUD/WCID/UD),base,800,0.38,0.0,0.38,False
+549,HC MUD 249,W,Water District (MUD/WCID/UD),base,988,0.71,0.0,0.71,False
+325,HC MUD 25,W,Water District (MUD/WCID/UD),base,38,0.81,0.0,0.81,False
+128,HC MUD 250,W,Water District (MUD/WCID/UD),base,332,0.92,0.92,0.92,False
+108,HC MUD 255,W,Water District (MUD/WCID/UD),base,410,0.2199,0.0,0.2199,False
+541,HC MUD 257,W,Water District (MUD/WCID/UD),base,581,0.55,0.0,0.55,False
+326,HC MUD 26,W,Water District (MUD/WCID/UD),base,4605,0.635,0.0,0.635,False
+542,HC MUD 261,W,Water District (MUD/WCID/UD),base,484,0.43,0.0,0.43,False
+105,HC MUD 264,W,Water District (MUD/WCID/UD),base,1243,0.3727,0.4,0.3727,False
+195,HC MUD 273,W,Water District (MUD/WCID/UD),base,38,0.8,0.0,0.8,False
+180,HC MUD 275,W,Water District (MUD/WCID/UD),base,159,0.45,0.0,0.45,False
+129,HC MUD 276,W,Water District (MUD/WCID/UD),base,1366,0.415,0.0,0.415,False
+156,HC MUD 278,W,Water District (MUD/WCID/UD),base,3490,0.68,0.0,0.68,False
+544,HC MUD 280,W,Water District (MUD/WCID/UD),base,1026,0.48,0.0,0.48,False
+545,HC MUD 281,W,Water District (MUD/WCID/UD),base,1005,0.4,0.4,0.4,False
+207,HC MUD 282,W,Water District (MUD/WCID/UD),base,1153,0.57,0.57,0.57,False
+190,HC MUD 284,W,Water District (MUD/WCID/UD),base,1302,0.675,0.74,0.675,False
+193,HC MUD 285,W,Water District (MUD/WCID/UD),base,2705,0.54,0.58,0.54,False
+170,HC MUD 286,W,Water District (MUD/WCID/UD),base,363,0.1,0.0,0.1,False
+187,HC MUD 287,W,Water District (MUD/WCID/UD),base,1420,0.92,0.0,0.92,False
+159,HC MUD 290,W,Water District (MUD/WCID/UD),base,2891,0.67,0.0,0.67,False
+179,HC MUD 304,W,Water District (MUD/WCID/UD),base,2074,0.64,0.64,0.64,False
+208,HC MUD 316,W,Water District (MUD/WCID/UD),base,429,0.43,0.43,0.43,False
+360,HC MUD 319,W,Water District (MUD/WCID/UD),base,2837,1.2,1.18,1.2,False
+205,HC MUD 321,W,Water District (MUD/WCID/UD),base,106,0.85,0.0,0.85,False
+213,HC MUD 322,W,Water District (MUD/WCID/UD),base,1186,0.345,0.0,0.345,False
+333,HC MUD 33,W,Water District (MUD/WCID/UD),base,1719,0.56,0.0,0.56,False
+519,HC MUD 341,W,Water District (MUD/WCID/UD),base,844,0.315,0.33,0.315,False
+220,HC MUD 342,W,Water District (MUD/WCID/UD),base,906,0.557,0.557,0.557,False
+222,HC MUD 344,W,Water District (MUD/WCID/UD),base,1364,0.585,0.575,0.585,False
+224,HC MUD 345,W,Water District (MUD/WCID/UD),base,1360,0.1539,0.1599,0.1539,False
+225,HC MUD 346,W,Water District (MUD/WCID/UD),base,59,0.1,0.1,0.1,False
+524,HC MUD 354,W,Water District (MUD/WCID/UD),base,2396,0.275,0.0,0.275,False
+525,HC MUD 355,W,Water District (MUD/WCID/UD),base,968,0.0,0.0,0.0,True
+528,HC MUD 358,W,Water District (MUD/WCID/UD),base,58,0.54,0.0,0.54,False
+527,HC MUD 359,W,Water District (MUD/WCID/UD),base,938,0.092,0.095,0.092,False
+336,HC MUD 36,W,Water District (MUD/WCID/UD),base,727,0.1,0.09,0.1,False
+529,HC MUD 360,W,Water District (MUD/WCID/UD),base,1703,0.295,0.3012,0.295,False
+532,HC MUD 361,W,Water District (MUD/WCID/UD),base,1284,0.64,0.0,0.64,False
+534,HC MUD 364,W,Water District (MUD/WCID/UD),base,1869,0.34,0.0,0.34,False
+535,HC MUD 365,W,Water District (MUD/WCID/UD),base,1258,0.37,0.0,0.37,False
+555,HC MUD 366,W,Water District (MUD/WCID/UD),base,102,0.14,0.0,0.14,False
+526,HC MUD 367,W,Water District (MUD/WCID/UD),base,2291,0.36,0.0,0.36,False
+844,HC MUD 368,W,Water District (MUD/WCID/UD),base,4270,0.54,0.0,0.54,False
+520,HC MUD 370,W,Water District (MUD/WCID/UD),base,1618,0.29,0.3,0.29,False
+504,HC MUD 371,W,Water District (MUD/WCID/UD),base,903,0.695,0.0,0.695,False
+509,HC MUD 372,W,Water District (MUD/WCID/UD),base,950,0.10465,0.16,0.10465,False
+510,HC MUD 373,W,Water District (MUD/WCID/UD),base,401,0.052,0.0,0.052,False
+501,HC MUD 374,W,Water District (MUD/WCID/UD),base,1118,0.52,0.0,0.52,False
+379,HC MUD 381,W,Water District (MUD/WCID/UD),base,697,0.39,0.395,0.39,False
+484,HC MUD 382,W,Water District (MUD/WCID/UD),base,1039,0.37,0.35,0.37,False
+383,HC MUD 383,W,Water District (MUD/WCID/UD),base,1830,0.525,0.0,0.525,False
+493,HC MUD 389,W,Water District (MUD/WCID/UD),base,958,0.66,0.0,0.66,False
+490,HC MUD 390,W,Water District (MUD/WCID/UD),base,3039,0.6673,0.67128,0.6673,False
+387,HC MUD 391,W,Water District (MUD/WCID/UD),base,2808,0.755,0.0,0.755,False
+388,HC MUD 393,W,Water District (MUD/WCID/UD),base,1277,0.37,0.0,0.37,False
+276,HC MUD 396,W,Water District (MUD/WCID/UD),base,1217,0.385,0.0,0.385,False
+384,HC MUD 397,W,Water District (MUD/WCID/UD),base,1333,0.42,0.0,0.42,False
+385,HC MUD 399,W,Water District (MUD/WCID/UD),base,1487,0.7,0.71,0.7,False
+389,HC MUD 400,W,Water District (MUD/WCID/UD),base,3874,0.55,0.58,0.55,False
+197,HC MUD 401,W,Water District (MUD/WCID/UD),base,1348,0.775,0.0,0.775,False
+155,HC MUD 403,W,Water District (MUD/WCID/UD),base,24,0.0,0.0,0.0,True
+228,HC MUD 404,W,Water District (MUD/WCID/UD),base,630,0.755,0.0,0.755,False
+231,HC MUD 405,W,Water District (MUD/WCID/UD),base,244,1.17,0.0,1.17,False
+249,HC MUD 406,W,Water District (MUD/WCID/UD),base,47,0.72,0.0,0.72,False
+230,HC MUD 407,W,Water District (MUD/WCID/UD),base,288,0.31,0.0,0.31,False
+394,HC MUD 410,W,Water District (MUD/WCID/UD),base,1472,0.51,0.0,0.51,False
+392,HC MUD 411,W,Water District (MUD/WCID/UD),base,1008,0.43,0.0,0.43,False
+229,HC MUD 412,W,Water District (MUD/WCID/UD),base,1249,0.68,0.68,0.68,False
+177,HC MUD 415,W,Water District (MUD/WCID/UD),base,210,0.72,0.0,0.72,False
+236,HC MUD 416,W,Water District (MUD/WCID/UD),base,366,0.65,0.0,0.65,False
+498,HC MUD 418,W,Water District (MUD/WCID/UD),base,53,1.0,0.95,1.0,False
+506,HC MUD 419,W,Water District (MUD/WCID/UD),base,3761,0.79,0.84,0.79,False
+399,HC MUD 420,W,Water District (MUD/WCID/UD),base,871,1.01,0.0,1.01,False
+100,HC MUD 421,W,Water District (MUD/WCID/UD),base,530,1.15,1.1,1.15,False
+342,HC MUD 422,W,Water District (MUD/WCID/UD),base,1119,1.4,1.4,1.4,False
+433,HC MUD 423,W,Water District (MUD/WCID/UD),base,1597,1.35,1.35,1.35,False
+343,HC MUD 43,W,Water District (MUD/WCID/UD),base,2321,0.545438,0.0,0.545438,False
+232,HC MUD 433,W,Water District (MUD/WCID/UD),base,1457,0.8475,0.0,0.8475,False
+237,HC MUD 434,W,Water District (MUD/WCID/UD),base,1305,1.02,1.01,1.02,False
+715,HC MUD 437,W,Water District (MUD/WCID/UD),base,4,0.0,0.0,0.0,True
+372,HC MUD 438,W,Water District (MUD/WCID/UD),base,12,0.45,0.0,0.45,False
+238,HC MUD 439,W,Water District (MUD/WCID/UD),base,1196,0.8,0.0,0.8,False
+344,HC MUD 44,W,Water District (MUD/WCID/UD),base,1161,0.28,0.0,0.28,False
+619,HC MUD 441,W,Water District (MUD/WCID/UD),base,25,0.0,0.0,0.0,True
+332,HC MUD 449,W,Water District (MUD/WCID/UD),base,2609,0.94,0.0,0.94,False
+242,HC MUD 450,W,Water District (MUD/WCID/UD),base,938,0.51,0.5165,0.51,False
+234,HC MUD 451,W,Water District (MUD/WCID/UD),base,739,0.9,0.0,0.9,False
+376,HC MUD 457,W,Water District (MUD/WCID/UD),base,2169,1.4158,0.0,1.4158,False
+378,HC MUD 458,W,Water District (MUD/WCID/UD),base,215,1.2,0.0,1.2,False
+235,HC MUD 459,W,Water District (MUD/WCID/UD),base,995,0.53,0.0,0.53,False
+346,HC MUD 46,W,Water District (MUD/WCID/UD),base,1189,0.32,0.0,0.32,False
+241,HC MUD 460,W,Water District (MUD/WCID/UD),base,3612,0.74,0.0,0.74,False
+321,HC MUD 461,W,Water District (MUD/WCID/UD),base,54,0.7,0.65,0.7,False
+487,HC MUD 465,W,Water District (MUD/WCID/UD),base,1117,1.45,1.45,1.45,False
+507,HC MUD 468,W,Water District (MUD/WCID/UD),base,498,0.445,0.0,0.445,False
+442,HC MUD 473,W,Water District (MUD/WCID/UD),base,42,0.8,0.0,0.8,False
+091,HC MUD 477,W,Water District (MUD/WCID/UD),base,1239,1.5,0.0,1.5,False
+A40,HC MUD 478,W,Water District (MUD/WCID/UD),base,7,0.0,0.0,0.0,True
+A81,HC MUD 478B,W,Water District (MUD/WCID/UD),base,8,0.0,0.0,0.0,True
+348,HC MUD 48,W,Water District (MUD/WCID/UD),base,575,0.409477,0.0,0.409477,False
+243,HC MUD 480,W,Water District (MUD/WCID/UD),base,1239,0.87,0.0,0.87,False
+248,HC MUD 481,W,Water District (MUD/WCID/UD),base,698,0.875,0.875,0.875,False
+189,HC MUD 489,W,Water District (MUD/WCID/UD),base,3768,0.91,0.0,0.91,False
+349,HC MUD 49,W,Water District (MUD/WCID/UD),base,2659,0.83,0.0,0.83,False
+716,HC MUD 490,W,Water District (MUD/WCID/UD),base,2664,1.0,0.0,1.0,False
+013,HC MUD 491,W,Water District (MUD/WCID/UD),base,1364,1.0,0.0,1.0,False
+014,HC MUD 493,W,Water District (MUD/WCID/UD),base,613,1.0,1.0,1.0,False
+319,HC MUD 494,W,Water District (MUD/WCID/UD),base,806,0.935,0.89,0.935,False
+356,HC MUD 495,W,Water District (MUD/WCID/UD),base,3898,1.0,0.0,1.0,False
+115,HC MUD 499,W,Water District (MUD/WCID/UD),base,522,0.76,0.0,0.76,False
+305,HC MUD 5,W,Water District (MUD/WCID/UD),base,2017,0.75,0.0,0.75,False
+350,HC MUD 50,W,Water District (MUD/WCID/UD),base,2411,0.926,0.926,0.926,False
+106,HC MUD 502,W,Water District (MUD/WCID/UD),base,1803,0.77,0.0,0.77,False
+416,HC MUD 503,W,Water District (MUD/WCID/UD),base,442,1.5,0.0,1.5,False
+337,HC MUD 504,W,Water District (MUD/WCID/UD),base,2371,1.05,1.07,1.05,False
+A53,HC MUD 514,W,Water District (MUD/WCID/UD),base,865,1.5,0.0,1.5,False
+A30,HC MUD 515,W,Water District (MUD/WCID/UD),base,203,1.5,0.0,1.5,False
+A59,HC MUD 516,W,Water District (MUD/WCID/UD),base,410,1.5,0.0,1.5,False
+A42,HC MUD 517,W,Water District (MUD/WCID/UD),base,11,0.0,0.0,0.0,True
+460,HC MUD 518,W,Water District (MUD/WCID/UD),base,702,0.85,0.0,0.85,False
+413,HC MUD 525,W,Water District (MUD/WCID/UD),base,1359,1.35,0.0,1.35,False
+559,HC MUD 528,W,Water District (MUD/WCID/UD),base,113,0.68,0.68,0.68,False
+331,HC MUD 529,W,Water District (MUD/WCID/UD),base,410,0.44,0.0,0.44,False
+353,HC MUD 53,W,Water District (MUD/WCID/UD),base,5654,0.24,0.0,0.24,False
+339,HC MUD 530,W,Water District (MUD/WCID/UD),base,749,1.1,1.127,1.1,False
+340,HC MUD 531,W,Water District (MUD/WCID/UD),base,814,0.95,0.95,0.95,False
+A10,HC MUD 532,W,Water District (MUD/WCID/UD),base,1593,1.5,0.0,1.5,False
+A29,HC MUD 533,W,Water District (MUD/WCID/UD),base,120,1.5,0.0,1.5,False
+739,HC MUD 534,W,Water District (MUD/WCID/UD),base,1670,1.5,0.0,1.5,False
+A38,HC MUD 535,W,Water District (MUD/WCID/UD),base,887,1.5,0.0,1.5,False
+411,HC MUD 536,W,Water District (MUD/WCID/UD),base,2249,1.3,1.15,1.3,False
+359,HC MUD 537,W,Water District (MUD/WCID/UD),base,571,0.49,0.0,0.49,False
+441,HC MUD 538,W,Water District (MUD/WCID/UD),base,684,1.3,0.0,1.3,False
+A09,HC MUD 539,W,Water District (MUD/WCID/UD),base,1958,1.5,1.5,1.5,False
+699,HC MUD 540,W,Water District (MUD/WCID/UD),base,774,1.49,1.49,1.49,False
+A69,HC MUD 541,W,Water District (MUD/WCID/UD),base,21,0.0,0.0,0.0,True
+414,HC MUD 542,W,Water District (MUD/WCID/UD),base,1124,1.07,0.0,1.07,False
+A41,HC MUD 544,W,Water District (MUD/WCID/UD),base,1095,1.1,0.0,1.1,False
+A03,HC MUD 547,W,Water District (MUD/WCID/UD),base,2436,1.5,0.0,1.5,False
+355,HC MUD 55,W,Water District (MUD/WCID/UD),base,4498,0.4,0.0,0.4,False
+435,HC MUD 551,W,Water District (MUD/WCID/UD),base,851,1.14,0.0,1.14,False
+431,HC MUD 552,W,Water District (MUD/WCID/UD),base,1396,0.75,0.0,0.75,False
+A96,HC MUD 555,W,Water District (MUD/WCID/UD),base,5,0.0,0.0,0.0,True
+478,HC MUD 558,W,Water District (MUD/WCID/UD),base,2696,1.21,0.0,1.21,False
+740,HC MUD 559,W,Water District (MUD/WCID/UD),base,637,1.35,0.0,1.35,False
+087,HC MUD 560,W,Water District (MUD/WCID/UD),base,438,1.5,1.5,1.5,False
+476,HC MUD 561,W,Water District (MUD/WCID/UD),base,703,0.78,0.78,0.78,False
+474,HC MUD 565,W,Water District (MUD/WCID/UD),base,861,1.4,0.0,1.4,False
+A76,HC MUD 568,W,Water District (MUD/WCID/UD),base,3,1.0,0.0,1.0,False
+A15,HC MUD 569,W,Water District (MUD/WCID/UD),base,2552,1.5,0.0,1.5,False
+A08,HC MUD 570A,W,Water District (MUD/WCID/UD),base,16,1.1,0.0,1.1,False
+A39,HC MUD 570C,W,Water District (MUD/WCID/UD),base,1936,1.1,1.1,1.1,False
+687,HC MUD 572,W,Water District (MUD/WCID/UD),base,472,1.15,0.0,1.15,False
+090,HC MUD 575,W,Water District (MUD/WCID/UD),base,21,0.6,0.0,0.6,False
+A06,HC MUD 576,W,Water District (MUD/WCID/UD),base,984,1.1,0.0,1.1,False
+A02,HC MUD 578,W,Water District (MUD/WCID/UD),base,804,1.45,1.45,1.45,False
+358,HC MUD 58,W,Water District (MUD/WCID/UD),base,681,0.617,0.0,0.617,False
+A18,HC MUD 580,W,Water District (MUD/WCID/UD),base,800,0.85,0.0,0.85,False
+A67,HC MUD 582,W,Water District (MUD/WCID/UD),base,4,0.0,0.0,0.0,True
+A57,HC MUD 583,W,Water District (MUD/WCID/UD),base,11,1.5,0.0,1.5,False
+A56,HC MUD 586,W,Water District (MUD/WCID/UD),base,1143,1.5,1.5,1.5,False
+A46,HC MUD 588,W,Water District (MUD/WCID/UD),base,351,1.5,0.0,1.5,False
+A77,HC MUD 589,W,Water District (MUD/WCID/UD),base,7,1.0,0.0,1.0,False
+A72,HC MUD 597,W,Water District (MUD/WCID/UD),base,748,1.5,0.0,1.5,False
+306,HC MUD 6,W,Water District (MUD/WCID/UD),base,1300,0.374,0.0,0.374,False
+A82,HC MUD 600,W,Water District (MUD/WCID/UD),base,9,0.0,0.0,0.0,True
+A95,HC MUD 608,W,Water District (MUD/WCID/UD),base,15,0.0,1.5,0.0,True
+A91,HC MUD 609,W,Water District (MUD/WCID/UD),base,17,0.0,1.5,0.0,True
+361,HC MUD 61,W,Water District (MUD/WCID/UD),base,651,0.43,0.43,0.43,False
+362,HC MUD 62,W,Water District (MUD/WCID/UD),base,501,0.52,0.52,0.52,False
+364,HC MUD 64,W,Water District (MUD/WCID/UD),base,1452,0.468,0.468,0.468,False
+365,HC MUD 65,W,Water District (MUD/WCID/UD),base,1994,0.44,0.44,0.44,False
+369,HC MUD 69,W,Water District (MUD/WCID/UD),base,1302,0.32605,0.0,0.32605,False
+370,HC MUD 70,W,Water District (MUD/WCID/UD),base,1982,0.48,0.0,0.48,False
+371,HC MUD 71,W,Water District (MUD/WCID/UD),base,4600,0.725,0.0,0.725,False
+308,HC MUD 8,W,Water District (MUD/WCID/UD),base,762,0.234,0.0,0.234,False
+381,HC MUD 81,W,Water District (MUD/WCID/UD),base,3112,0.25,0.25,0.25,False
+382,HC MUD 82,W,Water District (MUD/WCID/UD),base,7082,0.675,0.0,0.675,False
+386,HC MUD 86,W,Water District (MUD/WCID/UD),base,1354,0.591,0.0,0.591,False
+396,HC MUD 96,W,Water District (MUD/WCID/UD),base,2474,0.569,0.569,0.569,False
+A52,HC MUD492,W,Water District (MUD/WCID/UD),base,2,1.0,1.0,1.0,False
+400,HC RID 1,W,Water District (MUD/WCID/UD),base,682,0.19,0.0,0.19,False
+564,HC UD 14,W,Water District (MUD/WCID/UD),base,971,0.086,0.118,0.086,False
+565,HC UD 15,W,Water District (MUD/WCID/UD),base,968,0.485,0.495,0.485,False
+566,HC UD 16,W,Water District (MUD/WCID/UD),base,2418,0.65,0.0,0.65,False
+556,HC UD 6,W,Water District (MUD/WCID/UD),base,2671,0.288,0.0,0.288,False
+615,HC WCID 099,W,Water District (MUD/WCID/UD),base,570,0.16,0.0,0.16,False
+601,HC WCID 1,W,Water District (MUD/WCID/UD),base,2997,0.31,0.31,0.31,False
+622,HC WCID 109,W,Water District (MUD/WCID/UD),base,2599,0.22996,0.352,0.22996,False
+623,HC WCID 110,W,Water District (MUD/WCID/UD),base,2513,0.32,0.0,0.32,False
+624,HC WCID 113,W,Water District (MUD/WCID/UD),base,443,0.57,0.0,0.57,False
+625,HC WCID 114,W,Water District (MUD/WCID/UD),base,1809,0.21382,0.0,0.21382,False
+626,HC WCID 116,W,Water District (MUD/WCID/UD),base,1350,0.263,0.0,0.263,False
+627,HC WCID 119,W,Water District (MUD/WCID/UD),base,3221,0.38,0.4,0.38,False
+628,HC WCID 132,W,Water District (MUD/WCID/UD),base,667,0.29,0.3096,0.29,False
+629,HC WCID 133,W,Water District (MUD/WCID/UD),base,1515,0.553,0.0,0.553,False
+630,HC WCID 136,W,Water District (MUD/WCID/UD),base,1050,0.7,0.0,0.7,False
+632,HC WCID 145,W,Water District (MUD/WCID/UD),base,5087,0.04834,0.0,0.04834,False
+614,HC WCID 155,W,Water District (MUD/WCID/UD),base,4576,0.0985,0.0,0.0985,False
+616,HC WCID 156,W,Water District (MUD/WCID/UD),base,411,0.21,0.0,0.21,False
+617,HC WCID 157,W,Water District (MUD/WCID/UD),base,5532,0.35,0.37,0.35,False
+717,HC WCID 158,W,Water District (MUD/WCID/UD),base,4315,0.5,0.0,0.5,False
+334,HC WCID 159,W,Water District (MUD/WCID/UD),base,3096,0.415,0.44,0.415,False
+A58,HC WCID 160,W,Water District (MUD/WCID/UD),base,282,0.5,0.0,0.5,False
+351,HC WCID 161,W,Water District (MUD/WCID/UD),base,874,0.68,0.0,0.68,False
+A07,HC WCID 164,W,Water District (MUD/WCID/UD),base,2644,0.4,0.0,0.4,False
+602,HC WCID 21,W,Water District (MUD/WCID/UD),base,5140,0.22,0.0,0.22,False
+603,HC WCID 36,W,Water District (MUD/WCID/UD),base,4691,0.2308,0.0,0.2308,False
+604,HC WCID 50,W,Water District (MUD/WCID/UD),base,1266,0.498,0.0,0.498,False
+605,HC WCID 70,W,Water District (MUD/WCID/UD),base,855,0.4,0.6,0.4,False
+606,HC WCID 74,W,Water District (MUD/WCID/UD),base,1243,0.7088,0.0,0.7088,False
+609,HC WCID 84,W,Water District (MUD/WCID/UD),base,2401,0.395,0.0,0.395,False
+610,HC WCID 89,W,Water District (MUD/WCID/UD),base,2974,0.66,0.0,0.66,False
+611,HC WCID 91,W,Water District (MUD/WCID/UD),base,833,0.2529,0.0,0.2529,False
+612,HC WCID 92,W,Water District (MUD/WCID/UD),base,1573,0.219568,0.2393,0.219568,False
+613,HC WCID 96,W,Water District (MUD/WCID/UD),base,2317,0.635,0.0,0.635,False
+600,HC WCID FONDREN ROAD,W,Water District (MUD/WCID/UD),base,1004,0.38,0.0,0.38,False
+915,HC-FT BEND MUD 5,W,Water District (MUD/WCID/UD),base,9,0.31,0.31,0.31,False
+651,HEATHERLOCH MUD,W,Water District (MUD/WCID/UD),base,1816,0.46,0.0,0.46,False
+652,HORSEPEN BAYOU MUD,W,Water District (MUD/WCID/UD),base,2281,0.35,0.0,0.35,False
+654,HUNTERS GLEN MUD,W,Water District (MUD/WCID/UD),base,3313,0.6,0.0,0.6,False
+417,INTERCONTINENTAL CROSSING MUD,W,Water District (MUD/WCID/UD),base,62,0.705,0.0,0.705,False
+357,INTERCONTINENTAL MUD,W,Water District (MUD/WCID/UD),base,445,1.25,0.0,1.25,False
+656,INTERSTATE MUD,W,Water District (MUD/WCID/UD),base,442,0.305,0.305,0.305,False
+657,INVERNESS FOREST ID,W,Water District (MUD/WCID/UD),base,580,0.39,0.0,0.39,False
+658,JACKRABBIT ROAD PUD,W,Water District (MUD/WCID/UD),base,2436,0.26,0.27506,0.26,False
+A05,KATY WEST MUD,W,Water District (MUD/WCID/UD),base,518,0.8,0.0,0.8,False
+254,KINGS MANOR MUD,W,Water District (MUD/WCID/UD),base,420,0.53,0.0,0.53,False
+681,KINGSBRIDGE MUD,W,Water District (MUD/WCID/UD),base,143,0.38,0.0,0.38,False
+682,KIRKMONT MUD,W,Water District (MUD/WCID/UD),base,790,0.498,0.492,0.498,False
+683,KLEIN PUD,W,Water District (MUD/WCID/UD),base,1180,0.354,0.0,0.354,False
+684,KLEINWOOD MUD,W,Water District (MUD/WCID/UD),base,1185,0.387,0.39,0.387,False
+011,LAGO BELLO MUD 1A,W,Water District (MUD/WCID/UD),base,910,1.5,1.5,1.5,False
+692,LAKE FOREST UD,W,Water District (MUD/WCID/UD),base,1569,0.20286,0.19926,0.20286,False
+691,LAKE MUD,W,Water District (MUD/WCID/UD),base,2111,0.38,0.0,0.38,False
+693,LANGHAM CREEK UD,W,Water District (MUD/WCID/UD),base,3412,0.61,0.0,0.61,False
+694,LONGHORN TOWN UD,W,Water District (MUD/WCID/UD),base,653,0.23677,0.244046,0.23677,False
+695,LOUETTA NORTH PUD,W,Water District (MUD/WCID/UD),base,1810,0.22,0.24,0.22,False
+696,LOUETTA ROAD UD,W,Water District (MUD/WCID/UD),base,458,0.2309,0.2309,0.2309,False
+697,LUCE BAYOU PUD,W,Water District (MUD/WCID/UD),base,540,0.94,0.0,0.94,False
+701,MALCOMSON ROAD UD,W,Water District (MUD/WCID/UD),base,2075,0.3,0.0,0.3,False
+702,MASON CREEK UD,W,Water District (MUD/WCID/UD),base,2371,0.351,0.0,0.351,False
+704,MAYDE CREEK MUD,W,Water District (MUD/WCID/UD),base,1779,0.67,0.0,0.67,False
+161,MEADOWHILL REGNL MUD,W,Water District (MUD/WCID/UD),base,2775,0.551,0.0,0.551,False
+705,MEMORIAL HILLS UD,W,Water District (MUD/WCID/UD),base,491,0.64886,0.0,0.64886,False
+706,MEMORIAL MUD,W,Water District (MUD/WCID/UD),base,1820,0.28,0.0,0.28,False
+707,MEMORIAL VILLAGES WA,W,Water District (MUD/WCID/UD),base,3651,0.02292,0.021503,0.02292,False
+709,MILLS ROAD MUD,W,Water District (MUD/WCID/UD),base,1879,0.45,0.45,0.45,False
+710,MISSION BEND MUD 1,W,Water District (MUD/WCID/UD),base,767,0.217,0.224,0.217,False
+711,MISSION BEND MUD 2,W,Water District (MUD/WCID/UD),base,1294,0.53,0.0,0.53,False
+712,MORTON ROAD MUD,W,Water District (MUD/WCID/UD),base,961,0.43,0.43,0.43,False
+714,MT HOUSTON ROAD MUD,W,Water District (MUD/WCID/UD),base,2197,1.055,0.0,1.055,False
+731,N GATE CROSSING MUD 1,W,Water District (MUD/WCID/UD),base,458,0.996,0.0,0.996,False
+732,N GATE CROSSING MUD 2,W,Water District (MUD/WCID/UD),base,1327,0.69,0.0,0.69,False
+734,N GATE CROSSING RD UD,W,Water District (MUD/WCID/UD),base,1777,0.1089,0.0,0.1089,False
+724,NE HC MUD 1,W,Water District (MUD/WCID/UD),base,1617,1.14,0.0,1.14,False
+718,NEWPORT MUD,W,Water District (MUD/WCID/UD),base,5467,0.6578,0.71401,0.6578,False
+722,NORTH BELT UD,W,Water District (MUD/WCID/UD),base,1060,0.4,0.0,0.4,False
+725,NORTH FOREST MUD,W,Water District (MUD/WCID/UD),base,911,0.75,0.0,0.75,False
+726,NORTH GREEN MUD,W,Water District (MUD/WCID/UD),base,391,0.0,0.0,0.0,True
+727,NORTH MISSION GLEN MUD,W,Water District (MUD/WCID/UD),base,30,0.335,0.335,0.335,False
+728,NORTH PARK PUD,W,Water District (MUD/WCID/UD),base,74,0.245,0.0,0.245,False
+721,NORTHAMPTON MUD,W,Water District (MUD/WCID/UD),base,2552,0.485,0.0,0.485,False
+907,NORTHPOINTE WCID,W,Water District (MUD/WCID/UD),base,4892,0.225,0.22,0.225,False
+730,NORTHWEST FRWY MUD,W,Water District (MUD/WCID/UD),base,1260,0.57,0.54,0.57,False
+777,NORTHWEST PARK MUD,W,Water District (MUD/WCID/UD),base,4423,0.36,0.0,0.36,False
+779,NORTHWOOD MUD 1,W,Water District (MUD/WCID/UD),base,115,0.82,0.82,0.82,False
+778,NOTTINGHAM CNTRY MUD,W,Water District (MUD/WCID/UD),base,2347,0.2499,0.0,0.2499,False
+750,NW HC MUD 10,W,Water District (MUD/WCID/UD),base,2434,0.58,0.0,0.58,False
+752,NW HC MUD 12,W,Water District (MUD/WCID/UD),base,2848,0.58,0.0,0.58,False
+755,NW HC MUD 15,W,Water District (MUD/WCID/UD),base,1444,0.445,0.0,0.445,False
+756,NW HC MUD 16,W,Water District (MUD/WCID/UD),base,1400,0.9,0.0,0.9,False
+759,NW HC MUD 19,W,Water District (MUD/WCID/UD),base,1662,0.506,0.0,0.506,False
+760,NW HC MUD 20,W,Water District (MUD/WCID/UD),base,1259,0.1906,0.0,0.1906,False
+761,NW HC MUD 21,W,Water District (MUD/WCID/UD),base,535,0.5296,0.0,0.5296,False
+762,NW HC MUD 22,W,Water District (MUD/WCID/UD),base,1483,0.59,0.0,0.59,False
+763,NW HC MUD 23,W,Water District (MUD/WCID/UD),base,1807,0.73,0.0,0.73,False
+764,NW HC MUD 24,W,Water District (MUD/WCID/UD),base,409,0.39,0.0,0.39,False
+768,NW HC MUD 28,W,Water District (MUD/WCID/UD),base,565,0.5155,0.0,0.5155,False
+769,NW HC MUD 29,W,Water District (MUD/WCID/UD),base,798,0.1225,0.1225,0.1225,False
+770,NW HC MUD 30,W,Water District (MUD/WCID/UD),base,1372,0.49,0.0,0.49,False
+771,NW HC MUD 32,W,Water District (MUD/WCID/UD),base,1402,0.52,0.52,0.52,False
+776,NW HC MUD 36,W,Water District (MUD/WCID/UD),base,781,0.43,0.0,0.43,False
+745,NW HC MUD 5,W,Water District (MUD/WCID/UD),base,9065,0.68,0.0,0.68,False
+746,NW HC MUD 6,W,Water District (MUD/WCID/UD),base,760,0.413,0.0,0.413,False
+749,NW HC MUD 9,W,Water District (MUD/WCID/UD),base,1500,0.315,0.0,0.315,False
+781,OAKMONT PUD,W,Water District (MUD/WCID/UD),base,1358,0.56,0.0,0.56,False
+783,PARKWAY UD,W,Water District (MUD/WCID/UD),base,2503,0.69,0.79,0.69,False
+784,PINE BOUGH PUD,W,Water District (MUD/WCID/UD),base,9,1.0,0.0,1.0,False
+785,PINE FOREST MUD,W,Water District (MUD/WCID/UD),base,34,0.93,0.0,0.93,False
+787,PINE VILLAGE PUD,W,Water District (MUD/WCID/UD),base,783,0.619,0.65,0.619,False
+788,PONDEROSA FOREST UD,W,Water District (MUD/WCID/UD),base,2333,0.1,0.0,0.1,False
+789,POST WOOD MUD,W,Water District (MUD/WCID/UD),base,1259,0.415,0.0,0.415,False
+790,PRESTONWOOD FOREST UD,W,Water District (MUD/WCID/UD),base,1097,0.284127,0.0,0.284127,False
+786,RANKIN ROAD WEST MUD,W,Water District (MUD/WCID/UD),base,969,0.82,0.0,0.82,False
+801,REID ROAD MUD 1,W,Water District (MUD/WCID/UD),base,1604,0.39098,0.0,0.39098,False
+802,REID ROAD MUD 2,W,Water District (MUD/WCID/UD),base,951,0.29455,0.0,0.29455,False
+811,REMINGTON MUD 1,W,Water District (MUD/WCID/UD),base,4685,0.37,0.0,0.37,False
+803,RENN ROAD MUD,W,Water District (MUD/WCID/UD),base,1077,0.54,0.0,0.54,False
+804,RICEWOOD MUD,W,Water District (MUD/WCID/UD),base,1698,0.335,0.0,0.335,False
+810,RICHEY ROAD MUD,W,Water District (MUD/WCID/UD),base,500,0.22,0.0,0.22,False
+806,ROLLING CREEK UD,W,Water District (MUD/WCID/UD),base,1942,0.518,0.0,0.518,False
+807,ROLLING FORK PUD,W,Water District (MUD/WCID/UD),base,802,0.415,0.0,0.415,False
+809,ROYALWOOD MUD,W,Water District (MUD/WCID/UD),base,407,0.41431,0.0,0.41431,False
+822,SAGEMEADOW UD,W,Water District (MUD/WCID/UD),base,2141,0.52,0.0,0.52,False
+823,SEQUOIA ID,W,Water District (MUD/WCID/UD),base,404,0.331,0.33,0.331,False
+824,SHASLA PUD,W,Water District (MUD/WCID/UD),base,768,0.853,0.0,0.853,False
+833,SHELDON ROAD MUD,W,Water District (MUD/WCID/UD),base,608,1.2677,0.0,1.2677,False
+825,SOUTHWEST HC MUD 1,W,Water District (MUD/WCID/UD),base,549,0.34,0.0,0.34,False
+826,SPANISH COVE PUD,W,Water District (MUD/WCID/UD),base,285,0.4487,0.0,0.4487,False
+827,SPENCER ROAD PUD,W,Water District (MUD/WCID/UD),base,1563,0.385,0.0,0.385,False
+829,SPRING CRK FOREST PUD,W,Water District (MUD/WCID/UD),base,805,0.381,0.0,0.381,False
+831,SPRING MEADOWS MUD,W,Water District (MUD/WCID/UD),base,1481,0.7,0.72,0.7,False
+832,SPRING WEST MUD,W,Water District (MUD/WCID/UD),base,885,0.665,0.0,0.665,False
+838,SUNBELT FWSD,W,Water District (MUD/WCID/UD),base,13,0.0,0.0,0.0,True
+841,TATTOR ROAD MD,W,Water District (MUD/WCID/UD),base,1581,0.4643,0.0,0.4643,False
+842,TERRANOVA WEST MUD,W,Water District (MUD/WCID/UD),base,962,0.5173,0.0,0.5173,False
+421,THE WOODLANDS ROAD UD 1,W,Water District (MUD/WCID/UD),base,12,0.05,0.04,0.05,False
+847,TIMBER LANE UD,W,Water District (MUD/WCID/UD),base,7598,0.8,0.0,0.8,False
+846,TIMBERLAKE ID,W,Water District (MUD/WCID/UD),base,886,0.37,0.38,0.37,False
+A33,TOMBALL BUSINESS ID 1,W,Water District (MUD/WCID/UD),base,25,0.725,0.0,0.725,False
+848,TRAIL OF THE LAKES MUD,W,Water District (MUD/WCID/UD),base,2952,0.6,0.0,0.6,False
+568,VILLAGE AT KATY DEV DISTRICT,W,Water District (MUD/WCID/UD),base,7,1.0,0.0,1.0,False
+893,W KEEGANS BAYOU ID,W,Water District (MUD/WCID/UD),base,1346,0.0749,0.0,0.0749,False
+876,WEST HC MUD 016,W,Water District (MUD/WCID/UD),base,40,1.4,0.0,1.4,False
+861,WEST HC MUD 1,W,Water District (MUD/WCID/UD),base,194,0.209,0.0,0.209,False
+870,WEST HC MUD 10,W,Water District (MUD/WCID/UD),base,2273,0.42,0.42,0.42,False
+871,WEST HC MUD 11,W,Water District (MUD/WCID/UD),base,2015,0.3323,0.0,0.3323,False
+874,WEST HC MUD 14,W,Water District (MUD/WCID/UD),base,998,0.39,0.0,0.39,False
+875,WEST HC MUD 15,W,Water District (MUD/WCID/UD),base,280,0.1695,0.0,0.1695,False
+877,WEST HC MUD 17,W,Water District (MUD/WCID/UD),base,845,0.815,0.0,0.815,False
+862,WEST HC MUD 2,W,Water District (MUD/WCID/UD),base,1333,0.33,0.325,0.33,False
+879,WEST HC MUD 21,W,Water District (MUD/WCID/UD),base,142,0.4,0.4,0.4,False
+864,WEST HC MUD 4,W,Water District (MUD/WCID/UD),base,562,0.744,0.0,0.744,False
+865,WEST HC MUD 5,W,Water District (MUD/WCID/UD),base,601,0.785,0.0,0.785,False
+866,WEST HC MUD 6,W,Water District (MUD/WCID/UD),base,771,0.19659,0.0,0.19659,False
+867,WEST HC MUD 7,W,Water District (MUD/WCID/UD),base,1805,0.42,0.0,0.42,False
+869,WEST HC MUD 9,W,Water District (MUD/WCID/UD),base,1036,0.408,0.408,0.408,False
+895,WEST MEMORIAL MUD,W,Water District (MUD/WCID/UD),base,1355,0.31,0.0,0.31,False
+897,WEST PARK MUD,W,Water District (MUD/WCID/UD),base,116,0.41,0.0,0.41,False
+851,WESTADOR MUD,W,Water District (MUD/WCID/UD),base,1057,0.136724,0.0,0.136724,False
+894,WESTLAKE MUD 1,W,Water District (MUD/WCID/UD),base,1325,0.40575,0.42,0.40575,False
+896,WESTON MUD,W,Water District (MUD/WCID/UD),base,975,0.3,0.3,0.3,False
+899,WHITE OAK BEND MUD,W,Water District (MUD/WCID/UD),base,465,0.63,0.0,0.63,False
+901,WINDFERN FOREST UD,W,Water District (MUD/WCID/UD),base,1476,0.434,0.434,0.434,False
+902,WOODCREEK MUD,W,Water District (MUD/WCID/UD),base,927,0.435,0.435,0.435,False

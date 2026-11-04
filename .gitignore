@@ -1,0 +1,15 @@
+# build outputs (regenerate with the pipeline)
+out/
+fixture/
+run*/
+shots/
+*.pmtiles
+*.mbtiles
+*.geojsonl
+index.html
+tax-rate-map.html
+proto_data.json
+__pycache__/
+# never commit the Maps key
+gkey.txt
+.env

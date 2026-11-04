@@ -1,0 +1,9 @@
+# The site is static: deploy the folder pipeline/inject.py writes (out/web: index.html + data/).
+# No build step runs on Netlify. Deploy with `netlify deploy --dir out/web --prod` or drag the folder in.
+[build]
+  publish = "out/web"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
