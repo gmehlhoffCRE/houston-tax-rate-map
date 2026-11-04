@@ -276,6 +276,14 @@ def main():
     # account records. In bbox mode keep only accounts that have a parcel in the box.
     if a.bbox:
         acct = acct[acct.index.isin(points.keys())]
+    # parcels whose account is in neither the rate file nor real_acct still get a record, so a click or
+    # search on them shows the account with "no rate data" instead of an empty card
+    extra = sorted(set(points) - set(acct.index))
+    if extra:
+        acct = pd.concat([acct, pd.DataFrame(index=pd.Index(extra, name=acct.index.name))])
+        acct["combo_id"] = acct.combo_id.fillna(-1).astype(int)
+        acct["t"] = acct.t.fillna(6).astype(int)
+        log(f"{len(extra):,} parcel accounts missing from both rate and account files, added as no-rate records")
     owner = acct.mailto.map(clean)
     miss = owner == ""
     owner[miss] = [parcel_owner.get(x, "") for x in acct.index[miss]]
