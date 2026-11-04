@@ -84,7 +84,22 @@ python pipeline/inject.py --key "$GMAPS_KEY" \
 netlify deploy --dir out/web --prod
 ```
 
-Local preview: `node tests/serve.js out 8090` and open `http://localhost:8090/web/index.html` after running
+### Single local file (no hosting)
+
+For an area up to a few hundred thousand parcels, `inject.py --embed` packs the tiles, rates, boundaries and
+account records into one HTML file that opens from disk. Search scans the records in memory. It still needs
+internet for Google Maps and the deck.gl scripts. The full county (about 450 MB of data) is too large for this;
+build a submarket with `--bbox` first.
+
+```bash
+python pipeline/build_county_data.py --gis gis --cama Real_acct_owner.zip --rates data --out out_sub --bbox -95.25 29.665 -95.10 29.77
+pipeline/build_tiles.sh out_sub
+python pipeline/inject.py --key "$GMAPS_KEY" --embed out_sub --out ship-channel-tax-map.html
+```
+
+The Ship Channel area (48,686 parcels) comes to an 11 MB file.
+
+Local preview of the hosted build: `node tests/serve.js out 8090` and open `http://localhost:8090/web/index.html` after running
 `inject.py` with `--tiles /bucket/harris_parcels.pmtiles --shards /bucket/shards/`.
 
 ## Tests

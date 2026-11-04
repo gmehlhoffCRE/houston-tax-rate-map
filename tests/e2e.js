@@ -72,8 +72,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   // most common combo
   const common = await page.evaluate(async () => {
-    const r = await fetch('data/combos.json').then(r => r.json());
-    const c = r.combos.find(c => c.isd === 'HOUSTON ISD' && c.city === 'CITY OF HOUSTON' && !c.water && !c.mg && !c.tirz && !c.esd);
+    const c = window.__app.combos.find(c => c.isd === 'HOUSTON ISD' && c.city === 'CITY OF HOUSTON' && !c.water && !c.mg && !c.tirz && !c.esd);
     return c ? { id: c.id, isd: c.isd, city: c.city, college: c.college, b: c.b } : {};
   });
   check('acceptance: most common combo (HISD + City of Houston) is 2.1252', Math.abs(common.b - 2.12522) < 1e-5 && /HOUSTON ISD/.test(common.isd), JSON.stringify(common));

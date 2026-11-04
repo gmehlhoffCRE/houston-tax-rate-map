@@ -268,6 +268,7 @@ button{font-family:inherit}
   </div>
 </div>
 
+<!--__EMBED__-->
 <script>
 const CONFIG = __CONFIG__;
 </script>
@@ -311,8 +312,20 @@ const $=id=>document.getElementById(id);
 async function getJSON(u){const r=await fetch(u); if(!r.ok) throw new Error(r.status+' '+u); return r.json();}
 
 // ---------------------------------------------------------------- data
-let CB, MAN;
-try{ [CB,MAN]=await Promise.all([getJSON(CONFIG.data+'combos.json'),getJSON(CONFIG.shards+'manifest.json')]); }
+// Embedded build (inject.py --embed): tiles and data live inside this file, so it runs from disk with no server.
+let CB, MAN, EMB=null, TILEBUF=null;
+async function b64Buf(id){ const t=document.getElementById(id).textContent.trim(); return (await fetch('data:application/octet-stream;base64,'+t)).arrayBuffer(); }
+async function gunzipJSON(buf){ const st=new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip')); return JSON.parse(await new Response(st).text()); }
+try{
+  if(CONFIG.embed){
+    [EMB,TILEBUF]=await Promise.all([b64Buf('emb-data').then(gunzipJSON),b64Buf('emb-tiles')]);
+    CB=EMB.combos; MAN={a:{base:4,split:[]},s:{base:3,split:[]}};
+    EMB.byAcct=new Map(EMB.records.map(r=>[r[0],r]));
+    EMB.text=EMB.records.map(r=>' '+words(r[1]+' '+r[2]+' '+r[0]).join(' ')+' ');
+  } else {
+    [CB,MAN]=await Promise.all([getJSON(CONFIG.data+'combos.json'),getJSON(CONFIG.shards+'manifest.json')]);
+  }
+}
 catch(e){ $('loading').textContent='Could not load rate data ('+e.message+').'; return; }
 const META=CB.meta, J=CB.jur;
 const MAXID=Math.max(0,...CB.combos.map(c=>c.id));
@@ -352,7 +365,9 @@ const fillOf=c=>c>=0&&c<=MAXID?fillArr[c]:(state.shade?[...NO_RATE,190]:CLEAR);
 const rateOfId=c=>c>=0&&c<=MAXID?rateArr[c]:RMIN;
 
 // ---------------------------------------------------------------- tiles
-const PM=new pmtiles.PMTiles(CONFIG.tiles);
+// in-memory PMTiles source for the embedded build
+const memSource=buf=>({getKey:()=>'embedded',getBytes:async(offset,length)=>({data:buf.slice(offset,offset+length)})});
+const PM=new pmtiles.PMTiles(TILEBUF?memSource(TILEBUF):CONFIG.tiles);
 const baseFetch=deck.Layer.defaultProps.fetch.value;
 async function tileFetch(url,ctx){
   if(typeof url!=='string'||!url.startsWith('pmtiles://')) return baseFetch(url,ctx);
@@ -398,7 +413,7 @@ const boundaryData={};
 async function ensureBoundary(key){
   if(boundaryData[key]!==undefined) return;
   boundaryData[key]=null;
-  try{ boundaryData[key]=await getJSON(CONFIG.data+'boundaries/'+key+'.json'); }catch(e){ boundaryData[key]={type:'FeatureCollection',features:[]}; }
+  try{ boundaryData[key]=EMB?(EMB.boundaries[key]||{type:'FeatureCollection',features:[]}):await getJSON(CONFIG.data+'boundaries/'+key+'.json'); }catch(e){ boundaryData[key]={type:'FeatureCollection',features:[]}; }
   refresh();
 }
 function buildLayers(){
@@ -644,6 +659,7 @@ function shard(kind,key){
 }
 const recOf=r=>({acct:r[0],owner:r[1],addr:r[2],city:r[3],cls:r[4],val:r[5],bld:r[6],land:r[7],combo:r[8],lon:r[9]==null?null:r[9]/1e5,lat:r[10]==null?null:r[10]/1e5});
 async function getAccount(acct){
+  if(EMB){ const r=EMB.byAcct.get(acct); return r?recOf(r):null; }
   const s=await shard('a',shardKey('a',acct)); const r=s.r.find(x=>x[0]===acct); return r?recOf(r):null;
 }
 const qEl=$('q'), sres=$('sres'); let qSeq=0, results=[], act=-1;
@@ -654,7 +670,22 @@ async function runSearch(q){
   if(raw.length<3){ closeResults(); return; }
   const digits=raw.replace(/[\s-]/g,'');
   let list=[], partial=false;
-  if(/^\d{6,13}$/.test(digits)){
+  if(EMB){
+    // embedded build: scan the in-memory records (already ordered by appraised value, highest first)
+    if(/^\d{6,13}$/.test(digits)){
+      for(const r of EMB.records) if(r[0].startsWith(digits)){ list.push({acct:r[0],owner:r[1],addr:r[2],full:r}); if(list.length>500) break; }
+    } else {
+      const qw=words(raw);
+      if(!qw.some(w=>w.length>=3&&!STOP.has(w))){ showMsg('Type a longer owner name, street name or account number.'); return; }
+      const pre=qw.map(q=>' '+q), ex=qw.map(q=>' '+q+' '), joined=' '+qw.join(' ');
+      for(let i=0;i<EMB.records.length;i++){
+        const t=EMB.text[i]; if(!pre.every(q=>t.includes(q))) continue;
+        const r=EMB.records[i], score=ex.filter(q=>t.includes(q)).length+((' '+words(r[2]).join(' ')).startsWith(joined)?2:0);
+        list.push({acct:r[0],owner:r[1],addr:r[2],full:r,score});
+      }
+      list.sort((a,b)=>b.score-a.score);
+    }
+  } else if(/^\d{6,13}$/.test(digits)){
     const s=await shard('a',shardKey('a',digits)); if(seq!==qSeq) return;
     list=s.r.filter(r=>r[0].startsWith(digits)).map(r=>({acct:r[0],owner:r[1],addr:r[2],full:r}));
     partial=!!s.p&&digits.length<13;
@@ -768,7 +799,7 @@ function renderDrawer(p){
 // ---------------------------------------------------------------- go
 rebuildColors(); rebuildFilters(); syncRate(); updateStats();
 startMap();
-window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh};
+window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos};
 })();
 </script>
 </body>
