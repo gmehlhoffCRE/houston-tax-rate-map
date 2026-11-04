@@ -12,6 +12,8 @@
 #                                             shapes by build_zones.py, so the county view stays light
 #   parcels  tile z13-16 (Google zoom 14+)    one feature per parcel: a acct, c combo, t type, v value.
 #                                             Never dropped or merged; z16 is overzoomed past Google zoom 17
+# No tile size limits: parcels must never be dropped, and the dissolved zones are bounded (largest
+# countywide zone tile is about 250 KB). With a limit, tippecanoe can loop retrying a dense tile.
 set -euo pipefail
 OUT="${1:-out}"
 SRC="$OUT/parcels.geojsonl"
@@ -23,12 +25,12 @@ mkdir -p "$TMP" "$OUT/bucket"
 python "$(dirname "$0")/build_zones.py" "$SRC" "$TMP/zones.geojsonl"
 tippecanoe -o "$TMP/zones.pmtiles" --force -P -l zones -Z7 -z12 \
   -y c -y t --reorder --coalesce --detect-shared-borders \
-  --simplification=4 --coalesce-densest-as-needed \
+  --simplification=4 --low-detail=10 --no-tile-size-limit \
   "$TMP/zones.geojsonl"
 
 tippecanoe -o "$TMP/parcels.pmtiles" --force -P -l parcels -Z13 -z16 \
   -y a -y c -y t -y v --detect-shared-borders \
-  --no-tiny-polygon-reduction --no-feature-limit --maximum-tile-bytes=2500000 \
+  --no-tiny-polygon-reduction --no-feature-limit --no-tile-size-limit \
   "$SRC"
 
 python "$(dirname "$0")/merge_pmtiles.py" "$DST" "$TMP/zones.pmtiles" "$TMP/parcels.pmtiles" \
