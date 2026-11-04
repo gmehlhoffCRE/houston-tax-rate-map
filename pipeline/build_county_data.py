@@ -189,7 +189,7 @@ def write_adaptive(df, base, maxn, outdir, payload, records, partial_cap):
                 body = {"r": [payload(records, r) for r in (exact if len(exact) else rids)[:partial_cap]], "p": 1}
                 stack.append((g[longer], L + 1))
             with open(os.path.join(outdir, pre + ".json"), "w") as f:
-                json.dump(body, f, separators=(",", ":"), ensure_ascii=False)
+                json.dump(body, f, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
             nfiles += 1
             biggest = max(biggest, len(body["r"]))
     return sorted(split), nfiles, biggest
@@ -292,7 +292,9 @@ def main():
     # highest value first, so each shard lists the most significant matches first
     rec = rec.sort_values("val", ascending=False, na_position="last").reset_index(drop=True)
     R = rec.to_dict("list")
-    R["val"] = [None if v != v else int(v) for v in R["val"]]
+    # pandas turns None into NaN in numeric columns; NaN is not valid JSON, so map it back to null
+    for k in ("val", "bld", "land"):
+        R[k] = [None if v is None or v != v else int(v) for v in R[k]]
     R["x"] = [None if v != v or v is None else int(v) for v in R["x"]]
     R["y"] = [None if v != v or v is None else int(v) for v in R["y"]]
 
@@ -346,7 +348,7 @@ def main():
             "noRateByType": [int(x) for x in np.bincount(acct.t[acct.combo_id < 0], minlength=7)],
             "types": TYPE_KEYS, "bbox": a.bbox or [-95.97, 29.49, -94.90, 30.18]}
     with open(os.path.join(web, "combos.json"), "w") as f:
-        json.dump({"meta": meta, "jur": jur, "combos": combos}, f, separators=(",", ":"), ensure_ascii=False)
+        json.dump({"meta": meta, "jur": jur, "combos": combos}, f, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
     with open(os.path.join(shards, "manifest.json"), "w") as f:
         json.dump({"built": meta["built"], "a": {"base": 4, "split": a_split}, "s": {"base": 3, "split": s_split}},
                   f, separators=(",", ":"))

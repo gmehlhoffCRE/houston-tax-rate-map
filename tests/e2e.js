@@ -58,6 +58,10 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check('acceptance: 0402040000009 shows 2.1252 with TIRZ Eastside', /2\.1252/.test(d) && /TIRZ/i.test(d) && /Eastside/i.test(d), (d.match(/TIRZ[^\n]*/) || [''])[0]);
   await shot('04-search-account');
 
+  // account with blank values (no CAMA or rate record) must still load
+  const blank = await page.evaluate(() => window.__app.getAccount('1042940000003').then(r => r && r.acct).catch(e => 'error ' + e.message));
+  check('account record with blank values loads', blank === '1042940000003', String(blank));
+
   // search by address
   await page.fill('#q', '431 n preston'); await waitResults();
   const res3 = await page.$$eval('#sres .sr', els => els.map(e => e.innerText.replace(/\n/g, ' | ')));

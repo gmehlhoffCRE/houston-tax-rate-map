@@ -49,7 +49,7 @@ if a.embed:
               for f in glob.glob(os.path.join(o, "web", "data", "boundaries", "*.json"))}
     bundle = {"combos": json.load(open(os.path.join(o, "web", "data", "combos.json"))),
               "boundaries": bounds, "records": records}
-    data_b64 = base64.b64encode(gzip.compress(json.dumps(bundle, separators=(",", ":"), ensure_ascii=False).encode(), 9)).decode()
+    data_b64 = base64.b64encode(gzip.compress(json.dumps(bundle, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode(), 9)).decode()
     tiles_b64 = base64.b64encode(open(os.path.join(o, "bucket", "harris_parcels.pmtiles"), "rb").read()).decode()
     embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
              f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
