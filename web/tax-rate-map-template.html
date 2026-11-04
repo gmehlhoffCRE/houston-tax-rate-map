@@ -175,11 +175,7 @@ button{font-family:inherit}
 .smsg{font-size:11px;color:var(--ink3);padding:7px 8px}
 .hcap{font-size:9.5px;color:var(--ink4);margin-top:6px;text-align:right}
 .hint{font-size:10.5px;color:var(--warn);margin-top:6px;display:none}
-.toolbar .div{width:1px;background:var(--line);margin:3px 3px}
-.mt .sw2{width:24px;height:14px;border-radius:7px;background:var(--line);position:relative;margin-right:7px;transition:background .15s}
-.mt .sw2 i{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:5px;background:#fff;box-shadow:0 1px 2px rgba(0,30,90,.3);transition:left .15s}
-.mt.on .sw2{background:var(--navy)}
-.mt.on .sw2 i{left:12px}
+.chk .sw.ramp2{height:8px;border:0;border-radius:2px;background:linear-gradient(90deg,#001E5A,#5566AD,#FFE29A,#FFB600)}
 .legend .op{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:9.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.9px;font-weight:700}
 .legend .op input{flex:1;accent-color:#001E5A;height:14px}
 .legend .nr{display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--ink4);margin-top:6px}
@@ -239,22 +235,22 @@ button{font-family:inherit}
         </div>
         <div class="fs"><div class="fs-t">Water district</div><div class="ms" id="msWater"></div></div>
       </div>
-      <div class="pinned"><div class="fs-t">Boundaries</div><div id="layers"></div></div>
+      <div class="pinned">
+        <div class="fs-t">Map layers</div>
+        <label class="chk" id="shadeBtn" title="Color parcels by combined rate"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Rate shading</span></label>
+        <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
+        <div class="fs-t" style="margin-top:10px">Boundaries</div><div id="layers"></div>
+      </div>
       <div class="rail-f" id="mFoot"><b id="mCount">0</b> <span id="mLab">parcels match</span></div>
     </div>
 
     <div class="mapwrap" id="mapwrap">
       <div id="map"></div>
       <div class="loading" id="loading">Loading rate data</div>
-      <div class="toolbar" id="mtBar">
-        <span id="baseBtns" style="display:none;gap:2px">
+      <div class="toolbar" id="mtBar" style="display:none">
           <button class="mt on" data-t="cresa">Map</button>
           <button class="mt" data-t="satellite">Satellite</button>
           <button class="mt" data-t="hybrid">Hybrid</button>
-        </span>
-        <span class="div" id="baseDiv" style="display:none"></span>
-        <button class="mt on" id="shadeBtn" aria-pressed="true" title="Show or hide rate shading on parcels"><span class="sw2"><i></i></span>Rate shading</button>
-        <button class="mt on" id="linesBtn" aria-pressed="true" title="Show or hide parcel lot lines (zoom 14 and closer)"><span class="sw2"><i></i></span>Parcel lines</button>
       </div>
       <div class="legend" id="legend">
         <div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
@@ -462,7 +458,7 @@ function viewChanged(gz,bounds){
 function initDeck(){
   if(deckgl)return;
   if(gmap){mapEl.innerHTML='';overlay&&overlay.setMap(null);overlay=null;gmap=null;}
-  $('baseBtns').style.display='none'; $('baseDiv').style.display='none';
+  $('mtBar').style.display='none';
   const f=new deck.WebMercatorViewport({width:mapEl.clientWidth,height:mapEl.clientHeight}).fitBounds([[BB[0],BB[1]],[BB[2],BB[3]]],{padding:10});
   const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20};
   baseTile=new deck.TileLayer({id:'base',data:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',maxZoom:16,tileSize:256,
@@ -484,7 +480,7 @@ function initGoogle(){
   gmap.fitBounds({west:BB[0],south:BB[1],east:BB[2],north:BB[3]},0);
   overlay=new deck.GoogleMapsOverlay({interleaved:false,layers:buildLayers()}); overlay.setMap(gmap); window.__gmap=gmap; window.__ovl=overlay;
   gmap.addListener('idle',()=>{const b=gmap.getBounds(); if(!b)return; const ne=b.getNorthEast(),sw=b.getSouthWest(); viewChanged(gmap.getZoom(),[sw.lng(),sw.lat(),ne.lng(),ne.lat()]);});
-  $('baseBtns').style.display='flex'; $('baseDiv').style.display='';
+  $('mtBar').style.display='flex';
 }
 window.gm_authFailure=()=>{ initDeck(); };
 function startMap(){
@@ -496,8 +492,8 @@ function startMap(){
     s.async=true;s.onerror=initDeck;document.head.appendChild(s);
   } else initDeck();
 }
-document.querySelectorAll('#baseBtns .mt').forEach(b=>b.onclick=()=>{ if(!gmap)return; gmap.setMapTypeId(b.dataset.t);
-  document.querySelectorAll('#baseBtns .mt').forEach(x=>x.classList.toggle('on',x===b)); });
+document.querySelectorAll('#mtBar .mt').forEach(b=>b.onclick=()=>{ if(!gmap)return; gmap.setMapTypeId(b.dataset.t);
+  document.querySelectorAll('#mtBar .mt').forEach(x=>x.classList.toggle('on',x===b)); });
 function flyTo(lon,lat,gz){
   if(gmap){gmap.panTo({lat,lng:lon}); if(gmap.getZoom()<gz)gmap.setZoom(gz);}
   else if(deckgl){deckgl.setProps({initialViewState:{longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20,transitionDuration:700,transitionInterpolator:new deck.FlyToInterpolator()}});}
@@ -619,8 +615,8 @@ document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
   if(wasFull||state.rate[1]>RMAX) state.rate[1]=RMAX; if(state.rate[0]<RMIN) state.rate[0]=RMIN;
   syncRate(); rebuildColors(); applyFilters(); if(state.selRec) renderDrawer(state.selRec);
 });
-$('linesBtn').onclick=()=>{state.lines=!state.lines; const b=$('linesBtn'); b.classList.toggle('on',state.lines); b.setAttribute('aria-pressed',String(state.lines)); refresh();};
-$('shadeBtn').onclick=()=>{state.shade=!state.shade; const b=$('shadeBtn'); b.classList.toggle('on',state.shade); b.setAttribute('aria-pressed',String(state.shade));
+$('linesChk').onchange=e=>{state.lines=e.target.checked; refresh();};
+$('shadeChk').onchange=e=>{state.shade=e.target.checked;
   $('legend').classList.toggle('off',!state.shade); rebuildColors(); refresh();};
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
 function multiSelect(el,placeholder,options,key){
