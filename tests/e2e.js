@@ -108,6 +108,16 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check('shading toggle turns off', await page.evaluate(() => !window.__app.state.shade));
   await page.click('#shadeBtn'); await waitIdle(1000);
 
+  // parcel lines off, shading on, then both off: parcels must stay clickable
+  await page.click('#linesBtn'); await waitIdle(4000);
+  await shot('06b-lines-off');
+  check('parcel lines toggle turns off', await page.evaluate(() => !window.__app.state.lines));
+  await page.click('#shadeBtn'); await waitIdle(4000);
+  await page.evaluate(() => { document.getElementById('drawerHost').innerHTML = ''; });
+  await page.mouse.click(box[0], box[1]); await waitDrawer(/HCAD account/);
+  check('parcels stay clickable with both layers off', /HCAD account/i.test(await drawerText()));
+  await page.click('#shadeBtn'); await page.click('#linesBtn'); await waitIdle(2000);
+
   // filter: industrial only
   await page.evaluate(() => { document.getElementById('drawerHost').innerHTML = ''; window.__app.setView(-95.175, 29.72, 14); });
   await waitFoot(/parcels in view match/); await waitIdle(4000);

@@ -254,6 +254,7 @@ button{font-family:inherit}
         </span>
         <span class="div" id="baseDiv" style="display:none"></span>
         <button class="mt on" id="shadeBtn" aria-pressed="true" title="Show or hide rate shading on parcels"><span class="sw2"><i></i></span>Rate shading</button>
+        <button class="mt on" id="linesBtn" aria-pressed="true" title="Show or hide parcel lot lines (zoom 14 and closer)"><span class="sw2"><i></i></span>Parcel lines</button>
       </div>
       <div class="legend" id="legend">
         <div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
@@ -336,7 +337,7 @@ for(const c of CB.combos){ COMBO[c.id]=c; c.isdL=names(c.isd); c.cityL=c.city?na
 const SPLIT={a:new Set(MAN.a.split),s:new Set(MAN.s.split)}, BASE={a:MAN.a.base,s:MAN.s.base};
 
 // ---------------------------------------------------------------- state
-const state={mgmt:false,shade:true,opacity:0.85,rate:[0,0],types:[],isd:[],city:[],water:[],val:[null,null],binsOff:new Set(),
+const state={mgmt:false,shade:true,lines:true,opacity:0.85,rate:[0,0],types:[],isd:[],city:[],water:[],val:[null,null],binsOff:new Set(),
   layers:Object.fromEntries(OVERLAYS.map(o=>[o.key,o.on])),sel:null,gz:10,bounds:null};
 const binOf=r=>{let b=0;while(b<BREAKS.length&&r>=BREAKS[b])b++;return b;};
 const rateOfC=c=>!c?null:state.mgmt?c.b+c.m:c.b;
@@ -404,12 +405,12 @@ function parcelLayer(){
     filled:true,stroked:true,lineWidthUnits:'pixels',
     getFillColor:f=>fillOf(f.properties.c),
     getLineColor:f=>f.properties.a===state.sel?SEL:state.shade?[255,255,255,130]:[0,30,90,190],
-    getLineWidth:f=>f.properties.a===state.sel?3.5:state.shade?0.6:0.9,
+    getLineWidth:f=>f.properties.a===state.sel?3.5:!state.lines?0:state.shade?0.6:0.9,   // selection outline shows even with lines off
     extensions:[filterExt],
     getFilterValue:f=>{const p=f.properties,c=p.c==null?-1:p.c; return [rateOfId(c),p.v||0,comboPass(c)&&typeOk[p.t|0]?1:0];},
     filterRange:filterRange(),
     opacity:state.shade?state.opacity:1,
-    updateTriggers:{getFillColor:colorVer,getLineColor:[state.sel,state.shade],getLineWidth:[state.sel,state.shade],getFilterValue:filterVer},
+    updateTriggers:{getFillColor:colorVer,getLineColor:[state.sel,state.shade],getLineWidth:[state.sel,state.shade,state.lines],getFilterValue:filterVer},
     renderSubLayers:p=>{
       const zone=p.tile.index.z<PARCEL_TZ;
       return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade,highlightedObjectIndex:-1,
@@ -618,6 +619,7 @@ document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
   if(wasFull||state.rate[1]>RMAX) state.rate[1]=RMAX; if(state.rate[0]<RMIN) state.rate[0]=RMIN;
   syncRate(); rebuildColors(); applyFilters(); if(state.selRec) renderDrawer(state.selRec);
 });
+$('linesBtn').onclick=()=>{state.lines=!state.lines; const b=$('linesBtn'); b.classList.toggle('on',state.lines); b.setAttribute('aria-pressed',String(state.lines)); refresh();};
 $('shadeBtn').onclick=()=>{state.shade=!state.shade; const b=$('shadeBtn'); b.classList.toggle('on',state.shade); b.setAttribute('aria-pressed',String(state.shade));
   $('legend').classList.toggle('off',!state.shade); rebuildColors(); refresh();};
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
