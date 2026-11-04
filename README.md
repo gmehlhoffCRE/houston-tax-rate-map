@@ -86,18 +86,20 @@ netlify deploy --dir out/web --prod
 
 ### Single local file (no hosting)
 
-For an area up to a few hundred thousand parcels, `inject.py --embed` packs the tiles, rates, boundaries and
-account records into one HTML file that opens from disk. Search scans the records in memory. It still needs
-internet for Google Maps and the deck.gl scripts. The full county (about 450 MB of data) is too large for this;
-build a submarket with `--bbox` first.
+`inject.py --embed` packs the tiles, rates, boundaries and account records into one HTML file that opens from
+disk. Search scans the records in memory. It still needs internet for Google Maps and the deck.gl scripts.
 
 ```bash
-python pipeline/build_county_data.py --gis gis --cama Real_acct_owner.zip --rates data --out out_sub --bbox -95.25 29.665 -95.10 29.77
-pipeline/build_tiles.sh out_sub
-python pipeline/inject.py --key "$GMAPS_KEY" --embed out_sub --out ship-channel-tax-map.html
+pipeline/build_tiles.sh out lean      # parcels stored once at tile z13 and stretched closer in: 44 MB countywide
+python pipeline/inject.py --key "$GMAPS_KEY" --embed out --out harris-county-tax-map.html
 ```
 
-The Ship Channel area (48,686 parcels) comes to an 11 MB file.
+| Build | File | Opens in | Memory |
+|---|---|---|---|
+| Countywide (1,628,435 accounts) | 129 MB | about 10 s | about 660 MB |
+| Ship Channel `--bbox` (48,686 parcels) | 11 MB | 1 to 2 s | small |
+
+Too large to email countywide; share it through OneDrive or Teams, or build submarkets with `--bbox`.
 
 Local preview of the hosted build: `node tests/serve.js out 8090` and open `http://localhost:8090/web/index.html` after running
 `inject.py` with `--tiles /bucket/harris_parcels.pmtiles --shards /bucket/shards/`.

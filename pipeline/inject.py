@@ -14,7 +14,7 @@ Assembles the deployable page from web/tax-rate-map-template.html.
 --embed   OUT folder from build_county_data.py + build_tiles.sh. Packs tiles, combos, boundaries and account
           records into the one HTML file so it opens from disk with no server (search scans the records in
           memory). Uses harris_parcels_lean.pmtiles when present (build_tiles.sh OUT lean). Countywide that is
-          a file of roughly 90 to 100 MB; a --bbox submarket build is 5 to 15 MB.
+          a 129 MB file (about 10 s to open, 660 MB of memory); a --bbox submarket build is 5 to 15 MB.
 
   python inject.py --key "$GMAPS_KEY" --embed out --out ship-channel-map.html
 """
@@ -47,7 +47,7 @@ if a.embed:
     names = ["acct", "owner", "addr", "city", "cls", "val", "bld", "land", "combo", "x", "y"]
     cols = {n: [r[i] for r in records] for i, n in enumerate(names)}
     if len(records) > 400_000:
-        print(f"warning: {len(records):,} accounts; the file will be very large and slow to open. Use a --bbox build.")
+        print(f"note: {len(records):,} accounts; expect a file over 100 MB that takes several seconds to open.")
     bounds = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f))
               for f in glob.glob(os.path.join(o, "web", "data", "boundaries", "*.json"))}
     bundle = {"combos": json.load(open(os.path.join(o, "web", "data", "combos.json"))),
