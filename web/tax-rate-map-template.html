@@ -798,6 +798,7 @@ function renderDrawer(p){
   if(!c) notes.push(['gold',`${cad} lists no taxing jurisdictions for this account, so no rate is shown.`]);
   if(c&&c.m>0&&!state.mgmt) notes.push(['gold',`Also in ${esc(tc(c.mg))}, which levies ${c.m.toFixed(4)}. Switch to "Incl. mgmt districts" to add it.`]);
   if(tz) notes.push(['',`Inside TIRZ ${esc(tz)}. A TIRZ redirects tax growth to the zone but adds no rate.`]);
+  if(c&&c.pid) notes.push(['gold',`Inside ${esc(tc(c.pid))}. Improvement districts bill a separate assessment that is not a tax rate, so it is not included.`]);
   const miss=c?(state.mgmt?c.mb+c.mm:c.mb):0;
   if(miss>0) notes.push(['gold',`${miss} jurisdiction${miss>1?'s':''} on this account had no rate in the HCAD file, so the total may be understated.`]);
   if(c&&!c.city&&tg===2) notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);

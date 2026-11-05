@@ -15,7 +15,7 @@ no split percentage, so every unit applies in full. "CAD" (the appraisal distric
 
 Usage: python build_fortbend_rates.py --src fortbend --out ../data --year 2024
 """
-import argparse, json, os
+import argparse, json, os, re
 import numpy as np, pandas as pd, geopandas as gpd, shapely
 
 FB_OFFSET = 50000
@@ -69,8 +69,8 @@ def main():
     P["acct"] = P.quickrefid.astype(str).str.strip()
     print(f"{len(P):,} parcel shapes, {P.acct.nunique():,} accounts")
 
-    def units(s):
-        return sorted({u.strip() for u in str(s or "").split(",") if u.strip() and u.strip() != "CAD"})
+    def units(s):   # codes are comma separated; a few parcels use ";" or stray spaces
+        return sorted({u.strip() for u in re.split(r"[,;]", str(s or "")) if u.strip() and u.strip() != "CAD"})
     P["units"] = P.taxunits.map(units)
     P["key"] = P.units.map("|".join)
 
@@ -80,12 +80,25 @@ def main():
     missing_codes = [u for u in used if u not in known]
     if missing_codes:
         print(f"{len(missing_codes)} codes on parcels but not in the rate sheet:", missing_codes[:20])
-        extra = pd.DataFrame({"tax_dist": ["FB-" + c for c in missing_codes], "name": missing_codes,
-                              "tp_cd": "", "rate_used": np.nan, "category": "Other", "bucket": "base"})
+        # Codes absent from the rate sheet, by FBCAD prefix: T = TIRZ (no rate), P = public improvement
+        # district (an assessment, not a rate), SM = management district. Anything else (MUDs, LIDs created
+        # after the sheet) is a real gap and is flagged as a missing rate.
+        def guess(c):
+            if c.startswith("T"):
+                return (f"TIRZ {c}", "TIRZ", "excluded", 0.0)
+            if c.startswith("P"):
+                return (f"Public improvement district {c}", "Public Improvement District", "excluded", 0.0)
+            if c.startswith("SM"):
+                return (f"Management district {c}", "Management District", "mgmt", np.nan)
+            return (f"Unit {c} (not in FBCAD rate sheet)", "Other", "base", np.nan)
+        g = [guess(c) for c in missing_codes]
+        extra = pd.DataFrame({"tax_dist": ["FB-" + c for c in missing_codes], "name": [x[0] for x in g],
+                              "tp_cd": "", "rate_used": [x[3] for x in g], "category": [x[1] for x in g],
+                              "bucket": [x[2] for x in g]})
         t = pd.concat([t, extra], ignore_index=True)
     t["accounts"] = t.tax_dist.map(pd.Series([u for us in acc.units for u in us]).value_counts()
                                    .rename(lambda c: "FB-" + c)).fillna(0).astype(int)
-    t["missing_rate"] = t.rate_used.isna() & (t.accounts > 0)
+    t["missing_rate"] = t.rate_used.isna() & (t.accounts > 0) & (t.bucket != "excluded")
     t["rate_used"] = t.rate_used.fillna(0.0)
     t["rate_prior"] = t.rate_used
     t["rate_current"] = np.nan
@@ -121,9 +134,11 @@ def main():
             "isd": names(r.category == "ISD"), "city": names(r.category == "City"),
             "water_districts": names(r.category.isin(["Water District (MUD/WCID/UD)", "Drainage District"])),
             "esd": names(r.category == "ESD"), "college": names(r.category == "College District"),
-            "mgmt_districts": names(r.bucket == "mgmt"), "tirz": "",
+            "mgmt_districts": names(r.bucket == "mgmt"), "tirz": names(r.category == "TIRZ"),
             "n_missing_rates": int(r.missing_rate.fillna(True).sum()),
-            "breakdown": "|".join(f"{c}:{round(float(w), 6)}" for c, w in zip(r.index, r.rate_used.fillna(0))),
+            "breakdown": "|".join(f"{c}:{round(float(w), 6)}" for c, w, b in zip(r.index, r.rate_used.fillna(0), r.bucket)
+                                  if b != "excluded"),
+            "pid": names(r.category == "Public Improvement District"),
             "rate_total_incl_mgmt": round(base + mgmt, 6), "accounts": int(n), "tax_year": a.year,
         })
     C = pd.DataFrame(out).sort_values("combo_id")

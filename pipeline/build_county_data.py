@@ -385,7 +385,8 @@ def main():
         combos.append({"id": cid, "b": round(float(r.rate_base), 6), "m": round(float(r.rate_mgmt), 6),
                        "isd": r.isd, "city": r.city, "water": r.water_districts, "esd": r.esd, "college": r.college,
                        "mg": r.mgmt_districts, "tirz": tirz, "mb": mb, "mm": mm, "p": parts, "n": [int(v) for v in n],
-                       "co": r.county, "y": int(r.tax_year) if r.tax_year else None})
+                       "co": r.county, "y": int(r.tax_year) if r.tax_year else None,
+                       **({"pid": r.pid} if "pid" in r and r.pid else {})})
     jur = {c: [rt.loc[c, "name"], rt.loc[c, "category"], rt.loc[c, "bucket"]] for c in sorted(jur_codes) if c in rt.index}
     tax_year = int(cb.tax_year.iloc[0]) if "tax_year" in cb and len(cb) else 2025
     years = {co: int(y) for co, y in cb.groupby("county").tax_year.first().items() if y}
