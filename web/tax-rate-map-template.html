@@ -665,8 +665,9 @@ $('fClear').onclick=()=>{
 const YEARS=META.taxYears||{Harris:META.taxYear}, MIXED=new Set(Object.values(YEARS)).size>1;
 $('statusTxt').textContent=(MIXED?Object.entries(YEARS).sort((a,b)=>(a[0]==='Harris'?-1:b[0]==='Harris'?1:a[0].localeCompare(b[0]))).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
 $('legT').textContent=MIXED?'Combined rate per $100':`${META.taxYear} combined rate per $100`;
-const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':'Harris';
-const CAD={Harris:'HCAD','Fort Bend':'FBCAD'};
+// account formats: HCAD 13 digits, FBCAD R + digits, MCAD up to 7 digits
+const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':/^\d{1,9}$/.test(acct||'')?'Montgomery':'Harris';
+const CAD={Harris:'HCAD','Fort Bend':'FBCAD',Montgomery:'MCAD'};
 
 // ---------------------------------------------------------------- shards (account records + search)
 const shardCache=new Map();
@@ -724,6 +725,10 @@ async function runSearch(q){
       list.push({acct:r[0],owner:r[1],addr:r[2],score:exact+addrHit});
     }
     list.sort((a,b)=>b.score-a.score);   // stable: shard order is highest value first
+  }
+  if(/^\d{4,5}$/.test(digits)){   // short MCAD account numbers look like house numbers: offer both
+    const r=await getAccount(digits); if(seq!==qSeq) return;
+    if(r&&!list.some(x=>x.acct===r.acct)) list.unshift({acct:r.acct,owner:r.owner,addr:r.addr,full:[r.acct,r.owner,r.addr,r.city,r.cls,r.val,r.bld,r.land,r.combo,r.lon==null?null:Math.round(r.lon*1e5),r.lat==null?null:Math.round(r.lat*1e5)]});
   }
   results=list.slice(0,30); act=-1;
   if(!results.length){ showMsg(partial?'Keep typing to narrow the search.':'No matches. Try an owner name, street name or 13 digit HCAD account.'); return; }
@@ -809,7 +814,8 @@ function renderDrawer(p){
   const miss=c?(state.mgmt?c.mb+c.mm:c.mb):0;
   if(miss>0) notes.push(['gold',`${miss} jurisdiction${miss>1?'s':''} on this account had no rate in the HCAD file, so the total may be understated.`]);
   if(c&&!c.city&&tg===2) notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);
-  if(county==='Fort Bend') notes.push(['',`Uses ${ry} adopted rates on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
+  if(county==='Montgomery') notes.push(['gold',`Demo: uses ${ry} adopted rates from the Montgomery County Tax Office. Some MCAD unit codes are matched by pattern until MCAD confirms its code list, and MCAD appraised values are not loaded yet, so no tax estimate is shown.`]);
+  else if(county==='Fort Bend') notes.push(['',`Uses ${ry} adopted rates on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
   else notes.push(['',`Uses ${ry} adopted rates on ${META.valueYear} appraised values. Exemptions and abatements are not applied.`]);
   const gm=p.lon!=null?`${p.lat.toFixed(6)},${p.lon.toFixed(6)}`:encodeURIComponent((p.addr||'')+' '+(p.city||'')+' TX');
   h+=`<div class="sec">Notes</div>${notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}

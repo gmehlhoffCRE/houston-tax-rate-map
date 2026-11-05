@@ -73,6 +73,21 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await page.keyboard.press('Escape');
   }
 
+  // Montgomery (only when the build includes it): 352872 is Conroe ISD + City of Conroe.
+  // 2025 rates: SCO 0.9496 + CCO 0.4272 + GMO 0.377 + JNH 0.106 + HM1 0.0473 = 1.9071
+  if (await page.evaluate(() => window.__app.getAccount('352872').then(r => !!r))) {
+    await page.fill('#q', '352872'); await waitResults();
+    await page.keyboard.press('Enter'); await waitDrawer(/MCAD account/); await waitIdle(3000);
+    const mcd = await drawerText();
+    check('Montgomery: account search opens an MCAD card with the combined 2025 rate', /MCAD account/.test(mcd) && /Montgomery County/.test(mcd) && /1\.9071/.test(mcd),
+      (mcd.match(/RATE \/ \$100\s*\n?\s*[\d.]+/i) || [''])[0].replace(/\n/g, ' '));
+    await shot('03c-montgomery');
+    await page.fill('#q', '54799'); await waitResults();
+    const mcr = await page.$$eval('#sres .sr', els => els.map(e => e.innerText.replace(/\n/g, ' | ')));
+    check('Montgomery: short account number search finds 54799', mcr.some(t => /54799/.test(t)), mcr[0]);
+    await page.keyboard.press('Escape');
+  }
+
   // account with blank values (no CAMA or rate record) must still load
   const blank = await page.evaluate(() => window.__app.getAccount('1042940000003').then(r => r && r.acct).catch(e => 'error ' + e.message));
   check('account record with blank values loads', blank === '1042940000003', String(blank));

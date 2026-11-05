@@ -1,0 +1,464 @@
+combo_id,rate_base,rate_mgmt,isd,city,water_districts,esd,college,mgmt_districts,tirz,pid,n_missing_rates,breakdown,rate_total_incl_mgmt,accounts,tax_year
+60000,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5808,24087,2025
+60001,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,15372,2025
+60002,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.6652,14723,2025
+60003,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,12649,2025
+60004,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.6155,8902,2025
+60005,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,8689,2025
+60006,1.825933,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 46,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-SCO:0.9496,1.825933,7976,2025
+60007,1.811984,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 47,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M47:0.160684|MC-SCO:0.9496,1.811984,7444,2025
+60008,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,1.8855,7162,2025
+60009,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,6231,2025
+60010,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,1.8855,5538,2025
+60011,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.6155,4847,2025
+60012,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5736,4752,2025
+60013,1.776265,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 60,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M60:0.124965|MC-SCO:0.9496,1.776265,4421,2025
+60014,2.4536,0.0,Conroe ISD,,Spring Creek UD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSC:0.88|MC-SCO:0.9496,2.4536,3916,2025
+60015,1.5776,0.0,Conroe ISD,,,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5776,3748,2025
+60016,1.6854,0.0,Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-STO:1.0629,1.6854,3722,2025
+60017,2.3105,0.0,New Caney ISD,,New Caney MUD,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MNC:0.425|MC-SNC:1.2552,2.3105,3481,2025
+60018,1.757885,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 7,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-SCO:0.9496,1.757885,3127,2025
+60019,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 3,Lone Star College System,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M13:0.0|MC-SCO:0.9496,1.5799,3086,2025
+60020,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5808,2990,2025
+60021,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,2969,2025
+60022,1.7855,0.0,Montgomery ISD,,Montgomery County MUD 18,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M18:0.17|MC-SMO:1.0912,1.7855,2948,2025
+60023,1.7863,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 67,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M67:0.135|MC-SCO:0.9496,1.7863,2832,2025
+60024,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M29:0.0|MC-SCO:0.9496,1.5736,2802,2025
+60025,2.1006,0.0,Conroe ISD,,Montgomery County DD 6; Rayford Road MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MRR:0.414|MC-SCO:0.9496,2.1006,2746,2025
+60026,2.3432,0.0,New Caney ISD,,Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552,2.3432,2715,2025
+60027,1.7183,0.0,Conroe ISD,"Woodlands Township, The",Woodlands MUD 1,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MW1:0.067|MC-SCO:0.9496,1.7183,2547,2025
+60028,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 3,Lone Star College System,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,2480,2025
+60029,2.1976,0.0,Conroe ISD,,Montgomery County MUD 15,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M15:0.62|MC-SCO:0.9496,2.1976,2442,2025
+60030,2.217,0.0,Willis ISD,"Willis, City of",,Montgomery County ESD 1,Lone Star College System,,,,0,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,2.217,2330,2025
+60031,1.9855,0.0,Montgomery ISD,,Montgomery County MUD 9,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M09:0.37|MC-SMO:1.0912,1.9855,2316,2025
+60032,1.9035,0.0,Montgomery ISD,,Montgomery County MUD 8,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M08:0.288|MC-SMO:1.0912,1.9035,2051,2025
+60033,2.5276,0.0,Conroe ISD,,Montgomery County MUD 95,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M95:0.95|MC-SCO:0.9496,2.5276,2031,2025
+60034,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SMA:0.9583,1.5808,1991,2025
+60035,2.8185,0.0,Magnolia ISD,"Magnolia, City of",Montgomery County MUD 108,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M108:1.01|MC-SMA:0.9583,2.8185,1976,2025
+60036,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,1959,2025
+60037,2.6276,0.0,Conroe ISD,,Montgomery County MUD 139,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M139:1.05|MC-SCO:0.9496,2.6276,1902,2025
+60038,2.4871,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 92,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M92:0.58|MC-SCO:0.9496,2.4871,1897,2025
+60039,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone ZCD1,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCD1:0.0|MC-SCO:0.9496,1.9071,1871,2025
+60040,2.013,0.0,Montgomery ISD,,Stanley Lake MUD,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MSL:0.3975|MC-SMO:1.0912,2.013,1870,2025
+60041,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 14,Lone Star College System,,,,1,MC-F14:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC:0.0|MC-SCO:0.9496,1.5799,1839,2025
+60042,1.9427,0.0,Montgomery ISD,"Conroe, City of",,,,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.9427,1839,2025
+60043,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M11:0.0|MC-SCO:0.9496,1.5799,1827,2025
+60044,1.6937,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 36,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M36:0.0424|MC-SCO:0.9496,1.6937,1823,2025
+60045,2.0927,0.0,Montgomery ISD,"Conroe, City of",Montgomery County UD 4,,,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-MU4:0.15|MC-SMO:1.0912,2.0927,1798,2025
+60046,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M28A:0.0|MC-SWI:1.0349,1.9924,1791,2025
+60047,2.2336,0.0,Conroe ISD,,Montgomery County MUD 94,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M94:0.66|MC-SCO:0.9496,2.2336,1770,2025
+60048,1.718408,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 6,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M06:0.067108|MC-SCO:0.9496,1.718408,1702,2025
+60049,2.1286,0.0,Conroe ISD,,Montgomery County MUD 89,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M89:0.555|MC-SCO:0.9496,2.1286,1683,2025
+60050,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M12:0.0|MC-SCO:0.9496,1.5736,1632,2025
+60051,3.2655,0.0,New Caney ISD,,Montgomery County MUD 140,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M140:1.38|MC-SNC:1.2552,3.2655,1616,2025
+60052,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MC1:0.0|MC-SCO:0.9496,1.9071,1537,2025
+60053,2.0155,0.0,Montgomery ISD,"Montgomery, City of",,Montgomery County ESD 2,,,,,0,MC-CMO:0.4|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,2.0155,1517,2025
+60054,3.185,0.0,Splendora ISD,,East Montgomery County MUD 12,Montgomery County ESD 7,Lone Star College System,,Zone ZE13,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME12:1.3|MC-SSP:1.2547,3.185,1517,2025
+60055,1.662,0.0,Conroe ISD,"Shenandoah, City of",,,Lone Star College System,,,,0,MC-CSH:0.1821|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.662,1510,2025
+60056,1.5776,0.0,Conroe ISD,,,Montgomery County ESD 4,Lone Star College System,,,,1,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M14:0.0|MC-SCO:0.9496,1.5776,1496,2025
+60057,1.8913,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 39,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M39:0.24|MC-SCO:0.9496,1.8913,1465,2025
+60058,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 3,,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M13:0.0|MC-SMO:1.0912,1.6155,1419,2025
+60059,3.1855,0.0,New Caney ISD,,East Montgomery County MUD 7,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME7:1.3|MC-SNC:1.2552,3.1855,1407,2025
+60060,3.0555,0.0,New Caney ISD,,East Montgomery County MUD 6,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME6:1.17|MC-SNC:1.2552,3.0555,1383,2025
+60061,2.8536,0.0,Conroe ISD,,Montgomery County DD 10; Montgomery County MUD 99,Montgomery County ESD 8,Lone Star College System,,,,0,MC-D10:0.265|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M99:1.015|MC-SCO:0.9496,2.8536,1376,2025
+60062,2.2022,0.0,Willis ISD,"Panorama Village, City of",,Montgomery County ESD 1,Lone Star College System,,,,0,MC-CPV:0.537|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,2.2022,1311,2025
+60063,2.9299,0.0,Conroe ISD,,Montgomery County MUD 191,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M191:1.35|MC-SCO:0.9496,2.9299,1311,2025
+60064,2.3105,0.0,New Caney ISD,,New Caney MUD,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MNC:0.425|MC-SNC:1.2552,2.3105,1280,2025
+60065,2.1752,0.0,Willis ISD,,Point Aquarius MUD,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPA:0.51|MC-SWI:1.0349,2.1752,1199,2025
+60066,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 3,Lone Star College System,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M21:0.0|MC-SCO:0.9496,1.5799,1186,2025
+60067,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M05:0.0|MC-SCO:0.9496,1.5736,1184,2025
+60068,2.9299,0.0,Conroe ISD,,Montgomery County MUD 164,Montgomery County ESD 9,Lone Star College System,,Zone ZGP,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M164:1.35|MC-SCO:0.9496,2.9299,1175,2025
+60069,2.3028,0.0,Splendora ISD,"Splendora, City of",,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CSP:0.4178|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,2.3028,1173,2025
+60070,2.2379,0.0,Conroe ISD,,River Plantation MUD,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MRP:0.658|MC-SCO:0.9496,2.2379,1162,2025
+60071,2.5736,0.0,Conroe ISD,,Montgomery County MUD 88,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M88:1.0|MC-SCO:0.9496,2.5736,1127,2025
+60072,3.1855,0.0,New Caney ISD,,East Montgomery County MUD 5,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME5:1.3|MC-SNC:1.2552,3.1855,1119,2025
+60073,1.6854,0.0,Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWT:0.0|MC-STO:1.0629,1.6854,1100,2025
+60074,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MLC:0.0|MC-SWI:1.0349,1.6652,1094,2025
+60075,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M37:0.0|MC-SMA:0.9583,1.5808,1067,2025
+60076,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,Zone ZVRT,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MV1:0.0|MC-SNC:1.2552,1.8855,1052,2025
+60077,2.2526,0.0,Conroe ISD,,Montgomery County DD 10; Rayford Road MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-D10:0.265|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MRR:0.414|MC-SCO:0.9496,2.2526,1044,2025
+60078,2.2752,0.0,Willis ISD,,Far Hills UD,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MFH:0.61|MC-SWI:1.0349,2.2752,1044,2025
+60079,2.9308,0.0,Magnolia ISD,,Montgomery County MUD 165,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M165:1.35|MC-SMA:0.9583,2.9308,1036,2025
+60080,2.6955,0.0,New Caney ISD,,East Montgomery County MUD 3,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME3:0.81|MC-SNC:1.2552,2.6955,1034,2025
+60081,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MU2:0.0|MC-SWI:1.0349,1.6652,1020,2025
+60082,3.135,0.0,Splendora ISD,,East Montgomery County MUD 4,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME4:1.25|MC-SSP:1.2547,3.135,1016,2025
+60083,3.0055,0.0,New Caney ISD,,Montgomery County MUD 24,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M24:1.12|MC-SNC:1.2552,3.0055,1007,2025
+60084,2.663,0.0,New Caney ISD,"Roman Forest, City of",Roman Forest Consolidated MUD,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CRF:0.5475|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MRC:0.23|MC-SNC:1.2552,2.663,999,2025
+60085,1.6903,0.0,Conroe ISD,,Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,1.6903,987,2025
+60086,3.1855,0.0,New Caney ISD,,Montgomery County MUD 96,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M96:1.3|MC-SNC:1.2552,3.1855,984,2025
+60087,3.0776,0.0,Conroe ISD,,Montgomery County MUD 144,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M144:1.5|MC-SCO:0.9496,3.0776,975,2025
+60088,2.6895,0.0,New Caney ISD,,Montgomery County MUD 84,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M84:0.804|MC-SNC:1.2552,2.6895,970,2025
+60089,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M32:0.0|MC-SCO:0.9496,1.9071,968,2025
+60090,2.4171,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 107,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MU7:0.51|MC-SCO:0.9496,2.4171,965,2025
+60091,2.0878,0.0,Montgomery ISD,"Conroe, City of",Montgomery County UD 3,,,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-MU3:0.1451|MC-SMO:1.0912,2.0878,949,2025
+60092,1.8502,0.0,Conroe ISD,,Chateau Woods MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCW:0.2766|MC-SCO:0.9496,1.8502,948,2025
+60093,2.7055,0.0,New Caney ISD,,Montgomery County MUD 98,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M98:0.82|MC-SNC:1.2552,2.7055,946,2025
+60094,2.4571,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 90,,Lone Star College System,,Zone RZ3; Zone RZ3A,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M90:0.55|MC-SCO:0.9496,2.4571,940,2025
+60095,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M26:0.0|MC-SWI:1.0349,1.9924,916,2025
+60096,2.6913,0.0,Willis ISD,,Texas National MUD,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MTN:1.0261|MC-SWI:1.0349,2.6913,912,2025
+60097,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M52A:0.0|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,887,2025
+60098,2.8299,0.0,Conroe ISD,,Montgomery County MUD 145,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M145:1.25|MC-SCO:0.9496,2.8299,882,2025
+60099,2.1989,0.0,Splendora ISD,"Patton Village, City of",,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CPT:0.3139|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,2.1989,880,2025
+60100,3.385,0.0,Splendora ISD,,Montgomery County MUD 185,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M185:1.5|MC-SSP:1.2547,3.385,877,2025
+60101,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M131:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,876,2025
+60102,1.66,0.0,Magnolia ISD,"Woodlands Township, The",,,Lone Star College System,,,,1,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M86:0.0|MC-SMA:0.9583,1.66,864,2025
+60103,2.1218,0.0,New Caney ISD,"Woodbranch Village, City of",,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CWV:0.2363|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,2.1218,856,2025
+60104,2.8308,0.0,Magnolia ISD,,Montgomery County MUD 180,Montgomery County ESD 10,Lone Star College System,,Zone Z180; Zone ZMS,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M180:1.25|MC-SMA:0.9583,2.8308,851,2025
+60105,3.0808,0.0,Magnolia ISD,,Montgomery County MUD 199,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M199:1.5|MC-SMA:0.9583,3.0808,850,2025
+60106,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MKM:0.0|MC-SNC:1.2552,1.8855,830,2025
+60107,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWR:0.0|MC-SNC:1.2552,1.8855,824,2025
+60108,2.9308,0.0,Magnolia ISD,,Montgomery County MUD 174,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M174:1.35|MC-SMA:0.9583,2.9308,770,2025
+60109,2.4725,0.0,New Caney ISD,,Montgomery County MUD 83,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M83:0.587|MC-SNC:1.2552,2.4725,768,2025
+60110,2.9299,0.0,Conroe ISD,,Montgomery County MUD 162,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M162:1.35|MC-SCO:0.9496,2.9299,761,2025
+60111,2.0004,0.0,Conroe ISD,"Oak Ridge North, City of",,Montgomery County ESD 8,Lone Star College System,,,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.0004,730,2025
+60112,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW2:0.0|MC-SMA:0.9583,1.5808,728,2025
+60113,1.9427,0.0,Montgomery ISD,"Conroe, City of",,,,,,,2,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-M38:0.0|MC-SMO:1.0912|MC-V138:0.0,1.9427,718,2025
+60114,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M38:0.0|MC-SCO:0.9496,1.9071,710,2025
+60115,2.4799,0.0,Conroe ISD,,Montgomery County MUD 42,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M42:0.9|MC-SCO:0.9496,2.4799,705,2025
+60116,3.0255,0.0,Montgomery ISD,,Montgomery County MUD 166,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M166:1.41|MC-SMO:1.0912,3.0255,693,2025
+60117,3.3432,0.0,New Caney ISD,,Porter MUD; Porter MUD - Hendricks Defined Area,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552|MC-T03:1.0,3.3432,684,2025
+60118,1.8033,0.0,Conroe ISD,,Montgomery County DD 6; Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,1.8033,679,2025
+60119,3.0808,0.0,Magnolia ISD,,Montgomery County MUD 218,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M218:1.5|MC-SMA:0.9583,3.0808,661,2025
+60120,2.0239,0.0,Conroe ISD,,East Plantation UD,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MEP:0.444|MC-SCO:0.9496,2.0239,634,2025
+60121,1.6854,0.0,Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MDP:0.0|MC-STO:1.0629,1.6854,601,2025
+60122,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M27:0.0|MC-SCO:0.9496,1.5736,595,2025
+60123,2.9071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 142,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M142:1.0|MC-SCO:0.9496,2.9071,585,2025
+60124,3.2355,0.0,New Caney ISD,,Montgomery County MUD 110,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M110:1.35|MC-SNC:1.2552,3.2355,569,2025
+60125,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M38:0.0|MC-SWI:1.0349,1.9924,563,2025
+60126,3.0071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 206,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M206:1.1|MC-SCO:0.9496,3.0071,561,2025
+60127,2.964,0.0,New Caney ISD,,Roman Forest PUD 4,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MR4:1.0785|MC-SNC:1.2552,2.964,558,2025
+60128,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone RZ01,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M146D:0.0|MC-SMA:0.9583,1.5808,553,2025
+60129,3.0152,0.0,Willis ISD,,Montgomery County MUD 100,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M100:1.35|MC-SWI:1.0349,3.0152,549,2025
+60130,1.8085,0.0,Magnolia ISD,"Magnolia, City of",,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.8085,538,2025
+60131,3.1367,0.0,New Caney ISD,"Roman Forest, City of",Roman Forest PUD 3,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CRF:0.5475|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MR3:0.7037|MC-SNC:1.2552,3.1367,537,2025
+60132,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MGO:0.0|MC-SMA:0.9583,1.5808,530,2025
+60133,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M54A:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,527,2025
+60134,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M178:0.0|MC-SWI:1.0349,1.9924,520,2025
+60135,2.9299,0.0,Conroe ISD,,Montgomery County MUD 158,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M158:1.35|MC-SCO:0.9496,2.9299,511,2025
+60136,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,Zone RZ5,,2,MC-CCV:0.0|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCL:0.0|MC-SSP:1.2547,1.885,507,2025
+60137,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,497,2025
+60138,2.709,0.0,Splendora ISD,,Montgomery County MUD 16,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M16:0.924|MC-SSP:1.2547,2.709,493,2025
+60139,2.8071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 149,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M149:0.9|MC-SCO:0.9496,2.8071,493,2025
+60140,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SMA:0.9583,1.5808,484,2025
+60141,0.0,0.0,,,,,,,,,1,MC-nan:0.0,0.0,463,2025
+60142,3.385,0.0,Splendora ISD,,East Montgomery County MUD 13,Montgomery County ESD 7,Lone Star College System,,Zone ZE13,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME13:1.5|MC-SSP:1.2547,3.385,447,2025
+60143,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SMA:0.9583|MC-T07:0.0,1.5808,443,2025
+60144,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SCO:0.9496,1.5799,438,2025
+60145,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,428,2025
+60146,3.385,0.0,Splendora ISD,,East Montgomery County MUD 14,Montgomery County ESD 7,Lone Star College System,,Zone ZE13,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME14:1.5|MC-SSP:1.2547,3.385,425,2025
+60147,2.4605,0.0,New Caney ISD,,Montgomery County MUD 56,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M56:0.575|MC-SNC:1.2552,2.4605,402,2025
+60148,3.367,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 176,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M176:1.15|MC-RW1:0.0|MC-RW1A:0.0|MC-SWI:1.0349,3.367,399,2025
+60149,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MAR:0.0|MC-SCO:0.9496,1.5799,399,2025
+60150,2.317,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 129,Montgomery County ESD 1,Lone Star College System,,,,1,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M129:0.1|MC-RW1:0.0|MC-SWI:1.0349,2.317,399,2025
+60151,1.3258,0.0,Richards ISD,,,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SRI:0.8015,1.3258,394,2025
+60152,2.194,0.0,Willis ISD,,Corinthian Point MUD 2,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCP:0.5288|MC-SWI:1.0349,2.194,392,2025
+60153,1.8085,0.0,Magnolia ISD,"Magnolia, City of",,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.8085,380,2025
+60154,1.5808,0.0,Magnolia ISD,,Montgomery County MUD 197,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M197:0.0|MC-SMA:0.9583,1.5808,374,2025
+60155,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,365,2025
+60156,3.385,0.0,Splendora ISD,,East Montgomery County MUD 14,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME14:1.5|MC-SSP:1.2547,3.385,361,2025
+60157,1.723,0.0,Conroe ISD,,Lazy River ID,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MLR:0.1454|MC-SCO:0.9496,1.723,357,2025
+60158,2.8071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 148,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M148:0.9|MC-SCO:0.9496,2.8071,350,2025
+60159,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,Zone ZE13,,1,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME13A:0.0|MC-SSP:1.2547,1.885,348,2025
+60160,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M41:0.0|MC-SMA:0.9583,1.5808,342,2025
+60161,2.8821,0.0,New Caney ISD,,Porter MUD; Porter MUD - Auburn Trails Defined Area I,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552|MC-T01:0.5389,2.8821,330,2025
+60162,2.6955,0.0,New Caney ISD,,East Montgomery County MUD 3,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME3:0.81|MC-SNC:1.2552,2.6955,328,2025
+60163,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,Improvement district PMP,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5808,324,2025
+60164,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ2,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,301,2025
+60165,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,1,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M202A:0.0|MC-SCO:0.9496,2.0071,294,2025
+60166,1.7863,0.0,Conroe ISD,"Woodlands Township, The","Woodlands Metro Center MUD; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWM:0.085|MC-RU1:0.05|MC-SCO:0.9496,1.7863,288,2025
+60167,1.4799,0.0,Conroe ISD,,,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.4799,287,2025
+60168,2.809,0.0,Splendora ISD,,Montgomery County MUD 16,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M16:0.924|MC-SSP:1.2547,2.809,286,2025
+60169,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M238:0.0|MC-SWI:1.0349,1.6652,284,2025
+60170,3.0152,0.0,Willis ISD,,Montgomery County MUD 100,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M100:1.35|MC-RW1:0.0|MC-SWI:1.0349,3.0152,268,2025
+60171,2.0721,0.0,Conroe ISD,,Montgomery County MUD 196,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M196:0.5|MC-SCO:0.9496,2.0721,267,2025
+60172,1.6866,0.0,Conroe ISD,,Montgomery County DD 6,Montgomery County ESD 8,Lone Star College System,,,,0,MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.6866,264,2025
+60173,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCC:0.0|MC-SMA:0.9583,1.5808,261,2025
+60174,2.1134,0.0,Conroe ISD,"Oak Ridge North, City of",Montgomery County DD 6,Montgomery County ESD 8,Lone Star College System,,,,0,MC-COR:0.4268|MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.1134,260,2025
+60175,1.885,0.0,Splendora ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,259,2025
+60176,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,Zone RZ4,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5736,257,2025
+60177,3.1152,0.0,Willis ISD,,Montgomery County MUD 172,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M172:1.45|MC-RW1:0.0|MC-SWI:1.0349,3.1152,252,2025
+60178,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RDT:0.0|MC-SCO:0.9496,1.9071,251,2025
+60179,1.6077,0.0,Montgomery ISD,,,Montgomery County ESD 10,,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.6077,249,2025
+60180,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PWF,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,249,2025
+60181,1.785,0.0,Splendora ISD,,,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.785,244,2025
+60182,1.93,0.0,Magnolia ISD,"Stagecoach, City of",,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CST:0.3492|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.93,242,2025
+60183,1.8085,0.0,Magnolia ISD,"Magnolia, City of",,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,Improvement district PMR,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.8085,238,2025
+60184,2.8071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 147,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M147:0.9|MC-SCO:0.9496,2.8071,230,2025
+60185,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,Improvement district PCM,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,230,2025
+60186,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PWM,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,229,2025
+60187,2.8687,0.0,New Caney ISD,,Porter MUD; Porter MUD - Auburn Trails Defined Area II,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552|MC-T04:0.5255,2.8687,229,2025
+60188,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SWI:1.0349,1.6652,227,2025
+60189,2.8655,0.0,Montgomery ISD,,Montgomery County MUD 211,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M211:1.25|MC-SMO:1.0912,2.8655,220,2025
+60190,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SSP:1.2547,1.885,216,2025
+60191,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M32:0.0|MC-SWI:1.0349,1.9924,207,2025
+60192,2.30469,0.0,New Caney ISD,"Houston, City of",,,Lone Star College System,,,,0,MC-CHO:0.51919|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,2.30469,206,2025
+60193,2.2637,0.0,Willis ISD,,Montgomery County FWSD 6,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MFW:0.5985|MC-SWI:1.0349,2.2637,198,2025
+60194,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M146B:0.0|MC-SMA:0.9583,1.5808,198,2025
+60195,3.0799,0.0,Conroe ISD,,Montgomery County MUD 212,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M212:1.5|MC-SCO:0.9496,3.0799,196,2025
+60196,2.7308,0.0,Magnolia ISD,,Montgomery County MUD 125,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M125:1.15|MC-SMA:0.9583,2.7308,196,2025
+60197,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 1,Lone Star College System,,,Improvement district PMD,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,192,2025
+60198,3.0808,0.0,Magnolia ISD,,Montgomery County MUD 159,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M159:1.5|MC-SMA:0.9583,3.0808,191,2025
+60199,2.217,0.0,Willis ISD,"Willis, City of",,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RW1:0.0|MC-RW1A:0.0|MC-SWI:1.0349,2.217,189,2025
+60200,2.8808,0.0,Magnolia ISD,,Montgomery County MUD 136,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M136:1.3|MC-SMA:0.9583,2.8808,185,2025
+60201,2.9655,0.0,Montgomery ISD,,Montgomery County MUD 150,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M150:1.35|MC-SMO:1.0912,2.9655,181,2025
+60202,3.0799,0.0,Conroe ISD,,Montgomery County MUD 219,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M219:1.5|MC-SCO:0.9496,3.0799,179,2025
+60203,2.0155,0.0,Montgomery ISD,"Montgomery, City of",,Montgomery County ESD 2,,,,,1,MC-CMO:0.4|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M224:0.0|MC-SMO:1.0912,2.0155,174,2025
+60204,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M130:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,168,2025
+60205,2.9427,0.0,Montgomery ISD,"Conroe, City of",Montgomery County MUD 147,Montgomery County ESD 3,,,,,0,MC-CCO:0.4272|MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M147:0.9|MC-SMO:1.0912,2.9427,168,2025
+60206,2.0989,0.0,Splendora ISD,"Patton Village, City of",,,Lone Star College System,,,,0,MC-CPT:0.3139|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,2.0989,167,2025
+60207,1.70912,0.0,Conroe ISD,,Montgomery County MUD 19,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M19:0.13552|MC-SCO:0.9496,1.70912,155,2025
+60208,2.433,0.0,New Caney ISD,"Roman Forest, City of",,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CRF:0.5475|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,2.433,153,2025
+60209,2.386,0.0,Magnolia ISD,"Magnolia, City of",Magnolia East MUD,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MME:0.5775|MC-SMA:0.9583,2.386,145,2025
+60210,3.1152,0.0,Willis ISD,,Montgomery County MUD 172,Montgomery County ESD 1,Lone Star College System,,,,2,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M172:1.45|MC-RW1:0.0|MC-RW1A:0.0|MC-SWI:1.0349,3.1152,142,2025
+60211,2.217,0.0,Willis ISD,"Willis, City of",,Montgomery County ESD 1,Lone Star College System,,,,3,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-RW1:0.0|MC-RW1A:0.0|MC-SWI:1.0349,2.217,137,2025
+60212,2.8185,0.0,Magnolia ISD,"Magnolia, City of",Montgomery County MUD 108,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M108:1.01|MC-SMA:0.9583,2.8185,131,2025
+60213,2.0346,0.0,Tomball ISD,"Stagecoach, City of",,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CST:0.3492|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-STO:1.0629,2.0346,129,2025
+60214,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RW1:0.0|MC-SWI:1.0349,1.6652,123,2025
+60215,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PCC,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,122,2025
+60216,3.367,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 176,Montgomery County ESD 1,Lone Star College System,,,,1,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M176:1.15|MC-RW1:0.0|MC-SWI:1.0349,3.367,121,2025
+60217,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PTC1,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,120,2025
+60218,2.7155,0.0,Montgomery ISD,"Montgomery, City of",Montgomery County MUD 160,Montgomery County ESD 2,,,,,0,MC-CMO:0.4|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M160:0.7|MC-SMO:1.0912,2.7155,120,2025
+60219,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M32:0.0|MC-SWI:1.0349,1.9924,120,2025
+60220,2.1171,0.0,Conroe ISD,"Oak Ridge North, City of",Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,2.1171,118,2025
+60221,2.30469,0.0,New Caney ISD,"Houston, City of",,,Lone Star College System,,,,1,MC-CHO:0.51919|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RCH:0.0|MC-SNC:1.2552,2.30469,117,2025
+60222,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PTC4,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,114,2025
+60223,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PSP,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,113,2025
+60224,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCD2:0.0|MC-SWI:1.0349,1.9924,113,2025
+60225,2.5886,0.0,Conroe ISD,,Montgomery County MUD 99,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M99:1.015|MC-SCO:0.9496,2.5886,111,2025
+60226,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PWW,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,110,2025
+60227,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PTC2,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,108,2025
+60228,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 14,Lone Star College System,,,,0,MC-F14:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,104,2025
+60229,2.2301,0.0,Conroe ISD,"Oak Ridge North, City of",Montgomery County DD 6; Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-COR:0.4268|MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,2.2301,104,2025
+60230,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 3,,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M21:0.0|MC-SMO:1.0912,1.6155,102,2025
+60231,1.5776,0.0,Conroe ISD,,,Montgomery County ESD 4,Lone Star College System,,,,1,MC-CWO:0.0|MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5776,100,2025
+60232,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 2,,,,,1,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MB1:0.0|MC-SMO:1.0912,1.6155,98,2025
+60233,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ1,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,97,2025
+60234,2.0571,0.0,Conroe ISD,"Conroe, City of",Montgomery County UD 4,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MU4:0.15|MC-SCO:0.9496,2.0571,96,2025
+60235,2.606,0.0,Conroe ISD,,Texas National MUD,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MTN:1.0261|MC-SCO:0.9496,2.606,93,2025
+60236,1.6854,0.0,Tomball ISD,,Montgomery County MUD 201,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M201:0.0|MC-STO:1.0629,1.6854,92,2025
+60237,1.926833,0.0,Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 46,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CWT:0.1714|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-SMA:0.9583,1.926833,87,2025
+60238,3.0071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 142,Montgomery County ESD 9,Lone Star College System,,,,0,MC-CCO:0.4272|MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M142:1.0|MC-SCO:0.9496,3.0071,87,2025
+60239,1.6513,0.0,Conroe ISD,"Woodlands Township, The",,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.6513,85,2025
+60240,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,Improvement district PWO,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,83,2025
+60241,1.5886,0.0,Magnolia ISD,,,Montgomery County ESD 3,Lone Star College System,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5886,81,2025
+60242,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PTL,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,80,2025
+60243,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MB1:0.0|MC-SMA:0.9583,1.5808,78,2025
+60244,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PSL,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,74,2025
+60245,1.82212,0.0,Conroe ISD,,Montgomery County DD 6; Montgomery County MUD 19,Montgomery County ESD 8,Lone Star College System,,,,0,MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M19:0.13552|MC-SCO:0.9496,1.82212,69,2025
+60246,2.0004,0.0,Conroe ISD,"Oak Ridge North, City of",,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.0004,66,2025
+60247,2.3105,0.0,New Caney ISD,,New Caney MUD,Montgomery County ESD 6,Lone Star College System,,Zone ZVRT,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MNC:0.425|MC-MVR1:0.0|MC-SNC:1.2552,2.3105,61,2025
+60248,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M38:0.0|MC-SWI:1.0349,1.9924,61,2025
+60249,2.8308,0.0,Magnolia ISD,,Montgomery County MUD 180,Montgomery County ESD 10,Lone Star College System,,Zone Z180,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M180:1.25|MC-SMA:0.9583,2.8308,60,2025
+60250,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M52B:0.0|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,59,2025
+60251,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SCO:0.9496,1.5799,51,2025
+60252,1.7363,0.0,Conroe ISD,"Woodlands Township, The",Woodlands Metro Center MUD,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWM:0.085|MC-SCO:0.9496,1.7363,48,2025
+60253,1.5886,0.0,Magnolia ISD,,,Montgomery County ESD 2,Lone Star College System,,,,1,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MB1:0.0|MC-SMA:0.9583,1.5886,48,2025
+60254,2.1134,0.0,Conroe ISD,"Oak Ridge North, City of",Montgomery County DD 6,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.1134,46,2025
+60255,1.712,0.0,Conroe ISD,"Shenandoah, City of","Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CSH:0.1821|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RU1:0.05|MC-SCO:0.9496,1.712,46,2025
+60256,1.5484,0.0,Cleveland ISD,,,Montgomery County ESD 7,,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SCL:1.0241,1.5484,45,2025
+60257,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,Improvement district PLC,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,1.9924,44,2025
+60258,3.0655,0.0,Montgomery ISD,,Montgomery County MUD 153,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M153:1.45|MC-SMO:1.0912,3.0655,42,2025
+60259,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,Zone ZMT,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,36,2025
+60260,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone FTZ,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RCP:0.0|MC-SCO:0.9496,1.9071,34,2025
+60261,1.6513,0.0,Conroe ISD,"Woodlands Township, The",,,Lone Star College System,,,,1,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC:0.0|MC-SCO:0.9496,1.6513,31,2025
+60262,1.5484,0.0,Cleveland ISD,,,Montgomery County ESD 7,,,,,1,MC-CCV:0.0|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SCL:1.0241,1.5484,30,2025
+60263,1.4799,0.0,Conroe ISD,,,,Lone Star College System,,Zone ZTR,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.4799,30,2025
+60264,2.013,0.0,Montgomery ISD,,Stanley Lake MUD,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MSL:0.3975|MC-SMO:1.0912,2.013,29,2025
+60265,1.9239,0.0,Conroe ISD,,East Plantation UD,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MEP:0.444|MC-SCO:0.9496,1.9239,27,2025
+60266,2.7955,0.0,New Caney ISD,,East Montgomery County MUD 3,Montgomery County ESD 6; Montgomery County ESD 7,Lone Star College System,,,,0,MC-F06:0.1|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME3:0.81|MC-SNC:1.2552,2.7955,27,2025
+60267,2.8655,0.0,Montgomery ISD,,Montgomery County MUD 209,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M209:1.25|MC-SMO:1.0912,2.8655,27,2025
+60268,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,2,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWR:0.0|MC-RCH:0.0|MC-SNC:1.2552,1.8855,24,2025
+60269,1.768408,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 6; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M06:0.067108|MC-RU1:0.05|MC-SCO:0.9496,1.768408,24,2025
+60270,1.875933,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 46; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-RU1:0.05|MC-SCO:0.9496,1.875933,24,2025
+60271,1.7855,0.0,New Caney ISD,,,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,1.7855,23,2025
+60272,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RCH:0.0|MC-SNC:1.2552,1.8855,20,2025
+60273,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,20,2025
+60274,3.1472,0.0,New Caney ISD,,Montgomery County MUD 84; Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M84:0.804|MC-MPM:0.4577|MC-SNC:1.2552,3.1472,19,2025
+60275,1.6854,0.0,Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-STO:1.0629,1.6854,18,2025
+60276,2.1171,0.0,Conroe ISD,"Oak Ridge North, City of",Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,2.1171,17,2025
+60277,1.807885,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 7; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-RU1:0.05|MC-SCO:0.9496,1.807885,17,2025
+60278,1.861984,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 47; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M47:0.160684|MC-RU1:0.05|MC-SCO:0.9496,1.861984,17,2025
+60279,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RCP:0.0|MC-SCO:0.9496,1.9071,17,2025
+60280,1.8363,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 67; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M67:0.135|MC-RU1:0.05|MC-SCO:0.9496,1.8363,15,2025
+60281,2.6711,0.0,Conroe ISD; Montgomery ISD,,,Montgomery County ESD 3,Lone Star College System,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M13:0.0|MC-SCO:0.9496|MC-SMO:1.0912,2.6711,15,2025
+60282,2.8105,0.0,New Caney ISD,,New Caney MUD; New Caney MUD - Hendricks Defined Area,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MNC:0.425|MC-SNC:1.2552|MC-T06:0.5,2.8105,14,2025
+60283,1.775,0.0,Conroe ISD,"Shenandoah, City of",Montgomery County DD 6,,Lone Star College System,,,,0,MC-CSH:0.1821|MC-DD6:0.113|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.775,14,2025
+60284,2.6819,0.0,Conroe ISD,,East Plantation UD; River Plantation MUD,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MEP:0.444|MC-MRP:0.658|MC-SCO:0.9496,2.6819,13,2025
+60285,2.2301,0.0,Conroe ISD,"Oak Ridge North, City of",Montgomery County DD 6; Southern Montgomery County MUD,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,2.2301,12,2025
+60286,3.035,0.0,Splendora ISD,,East Montgomery County MUD 4,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME4:1.25|MC-SSP:1.2547,3.035,12,2025
+60287,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M28B:0.0|MC-SWI:1.0349,1.9924,12,2025
+60288,1.8085,0.0,Magnolia ISD,"Magnolia, City of",,Montgomery County ESD 10,Lone Star College System,,,,1,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MGO:0.0|MC-SMA:0.9583,1.8085,12,2025
+60289,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,Zone RZ3; Zone RZ3A,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MC1:0.0|MC-SWI:1.0349,1.9924,12,2025
+60290,2.0924,0.0,Willis ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,0,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SWI:1.0349,2.0924,11,2025
+60291,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone RZD,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,11,2025
+60292,2.9302,0.0,New Caney ISD,,Montgomery County MUD 83; Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M83:0.587|MC-MPM:0.4577|MC-SNC:1.2552,2.9302,11,2025
+60293,1.5808,0.0,Magnolia ISD,,Montgomery County MUD 116,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M116:0.0|MC-SMA:0.9583,1.5808,11,2025
+60294,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M193:0.0|MC-SCO:0.9496,1.5799,11,2025
+60295,1.6854,0.0,Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-STO:1.0629,1.6854,10,2025
+60296,1.5799,0.0,Conroe ISD,,Montgomery County MUD 163,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M163:0.0|MC-SCO:0.9496,1.5799,10,2025
+60297,2.9299,0.0,Conroe ISD,,Montgomery County MUD 173,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M173:1.35|MC-SCO:0.9496,2.9299,10,2025
+60298,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-CCV:0.0|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,10,2025
+60299,1.6866,0.0,Conroe ISD,,Montgomery County DD 6,Montgomery County ESD 8,Lone Star College System,,Zone RZ4,,0,MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.6866,10,2025
+60300,1.7597,0.0,Conroe ISD,"Shenandoah, City of",,Montgomery County ESD 4,Lone Star College System,,,,0,MC-CSH:0.1821|MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.7597,10,2025
+60301,1.662,0.0,Conroe ISD,"Shenandoah, City of",,,Lone Star College System,,,Improvement district PSM,0,MC-CSH:0.1821|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.662,10,2025
+60302,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M131:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,10,2025
+60303,1.8855,0.0,New Caney ISD,,Montgomery County MUD 186,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M186:0.0|MC-SNC:1.2552,1.8855,10,2025
+60304,1.834633,0.0,Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 46,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-SMA:0.9583,1.834633,9,2025
+60305,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M54B:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,9,2025
+60306,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 2,,,,,1,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M213:0.0|MC-SMO:1.0912,1.6155,9,2025
+60307,3.367,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 176,Montgomery County ESD 1,Lone Star College System,,,,0,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M176:1.15|MC-SWI:1.0349,3.367,9,2025
+60308,1.7683,0.0,Conroe ISD,"Woodlands Township, The","Woodlands MUD 1; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MW1:0.067|MC-RU1:0.05|MC-SCO:0.9496,1.7683,8,2025
+60309,3.0071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 183,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M183:1.1|MC-SCO:0.9496,3.0071,8,2025
+60310,1.989,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 39,Montgomery County ESD 4,Lone Star College System,,,,0,MC-CWT:0.1714|MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M39:0.24|MC-SCO:0.9496,1.989,8,2025
+60311,3.0152,0.0,Willis ISD,,Montgomery County MUD 151,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M151:1.35|MC-SWI:1.0349,3.0152,8,2025
+60312,1.8855,0.0,New Caney ISD,,Montgomery County MUD 189,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M189:0.0|MC-SNC:1.2552,1.8855,8,2025
+60313,1.4886,0.0,Magnolia ISD,,,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.4886,7,2025
+60314,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M252:0.0|MC-SNC:1.2552,1.8855,7,2025
+60315,1.826265,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 60; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M60:0.124965|MC-RU1:0.05|MC-SCO:0.9496,1.826265,7,2025
+60316,2.9299,0.0,Conroe ISD,,Montgomery County MUD 158,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M158:1.35|MC-SCO:0.9496,2.9299,7,2025
+60317,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW3:0.0|MC-SMA:0.9583,1.5808,7,2025
+60318,2.317,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 129,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M129:0.1|MC-M28A:0.0|MC-RW1:0.0|MC-SWI:1.0349,2.317,7,2025
+60319,2.8655,0.0,Montgomery ISD,,Montgomery County MUD 211,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M211:1.25|MC-SMO:1.0912,2.8655,7,2025
+60320,2.3432,0.0,New Caney ISD,,Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,2,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-MVR2:0.0|MC-SNC:1.2552|MC-T02:0.0,2.3432,7,2025
+60321,2.0427,0.0,Montgomery ISD,"Conroe, City of",,Montgomery County ESD 3,,,,,2,MC-CCO:0.4272|MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M38:0.0|MC-SMO:1.0912|MC-V138:0.0,2.0427,7,2025
+60322,2.6055,0.0,New Caney ISD,,Montgomery County MUD 98,,Lone Star College System,,,,1,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M98:0.82|MC-RCH:0.0|MC-SNC:1.2552,2.6055,7,2025
+60323,1.926833,0.0,Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 46,Montgomery County ESD 10,Lone Star College System,,,,1,MC-CWT:0.1714|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-M86:0.0|MC-SMA:0.9583,1.926833,7,2025
+60324,2.9071,0.0,Conroe ISD,"Conroe, City of",Montgomery County MUD 155,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M155:1.0|MC-SCO:0.9496,2.9071,7,2025
+60325,2.0522,0.0,Conroe ISD,"Conroe, City of",Montgomery County UD 3,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MU3:0.1451|MC-SCO:0.9496,2.0522,7,2025
+60326,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M194:0.0|MC-SCO:0.9496,1.5799,7,2025
+60327,3.385,0.0,Splendora ISD,,Montgomery County MUD 219,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M219:1.5|MC-SSP:1.2547,3.385,7,2025
+60328,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW2:0.0|MC-MMW3:0.0|MC-SMA:0.9583,1.5808,7,2025
+60329,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,3,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW1:0.0|MC-MMW2:0.0|MC-MMW3:0.0|MC-SMA:0.9583,1.5808,7,2025
+60330,2.6437,0.0,Magnolia ISD; Tomball ISD,,,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583|MC-STO:1.0629,2.6437,6,2025
+60331,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 2,,,,,1,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MH17:0.0|MC-SMO:1.0912,1.6155,6,2025
+60332,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 1,,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.6155,6,2025
+60333,3.0432,0.0,New Caney ISD,,Porter MUD; Porter MUD - Montgomery Crossing Defined Area,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552|MC-T08:0.7,3.0432,6,2025
+60334,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,1,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M202B:0.0|MC-SCO:0.9496,2.0071,6,2025
+60335,3.1152,0.0,Willis ISD,,Montgomery County MUD 172,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M172:1.45|MC-SWI:1.0349,3.1152,6,2025
+60336,1.5799,0.0,Conroe ISD,,Montgomery County MUD 220,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M220:0.0|MC-SCO:0.9496,1.5799,6,2025
+60337,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,0,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.0071,5,2025
+60338,2.6711,0.0,Conroe ISD; Montgomery ISD,,,Montgomery County ESD 3,Lone Star College System,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496|MC-SMO:1.0912,2.6711,5,2025
+60339,2.6148,0.0,Conroe ISD; Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496|MC-SWI:1.0349,2.6148,5,2025
+60340,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW3:0.0|MC-SMA:0.9583,1.5808,5,2025
+60341,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,2,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M52A:0.0|MC-M52B:0.0|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,5,2025
+60342,1.6652,0.0,Willis ISD,,Montgomery County MUD 101,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M101:0.0|MC-SWI:1.0349,1.6652,5,2025
+60343,3.1585,0.0,Magnolia ISD,"Magnolia, City of",Montgomery County MUD 174,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CMA:0.2277|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M174:1.35|MC-SMA:0.9583,3.1585,5,2025
+60344,1.8855,0.0,New Caney ISD,,Montgomery County MUD 187,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M187:0.0|MC-SNC:1.2552,1.8855,5,2025
+60345,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,5,2025
+60346,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,1,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M52C:0.0|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,5,2025
+60347,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M146D:0.0|MC-SMA:0.9583,1.5808,5,2025
+60348,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M146C:0.0|MC-SMA:0.9583,1.5808,5,2025
+60349,1.885,0.0,Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MFF1:0.0|MC-SSP:1.2547,1.885,5,2025
+60350,1.7522,0.0,Magnolia ISD,"Woodlands Township, The",,Montgomery County ESD 10,Lone Star College System,,,,0,MC-CWT:0.1714|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.7522,4,2025
+60351,1.66,0.0,Magnolia ISD,"Woodlands Township, The",,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.66,4,2025
+60352,1.749,0.0,Conroe ISD,"Woodlands Township, The",,Montgomery County ESD 4,Lone Star College System,,,,0,MC-CWT:0.1714|MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.749,4,2025
+60353,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M178:0.0|MC-SCO:0.9496,1.9071,4,2025
+60354,1.654533,0.0,Conroe ISD,,Montgomery County MUD 46,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-SCO:0.9496,1.654533,4,2025
+60355,2.9308,0.0,Magnolia ISD,,Montgomery County MUD 174,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M174:1.35|MC-SMA:0.9583,2.9308,4,2025
+60356,2.0155,0.0,Montgomery ISD,"Montgomery, City of",,Montgomery County ESD 2,,,,Improvement district PM1,0,MC-CMO:0.4|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,2.0155,4,2025
+60357,2.277,0.0,Conroe ISD,"Oak Ridge North, City of",Chateau Woods MUD,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCW:0.2766|MC-SCO:0.9496,2.277,4,2025
+60358,1.5736,0.0,Conroe ISD,,,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5736,4,2025
+60359,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MV1:0.0|MC-SNC:1.2552,1.8855,4,2025
+60360,3.385,0.0,Splendora ISD,,East Montgomery County MUD 13,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME13:1.5|MC-SSP:1.2547,3.385,4,2025
+60361,1.6155,0.0,Montgomery ISD,,,Montgomery County ESD 3,,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M23:0.0|MC-SMO:1.0912,1.6155,4,2025
+60362,1.7215,0.0,Montgomery ISD,,,Montgomery County ESD 3,Lone Star College System,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M13:0.0|MC-SMO:1.0912,1.7215,4,2025
+60363,1.5799,0.0,Conroe ISD,,Montgomery County MUD 192,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M192:0.0|MC-SCO:0.9496,1.5799,4,2025
+60364,2.4402,0.0,Montgomery ISD,"Conroe, City of",Stanley Lake MUD,Montgomery County ESD 2,,,,,0,MC-CCO:0.4272|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MSL:0.3975|MC-SMO:1.0912,2.4402,4,2025
+60365,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone RZ01,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5808,4,2025
+60366,1.5886,0.0,Magnolia ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5886,3,2025
+60367,1.5155,0.0,Montgomery ISD,,,,,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,1.5155,3,2025
+60368,2.942,0.0,Conroe ISD; Willis ISD,"Conroe, City of",,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496|MC-SWI:1.0349,2.942,3,2025
+60369,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M181:0.0|MC-SWI:1.0349,1.6652,3,2025
+60370,1.8727,0.0,Conroe ISD,"Shenandoah, City of",Montgomery County DD 6,Montgomery County ESD 4,Lone Star College System,,,,0,MC-CSH:0.1821|MC-DD6:0.113|MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.8727,3,2025
+60371,1.820684,0.0,Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 47,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M47:0.160684|MC-SMA:0.9583,1.820684,3,2025
+60372,3.1476,0.0,Conroe ISD,,Montgomery County MUD 15; Montgomery County MUD 95,Montgomery County ESD 4,Lone Star College System,,,,0,MC-F04:0.0977|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M15:0.62|MC-M95:0.95|MC-SCO:0.9496,3.1476,3,2025
+60373,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 9,Lone Star College System,,Zone ZGP,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5799,3,2025
+60374,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,2,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M177:0.0|MC-RW1:0.0|MC-SWI:1.0349,1.9924,3,2025
+60375,3.7942,0.0,Willis ISD,"Conroe, City of; Willis, City of",Montgomery County MUD 176,Montgomery County ESD 1,Lone Star College System,,,,1,MC-CCO:0.4272|MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M176:1.15|MC-RW1:0.0|MC-SWI:1.0349,3.7942,3,2025
+60376,2.0155,0.0,Montgomery ISD,"Montgomery, City of",,Montgomery County ESD 2,,,,,1,MC-CMO:0.4|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M215:0.0|MC-SMO:1.0912,2.0155,3,2025
+60377,3.1005,0.0,Montgomery ISD,,Stanley Lake MUD; Stanley Lake MUD Defined Area,Montgomery County ESD 2,,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MSL:0.3975|MC-SMO:1.0912|MC-T09:1.0875,3.1005,3,2025
+60378,1.6652,0.0,Willis ISD,,,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M038:0.0|MC-SWI:1.0349,1.6652,3,2025
+60379,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPC1A:0.0|MC-SNC:1.2552,1.8855,3,2025
+60380,2.7682,0.0,New Caney ISD,,New Caney MUD; Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MNC:0.425|MC-MPM:0.4577|MC-SNC:1.2552,2.7682,2,2025
+60381,1.4799,0.0,Conroe ISD,,,,Lone Star College System,,,,1,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC:0.0|MC-SCO:0.9496,1.4799,2,2025
+60382,1.824885,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 7; Woodlands MUD 1,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-MW1:0.067|MC-SCO:0.9496,1.824885,2,2025
+60383,2.834233,0.0,Conroe ISD; Magnolia ISD,"Woodlands Township, The","Montgomery County MUD 46; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-RU1:0.05|MC-SCO:0.9496|MC-SMA:0.9583,2.834233,2,2025
+60384,2.5892,0.0,New Caney ISD,,Roman Forest PUD 3,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MR3:0.7037|MC-SNC:1.2552,2.5892,2,2025
+60385,1.7013,0.0,Conroe ISD,"Woodlands Township, The","Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RU1:0.05|MC-SCO:0.9496,1.7013,2,2025
+60386,1.885,0.0,Splendora ISD,,,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SSP:1.2547,1.885,2,2025
+60387,2.3402,0.0,Montgomery ISD,"Conroe, City of",Stanley Lake MUD,,,,,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-MSL:0.3975|MC-SMO:1.0912,2.3402,2,2025
+60388,1.71542,0.0,Conroe ISD,,Montgomery County MUD 19,Montgomery County ESD 14,Lone Star College System,,,,0,MC-F14:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M19:0.13552|MC-SCO:0.9496,1.71542,2,2025
+60389,1.6652,0.0,Willis ISD,,Montgomery County MUD 170,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M170:0.0|MC-M181:0.0|MC-SWI:1.0349,1.6652,2,2025
+60390,2.8346,0.0,Conroe ISD; Splendora ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496|MC-SSP:1.2547,2.8346,2,2025
+60391,1.88285,0.0,Conroe ISD,"Woodlands Township, The",Montgomery County MUD 60; Montgomery County MUD 7,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-M60:0.124965|MC-SCO:0.9496,1.88285,2,2025
+60392,1.4799,0.0,Conroe ISD,,,,Lone Star College System,,,,1,MC-CWO:0.0|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.4799,2,2025
+60393,1.5886,0.0,Magnolia ISD,,,Montgomery County ESD 3,Lone Star College System,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M23:0.0|MC-SMA:0.9583,1.5886,2,2025
+60394,1.5721,0.0,Conroe ISD,,,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.5721,2,2025
+60395,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MMW2:0.0|MC-MMW3:0.0|MC-SMA:0.9583,1.5808,2,2025
+60396,1.9236,0.0,Conroe ISD,,Montgomery County WCID 205,Montgomery County ESD 8,Lone Star College System,,Zone ZTR,,3,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M52A:0.0|MC-M52B:0.0|MC-M52C:0.0|MC-MWC205:0.35|MC-SCO:0.9496,1.9236,2,2025
+60397,1.892885,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 7; Woodlands Metro Center MUD; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-MWM:0.085|MC-RU1:0.05|MC-SCO:0.9496,1.892885,2,2025
+60398,2.772,0.0,Magnolia ISD; Montgomery ISD,,,Montgomery County ESD 10; Montgomery County ESD 2,Lone Star College System,,,,0,MC-F02:0.1|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583|MC-SMO:1.0912,2.772,2,2025
+60399,3.667,0.0,Willis ISD,"Willis, City of",Montgomery County MUD 172,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M172:1.45|MC-RW1:0.0|MC-RW1A:0.0|MC-SWI:1.0349,3.667,2,2025
+60400,2.6442,0.0,Willis ISD,"Conroe, City of; Willis, City of",Montgomery County MUD 129,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-CWI:0.5518|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M129:0.1|MC-M28A:0.0|MC-SWI:1.0349,2.6442,2,2025
+60401,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone RZ01,,2,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M146C:0.0|MC-M146D:0.0|MC-SMA:0.9583,1.5808,2,2025
+60402,1.9924,0.0,Willis ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M177:0.0|MC-SWI:1.0349,1.9924,2,2025
+60403,1.884633,0.0,Magnolia ISD,"Woodlands Township, The","Montgomery County MUD 46; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M46:0.174633|MC-RU1:0.05|MC-SMA:0.9583,1.884633,2,2025
+60404,3.2655,0.0,New Caney ISD,,Montgomery County MUD 140; Montgomery County MUD 189,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M140:1.38|MC-M189:0.0|MC-SNC:1.2552,3.2655,2,2025
+60405,3.185,0.0,Splendora ISD,,East Montgomery County MUD 12,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME12:1.3|MC-SSP:1.2547,3.185,2,2025
+60406,2.15469,0.0,Humble ISD,"Houston, City of",,,Lone Star College System,,,,0,MC-CHO:0.51919|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SHU:1.1052,2.15469,1,2025
+60407,1.5966,0.0,Conroe ISD,,Southern Montgomery County MUD,,Lone Star College System,,,,0,MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MSM:0.1167|MC-SCO:0.9496,1.5966,1,2025
+60408,1.9876,0.0,Conroe ISD,,Rayford Road MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MRR:0.414|MC-SCO:0.9496,1.9876,1,2025
+60409,1.7513,0.0,Conroe ISD,"Woodlands Township, The",,Montgomery County ESD 14,Lone Star College System,,,,1,MC-CWT:0.1714|MC-F14:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWC:0.0|MC-SCO:0.9496,1.7513,1,2025
+60410,1.874885,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 7; Woodlands MUD 1; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M07:0.106585|MC-MW1:0.067|MC-RU1:0.05|MC-SCO:0.9496,1.874885,1,2025
+60411,1.8834,0.0,Conroe ISD,"Shenandoah, City of; Woodlands Township, The","Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CSH:0.1821|MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-RU1:0.05|MC-SCO:0.9496,1.8834,1,2025
+60412,2.008,0.0,Magnolia ISD,"Conroe, City of",,Montgomery County ESD 10,Lone Star College System,,,,1,MC-CCO:0.4272|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MH17:0.0|MC-SMA:0.9583,2.008,1,2025
+60413,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 3,Lone Star College System,,,,0,MC-CCO:0.4272|MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,2.0071,1,2025
+60414,3.2765,0.0,New Caney ISD,,Montgomery County MUD 83; Montgomery County MUD 84,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M83:0.587|MC-M84:0.804|MC-SNC:1.2552,3.2765,1,2025
+60415,2.672,0.0,Magnolia ISD; Montgomery ISD,,,Montgomery County ESD 10,Lone Star College System,,,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583|MC-SMO:1.0912,2.672,1,2025
+60416,1.5886,0.0,Magnolia ISD,,,Montgomery County ESD 2,Lone Star College System,,,,0,MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SMA:0.9583,1.5886,1,2025
+60417,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,Zone FTZ,,0,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.9071,1,2025
+60418,2.1635,0.0,Conroe ISD,"Conroe, City of; Woodlands Township, The",Woodlands Metro Center MUD,,Lone Star College System,,,,0,MC-CCO:0.4272|MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MWM:0.085|MC-SCO:0.9496,2.1635,1,2025
+60419,2.9299,0.0,Conroe ISD,,Montgomery County MUD 162,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M162:1.35|MC-M194:0.0|MC-SCO:0.9496,2.9299,1,2025
+60420,1.7557,0.0,Conroe ISD,"Shenandoah, City of",,Montgomery County ESD 8,Lone Star College System,,,,0,MC-CSH:0.1821|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.7557,1,2025
+60421,2.9091,0.0,Cleveland ISD; Splendora ISD,,,Montgomery County ESD 7,Lone Star College System,,,,1,MC-CCV:0.0|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCL:1.0241|MC-SSP:1.2547,2.9091,1,2025
+60422,2.39,0.0,Conroe ISD,"Oak Ridge North, City of",Chateau Woods MUD; Montgomery County DD 6,Montgomery County ESD 8,Lone Star College System,,Zone RZ4; Zone RZ4A,,0,MC-COR:0.4268|MC-DD6:0.113|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCW:0.2766|MC-SCO:0.9496,2.39,1,2025
+60423,2.40469,0.0,New Caney ISD,"Houston, City of",,Montgomery County ESD 6,Lone Star College System,,,,0,MC-CHO:0.51919|MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,2.40469,1,2025
+60424,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,Zone ZVRT,,2,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MV1:0.0|MC-MVR2:0.0|MC-SNC:1.2552,1.8855,1,2025
+60425,2.3432,0.0,New Caney ISD,,Porter MUD,Montgomery County ESD 6,Lone Star College System,,Zone ZVRT,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-MV1:0.0|MC-SNC:1.2552,2.3432,1,2025
+60426,2.3432,0.0,New Caney ISD,,Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-SNC:1.2552|MC-T02:0.0,2.3432,1,2025
+60427,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 6,Lone Star College System,,,,2,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MV1:0.0|MC-MVR2:0.0|MC-SNC:1.2552,1.8855,1,2025
+60428,2.3432,0.0,New Caney ISD,,Porter MUD,Montgomery County ESD 6,Lone Star College System,,,,1,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MPM:0.4577|MC-MV1:0.0|MC-SNC:1.2552,2.3432,1,2025
+60429,1.9855,0.0,Montgomery ISD,,Montgomery County MUD 9,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M09:0.37|MC-SMO:1.0912,1.9855,1,2025
+60430,2.277,0.0,Conroe ISD,"Oak Ridge North, City of",Chateau Woods MUD,Montgomery County ESD 8,Lone Star College System,,,,0,MC-COR:0.4268|MC-F08:0.0937|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCW:0.2766|MC-SCO:0.9496,2.277,1,2025
+60431,2.9299,0.0,Conroe ISD,,Montgomery County MUD 164,Montgomery County ESD 9,Lone Star College System,,,,0,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M164:1.35|MC-SCO:0.9496,2.9299,1,2025
+60432,1.5799,0.0,Conroe ISD,,,Montgomery County ESD 3,Lone Star College System,,,,2,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M13:0.0|MC-M21:0.0|MC-SCO:0.9496,1.5799,1,2025
+60433,1.9922,0.0,Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 39,Montgomery County ESD 10,Lone Star College System,,,,1,MC-CWT:0.1714|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M39:0.24|MC-SMA:0.9583|MC-T10:0.0,1.9922,1,2025
+60434,1.903408,0.0,Conroe ISD,"Woodlands Township, The","Montgomery County MUD 6; Montgomery County MUD 67; Woodlands Road Utility District 1, The",,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M06:0.067108|MC-M67:0.135|MC-RU1:0.05|MC-SCO:0.9496,1.903408,1,2025
+60435,2.770284,0.0,Conroe ISD; Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 47,,Lone Star College System,,,,0,MC-CWT:0.1714|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M47:0.160684|MC-SCO:0.9496|MC-SMA:0.9583,2.770284,1,2025
+60436,2.9308,0.0,Magnolia ISD,,Montgomery County MUD 165,Montgomery County ESD 10,Lone Star College System,,Zone ZMS,,0,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M165:1.35|MC-SMA:0.9583,2.9308,1,2025
+60437,1.7606,0.0,Montgomery ISD,,Montgomery County UD 3,Montgomery County ESD 3,,,,,0,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-MU3:0.1451|MC-SMO:1.0912,1.7606,1,2025
+60438,1.8855,0.0,New Caney ISD,,Montgomery County MUD 188,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M188:0.0|MC-SNC:1.2552,1.8855,1,2025
+60439,1.8855,0.0,New Caney ISD,,,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SNC:1.2552,1.8855,1,2025
+60440,3.385,0.0,Splendora ISD,,Montgomery County MUD 185,Montgomery County ESD 7,Lone Star College System,,Zone ZE13,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M185:1.5|MC-SSP:1.2547,3.385,1,2025
+60441,1.6652,0.0,Willis ISD,,Montgomery County MUD 171,Montgomery County ESD 1,Lone Star College System,,,,0,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M171:0.0|MC-SWI:1.0349,1.6652,1,2025
+60442,3.102484,0.0,Conroe ISD; Magnolia ISD,"Woodlands Township, The",Montgomery County MUD 39; Montgomery County MUD 47,Montgomery County ESD 10,Lone Star College System,,,,1,MC-CWT:0.1714|MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M39:0.24|MC-M47:0.160684|MC-SCO:0.9496|MC-SMA:0.9583|MC-T10:0.0,3.102484,1,2025
+60443,2.0427,0.0,Montgomery ISD,"Conroe, City of",,Montgomery County ESD 2,,,,,0,MC-CCO:0.4272|MC-F02:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-SMO:1.0912,2.0427,1,2025
+60444,2.9351,0.0,Conroe ISD; New Caney ISD,,,Montgomery County ESD 6; Montgomery County ESD 9,Lone Star College System,,,,0,MC-F06:0.1|MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496|MC-SNC:1.2552,2.9351,1,2025
+60445,1.8208,0.0,Magnolia ISD,,Montgomery County MUD 39,Montgomery County ESD 10,Lone Star College System,,,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M39:0.24|MC-SMA:0.9583|MC-T10:0.0,1.8208,1,2025
+60446,3.0655,0.0,Montgomery ISD,,Montgomery County MUD 153,Montgomery County ESD 3,,,,,1,MC-2015:0.0|MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M153:1.45|MC-SMO:1.0912,3.0655,1,2025
+60447,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 9,Lone Star College System,,,,1,MC-CCO:0.4272|MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-MCD2:0.0|MC-SCO:0.9496,2.0071,1,2025
+60448,3.7942,0.0,Willis ISD,"Conroe, City of; Willis, City of",Montgomery County MUD 176,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CCO:0.4272|MC-CWI:0.5518|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M176:1.15|MC-M177:0.0|MC-RW1:0.0|MC-SWI:1.0349,3.7942,1,2025
+60449,1.9071,0.0,Conroe ISD,"Conroe, City of",,,Lone Star College System,,,,1,MC-CCO:0.4272|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M202A:0.0|MC-SCO:0.9496,1.9071,1,2025
+60450,4.6265,0.0,New Caney ISD; Splendora ISD,"Woodbranch Village, City of",East Montgomery County MUD 4,Montgomery County ESD 7,Lone Star College System,,,,0,MC-CWV:0.2363|MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME4:1.25|MC-SNC:1.2552|MC-SSP:1.2547,4.6265,1,2025
+60451,4.3555,0.0,New Caney ISD,,East Montgomery County MUD 6; East Montgomery County MUD 7,Montgomery County ESD 7,Lone Star College System,,,,0,MC-F07:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-ME6:1.17|MC-ME7:1.3|MC-SNC:1.2552,4.3555,1,2025
+60452,2.0071,0.0,Conroe ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M202A:0.0|MC-M202B:0.0|MC-SCO:0.9496,2.0071,1,2025
+60453,1.6799,0.0,Conroe ISD,,,Montgomery County ESD 7; Montgomery County ESD 9,Lone Star College System,,,,0,MC-F07:0.1|MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-SCO:0.9496,1.6799,1,2025
+60454,1.8855,0.0,New Caney ISD,,Montgomery County MUD 190,Montgomery County ESD 6,Lone Star College System,,,,0,MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M190:0.0|MC-SNC:1.2552,1.8855,1,2025
+60455,3.6927,0.0,New Caney ISD,"Conroe, City of",Montgomery County MUD 140,Montgomery County ESD 6,Lone Star College System,,,,0,MC-CCO:0.4272|MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M140:1.38|MC-SNC:1.2552,3.6927,1,2025
+60456,2.9299,0.0,Conroe ISD,,Montgomery County MUD 158,Montgomery County ESD 9,Lone Star College System,,,,1,MC-F09:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M11:0.0|MC-M158:1.35|MC-SCO:0.9496,2.9299,1,2025
+60457,1.6652,0.0,Willis ISD,,Montgomery County MUD 101,Montgomery County ESD 1,Lone Star College System,,,,1,MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M101:0.0|MC-M181:0.0|MC-SWI:1.0349,1.6652,1,2025
+60458,3.0655,0.0,Montgomery ISD,,Montgomery County MUD 153,Montgomery County ESD 3,,,,,1,MC-F03:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-M153:1.45|MC-M23:0.0|MC-SMO:1.0912,3.0655,1,2025
+60459,1.5808,0.0,Magnolia ISD,,,Montgomery County ESD 10,Lone Star College System,,Zone ZAMD,,3,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M131:0.0|MC-M54A:0.0|MC-MWC4:0.0|MC-SMA:0.9583,1.5808,1,2025
+60460,3.2655,0.0,New Caney ISD,,Montgomery County MUD 140,Montgomery County ESD 6,Lone Star College System,,,,1,MC-2015:0.0|MC-F06:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M140:1.38|MC-SNC:1.2552,3.2655,1,2025
+60461,2.0924,0.0,Willis ISD,"Conroe, City of",,Montgomery County ESD 1,Lone Star College System,,,,2,MC-CCO:0.4272|MC-F01:0.1|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M28A:0.0|MC-RW1:0.0|MC-SWI:1.0349,2.0924,1,2025
+60462,2.8308,0.0,Magnolia ISD,,Montgomery County MUD 180,Montgomery County ESD 10,Lone Star College System,,Zone Z180; Zone ZMS,,1,MC-F10:0.0922|MC-GMO:0.377|MC-HM1:0.0473|MC-JNH:0.106|MC-M180:1.25|MC-MAR:0.0|MC-SMA:0.9583,2.8308,1,2025

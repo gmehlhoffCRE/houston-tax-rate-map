@@ -1,0 +1,69 @@
+code,tu,name,rate26
+GMO,1,Montgomery County,0.386
+HM1,2,Montgomery Co Hospital Dist,0.0458
+SCO,201,Conroe ISD,0.9471
+SMA,202,Magnolia ISD,0.9325
+SMO,203,Montgomery ISD,1.0479
+SNC,204,New Caney ISD,1.2393
+SRI,205,Richards ISD,0.782
+SSP,206,Splendora ISD,1.207
+SWI,207,Willis ISD,0.9998
+CCO,301,City of Conroe,0.4272
+CMA,302,City of Magnolia,0.2234
+CMO,303,City of Montgomery,0.4
+COR,304,City of Oak Ridge No.,0.4615
+CPV,305,City of Panorama Village,0.5414
+CPT,306,City of Patton Village,0.3128
+CRF,307,City of Roman Forest,0.5461
+CSH,308,City of Shenandoah,0.1849
+CSP,309,City of Splendora,0.4178
+CST,310,City of Stagecoach,0.3446
+CWI,311,City of Willis,0.6113
+CWV,312,City of Woodbranch Village,0.2333
+CWT,313,The Woodlands Township,0.1694
+MCP,402,Corinthian Point MUD 2,0.5799
+MU3,403,Montgomery County UD 3,0.16
+MU4,404,Montgomery County UD 4,0.1695
+MSM,405,So Montgomery Co MUD,0.1196
+MFW,406,Montgomery County FWSD 6,0.5835
+MNC,407,New Caney MUD,0.49
+M08,408,Montgomery County MUD 08,0.2935
+M09,409,Montgomery County MUD 09,0.37
+D10,410,Montgomery Co DD 10,0.245
+MPM,411,Porter MUD,0.4914
+MRP,412,River Plantation MUD,0.708
+MTN,413,Texas National MUD,1.056
+MCW,414,Chateau Woods MUD,0.2825
+M15,415,Montgomery County MUD 15,0.62
+MRC,416,Roman Forest Cons MUD,0.231
+MRR,417,Rayford Road MUD,0.414
+MEP,419,East Plantation UD,0.458
+MPA,420,Point Aquarius MUD,0.5124
+MU7,421,Montgomery County MUD 107,0.37
+M89,422,Montgomery County MUD 89,0.56
+T01,423,Porter MUD- Auburn Trails Defined Area I,0.546
+T03,428,Porter MUD- Hendrix Defined Area,1.0
+T04,429,Porter MUD- Auburn Trails Defined Area II,0.5252
+MFH,432,Far Hills UD,0.58
+MSL,436,Stanley Lake MUD,0.395
+MME,438,Magnolia East MUD,0.6225
+T06,439,New Caney MUD - Hendricks,0.52
+T08,440,Porter MUD - Montgomery Crossing,0.7
+M160,441,Montgomery County MUD 160,0.7
+T09,442,Stanley Lake MUD Defined Area,1.0875
+M153,443,Montgomery County MUD 153,1.45
+DD6,466,Montgomery Co DD 6,0.103
+RU1,601,Woodlands Road Dist 1,0.04
+MLR,702,Lazy River ID,0.15
+MR4,707,Roman Forest PUD 4,1.0162
+F01,801,Montgomery Co ESD 1,0.1
+F02,802,Montgomery Co ESD 2,0.1
+F03,803,Montgomery Co ESD 3,0.1
+F04,804,Montgomery Co ESD 4,0.1
+F06,806,Montgomery Co ESD 6,0.1
+F07,807,Montgomery Co ESD 7,0.1
+F08,808,Montgomery Co ESD 8,0.1
+F09,809,Montgomery Co ESD 9,0.1
+F10,810,Montgomery Co ESD 10,0.0963
+F14,814,Montgomery Co ESD 14,0.1
+JNH,901,Lone Star CC,0.1058
