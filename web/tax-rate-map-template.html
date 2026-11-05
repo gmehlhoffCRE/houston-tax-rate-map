@@ -314,7 +314,7 @@ let CB, MAN, EMB=null, TILEBUF=null;
 // data inline (<script id="emb-...">) or, for the folder build, in script files next to the page (window.__emb)
 async function b64Buf(id){
   if(CONFIG.parts){   // folder build: every data file must sit next to the page, with its original name
-    const want={data:CONFIG.parts.filter(n=>/-data-\d+\.js$/.test(n)).length,tiles:CONFIG.parts.filter(n=>/-tiles-\d+\.js$/.test(n)).length};
+    const want={data:CONFIG.parts.filter(n=>/-data-\d+\.\w+$/.test(n)).length,tiles:CONFIG.parts.filter(n=>/-tiles-\d+\.\w+$/.test(n)).length};
     const have={data:(window.__emb&&window.__emb.data||[]).length,tiles:(window.__emb&&window.__emb.tiles||[]).length};
     if(have.data<want.data||have.tiles<want.tiles){
       const loaded=new Set([...document.querySelectorAll('script[src]')].filter(s=>s.dataset.ok).map(s=>s.getAttribute('src')));

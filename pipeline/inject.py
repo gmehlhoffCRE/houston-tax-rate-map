@@ -29,6 +29,8 @@ ap.add_argument("--shards", default="shards/")
 ap.add_argument("--data", default="data/")
 ap.add_argument("--out", default="index.html")
 ap.add_argument("--embed", metavar="OUT_DIR")
+ap.add_argument("--chunk-mb", type=float, default=95, help="with --split: max size of each data file in MB")
+ap.add_argument("--part-ext", default="js", help="with --split: data file extension; 'txt' avoids download blocks on .js")
 ap.add_argument("--split", action="store_true",
                 help="with --embed: put the data in .js files (each under 95 MB) next to the page instead of inline, "
                      "for hosts with a per-file limit such as GitHub (100 MB). Keep the files in one folder.")
@@ -63,10 +65,10 @@ if a.embed:
     if a.split:
         stem = os.path.splitext(os.path.basename(a.out))[0]
         outdir = os.path.dirname(os.path.abspath(a.out))
-        tags, CH = [], 95_000_000   # base64 parts stay under GitHub's 100 MB file limit
+        tags, CH = [], int(a.chunk_mb * 1_000_000)   # default stays under GitHub's 100 MB file limit
         for kind, b64 in (("data", data_b64), ("tiles", tiles_b64)):
             for i in range(0, len(b64), CH):
-                name = f"{stem}-{kind}-{i // CH + 1}.js"
+                name = f"{stem}-{kind}-{i // CH + 1}.{a.part_ext}"
                 with open(os.path.join(outdir, name), "w") as f:
                     f.write(f'(window.__emb=window.__emb||{{data:[],tiles:[]}}).{kind}.push("{b64[i:i + CH]}");\n')
                 tags.append(f'<script src="{name}" onload="this.dataset.ok=1"></script>')
