@@ -239,6 +239,7 @@ button{font-family:inherit}
         <div class="fs-t">Map layers</div>
         <label class="chk" id="shadeBtn" title="Color parcels by combined rate"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Rate shading</span></label>
         <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
+        <div id="countyBox"></div>
         <div class="fs-t" style="margin-top:10px">Boundaries</div><div id="layers"></div>
       </div>
       <div class="rail-f" id="mFoot"><b id="mCount">0</b> <span id="mLab">parcels match</span></div>
@@ -348,7 +349,7 @@ const SPLIT={a:new Set(MAN.a.split),s:new Set(MAN.s.split)}, BASE={a:MAN.a.base,
 
 // ---------------------------------------------------------------- state
 const state={mgmt:false,shade:true,lines:true,opacity:0.85,rate:[0,0],types:[],isd:[],city:[],water:[],val:[null,null],binsOff:new Set(),
-  layers:Object.fromEntries(OVERLAYS.map(o=>[o.key,o.on])),sel:null,gz:10,bounds:null};
+  layers:Object.fromEntries(OVERLAYS.map(o=>[o.key,o.on])),countiesOff:new Set(),sel:null,gz:10,bounds:null};
 const binOf=r=>{let b=0;while(b<BREAKS.length&&r>=BREAKS[b])b++;return b;};
 const rateOfC=c=>!c?null:state.mgmt?c.b+c.m:c.b;
 const missOf=c=>!c||(state.mgmt?c.mb+c.mm>0:c.mb>0);
@@ -374,10 +375,10 @@ function rebuildColors(){
 function rebuildFilters(){
   const I=new Set(state.isd),C=new Set(state.city),W=new Set(state.water);
   for(let i=0;i<=MAXID;i++){const c=COMBO[i]; if(!c){passArr[i]=passNoBin[i]=0;continue;}
-    const ok=(!I.size||c.isdL.some(n=>I.has(n)))&&(!C.size||c.cityL.some(n=>C.has(n)))&&(!W.size||c.waterL.some(n=>W.has(n)));
+    const ok=!state.countiesOff.has(c.co||'Harris')&&(!I.size||c.isdL.some(n=>I.has(n)))&&(!C.size||c.cityL.some(n=>C.has(n)))&&(!W.size||c.waterL.some(n=>W.has(n)));
     passNoBin[i]=ok?1:0; passArr[i]=ok&&!state.binsOff.has(binOf(rateArr[i]))?1:0;}
   for(let t=0;t<7;t++) typeOk[t]=!state.types.length||state.types.includes(TYPE_LABEL[t])?1:0;
-  unknownPass=!I.size&&!C.size&&!W.size?1:0;
+  unknownPass=!I.size&&!C.size&&!W.size&&!state.countiesOff.size?1:0;
   filterVer++;
 }
 const comboPass=c=>c>=0&&c<=MAXID?passArr[c]:unknownPass;
@@ -651,6 +652,19 @@ function multiSelect(el,placeholder,options,key){
 }
 document.addEventListener('mousedown',e=>{document.querySelectorAll('.ms.open').forEach(x=>{if(!x.contains(e.target))x.classList.remove('open');}); if(!e.target.closest('.search')) closeResults();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.ms.open').forEach(x=>x.classList.remove('open')); closeResults(); if(state.sel!=null)select(null);}});
+// county toggles (only when the build has more than one county)
+{ const counts=new Map(); for(const c of CB.combos){ const co=c.co||'Harris'; counts.set(co,(counts.get(co)||0)+c.acc); }
+  const order=['Harris','Fort Bend','Montgomery'], cos=[...counts.keys()].sort((a,b)=>(order.indexOf(a)+1||9)-(order.indexOf(b)+1||9));
+  if(cos.length>1){
+    const box=$('countyBox'); box.innerHTML='<div class="fs-t" style="margin-top:10px">Counties</div>';
+    for(const co of cos){
+      const l=document.createElement('label'); l.className='chk'; l.dataset.county=co;
+      l.innerHTML=`<input type="checkbox" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span>${esc(co)} County</span><span style="margin-left:auto;color:#8A93A8;font-size:11px">${counts.get(co).toLocaleString()}</span>`;
+      l.querySelector('input').onchange=e=>{ e.target.checked?state.countiesOff.delete(co):state.countiesOff.add(co); applyFilters(); };
+      box.appendChild(l);
+    }
+  }
+}
 const countNames=(list)=>{const m=new Map(); for(const c of CB.combos){ for(const n of new Set(c[list])) m.set(n,(m.get(n)||0)+c.acc);} return [...m.entries()].filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]);};
 const typeCounts=TYPE_LABEL.map((l,t)=>[l,CB.combos.reduce((s,c)=>s+c.n[t],0)]).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]);
 multiSelect($('msType'),'All property types',typeCounts,'types');

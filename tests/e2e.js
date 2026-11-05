@@ -165,6 +165,17 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await shot('07-filter-industrial');
   await page.click('#fClear'); await waitIdle(1500);
 
+  // county toggles (multi-county builds): turning one off removes its accounts from the countywide count
+  if (await page.$('#countyBox label[data-county="Montgomery"]')) {
+    await page.evaluate(() => window.__app.setView(-95.4, 29.9, 9)); await waitFoot(/accounts countywide match/); await waitIdle(2000);
+    const all = +(await page.textContent('#mCount')).replace(/,/g, '');
+    await page.click('#countyBox label[data-county="Montgomery"]'); await waitIdle(2500);
+    const noMc = +(await page.textContent('#mCount')).replace(/,/g, '');
+    await shot('07b-montgomery-off');
+    await page.click('#countyBox label[data-county="Montgomery"]'); await waitIdle(1500);
+    check('county toggle: turning Montgomery off drops its accounts', noMc < all && all - noMc > 250000, `${all} -> ${noMc}`);
+  }
+
   // county view histogram (zones)
   await page.evaluate(() => window.__app.setView(-95.175, 29.72, 11)); await waitFoot(/accounts countywide match/); await waitIdle(6000);
   const foot2 = await page.textContent('#mFoot');
