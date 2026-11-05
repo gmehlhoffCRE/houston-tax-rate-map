@@ -313,6 +313,15 @@ async function getJSON(u){const r=await fetch(u); if(!r.ok) throw new Error(r.st
 let CB, MAN, EMB=null, TILEBUF=null;
 // data inline (<script id="emb-...">) or, for the folder build, in script files next to the page (window.__emb)
 async function b64Buf(id){
+  if(CONFIG.parts){   // folder build: every data file must sit next to the page, with its original name
+    const want={data:CONFIG.parts.filter(n=>/-data-\d+\.js$/.test(n)).length,tiles:CONFIG.parts.filter(n=>/-tiles-\d+\.js$/.test(n)).length};
+    const have={data:(window.__emb&&window.__emb.data||[]).length,tiles:(window.__emb&&window.__emb.tiles||[]).length};
+    if(have.data<want.data||have.tiles<want.tiles){
+      const loaded=new Set([...document.querySelectorAll('script[src]')].filter(s=>s.dataset.ok).map(s=>s.getAttribute('src')));
+      const missing=CONFIG.parts.filter(n=>!loaded.has(n));
+      throw new Error('missing data file'+(missing.length>1?'s':'')+': '+missing.join(', ')+'. Put all '+(CONFIG.parts.length+1)+' files in the same folder as this page, with their original names (no "(1)" added)');
+    }
+  }
   const parts=window.__emb&&window.__emb[id==='emb-data'?'data':'tiles'];
   const t=parts&&parts.length?parts.join(''):document.getElementById(id).textContent.trim();
   return (await fetch('data:application/octet-stream;base64,'+t)).arrayBuffer();

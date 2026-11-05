@@ -69,9 +69,10 @@ if a.embed:
                 name = f"{stem}-{kind}-{i // CH + 1}.js"
                 with open(os.path.join(outdir, name), "w") as f:
                     f.write(f'(window.__emb=window.__emb||{{data:[],tiles:[]}}).{kind}.push("{b64[i:i + CH]}");\n')
-                tags.append(f'<script src="{name}"></script>')
+                tags.append(f'<script src="{name}" onload="this.dataset.ok=1"></script>')
                 print(f"wrote {name} ({os.path.getsize(os.path.join(outdir, name)) / 1e6:.1f} MB)")
         embed = "\n".join(tags)
+        cfg["parts"] = [t.split('"')[1] for t in tags]   # lets the page name any file that failed to load
     else:
         embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
                  f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
