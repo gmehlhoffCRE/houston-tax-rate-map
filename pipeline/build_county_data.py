@@ -294,7 +294,7 @@ def main():
         rts.append(pd.read_csv(os.path.join(a.rates, f"{pre}_rate_table.csv"), dtype={"tax_dist": str}))
         log(f"  {county}: {len(cbs[-1]):,} combos, {len(ars[-1]):,} accounts")
     ar = pd.concat(ars).drop_duplicates("acct").set_index("acct")
-    cb = pd.concat(cbs).set_index("combo_id")
+    cb = pd.concat(cbs).fillna("").set_index("combo_id")   # columns one county lacks (e.g. pid) become ""
     rt = pd.concat(rts).drop_duplicates("tax_dist").set_index("tax_dist")
     log("reading account details")
     ra = pd.concat([read_real_acct(c) for c in a.cama])
