@@ -809,7 +809,7 @@ function renderDrawer(p){
   const miss=c?(state.mgmt?c.mb+c.mm:c.mb):0;
   if(miss>0) notes.push(['gold',`${miss} jurisdiction${miss>1?'s':''} on this account had no rate in the HCAD file, so the total may be understated.`]);
   if(c&&!c.city&&tg===2) notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);
-  if(county==='Fort Bend') notes.push(['',`Uses FBCAD's ${ry} tax rate sheet, the newest it has posted, on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
+  if(county==='Fort Bend') notes.push(['',`Uses ${ry} adopted rates on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
   else notes.push(['',`Uses ${ry} adopted rates on ${META.valueYear} appraised values. Exemptions and abatements are not applied.`]);
   const gm=p.lon!=null?`${p.lat.toFixed(6)},${p.lon.toFixed(6)}`:encodeURIComponent((p.addr||'')+' '+(p.city||'')+' TX');
   h+=`<div class="sec">Notes</div>${notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}

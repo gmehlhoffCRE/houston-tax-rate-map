@@ -21,7 +21,7 @@ Phase 1 changes to the decisions below (requested Nov 4, 2026):
 - "Rate shading" toggle and opacity slider on the map; boundary lines get a white casing.
 - Filter lists split combined names, so picking "Pasadena ISD" includes parcels straddling two ISDs.
 - Accounts with a missing jurisdiction rate show gray ("Rate incomplete or not found").
-- Fort Bend County added on FBCAD's 2024 rate sheet (newest posted) until 2025 rates are available; see README.
+- Fort Bend County added on 2025 adopted rates (Fort Bend tax rate grid export); see README.
 
 ## Conventions (must follow)
 
