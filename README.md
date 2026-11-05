@@ -85,6 +85,32 @@ python pipeline/build_county_data.py --gis gis --rates data --out out \
   often unavailable there. No Fort Bend boundary overlays yet.
 - FBCAD account numbers are quick ref ids (`R100842`); search accepts them.
 
+## Montgomery County (demo)
+
+Parcels come from the City of Houston's public mirror of MCAD parcels (329,989, tax year 2026: owner, address,
+state class, building SF, `TAXINGUNIT` codes). Rates come from the tax office workbook
+(`data/montgomery/Montgomery_County_Tax_Rates_2025_2026.xlsx`, 2025 in use, "No Tax Levied" = 0), joined by
+entity name through `data/montgomery/mc_code_map.csv`:
+
+- 68 codes from the tax office's 2026 rate list (`mc_tax_office_codes_2026.csv`), marked confirmed
+- codes suggested by pattern (M + number = Montgomery County MUD n, ME n = East Montgomery County MUD n, ...)
+- zones (Z, RZ, ZE, FTZ) and P codes (improvement districts) carry no rate
+- about 79 codes still unknown: their parcels (about 15%) show "rate incomplete"
+
+When MCAD sends its code list, edit `mc_code_map.csv` (entity = exact workbook name, confirmed = yes) and rerun:
+
+```bash
+python pipeline/fetch_fortbend.py --out montgomery --prefix mc --no-rates \
+  --layer https://geohwp.houstontx.gov/arcgis/rest/services/03_BaseData_External/Parcels_Current/FeatureServer/3 \
+  --fields "OBJECTID,PARCEL_ID,STATECLASS,TAX_YEAR,OWNER,ADDRESS,TAXINGUNIT,TAX_EXEMPT,IMPR_SQ_FT,YEAR_BUILT,NGHD_CODE"
+python pipeline/build_montgomery_rates.py --src montgomery --out data --year 2025 \
+  --workbook data/montgomery/Montgomery_County_Tax_Rates_2025_2026.xlsx \
+  --codes data/montgomery/mc_tax_office_codes_2026.csv --code-map data/montgomery/mc_code_map.csv
+```
+
+then `build_county_data.py` with `--parcels montgomery/mc_parcels.gpkg --cama montgomery/mc_real_acct.txt` added.
+No appraised values yet (MCAD's certified export would add them), so Montgomery cards show the rate only.
+
 ## Running it
 
 ```bash
