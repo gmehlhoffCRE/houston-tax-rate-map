@@ -1,4 +1,8 @@
 """
+Pages a public ArcGIS parcel layer to GeoJSONSeq (Fort Bend by default; --layer for others, e.g. Montgomery:
+  python fetch_fortbend.py --out montgomery --prefix mc --no-rates --fields "OBJECTID,PARCEL_ID,STATECLASS,..." \
+    --layer https://geohwp.houstontx.gov/arcgis/rest/services/03_BaseData_External/Parcels_Current/FeatureServer/3)
+
 Downloads Fort Bend CAD public parcel data (shapes + owner, address, value, state code, taxing units)
 from FBCAD's ArcGIS server, and the FBCAD tax rate sheet.
 
@@ -37,27 +41,32 @@ def main():
     ap.add_argument("--out", default="fortbend")
     ap.add_argument("--rates-url", default=RATES)
     ap.add_argument("--page", type=int, default=2000)
+    ap.add_argument("--layer", default=LAYER, help="any ArcGIS FeatureServer layer URL (e.g. the MCAD mirror)")
+    ap.add_argument("--fields", default=",".join(FIELDS))
+    ap.add_argument("--prefix", default="fb", help="output file prefix")
+    ap.add_argument("--no-rates", action="store_true")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
-    with open(os.path.join(a.out, "fb_rates.xls"), "wb") as f:
-        f.write(get(a.rates_url))
-    total = json.loads(get(LAYER + "/query?where=1%3D1&returnCountOnly=true&f=json"))["count"]
+    if not a.no_rates:
+        with open(os.path.join(a.out, f"{a.prefix}_rates.xls"), "wb") as f:
+            f.write(get(a.rates_url))
+    total = json.loads(get(a.layer + "/query?where=1%3D1&returnCountOnly=true&f=json"))["count"]
     print(f"{total:,} parcels to fetch", flush=True)
 
     last, n = -1, 0
-    with open(os.path.join(a.out, "fb_parcels_raw.geojsonl"), "w") as fo:
+    with open(os.path.join(a.out, f"{a.prefix}_parcels_raw.geojsonl"), "w") as fo:
         while True:   # page by objectid: steadier than offsets on a large layer
-            q = urllib.parse.urlencode({"where": f"objectid>{last}", "outFields": ",".join(FIELDS),
+            q = urllib.parse.urlencode({"where": f"objectid>{last}", "outFields": a.fields,
                                         "orderByFields": "objectid", "resultRecordCount": a.page,
                                         "outSR": 4326, "geometryPrecision": 6, "f": "geojson"})
-            feats = json.loads(get(f"{LAYER}/query?{q}")).get("features", [])
+            feats = json.loads(get(f"{a.layer}/query?{q}")).get("features", [])
             if not feats:
                 break
             for ft in feats:
                 fo.write(json.dumps(ft, separators=(",", ":")) + "\n")
             n += len(feats)
-            last = max(ft["properties"]["objectid"] for ft in feats)
+            last = max(next(v for k, v in ft["properties"].items() if k.lower() == "objectid") for ft in feats)
             if n % 40000 < a.page:
                 print(f"  {n:,}/{total:,}", flush=True)
     print(f"{n:,} parcels written", flush=True)
