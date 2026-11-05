@@ -30,6 +30,14 @@ CATEGORY = {  # FBCAD "Type" -> category and bucket used by the map (same names 
     "Drainage District": ("Drainage District", "base"),
     "Emergency": ("ESD", "base"),
     "Special": ("Management District", "mgmt"),
+    "Special Management Districts": ("Management District", "mgmt"),
+    "Special Management Districts Management Districts": ("Management District", "mgmt"),
+    "Levy Improvement District": ("Water District (MUD/WCID/UD)", "base"),
+    "Fresh Water Supply District": ("Water District (MUD/WCID/UD)", "base"),
+    # no tax rate: agreements, foreign trade zones; PIDs bill assessments (one, W43, levies a real rate)
+    "Agreement": ("Agreement", "excluded"),
+    "Foreign Trade": ("Foreign Trade Zone", "excluded"),
+    "Public Improvement District": ("Public Improvement District", "excluded"),
 }
 
 
@@ -37,11 +45,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default="fortbend")
     ap.add_argument("--out", default="../data")
-    ap.add_argument("--year", type=int, default=2024, help="tax year of the rate sheet")
+    ap.add_argument("--year", type=int, default=2025, help="tax year of the rates in the rate file")
+    ap.add_argument("--rates-file", help="rate table to use instead of <src>/fb_rates.xls: FBCAD's xls, or a CSV "
+                    "export of the Fort Bend tax rate grid (Code, Description, Type, ..., Total Rate)")
     a = ap.parse_args()
 
     # ---- rate table
-    x = pd.read_excel(os.path.join(a.src, "fb_rates.xls"))
+    rf = a.rates_file or os.path.join(a.src, "fb_rates.xls")
+    x = pd.read_csv(rf, dtype=str) if rf.lower().endswith(".csv") else pd.read_excel(rf)
+    print(f"rates from {rf} (tax year {a.year})")
     x.columns = [str(c).strip() for c in x.columns]
     x = x[x.Code.notna()].copy()
     x["code"] = x.Code.astype(str).str.strip()
@@ -51,6 +63,13 @@ def main():
         "rate_used": pd.to_numeric(x["Total Rate"], errors="coerce"),
     })
     t[["category", "bucket"]] = [CATEGORY.get(tp, ("Other", "base")) for tp in x.type]
+    # management districts typed otherwise (SM110 "Municipal", M92 "Katy Management Dist 1" as a MUD)
+    mg = x.code.str.startswith("SM").to_numpy() | x.Description.astype(str).str.contains("Management Dist", case=False).to_numpy()
+    t.loc[mg, ["category", "bucket"]] = ["Management District", "mgmt"]
+    # a PID with an actual tax rate (W43 Fort Bend Improvement District 24) is an improvement district levy
+    pid_rate = (t.category == "Public Improvement District") & (t.rate_used > 0)
+    t.loc[pid_rate, ["category", "bucket"]] = ["Management District", "mgmt"]
+    t.loc[t.bucket == "excluded", "rate_used"] = 0.0
     unknown = sorted(set(x.type) - set(CATEGORY))
     if unknown:
         print("unmapped FBCAD types (treated as base):", unknown)
@@ -84,7 +103,7 @@ def main():
         # district (an assessment, not a rate), SM = management district. Anything else (MUDs, LIDs created
         # after the sheet) is a real gap and is flagged as a missing rate.
         def guess(c):
-            if c.startswith("T"):
+            if c.startswith("T"):   # TIRZ or zone code (T149 is a foreign trade zone); none levy a rate
                 return (f"TIRZ {c}", "TIRZ", "excluded", 0.0)
             if c.startswith("P"):
                 return (f"Public improvement district {c}", "Public Improvement District", "excluded", 0.0)

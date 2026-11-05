@@ -59,12 +59,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await shot('04-search-account');
 
   // Fort Bend (only when the build includes it): R101338 is Missouri City, Fort Bend ISD, Thunderbird MUD.
-  // FBCAD 2024 rates: C09 0.570825 + D01 0.01 + G01 0.412 + J07 0.096183 + M25 0.1267 + S07 0.9869 = 2.2026
+  // Fort Bend 2025 rates: C09 0.570825 + D01 0.01 + G01 0.412 + J07 0.098802 + M25 0.1267 + S07 1.0569 = 2.2752
   if (await page.evaluate(() => window.__app.getAccount('R101338').then(r => !!r))) {
     await page.fill('#q', 'r101338'); await waitResults();
     await page.keyboard.press('Enter'); await waitDrawer(/FBCAD account/); await waitIdle(3000);
     const fbd = await drawerText();
-    check('Fort Bend: account search opens an FBCAD card with the combined 2024 rate', /FBCAD account/.test(fbd) && /Fort Bend County/.test(fbd) && /2\.2026/.test(fbd),
+    check('Fort Bend: account search opens an FBCAD card with the combined 2025 rate', /FBCAD account/.test(fbd) && /Fort Bend County/.test(fbd) && /2\.2752/.test(fbd),
       (fbd.match(/RATE \/ \$100\s*\n?\s*[\d.]+/i) || [''])[0].replace(/\n/g, ' '));
     await shot('03b-fort-bend');
     await page.fill('#q', 'glenn lakes property'); await waitResults();
