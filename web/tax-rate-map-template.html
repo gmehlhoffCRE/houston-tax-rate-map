@@ -656,7 +656,7 @@ $('fClear').onclick=()=>{
 };
 // counties can carry different rate years (Fort Bend uses FBCAD's newest posted sheet)
 const YEARS=META.taxYears||{Harris:META.taxYear}, MIXED=new Set(Object.values(YEARS)).size>1;
-$('statusTxt').textContent=(MIXED?Object.entries(YEARS).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
+$('statusTxt').textContent=(MIXED?Object.entries(YEARS).sort((a,b)=>(a[0]==='Harris'?-1:b[0]==='Harris'?1:a[0].localeCompare(b[0]))).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
 $('legT').textContent=MIXED?'Combined rate per $100':`${META.taxYear} combined rate per $100`;
 const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':'Harris';
 const CAD={Harris:'HCAD','Fort Bend':'FBCAD'};

@@ -100,6 +100,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await page.evaluate(() => { window.__app.state.sel = null; document.getElementById('drawerHost').innerHTML = ''; window.__app.setView(-95.2118, 29.7206, 16); });
   await waitFoot(/parcels in view match/); await waitIdle(3000);
   // find a screen point that has a parcel under it (the view center can fall on a street)
+  // wait (up to 60 s) until a parcel is pickable near the middle: heavy builds render slowly headless
+  await page.waitForFunction(() => { const d = window.__ovl && window.__ovl._deck, r = document.getElementById('map').getBoundingClientRect();
+    if (!d) return true;
+    for (let gy = 0.3; gy <= 0.7; gy += 0.1) for (let gx = 0.3; gx <= 0.7; gx += 0.1) {
+      const o = d.pickObject({ x: r.width * gx, y: r.height * gy }); if (o && o.object && o.object.properties && o.object.properties.a) return true; }
+    return false; }, null, { timeout: 60000, polling: 2000 }).catch(() => {});
   const box = await page.evaluate(() => {
     const r = document.getElementById('map').getBoundingClientRect();
     const d = window.__ovl ? window.__ovl._deck : null;
