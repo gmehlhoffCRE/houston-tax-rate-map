@@ -13,3 +13,6 @@ __pycache__/
 # never commit the Maps key
 gkey.txt
 .env
+
+# built downloads (contain owner and address data for every account; not for a public repo)
+dist/

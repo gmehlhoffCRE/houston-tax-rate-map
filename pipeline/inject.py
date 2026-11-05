@@ -29,6 +29,9 @@ ap.add_argument("--shards", default="shards/")
 ap.add_argument("--data", default="data/")
 ap.add_argument("--out", default="index.html")
 ap.add_argument("--embed", metavar="OUT_DIR")
+ap.add_argument("--split", action="store_true",
+                help="with --embed: put the data in .js files (each under 95 MB) next to the page instead of inline, "
+                     "for hosts with a per-file limit such as GitHub (100 MB). Keep the files in one folder.")
 a = ap.parse_args()
 
 t = open(os.path.join(web, "tax-rate-map-template.html")).read()
@@ -57,8 +60,21 @@ if a.embed:
     tpath = lean if os.path.exists(lean) else os.path.join(o, "bucket", "harris_parcels.pmtiles")
     tiles_b64 = base64.b64encode(open(tpath, "rb").read()).decode()
     print(f"tiles from {tpath}")
-    embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
-             f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
+    if a.split:
+        stem = os.path.splitext(os.path.basename(a.out))[0]
+        outdir = os.path.dirname(os.path.abspath(a.out))
+        tags, CH = [], 95_000_000   # base64 parts stay under GitHub's 100 MB file limit
+        for kind, b64 in (("data", data_b64), ("tiles", tiles_b64)):
+            for i in range(0, len(b64), CH):
+                name = f"{stem}-{kind}-{i // CH + 1}.js"
+                with open(os.path.join(outdir, name), "w") as f:
+                    f.write(f'(window.__emb=window.__emb||{{data:[],tiles:[]}}).{kind}.push("{b64[i:i + CH]}");\n')
+                tags.append(f'<script src="{name}"></script>')
+                print(f"wrote {name} ({os.path.getsize(os.path.join(outdir, name)) / 1e6:.1f} MB)")
+        embed = "\n".join(tags)
+    else:
+        embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
+                 f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
     cfg.update({"embed": True, "tiles": "", "shards": "", "data": ""})
     print(f"embedded {len(records):,} account records, {len(bounds)} boundary layers, "
           f"{len(tiles_b64) * 3 // 4 / 1e6:.1f} MB of tiles")
