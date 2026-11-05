@@ -38,6 +38,7 @@ CATEGORY = {  # FBCAD "Type" -> category and bucket used by the map (same names 
     "Agreement": ("Agreement", "excluded"),
     "Foreign Trade": ("Foreign Trade Zone", "excluded"),
     "Public Improvement District": ("Public Improvement District", "excluded"),
+    "Public Improvement": ("Public Improvement District", "excluded"),
 }
 
 
@@ -55,6 +56,8 @@ def main():
     x = pd.read_csv(rf, dtype=str) if rf.lower().endswith(".csv") else pd.read_excel(rf)
     print(f"rates from {rf} (tax year {a.year})")
     x.columns = [str(c).strip() for c in x.columns]
+    if "Description" not in x.columns and "Taxing Unit" in x.columns:   # grid exports name the column differently by year
+        x = x.rename(columns={"Taxing Unit": "Description"})
     x = x[x.Code.notna()].copy()
     x["code"] = x.Code.astype(str).str.strip()
     x["type"] = x.Type.astype(str).str.strip()

@@ -1,0 +1,298 @@
+﻿Code,Description,Type,Name,State #,Total Rate,I&S Rate,M&O Rate,Prev Rate
+A239,County-FBMUD 239 (Austin Point) Agreement,Agreement,Fort Bend County,,,,,0.0000000
+C01,City of Arcola,City,Fort Bend County,07910903,0.6496190,0.1397550,0.5098640,0.6496190
+C03,City of Beasley,City,Fort Bend County,07910103,0.2309180,0.0000000,0.2309180,0.2309180
+C04,City of Fulshear,City,Fort Bend County,07911003,0.1679030,0.0513800,0.1165230,0.1679030
+C05,City of Houston,City,City of Houston,10112403,0.5191900,0.1159310,0.4032590,0.5191900
+C06,City of Katy,City,Fort Bend County,10110703,0.4250000,0.0503680,0.3746320,0.4250000
+C07,City of Kendleton,City,Fort Bend County,07911103,0.8295000,0.1058650,0.7236350,0.8295000
+C08,City of Meadows Place,City,Fort Bend County,07911403,0.9436400,0.0000000,0.9436400,0.9436400
+C09,City of Missouri City,City,Fort Bend County,07910203,0.5708250,0.1157960,0.4550290,0.5708250
+C11,City of Needville,City,Fort Bend County,07910303,0.4355080,0.0596030,0.3759050,0.4355080
+C13,City of Orchard,City,Fort Bend County,07910803,0.3684570,0.0000000,0.3684570,0.3684570
+C14,Village Of Pleak,City,Fort Bend County,07911703,0.2500000,0.0000000,0.2500000,0.2500000
+C15,City of Richmond,City,Fort Bend County,07910403,0.6300000,0.2674470,0.3625530,0.6300000
+C17,City of Rosenberg,City,Fort Bend County,07910703,0.3000000,0.1170200,0.1829800,0.3000000
+C18,City of Simonton,City,Fort Bend County,07911503,0.2811830,0.0000000,0.2811830,0.2811830
+C19,City of Stafford,City,Fort Bend County,07910503,0.0000000,0.0000000,0.0000000,0.0000000
+C21,City of Sugar Land,City,Fort Bend County,07910603,0.3588270,0.1516550,0.2071720,0.3588270
+C29,City of Weston Lakes,City,Fort Bend County,07911603,0.0000000,0.0000000,0.0000000,0.0000000
+C31,Village Of Fairchilds,City,Fort Bend County,,0.0000000,0.0000000,0.0000000,0.0000000
+C41,City of Pearland,City,City of Pearland,02010503,0.6300000,0.2784960,0.3515040,0.6300000
+D01,Fort Bend Drainage,Drainage District,Fort Bend County,07920108,0.0100000,0.0020000,0.0080000,0.0100000
+G01,Fort Bend General,County General,Fort Bend County,07900000,0.4120000,0.1100000,0.3020000,0.4120000
+J01,Wharton County Jr College,Community College,Fort Bend County,24120215,0.1400000,0.0000000,0.1400000,0.1400000
+J03,Houston City College Stafford,Community College,Fort Bend County,10120415,0.0988020,0.0132170,0.0855850,0.0988020
+J07,Houston City College Missouri City,Community College,Fort Bend County,10120515,0.0988020,0.0132170,0.0855850,0.0988020
+M02,Fort Bend MUD 50,Municipal Utility District,Tax Tech                                                                                            ,07927104,0.8500000,0.4700000,0.3800000,0.8500000
+M02A,Fort Bend County MUD 50 Defined Area No. 1,Municipal Utility District,Tax Tech                                                                                            ,,0.0000000,0.0000000,0.0000000,0.0000000
+M03,Plantation MUD,Municipal Utility District,Utility Tax Service                                     ,07920804,0.4900000,0.1300000,0.3600000,0.4900000
+M107,Fort Bend MUD 81,Municipal Utility District,Equi-Tax                                                                              ,07927304,0.3610000,0.1540000,0.2070000,0.3610000
+M108,Cinco MUD 1,Municipal Utility District,Wheeler,07928804,0.3550000,0.1550000,0.2000000,0.3250000
+M109,Cinco MUD 2,Municipal Utility District,Fort Bend County,07927604,0.2200000,0.0000000,0.2200000,0.2200000
+M110,Cinco MUD 3,Municipal Utility District,Wheeler,07927704,0.2500000,0.1800000,0.0700000,0.2320000
+M112,Cinco MUD 5,Municipal Utility District,Fort Bend County,07927804,0.3000000,0.0900000,0.2100000,0.3000000
+M113,Cinco MUD 6,Municipal Utility District,Wheeler,07928104,0.2800000,0.1050000,0.1750000,0.2454000
+M114,Cinco MUD 7,Municipal Utility District,Fort Bend County,07928704,0.2242000,0.0000000,0.2242000,0.2242000
+M115,Cinco MUD 8,Municipal Utility District,Assessments of the Southwest,07928204,0.3700000,0.1800000,0.1900000,0.3700000
+M116,Cinco MUD 9,Municipal Utility District,Fort Bend County,07927904,0.2942000,,0.2942000,0.2942000
+M120,Grand Lakes MUD 1,Municipal Utility District,Assessments of the Southwest,07931904,0.4528700,0.2000000,0.2528700,0.4310600
+M121,Grand Lakes MUD 2,Municipal Utility District,Wheeler,07931104,0.1345420,0.0000000,0.1345420,0.1280000
+M123,Grand Lakes MUD 4,Municipal Utility District,Wheeler,07930504,0.4250000,0.1400000,0.2850000,0.4050000
+M125,Grand Mission MUD 1,Municipal Utility District,Tax Tech                                                                                            ,07928004,0.5470000,0.3690000,0.1780000,0.5470000
+M136,Fort Bend MUD 94,Municipal Utility District,Bob Leared Interests,07929104,0.3400000,0.2800000,0.0600000,0.3400000
+M139,Cinco MUD 10,Municipal Utility District,Wheeler,07928904,0.4500000,0.2150000,0.2350000,0.4313800
+M141,Cinco MUD 12,Municipal Utility District,Wheeler,07928404,0.2050000,0.1000000,0.1050000,1.0950000
+M143,Cinco MUD 14,Municipal Utility District,Wheeler,07928504,0.4238000,0.2200000,0.2038000,0.3900000
+M150,Willow Point MUD,Municipal Utility District,Utility Tax Service                                     ,07940804,1.2500000,0.8000000,0.4500000,1.2500000
+M151,Twinwood MUD 1,Municipal Utility District,Assessments of the Southwest,07945904,0.0000000,0.0000000,0.0000000,0.0000000
+M16,First Colony MUD 9,Municipal Utility District,Tax Tech                                                                                            ,07926704,0.1100000,0.0400000,0.0700000,0.1100000
+M162,Harris-Fort Bend MUD 5,Municipal Utility District,Assessments of the Southwest,07930204,0.3500000,0.2400000,0.1100000,0.3500000
+M163,West Harris County MUD 4,Municipal Utility District,Bob Leared Interests,10141304,0.8540000,0.0000000,0.8540000,0.8540000
+M166,Sienna MUD 3,Municipal Utility District,Tax Tech                                                                                            ,07930404,0.3975000,0.2500000,0.1475000,0.3975000
+M167,Sienna MUD 4,Municipal Utility District,Tax Tech                                                                                            ,07936804,0.9350000,0.8850000,0.0500000,0.9350000
+M168,Sienna MUD 5,Municipal Utility District,Tax Tech                                                                                            ,07934604,0.0000000,0.0000000,0.0000000,0.0000000
+M169,Sienna MUD 6,Municipal Utility District,Tax Tech                                                                                            ,07942704,1.0500000,1.0300000,0.0200000,1.0500000
+M17,Meadow Creek MUD,Municipal Utility District,Assessments of the Southwest,07924604,0.2309000,0.0000000,0.2309000,0.2273700
+M170,Fort Bend MUD 116,Municipal Utility District,Wheeler,07930604,0.7200000,0.2800000,0.4400000,0.6900000
+M171,Fort Bend MUD 115,Municipal Utility District,Tax Tech                                                                                            ,07931004,0.3100000,0.1600000,0.1500000,0.3100000
+M172,Fort Bend MUD 118,Municipal Utility District,Bob Leared Interests,07930904,0.5900000,0.3850000,0.2050000,0.5700000
+M174,Fort Bend MUD 121,Municipal Utility District,Tax Tech                                                                                            ,07929704,1.0050000,0.6400000,0.3650000,1.0050000
+M175,Fort Bend MUD 119,Municipal Utility District,Wheeler,07932104,0.3850000,0.2500000,0.1350000,0.3850000
+M177,Cimarron MUD,Municipal Utility District,Bob Leared Interests,10123604,0.3000000,0.1375000,0.1625000,0.3000000
+M178,Fort Bend MUD 122,Municipal Utility District,Tax Tech                                                                                            ,07931304,0.8400000,0.4700000,0.3700000,0.8400000
+M179,Fort Bend MUD 123,Municipal Utility District,Tax Tech                                                                                            ,07930804,0.8250000,0.5000000,0.3250000,0.8250000
+M180,Fort Bend MUD 124,Municipal Utility District,Assessments of the Southwest,07932204,0.7520000,0.2700000,0.4820000,0.7250000
+M181,Fort Bend MUD 132,Municipal Utility District,Assessments of the Southwest,07934204,1.5000000,0.8250000,0.6750000,1.5000000
+M182,Fort Bend MUD 133,Municipal Utility District,Assessments of the Southwest,07931704,1.2000000,0.7700000,0.4300000,1.1732000
+M183,Fort Bend MUD 130,Municipal Utility District,Tax Tech                                                                                            ,07931504,0.3850000,0.1600000,0.2250000,0.3850000
+M183A,Fort Bend MUD 130 Defined Area,Municipal Utility District,Tax Tech                                                                                            ,07942404,0.6650000,0.5700000,0.0950000,0.6650000
+M184,Fort Bend MUD 214,Municipal Utility District,Assessments of the Southwest,07944504,0.0000000,0.0000000,0.0000000,0.0000000
+M185,Woodcreek Reserve MUD,Municipal Utility District,Tax Tech                                                                                            ,07931804,0.3700000,0.2900000,0.0800000,0.3700000
+M186,Sienna MUD 12,Municipal Utility District,Tax Tech                                                                                            ,07932304,0.4950000,0.3950000,0.1000000,0.5100000
+M187,Fort Bend MUD 140,Municipal Utility District,Utility Tax Service                                     ,07933104,0.7900000,0.5200000,0.2700000,0.7900000
+M188,Fort Bend MUD 129,Municipal Utility District,Fort Bend County,07932504,0.1800000,0.1400000,0.0400000,0.1800000
+M189,Sienna MUD 10,Municipal Utility District,Tax Tech                                                                                            ,07932604,0.5650000,0.4350000,0.1300000,0.5800000
+M19,N Mission Glen MUD,Municipal Utility District,Assessments of the Southwest,07925304,0.3600000,0.2300000,0.1300000,0.3350000
+M190,Fort Bend MUD 143,Municipal Utility District,Tax Tech                                                                                            ,07932704,1.0600000,0.5400000,0.5200000,1.0600000
+M191,Fort Bend MUD 146,Municipal Utility District,Tax Tech                                                                                            ,07932804,0.6350000,0.3750000,0.2600000,0.6350000
+M192,Fort Bend MUD 142,Municipal Utility District,Wheeler,07933004,0.6180000,0.3980000,0.2200000,0.5970000
+M193,Fort Bend MUD 144,Municipal Utility District,Wheeler,07932904,0.5400000,0.3250000,0.2150000,0.5200000
+M194,Brazoria-Ft Bend MUD 1,Municipal Utility District,Assessments of the Southwest,02022004,0.4200000,0.2800000,0.1400000,0.4200000
+M195,Fort Bend MUD 131,Municipal Utility District,Tax Tech                                                                                            ,07933204,0.8500000,0.3800000,0.4700000,0.8500000
+M196,Fort Bend MUD 141,Municipal Utility District,Assessments of the Southwest,07933404,1.0100000,0.6900000,0.3200000,1.0200000
+M197,First Colony MUD 10,Municipal Utility District,Bob Leared Interests,07933504,0.1150000,0.0350000,0.0800000,0.1150000
+M198,Fort Bend MUD 147,Municipal Utility District,Tax Tech                                                                                            ,07933604,0.8718000,0.6500000,0.2218000,0.8718000
+M198A,Fort Bend County MUD 147 Defined Area,Municipal Utility District,Tax Tech                                                                                            ,07946004,0.3082000,0.0000000,0.3082000,0.3082000
+M199,Fort Bend MUD 148,Municipal Utility District,Assessments of the Southwest,07933704,0.4400000,0.3600000,0.0800000,0.4000000
+M20,Fort Bend MUD 57,Municipal Utility District,Assessments of the Southwest,07934304,0.7260000,0.3000000,0.4260000,0.6780000
+M201,Fort Bend MUD 151,Municipal Utility District,Tax Tech                                                                                            ,07933904,0.7200000,0.3200000,0.4000000,0.7200000
+M204,Fort Bend MUD 136,Municipal Utility District,Tax Tech                                                                                            ,07935504,0.3450000,0.1500000,0.1950000,0.3450000
+M205,Fort Bend MUD 137,Municipal Utility District,Tax Tech                                                                                            ,07935604,0.1700000,0.0250000,0.1450000,0.1700000
+M206,Fort Bend MUD 138,Municipal Utility District,Tax Tech                                                                                            ,07935704,0.2100000,0.1550000,0.0550000,0.2100000
+M207,Fort Bend MUD 139,Municipal Utility District,Tax Tech                                                                                            ,07935804,0.2400000,0.1200000,0.1200000,0.2400000
+M208,Fort Bend MUD 152,Municipal Utility District,Tax Tech                                                                                            ,07935904,1.1300000,0.8700000,0.2600000,1.1300000
+M209,Fort Bend MUD 155,Municipal Utility District,Fort Bend County,07936004,0.8600000,0.4000000,0.4600000,0.8600000
+M21,Pecan Grove MUD,Municipal Utility District,Tax Tech                                                                                            ,07921104,0.6250000,0.2600000,0.3650000,0.6250000
+M210,Fort Bend MUD 158,Municipal Utility District,Tax Tech                                                                                            ,07936104,0.9300000,0.4600000,0.4700000,0.9300000
+M211,Cinco Southwest MUD 1,Municipal Utility District,Utility Tax Service                                     ,07934804,0.3700000,0.2900000,0.0800000,0.3700000
+M212,Cinco Southwest MUD 2,Municipal Utility District,Utility Tax Service                                     ,07934904,0.5950000,0.4500000,0.1450000,0.5950000
+M213,Fort Bend MUD 165,Municipal Utility District,Bob Leared Interests,07936404,0.9000000,0.4400000,0.4600000,0.9000000
+M214,Fort Bend MUD 168,Municipal Utility District,Utility Tax Service                                     ,07943604,0.0000000,0.0000000,0.0000000,0.0000000
+M214A,Fort Bend County MUD 168 Defined Area A,Municipal Utility District,Utility Tax Service                                     ,07944804,1.5000000,1.3000000,0.2000000,1.5000000
+M214B,Fort Bend MUD 168 Defined Area B,Municipal Utility District,Utility Tax Service                                     ,07944904,0.0000000,0.0000000,0.0000000,0.0000000
+M215,Fort Bend MUD 162,Municipal Utility District,Fort Bend County,07936304,1.1000000,0.6000000,0.5000000,1.1000000
+M216,Grand Mission MUD 2,Municipal Utility District,Tax Tech                                                                                            ,07936704,0.7200000,0.4700000,0.2500000,0.7200000
+M217,Fort Bend MUD 159,Municipal Utility District,Assessments of the Southwest,07936204,0.6500000,0.3500000,0.3000000,0.6400000
+M218,Fort Bend MUD 167,Municipal Utility District,Utility Tax Service                                     ,07936504,0.4900000,0.4000000,0.0900000,0.4900000
+M22,Fort Bend MUD 58,Municipal Utility District,Assessments of the Southwest,07934404,0.7300000,0.4100000,0.3200000,0.7000000
+M221,Fort Bend MUD 128,Municipal Utility District,Tax Tech                                                                                            ,07935404,0.2500000,0.1950000,0.0550000,0.2500000
+M222,Fort Bend MUD 161,Municipal Utility District,Tax Tech                                                                                            ,07937304,0.7800000,0.6500000,0.1300000,0.7500000
+M223,Cinco Southwest MUD 3,Municipal Utility District,Utility Tax Service                                     ,07935004,0.6050000,0.1500000,0.4550000,0.6050000
+M224,Cinco Southwest MUD 4,Municipal Utility District,Utility Tax Service                                     ,07935104,0.5500000,0.4300000,0.1200000,0.5500000
+M225,Fort Bend MUD 145,Municipal Utility District,Assessments of the Southwest,07937204,1.0366400,0.4050000,0.6316400,1.0380000
+M226,Fort Bend MUD 182,Municipal Utility District,Assessments of the Southwest,07937604,1.0700000,0.8150000,0.2550000,1.0700000
+M227,Fort Bend MUD 176,Municipal Utility District,Tax Tech                                                                                            ,07939604,0.5350000,0.3000000,0.2350000,0.5350000
+M228,Fort Bend MUD 185,Municipal Utility District,Bob Leared Interests,07939704,0.7700000,0.4700000,0.3000000,0.7700000
+M23,Blueridge West MUD,Municipal Utility District,Bob Leared Interests,07920104,0.4025000,0.2525000,0.1500000,0.4025000
+M230,Fort Bend MUD 169,Municipal Utility District,Assessments of the Southwest,07939204,1.3383800,0.9150000,0.4233800,1.3000000
+M231,Fort Bend MUD 170,Municipal Utility District,Assessments of the Southwest,07939304,0.9400000,0.7500000,0.1900000,0.7900000
+M232,Fort Bend MUD 171,Municipal Utility District,Assessments of the Southwest,07937504,0.8400000,0.6300000,0.2100000,0.7700000
+M233,Fort Bend MUD 172,Municipal Utility District,Assessments of the Southwest,07939404,0.8000000,0.6500000,0.1500000,0.6800000
+M234,Fort Bend MUD 173,Municipal Utility District,Assessments of the Southwest,07939504,0.9700000,0.6900000,0.2800000,0.8700000
+M235,Fort Bend MUD 149,Municipal Utility District,Tax Tech                                                                                            ,07939004,0.3150000,0.2300000,0.0850000,0.3150000
+M236,Fort Bend MUD 163,Municipal Utility District,Tax Tech                                                                                            ,07937404,0.6000000,0.4300000,0.1700000,0.6000000
+M237,Fort Bend MUD 189,Municipal Utility District,Tax Tech                                                                                            ,07937704,1.5000000,0.5600000,0.9400000,1.5000000
+M238,Fort Bend MUD 194,Municipal Utility District,Tax Tech                                                                                            ,07937804,1.0400000,0.6850000,0.3550000,1.0400000
+M239,Willow Creek Farms MUD,Municipal Utility District,Utility Tax Service                                     ,23720104,1.1500000,0.7200000,0.4300000,1.1500000
+M242,Fort Bend MUD 134 B,Municipal Utility District,Fort Bend County,07937004,0.9650000,0.6400000,0.3250000,0.9650000
+M243,Fort Bend MUD 134 C,Municipal Utility District,Fort Bend County,07937104,0.9500000,0.6200000,0.3300000,0.9500000
+M244,Imperial Redevelopment District,Municipal Utility District,Tax Tech                                                                                            ,07920151,0.9700000,0.8800000,0.0900000,0.9700000
+M245,Fulshear MUD 1,Municipal Utility District,Bob Leared Interests,07938204,0.8400000,0.6400000,0.2000000,0.8400000
+M246,Fort Bend MUD 187,Municipal Utility District,Assessments of the Southwest,07938404,0.5800000,0.5125000,0.0675000,0.5621000
+M248,Fort Bend MUD 190,Municipal Utility District,Assessments of the Southwest,07938604,1.0700000,0.8300000,0.2400000,1.0600000
+M25,Thunderbird Mud,Municipal Utility District,Assessments of the Southwest,07920205,0.1267000,0.0000000,0.1267000,0.1373600
+M251,Fort Bend MUD 195,Municipal Utility District,Assessments of the Southwest,07938704,1.5000000,,1.5000000,1.5000000
+M252,Fort Bend MUD 198,Municipal Utility District,Assessments of the Southwest,07938804,1.5000000,0.7350000,0.7650000,1.5000000
+M253,Fort Bend MUD 199,Municipal Utility District,Tax Tech                                                                                            ,07940604,0.7500000,0.5800000,0.1700000,0.7500000
+M254,Fort Bend MUD 200,Municipal Utility District,Utility Tax Service                                     ,07940004,1.0300000,0.7950000,0.2350000,1.0300000
+M255,Fort Bend MUD 192,Municipal Utility District,Tax Tech                                                                                            ,07940104,1.2800000,0.7700000,0.5100000,1.2800000
+M260,Katy West MUD,Municipal Utility District,Tax Tech                                                                                            ,07939904,0.8000000,0.2800000,0.5200000,0.8000000
+M261,Harris County MUD 393,Municipal Utility District,Assessments of the Southwest,10163004,0.3700000,0.2350000,0.1350000,0.3700000
+M262,Fort Bend MUD 156,Municipal Utility District,Assessments of the Southwest,07940704,0.7900000,0.4200000,0.3700000,0.7600000
+M263,Fort Bend MUD 206,Municipal Utility District,Bob Leared Interests,07940904,1.2200000,0.6600000,0.5600000,1.2200000
+M264,Fulshear MUD 2,Municipal Utility District,Bob Leared Interests,07941604,1.0800000,0.8200000,0.2600000,1.0800000
+M266,Fort Bend MUD 184,Municipal Utility District,Assessments of the Southwest,07941004,1.4600000,0.8100000,0.6500000,1.3900000
+M269,Fort Bend MUD 210,Municipal Utility District,Assessments of the Southwest,07946204,0.0000000,,0.0000000,0.0000000
+M27,Quail Valley MUD,Municipal Utility District,Assessments of the Southwest,07943204,0.1270000,0.0000000,0.1270000,0.1365000
+M271,Fort Bend MUD 212,Municipal Utility District,Assessments of the Southwest,07946304,0.0000000,,0.0000000,0.0000000
+M272,Fort Bend MUD 213,Municipal Utility District,BA Municipal Tax Service,07942104,0.0000000,0.0000000,0.0000000,0.0000000
+M273,Fort Bend MUD 207,Municipal Utility District,Assessments of the Southwest,07941104,1.0000000,,1.0000000,1.0000000
+M274,Fort Bend MUD 188,Municipal Utility District,Assessments of the Southwest,07943704,1.1700000,0.4500000,0.7200000,1.1700000
+M275,Fort Bend-Waller MUD 3,Municipal Utility District,Assessments of the Southwest,07941204,0.8500000,0.6500000,0.2000000,0.8400000
+M276,Brazoria MUD 22,Municipal Utility District,Assessments of the Southwest,02021504,0.9500000,0.7800000,0.1700000,0.9500000
+M277,Fort Bend MUD 215,Municipal Utility District,Tax Tech                                                                                            ,07941704,0.7300000,0.6350000,0.0950000,0.7300000
+M278,Fort Bend MUD 134 D,Municipal Utility District,Tax Tech                                                                                            ,07941504,0.9000000,0.6850000,0.2150000,0.9000000
+M279,Fort Bend MUD 134 E,Municipal Utility District,Tax Tech                                                                                            ,07941804,0.8500000,0.5400000,0.3100000,0.8500000
+M280,Fulshear MUD 4,Municipal Utility District,Tax Tech                                                                                            ,07943004,0.0000000,0.0000000,0.0000000,0.0000000
+M284,Fort Bend MUD 216,Municipal Utility District,Wheeler,07943804,1.3500000,0.0000000,1.3500000,1.1300000
+M285,Fort Bend MUD 218,Municipal Utility District,Assessments of the Southwest,07942504,1.1775000,0.8400000,0.3375000,1.1700000
+M286,Fort Bend MUD 219A,Municipal Utility District,Assessments of the Southwest,,0.0000000,,0.0000000,0.0000000
+M287,Fulshear MUD 3A,Municipal Utility District,Utility Tax Service                                     ,07941304,1.1200000,0.4700000,0.6500000,1.1200000
+M289,Williams Ranch MUD No 1,Municipal Utility District,Assessments of the Southwest,07942004,0.9500000,0.4050000,0.5450000,0.9400000
+M29,Fort Bend MUD 2,Municipal Utility District,Assessments of the Southwest,07920204,0.5330000,0.1850000,0.3480000,0.5500000
+M290,Fort Bend MUD 174,Municipal Utility District,Assessments of the Southwest,07941904,1.0400000,0.8650000,0.1750000,1.0400000
+M291,Fort Bend MUD 220,Municipal Utility District,Tax Tech                                                                                            ,07942204,1.3900000,0.5100000,0.8800000,1.3900000
+M292,Fort Bend MUD 157,Municipal Utility District,Tax Tech                                                                                            ,07943404,1.5000000,0.0000000,1.5000000,1.5000000
+M293,Charleston MUD,Municipal Utility District,Bob Leared Interests,07942304,1.5000000,0.7500000,0.7500000,1.5000000
+M294,Fort Bend MUD 222,Municipal Utility District,Assessments of the Southwest,07943904,1.1700000,0.6200000,0.5500000,1.1700000
+M295,Fort Bend MUD 225,Municipal Utility District,Utility Tax Service                                     ,07942604,1.0850000,0.7150000,0.3700000,1.0850000
+M296,Village at Katy Development District,Municipal Utility District,Tax Tech                                                                                            ,10120151,1.0000000,0.5600000,0.4400000,1.0000000
+M297,Fort Bend MUD 233,Municipal Utility District,Assessments of the Southwest,07942804,0.9000000,0.8000000,0.1000000,0.9000000
+M299,Fort Bend MUD 229,Municipal Utility District,Utility Tax Service                                     ,07943104,1.3500000,0.8900000,0.4600000,1.3500000
+M30,Fort Bend MUD 5,Municipal Utility District,Tax Tech                                                                                            ,07937904,1.2400000,0.8750000,0.3650000,1.2400000
+M300,Brazoria-Ft Bend MUD 3,Municipal Utility District,Utility Tax Service                                     ,02024004,1.3500000,0.8500000,0.5000000,1.3500000
+M301,Austin Point MUD 1,Municipal Utility District,Tax Tech                                                                                            ,07944004,0.0000000,0.0000000,0.0000000,0.0000000
+M302,Austin Point MUD 2,Municipal Utility District,Tax Tech                                                                                            ,07944104,1.5000000,,1.5000000,1.5000000
+M308,Fort Bend MUD 231,Municipal Utility District,Tax Tech                                                                                            ,07943304,1.5000000,0.0000000,1.5000000,1.5000000
+M309,Fort Bend MUD 246,Municipal Utility District,Utility Tax Service                                     ,07943504,1.3000000,0.5900000,0.7100000,1.3000000
+M310,Fort Bend MUD 251,Municipal Utility District,Tax Tech                                                                                            ,07944204,1.5000000,,1.5000000,1.5000000
+M311,Fort Bend MUD 175,Municipal Utility District,Assessments of the Southwest,07944404,1.1500000,0.1500000,1.0000000,1.1500000
+M312,Fort Bend MUD 254,Municipal Utility District,Utility Tax Service                                     ,07945404,1.1000000,,1.1000000,1.1000000
+M313,Fort Bend MUD 245,Municipal Utility District,Tax Tech                                                                                            ,07944304,1.3000000,1.0400000,0.2600000,1.3000000
+M314,Fort Bend MUD 250,Municipal Utility District,Assessments of the Southwest,07944604,0.0000000,0.0000000,0.0000000,1.5000000
+M315,Fort Bend MUD 250 A,Municipal Utility District,Assessments of the Southwest,07944704,1.5000000,,1.5000000,1.5000000
+M316,Fort Bend MUD 250 B,Municipal Utility District,Assessments of the Southwest,07945604,0.0000000,0.0000000,0.0000000,0.0000000
+M319,Fort Bend County MUD 256,Municipal Utility District,Assessments of the Southwest,07945204,1.5000000,,1.5000000,1.5000000
+M320,Fort Bend MUD 257,Municipal Utility District,Utility Tax Service                                     ,,1.5000000,0.0000000,1.5000000,1.5000000
+M322,Fort Bend County MUD 236,Municipal Utility District,Assessments of the Southwest,07946604,0.0000000,0.0000000,0.0000000,1.5000000
+M325,Fort Bend MUD 255,Municipal Utility District,Utility Tax Service                                     ,07945504,1.2500000,0.2900000,0.9600000,1.2500000
+M326,Fort Bend County MUD 232,Municipal Utility District,Assessments of the Southwest,07945104,0.8800000,0.3000000,0.5800000,0.8800000
+M327,Fort Bend County  MUD 253,Municipal Utility District,Assessments of the Southwest,07945004,1.5000000,,1.5000000,1.5000000
+M328,Fort Bend MUD 252,Municipal Utility District,Assessments of the Southwest,07945704,1.1000000,,1.1000000,1.0600000
+M332,Fort Bend MUD 134F,Municipal Utility District,Tax Tech                                                                                            ,07945304,1.4500000,0.2150000,1.2350000,1.4500000
+M334,Fort Bend MUD 258,Municipal Utility District,Assessments of the Southwest,07945804,1.5000000,,1.5000000,1.5000000
+M338,Fort Bend County MUD 237A,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+M339,Fort Bend County MUD 237B,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+M341,Harris County MUD 410,Municipal Utility District,Tax Tech                                                                                            ,10163804,0.0000000,,0.0000000,0.5100000
+M342,Fort Bend County MUD 268,Municipal Utility District,Tax Tech                                                                                            ,07946104,1.5000000,,1.5000000,1.5000000
+M343,Fort Bend County MUD 261,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+M344,Fort Bend County MUD 244,Municipal Utility District,Bob Leared Interests,,0.0000000,,0.0000000,0.0000000
+M345,Fort Bend County MUD 269,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+M346,Fort Bend County MUD 269A,Municipal Utility District,Utility Tax Service                                     ,07946804,1.5000000,,1.5000000,1.5000000
+M347,Fort Bend County MUD 269B,Municipal Utility District,Utility Tax Service                                     ,07946904,1.5000000,,1.5000000,1.5000000
+M348,Fort Bend County MUD 273,Municipal Utility District,Assessments of the Southwest,07946504,0.0000000,,0.0000000,0.0000000
+M349,Fort Bend County MUD 270,Municipal Utility District,Assessments of the Southwest,07946404,0.0000000,,0.0000000,1.1700000
+M367,Fort Bend County MUD 275,Municipal Utility District,Assessments of the Southwest,,0.0000000,,0.0000000,0.0000000
+M369,Fort Bend County MUD 277,Municipal Utility District,Assessments of the Southwest,,0.0000000,,0.0000000,0.0000000
+M37,Fort Bend MUD 19,Municipal Utility District,Equi-Tax                                                                              ,07921204,0.6160000,0.4260000,0.1900000,0.6160000
+M370,Fort Bend County MUD 278,Municipal Utility District,Assessments of the Southwest,,0.0000000,,0.0000000,0.0000000
+M374,Fort Bend County MUD 242,Municipal Utility District,Utility Tax Service                                     ,07947004,1.5000000,0.0000000,1.5000000,1.5000000
+M375,Fort Bend County MUD 265,Municipal Utility District,Utility Tax Service                                     ,07946704,0.0000000,,0.0000000,0.0000000
+M377,Fort Bend County MUD 274,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,0.0000000,0.0000000,0.0000000
+M379,Fort Bend County MUD No 286,Municipal Utility District,San Jacinto Tax Service                                                                                     ,,0.0000000,0.0000000,0.0000000,0.0000000
+M382,Fort Bend County MUD 291,Municipal Utility District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+M40,Fort Bend MUD 23,Municipal Utility District,Assessments of the Southwest,07922504,0.5600000,0.3300000,0.2300000,0.5550000
+M41,Fort Bend MUD 25,Municipal Utility District,Assessments of the Southwest,07922704,0.8300000,0.6100000,0.2200000,0.8100000
+M42,Fort Bend MUD 24,Municipal Utility District,Assessments of the Southwest,07933304,1.1600000,0.4400000,0.7200000,1.1600000
+M43,Fort Bend MUD 26,Municipal Utility District,Utility Tax Service                                     ,07922804,0.7050200,0.5550200,0.1500000,0.7050200
+M44,Fort Bend MUD 35,Municipal Utility District,Tax Tech                                                                                            ,07932404,0.3226000,0.2350000,0.0876000,0.3226000
+M48,Fort Bend MUD 41,Municipal Utility District,Fort Bend County,07926404,0.4260000,0.0950000,0.3310000,0.4260000
+M49,Fort Bend MUD 30,Municipal Utility District,Utility Tax Service                                     ,07923104,0.4100000,0.3100000,0.1000000,0.4100000
+M50,Fort Bend MUD 47,Municipal Utility District,Bob Leared Interests,07925504,0.6930000,0.2450000,0.4480000,0.6930000
+M52,Fort Bend MUD 34,Municipal Utility District,Bob Leared Interests,07923504,0.5500000,0.2000000,0.3500000,0.5500000
+M53,Fort Bend MUD 37,Municipal Utility District,Equi-Tax                                                                              ,07923804,0.4725000,0.0000000,0.4725000,0.4725000
+M54,Fort Bend MUD 48,Municipal Utility District,Bob Leared Interests,07925604,0.7200000,0.3600000,0.3600000,0.7200000
+M55,Fort Bend MUD 42,Municipal Utility District,Assessments of the Southwest,07925104,0.2900000,0.1200000,0.1700000,0.2900000
+M58,Fort Bend MUD 49,Municipal Utility District,Bob Leared Interests,07926304,0.5100000,0.0600000,0.4500000,0.5100000
+M62,Big Oaks MUD,Municipal Utility District,Bob Leared Interests,07926204,0.5850000,0.2800000,0.3050000,0.5850000
+M73,Chelford City MUD,Municipal Utility District,Bob Leared Interests,10123404,0.3130000,0.1450000,0.1680000,0.3130000
+M75,Cornerstones MUD,Municipal Utility District,Bob Leared Interests,10126104,0.2575000,0.1100000,0.1475000,0.2575000
+M76,Fort Bend MUD 66,Municipal Utility District,Assessments of the Southwest,07934504,0.9500000,0.2800000,0.6700000,0.9300000
+M77,Kingsbridge MUD,Municipal Utility District,Bob Leared Interests,07926804,0.3800000,0.1300000,0.2500000,0.3800000
+M81,Mission Bend MUD 1,Municipal Utility District,Assessments of the Southwest,10145904,0.2170000,0.0570000,0.1600000,0.2170000
+M83,Palmer Plantation MUD 1,Municipal Utility District,Assessments of the Southwest,07925904,0.4000000,0.0900000,0.3100000,0.3900000
+M84,Palmer Plantation MUD 2,Municipal Utility District,Assessments of the Southwest,07929004,0.3660000,0.1700000,0.1960000,0.3450000
+M87,Renn Road Mud,Municipal Utility District,Bob Leared Interests,10144304,0.5400000,0.2700000,0.2700000,0.5400000
+M89,Harris-Fort Bend MUD 1,Municipal Utility District,Equi-Tax                                                                              ,10156804,0.5436000,0.2750000,0.2686000,0.5436000
+M91,Harris-Fort Bend MUD 3,Municipal Utility District,Wheeler,07932004,0.5450000,0.4450000,0.1000000,0.5400000
+M92,Katy Management Dist 1,Municipal Utility District,Tax Tech                                                                                            ,07920748,0.8000000,0.0000000,0.8000000,0.8000000
+M94,Memorial MUD,Municipal Utility District,Bob Leared Interests,10140604,0.3250000,0.1290000,0.1960000,0.3250000
+M95,Sienna MUD 7,Municipal Utility District,Tax Tech                                                                                            ,07939804,1.0500000,0.3400000,0.7100000,1.0500000
+M96,Fort Bend MUD 46,Municipal Utility District,Fort Bend County,07926004,0.3400000,0.0900000,0.2500000,0.3400000
+M98,Burney Rd MUD,Municipal Utility District,Wheeler,07930104,0.1750000,0.1200000,0.0550000,0.1700000
+P303,Public Improvement Dist 3,Public Improvement District,Fort Bend County,,,,,N/A
+P304,City of Missouri City PID No 4,Public Improvement District,Fort Bend County,,,,,N/A
+P308,The Enclave At River Park Public Improvement District,Public Improvement District,Fort Bend County,,,,,N/A
+P309,Park at Eldridge PID,Public Improvement District,Fort Bend County,,,,,N/A
+R05,Fort Bend ESD 4,Emergency,Fort Bend County,07920340,0.0966280,0.0145320,0.0820960,0.0966280
+R07,Fort Bend ESD 3,Emergency,Fort Bend County,07920440,0.1000000,0.0000000,0.1000000,0.1000000
+R33,Harris-Fort Bend ESD 100,Emergency,Fort Bend County,10120740,0.1000000,0.0223200,0.0776800,0.1000000
+R37,Fort Bend ESD 1,Emergency,Fort Bend County,07920140,0.0656590,0.0000000,0.0656590,0.0656590
+R41,Fort Bend ESD 2,Emergency,Fort Bend County,07920240,0.0957490,0.0000000,0.0957490,0.0957490
+R50,Fort Bend ESD 5,Emergency,Fort Bend County,07920540,0.1000000,0.0120370,0.0879630,0.1000000
+R51,Fort Bend ESD 6,Emergency,Fort Bend County,07920640,0.1000000,0.0129880,0.0870120,0.1000000
+R52,Fort Bend ESD 7,Emergency,Fort Bend County,07920840,0.0984790,0.0135960,0.0848830,0.0984790
+R53,Fort Bend ESD 8,Emergency,Fort Bend County,07920740,0.1000000,0.0000000,0.1000000,0.1000000
+R54,Fort Bend ESD 9,Emergency,Fort Bend County,07920940,0.0967250,0.0000000,0.0967250,0.0967250
+R55,Fort Bend ESD 10,Emergency,Fort Bend County,07921040,0.0964000,,0.0964000,0.0964000
+S01,Lamar CISD,School,Fort Bend County,07990102,1.1469000,0.4800000,0.6669000,1.1469000
+S03,Brazos ISD,School,Brazoria County,00890302,0.9237700,0.2599700,0.6638000,0.9237700
+S05,Needville ISD,School,Fort Bend County,07990602,1.2869000,0.5000000,0.7869000,1.2869000
+S07,Fort Bend ISD,School,Fort Bend County,07990702,1.0569000,0.2700000,0.7869000,1.0569000
+S11,Stafford MSD,School,Fort Bend County,07991002,1.0021210,0.2152210,0.7869000,1.0021210
+S13,Katy ISD,School,Fort Bend County,10191402,1.1171000,0.3900000,0.7271000,1.1171000
+SM100,Fort Bend Management District 1,Special Management Districts Management Districts,Tax Tech                                                                                            ,07920448,0.3900000,0.3300000,0.0600000,0.3900000
+SM105,Sienna Management District 1,Special Management Districts,Tax Tech                                                                                            ,07920148,0.9200000,0.5300000,0.3900000,0.9800000
+SM107,Missouri City Management District No 1,Special Management Districts,Assessments of the Southwest,07920548,0.9000000,0.4900000,0.4100000,0.9000000
+SM108,Missouri City Management District No 2,Special Management Districts,Assessments of the Southwest,07920948,0.5000000,,0.5000000,0.5000000
+SM109,Simonton Management District 1,Special Management Districts,Assessments of the Southwest,07920648,0.0000000,0.0000000,0.0000000,0.0000000
+SM110,Arcola Municipal Management District 1,Municipal,Tax Tech                                                                                            ,07920848,0.8400000,0.0000000,0.8400000,0.8400000
+T149,Foreign Trade Zone 149,Foreign Trade,Fort Bend County,,,,,0.0000000
+W01,Fort Bend LID 2,Levy Improvement District,Fort Bend County,07920107,0.1180000,0.0700000,0.0480000,0.1180000
+W03,Fort Bend WCID 2,Fresh Water Supply District,Fort Bend County,07920219,0.2125000,0.2125000,0.0000000,0.2125000
+W03A,Fort Bend WCID 2 Area 1,Fresh Water Supply District,Fort Bend County,07920819,0.5150000,0.5150000,0.0000000,0.5150000
+W05,Sienna Parks & LID,Levy Improvement District,Tax Tech                                                                                            ,07920407,0.4125000,0.2400000,0.1725000,0.4125000
+W06,Fort Bend LID 6,Levy Improvement District,Assessments of the Southwest,07921607,0.3300000,0.2100000,0.1200000,0.3300000
+W07,First Colony LID,Levy Improvement District,Bob Leared Interests,07920507,0.1000000,,0.1000000,0.1000000
+W13,Fort Bend LID 7,Levy Improvement District,Assessments of the Southwest,07920707,0.3227400,0.2150000,0.1077400,0.3227400
+W16,Fort Bend LID 12,Levy Improvement District,Fort Bend County,07920607,0.0400000,0.0250000,0.0150000,0.0400000
+W18,Grand Lakes WCID,Fresh Water Supply District,Assessments of the Southwest,07920419,0.0525000,0.0225000,0.0300000,0.0525000
+W20,Willow Fork Drainage,Drainage District,Fort Bend County,07920208,0.1450000,0.0480000,0.0970000,0.1450000
+W22,First Colony LID 2,Levy Improvement District,Fort Bend County,07920907,0.1541000,0.0000000,0.1541000,0.1541000
+W24,West Keegans Bayou Imp Dist,Levy Improvement District,Bob Leared Interests,07920109,0.0749000,0.0000000,0.0749000,0.0749000
+W25,Fort Bend FWSD 1,Fresh Water Supply District,Fort Bend County,07920113,1.0000000,0.5000000,0.5000000,1.0000000
+W26,Fort Bend LID 10,Levy Improvement District,Tax Tech                                                                                            ,07921107,0.5100000,0.1800000,0.3300000,0.5100000
+W28,Fort Bend LID 11,Levy Improvement District,Tax Tech                                                                                            ,07920807,0.2050000,0.1300000,0.0750000,0.2050000
+W29,Fort Bend FWSD 2,Fresh Water Supply District,Fort Bend County,07920213,0.5145000,0.0000000,0.5145000,0.5145000
+W30,Fort Bend LID 14,Levy Improvement District,Fort Bend County,07921007,0.1010000,0.0085000,0.0925000,0.1010000
+W32,Fort Bend WCID 3,Municipal Utility District,Bob Leared Interests,07920519,0.5500000,0.2800000,0.2700000,0.5500000
+W35,Fort Bend LID 15,Levy Improvement District,Fort Bend County,07921207,0.2450000,0.1950000,0.0500000,0.2450000
+W36,Fort Bend WCID 8,Fresh Water Supply District,Utility Tax Service                                     ,07920619,0.9500000,0.4750000,0.4750000,0.9500000
+W38,Fort Bend WCID 10,Fresh Water Supply District,Utility Tax Service                                     ,07920719,0.9800000,,0.9800000,0.9800000
+W39,Fort Bend LID 17,Levy Improvement District,Fort Bend County,07921307,0.4300000,0.2000000,0.2300000,0.3900000
+W41,Fort Bend LID 19,Levy Improvement District,Fort Bend County,07921407,0.4000000,0.2100000,0.1900000,0.4000000
+W42,Fort Bend LID 20,Levy Improvement District,Tax Tech                                                                                            ,07921507,0.4850000,0.1700000,0.3150000,0.4850000
+W43,Fort Bend Improvement District 24,Public Improvement District,Equi-Tax                                                                              ,07920209,1.4500000,0.6400000,0.8100000,1.4500000
+W44,Fort Bend County WCID No 12,Drainage District,Utility Tax Service                                     ,,0.0000000,,0.0000000,0.0000000
+W45,Fort Bend County WCID No 13,Fresh Water Supply District,Assessments of the Southwest,,0.0000000,,0.0000000,0.0000000

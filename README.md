@@ -72,10 +72,11 @@ python pipeline/build_county_data.py --gis gis --rates data --out out \
 
 - Combo ids start at 50000 (`data/fb_combo_registry.csv`), unit codes are prefixed `FB-`, and every combo
   carries its county and rate year, so the page labels cards "FBCAD account" and shows each county's rate year.
-- Rates: 2025 adopted rates from the Fort Bend tax rate grid export (CSV, `--rates-file`), which match Harris's
-  2025 rates for shared units (HCC, Katy ISD, Stafford MSD) and Fort Bend ISD's adopted 1.0569. FBCAD's own sheet
-  (`fb_rates.xls`, default) stops at 2024. For 2026, rerun `build_fortbend_rates.py --rates-file <2026 grid>
-  --year 2026`; combo ids stay the same, so tiles need no rebuild.
+- Rates: Fort Bend tax rate grid exports in `data/fortbend/`. `fb_rates_2025_grid.csv` (Total Rate = 2025, Prev
+  Rate = 2024) is the one in use, matching Harris's 2025 rates; Fort Bend ISD shows 1.0569 (prev 0.9869).
+  `fb_rates_2026_grid.csv` (Total = 2026, Prev = 2025) is ready for the switch to 2026:
+  `build_fortbend_rates.py --rates-file data/fortbend/fb_rates_2026_grid.csv --year 2026`. Combo ids stay the
+  same, so tiles need no rebuild.
 - Unit codes missing from the rate file: T codes (TIRZs and zones, e.g. T149 foreign trade zone) add no rate,
   P codes are public improvement district assessments (noted on the card), SM codes are management districts.
   Other missing codes (newer MUDs and LIDs) are flagged as incomplete rates (about 6,400 parcels).
