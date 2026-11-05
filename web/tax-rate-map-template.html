@@ -768,7 +768,7 @@ function renderDrawer(p){
       <div class="kpis">
         <div><div class="k">Rate / $100</div><div class="v">${r==null?NA:r.toFixed(4)}</div></div><div class="sep"></div>
         <div><div class="k">Est. annual tax</div><div class="v">${tax==null?NA:short$(tax)}</div></div><div class="sep"></div>
-        <div><div class="k">Tax / bldg SF</div><div class="v">${tax!=null&&p.bld?'$'+(tax/p.bld).toFixed(2):NA}</div></div>
+        <div><div class="k">Tax / SF / mo</div><div class="v">${tax!=null&&p.bld?'$'+(tax/p.bld/12).toFixed(2):NA}</div></div>
       </div>
       <div class="grid">
         ${F('Owner',esc(tc(p.owner)),true)}
@@ -776,6 +776,8 @@ function renderDrawer(p){
         ${F('Property class',esc(clsName))}
         ${F(META.valueYear+' appraised value',money(p.val))}
         ${F('Est. annual tax',money(tax))}
+        ${F('Est. monthly tax',money(tax==null?null:tax/12))}
+        ${F('Tax / bldg SF / yr',tax!=null&&p.bld?'$'+(tax/p.bld).toFixed(2):NA)}
         ${F('Building area',p.bld?p.bld.toLocaleString()+' SF':NA)}
         ${F('Land area',acres!=null?(acres>=1?acres.toFixed(2)+' AC':p.land.toLocaleString()+' SF'):NA)}
         ${F('School district',esc(isd))}
