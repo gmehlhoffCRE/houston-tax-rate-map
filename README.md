@@ -57,6 +57,29 @@ Google Places cost):
   results in the browser. Results are ordered by exact word matches, then appraised value.
 - Shards split into longer prefixes when they pass 3,000 records (`shards/manifest.json`), so no file is large.
 
+## Fort Bend County
+
+Fort Bend CAD publishes one parcel layer that carries shapes, owner, site address, value, state code and each
+parcel's taxing units (`taxunits`, e.g. `C09,D01,G01,J07,M25,S07,CAD`), plus a rate sheet by unit code.
+
+```bash
+python pipeline/fetch_fortbend.py --out fortbend                    # 386,201 parcels + rate sheet from FBCAD
+python pipeline/build_fortbend_rates.py --src fortbend --out data --year 2024
+python pipeline/build_county_data.py --gis gis --rates data --out out \
+  --parcels gis/Parcels.gdb --cama Real_acct_owner.zip \
+  --parcels fortbend/fb_parcels.gpkg --cama fortbend/fb_real_acct.txt
+```
+
+- Combo ids start at 50000 (`data/fb_combo_registry.csv`), unit codes are prefixed `FB-`, and every combo
+  carries its county and rate year, so the page labels cards "FBCAD account" and shows each county's rate year.
+- Rates: FBCAD's newest posted sheet is 2024 (Feb 2025 file). Harris uses 2025 adopted rates. When FBCAD (or the
+  Fort Bend tax office) posts 2025 rates, rerun `fetch_fortbend.py --rates-url ...` and `build_fortbend_rates.py
+  --year 2025`; combo ids stay the same, so tiles need no rebuild.
+- No split percentages: FBCAD lists units per parcel, so each applies in full.
+- Building area is FBCAD's living area (`totsqftlvg`), often blank for commercial property, so tax per SF is
+  often unavailable there. No Fort Bend boundary overlays yet.
+- FBCAD account numbers are quick ref ids (`R100842`); search accepts them.
+
 ## Running it
 
 ```bash

@@ -34,7 +34,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await shot('01-county');
   check('page boots without script errors', errors.length === 0, errors.slice(0, 3).join(' | '));
   const status = await page.textContent('#statusTxt');
-  check('status shows rate year, value year, account count', /2025 RATES · 2026 VALUES · [\d,]+ ACCOUNTS/.test(status), status);
+  check('status shows rate year, value year, account count', /2025 RATES · 2026 VALUES · [\d,]+ ACCOUNTS|HARRIS 2025 .*RATES · 2026 VALUES · [\d,]+ ACCOUNTS/.test(status), status);
 
   // zoom to parcel level over the Ship Channel
   await page.evaluate(() => window.__app.setView(-95.175, 29.72, 14)); await waitFoot(/parcels in view match/); await waitIdle(1500);
@@ -57,6 +57,21 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   d = await drawerText(); console.log('   drawer:', d.replace(/\n/g,' / ').slice(0, 300));
   check('acceptance: 0402040000009 shows 2.1252 with TIRZ Eastside', /2\.1252/.test(d) && /TIRZ/i.test(d) && /Eastside/i.test(d), (d.match(/TIRZ[^\n]*/) || [''])[0]);
   await shot('04-search-account');
+
+  // Fort Bend (only when the build includes it): R101338 is Missouri City, Fort Bend ISD, Thunderbird MUD.
+  // FBCAD 2024 rates: C09 0.570825 + D01 0.01 + G01 0.412 + J07 0.096183 + M25 0.1267 + S07 0.9869 = 2.2026
+  if (await page.evaluate(() => window.__app.getAccount('R101338').then(r => !!r))) {
+    await page.fill('#q', 'r101338'); await waitResults();
+    await page.keyboard.press('Enter'); await waitDrawer(/FBCAD account/); await waitIdle(3000);
+    const fbd = await drawerText();
+    check('Fort Bend: account search opens an FBCAD card with the combined 2024 rate', /FBCAD account/.test(fbd) && /Fort Bend County/.test(fbd) && /2\.2026/.test(fbd),
+      (fbd.match(/RATE \/ \$100\s*\n?\s*[\d.]+/i) || [''])[0].replace(/\n/g, ' '));
+    await shot('03b-fort-bend');
+    await page.fill('#q', 'glenn lakes property'); await waitResults();
+    const fbr = await page.$$eval('#sres .sr', els => els.map(e => e.innerText.replace(/\n/g, ' | ')));
+    check('Fort Bend: owner search finds Glenn Lakes Property LLC', fbr.some(t => /R101338/.test(t)), fbr[0]);
+    await page.keyboard.press('Escape');
+  }
 
   // account with blank values (no CAMA or rate record) must still load
   const blank = await page.evaluate(() => window.__app.getAccount('1042940000003').then(r => r && r.acct).catch(e => 'error ' + e.message));

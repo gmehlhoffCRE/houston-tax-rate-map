@@ -654,8 +654,12 @@ $('fClear').onclick=()=>{
   vLo.value='';vHi.value=''; [...hist.children].forEach(b=>{b.classList.remove('off');b.setAttribute('aria-pressed','true');});
   document.querySelectorAll('.ms').forEach(m=>m._render&&m._render()); syncRate(); applyFilters();
 };
-$('statusTxt').textContent=`${META.taxYear} RATES · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
-$('legT').textContent=`${META.taxYear} combined rate per $100`;
+// counties can carry different rate years (Fort Bend uses FBCAD's newest posted sheet)
+const YEARS=META.taxYears||{Harris:META.taxYear}, MIXED=new Set(Object.values(YEARS)).size>1;
+$('statusTxt').textContent=(MIXED?Object.entries(YEARS).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
+$('legT').textContent=MIXED?'Combined rate per $100':`${META.taxYear} combined rate per $100`;
+const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':'Harris';
+const CAD={Harris:'HCAD','Fort Bend':'FBCAD'};
 
 // ---------------------------------------------------------------- shards (account records + search)
 const shardCache=new Map();
@@ -676,12 +680,12 @@ function showMsg(m){sres.innerHTML=`<div class="smsg">${esc(m)}</div>`; sres.cla
 async function runSearch(q){
   const seq=++qSeq, raw=q.trim();
   if(raw.length<3){ closeResults(); return; }
-  const digits=raw.replace(/[\s-]/g,'');
+  const digits=raw.replace(/[\s-]/g,'').toUpperCase();   // HCAD: 13 digits; FBCAD: R plus digits
   let list=[], partial=false;
   if(EMB){
     // embedded build: scan the in-memory records (already ordered by appraised value, highest first)
     const C=EMB.cols;
-    if(/^\d{6,13}$/.test(digits)){
+    if(/^(\d{6,13}|R\d{3,})$/.test(digits)){
       for(let i=0;i<EMB.n;i++) if(C.acct[i].startsWith(digits)){ const r=EMB.row(i); list.push({acct:r[0],owner:r[1],addr:r[2],full:r}); if(list.length>500) break; }
     } else {
       const qw=words(raw);
@@ -696,7 +700,7 @@ async function runSearch(q){
       }
       list.sort((a,b)=>b.score-a.score);
     }
-  } else if(/^\d{6,13}$/.test(digits)){
+  } else if(/^(\d{6,13}|R\d{3,})$/.test(digits)){
     const s=await shard('a',shardKey('a',digits)); if(seq!==qSeq) return;
     list=s.r.filter(r=>r[0].startsWith(digits)).map(r=>({acct:r[0],owner:r[1],addr:r[2],full:r}));
     partial=!!s.p&&digits.length<13;
@@ -756,6 +760,7 @@ function renderDrawer(p){
   const tz=c&&c.tirz?tc(c.tirz.split(';').map(s=>s.trim()).join(', ')):'';
   const F=(k,v,full)=>`<div class="f ${full?'full':''}"><div class="k">${k}</div><div class="v">${v||NA}</div></div>`;
   const isd=c?c.isdL.join('; '):'', city=c?c.cityL.join('; '):'';
+  const county=countyOf(p.acct,c), cad=CAD[county]||'CAD', ry=(c&&c.y)||YEARS[county]||META.taxYear;
   let h=`<div class="drawer" role="dialog" aria-label="Parcel details">
     <div class="hero">
       <button class="x" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#001E5A" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></button>
@@ -764,7 +769,7 @@ function renderDrawer(p){
     <div class="d-body">
       <div class="d-title">${esc(p.addr||'No site address')}</div>
       <div class="d-sub">${esc(tc(p.owner))}${p.city?' · '+esc(tc(p.city))+', TX':''}</div>
-      <div class="pills">${c?c.isdL.map(n=>`<span>${esc(n)}</span>`).join(''):''}${c?c.cityL.map(n=>`<span>${esc(n)}</span>`).join(''):''}${tz?`<span class="gold">TIRZ ${esc(tz)}</span>`:''}</div>
+      <div class="pills"><span>${esc(county)} County</span>${c?c.isdL.map(n=>`<span>${esc(n)}</span>`).join(''):''}${c?c.cityL.map(n=>`<span>${esc(n)}</span>`).join(''):''}${tz?`<span class="gold">TIRZ ${esc(tz)}</span>`:''}</div>
       <div class="kpis">
         <div><div class="k">Rate / $100</div><div class="v">${r==null?NA:r.toFixed(4)}</div></div><div class="sep"></div>
         <div><div class="k">Est. annual tax</div><div class="v">${tax==null?NA:short$(tax)}</div></div><div class="sep"></div>
@@ -772,9 +777,9 @@ function renderDrawer(p){
       </div>
       <div class="grid">
         ${F('Owner',esc(tc(p.owner)),true)}
-        ${F('HCAD account',esc(p.acct))}
+        ${F(cad+' account',esc(p.acct))}
         ${F('Property class',esc(clsName))}
-        ${F(META.valueYear+' appraised value',money(p.val))}
+        ${F((county==='Harris'?META.valueYear+' ':'')+'Appraised value',money(p.val))}
         ${F('Est. annual tax',money(tax))}
         ${F('Est. monthly tax',money(tax==null?null:tax/12))}
         ${F('Tax / bldg SF / yr',tax!=null&&p.bld?'$'+(tax/p.bld).toFixed(2):NA)}
@@ -790,19 +795,20 @@ function renderDrawer(p){
       <div class="brk">${rows.map(([code,w])=>{const j=J[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
         <div class="tot"><span>Combined</span><span>${r==null?NA:r.toFixed(4)}</span></div></div>`;
   const notes=[];
-  if(!c) notes.push(['gold','HCAD lists no taxing jurisdictions for this account, so no rate is shown.']);
+  if(!c) notes.push(['gold',`${cad} lists no taxing jurisdictions for this account, so no rate is shown.`]);
   if(c&&c.m>0&&!state.mgmt) notes.push(['gold',`Also in ${esc(tc(c.mg))}, which levies ${c.m.toFixed(4)}. Switch to "Incl. mgmt districts" to add it.`]);
   if(tz) notes.push(['',`Inside TIRZ ${esc(tz)}. A TIRZ redirects tax growth to the zone but adds no rate.`]);
   const miss=c?(state.mgmt?c.mb+c.mm:c.mb):0;
   if(miss>0) notes.push(['gold',`${miss} jurisdiction${miss>1?'s':''} on this account had no rate in the HCAD file, so the total may be understated.`]);
   if(c&&!c.city&&tg===2) notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);
-  notes.push(['',`Uses ${META.taxYear} adopted rates on ${META.valueYear} appraised values. Exemptions and abatements are not applied.`]);
+  if(county==='Fort Bend') notes.push(['',`Uses FBCAD's ${ry} tax rate sheet, the newest it has posted, on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
+  else notes.push(['',`Uses ${ry} adopted rates on ${META.valueYear} appraised values. Exemptions and abatements are not applied.`]);
   const gm=p.lon!=null?`${p.lat.toFixed(6)},${p.lon.toFixed(6)}`:encodeURIComponent((p.addr||'')+' '+(p.city||'')+' TX');
   h+=`<div class="sec">Notes</div>${notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}
     </div>
     <div class="d-act">
       <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${gm}">Open in Google Maps</a>
-      <button class="btn primary" id="copyAcct">Copy HCAD account</button>
+      <button class="btn primary" id="copyAcct">Copy ${cad} account</button>
     </div></div>`;
   host.innerHTML=h;
   host.querySelector('.x').onclick=()=>select(null);

@@ -28,6 +28,7 @@ import pyogrio
 import shapely
 from pyproj import Transformer
 
+COUNTIES = {"hcad": "Harris", "fb": "Fort Bend"}   # rates file prefix -> county name shown on the map
 TYPE_KEYS = ["res", "com", "ind", "vac", "util", "ex", "other"]  # index = tile property t, must match the web page
 # Words skipped as search keys (still matched when typed alongside a longer word). Keep in sync with STOP in the page.
 STOP = set("""llc inc ltd lp llp co corp company the of and etal et al est estate trust trustee trustees
@@ -106,8 +107,17 @@ def find_source(gis, name):
 
 # ---------------------------------------------------------------- parcels
 def export_parcels(a, acct_info, out_path):
-    src = a.parcels or os.path.join(a.gis, "Parcels.gdb")
-    info = pyogrio.read_info(src, layer=a.parcels_layer)
+    points, owners, stats = {}, {}, [0, 0]
+    with open(out_path, "w") as fo:
+        for src in (a.parcels or [os.path.join(a.gis, "Parcels.gdb")]):
+            export_parcel_source(a, src, acct_info, fo, points, owners, stats)
+    log(f"parcels written: {stats[0]:,} ({stats[1]:,} without a rate combo)")
+    return points, owners
+
+
+def export_parcel_source(a, src, acct_info, fo, points, owners, stats):
+    layer = a.parcels_layer if src.endswith(".gdb") else None
+    info = pyogrio.read_info(src, layer=layer)
     crs = info["crs"]
     total = info["features"]
     bbox = None
@@ -116,56 +126,54 @@ def export_parcels(a, acct_info, out_path):
         W, S, E, N = a.bbox
         xs, ys = tr.transform([W, E, W, E], [S, S, N, N])
         bbox = (min(xs), min(ys), max(xs), max(ys))
-    cols = [c for c in ("HCAD_NUM_1", "HCAD_NUM", "CurrOwner") if c in info["fields"]]
-    acct_col = "HCAD_NUM_1" if "HCAD_NUM_1" in cols else "HCAD_NUM"
+    # account field: HCAD_NUM_1 / HCAD_NUM in HCAD's Parcels.gdb, acct in fb_parcels.gpkg
+    cols = [c for c in ("HCAD_NUM_1", "HCAD_NUM", "acct", "CurrOwner") if c in info["fields"]]
+    acct_col = next(c for c in ("HCAD_NUM_1", "HCAD_NUM", "acct") if c in cols)
     log(f"parcels: {total:,} features in {src} ({crs})")
-
-    points = {}   # acct -> (lon, lat, area) of its largest polygon
-    owners = {}   # parcel owner, fallback when real_acct has none
+    # points: acct -> (lon, lat, area) of its largest polygon; owners: fallback when real_acct has none
     n_written = n_norate = 0
     step = 250_000
-    with open(out_path, "w") as fo:
-        for off in range(0, total, step):
-            g = pyogrio.read_dataframe(src, layer=a.parcels_layer, columns=cols, bbox=bbox,
-                                       skip_features=off, max_features=step, force_2d=True)
-            if not len(g):
+    for off in range(0, total, step):
+        g = pyogrio.read_dataframe(src, layer=layer, columns=cols, bbox=bbox,
+                                   skip_features=off, max_features=step, force_2d=True)
+        if not len(g):
+            continue
+        g = g[g[acct_col].notna() & g.geometry.notna()]
+        g = g[~g.geometry.is_empty]
+        g["acct"] = g[acct_col].astype(str).str.strip()
+        g = g[g.acct.str.len() > 0]
+        g["geometry"] = g.geometry.simplify(0.5)         # source units are feet; removes digitizing noise
+        area = g.geometry.area.to_numpy()
+        rp = gpd.GeoSeries(g.geometry.representative_point(), crs=g.crs).to_crs(4326)
+        rx, ry = rp.x.to_numpy(), rp.y.to_numpy()
+        g = g.to_crs(4326)
+        geoms = shapely.transform(g.geometry.to_numpy(), lambda c: np.round(c, 6))
+        gj = shapely.to_geojson(geoms)
+        info_rows = acct_info.reindex(g.acct)
+        combo = info_rows.combo_id.fillna(-1).astype(int).to_numpy()
+        tgrp = info_rows.t.fillna(6).astype(int).to_numpy()
+        val = info_rows.val.to_numpy()
+        for i, (acct, geo) in enumerate(zip(g.acct.to_numpy(), gj)):
+            if geo is None:
                 continue
-            g = g[g[acct_col].notna() & g.geometry.notna()]
-            g = g[~g.geometry.is_empty]
-            g["acct"] = g[acct_col].astype(str).str.strip()
-            g = g[g.acct.str.len() > 0]
-            g["geometry"] = g.geometry.simplify(0.5)         # source units are feet; removes digitizing noise
-            area = g.geometry.area.to_numpy()
-            rp = gpd.GeoSeries(g.geometry.representative_point(), crs=g.crs).to_crs(4326)
-            rx, ry = rp.x.to_numpy(), rp.y.to_numpy()
-            g = g.to_crs(4326)
-            geoms = shapely.transform(g.geometry.to_numpy(), lambda c: np.round(c, 6))
-            gj = shapely.to_geojson(geoms)
-            info_rows = acct_info.reindex(g.acct)
-            combo = info_rows.combo_id.fillna(-1).astype(int).to_numpy()
-            tgrp = info_rows.t.fillna(6).astype(int).to_numpy()
-            val = info_rows.val.to_numpy()
-            for i, (acct, geo) in enumerate(zip(g.acct.to_numpy(), gj)):
-                if geo is None:
-                    continue
-                v = val[i]
-                props = {"a": acct, "c": int(combo[i]), "t": int(tgrp[i]), "v": int(v) if v == v and v is not None else 0}
-                fo.write('{"type":"Feature","properties":' + json.dumps(props, separators=(",", ":")) +
-                         ',"geometry":' + geo + "}\n")
-                n_written += 1
-                n_norate += combo[i] < 0
-                prev = points.get(acct)
-                if prev is None or area[i] > prev[2]:
-                    points[acct] = (round(float(rx[i]), 5), round(float(ry[i]), 5), area[i])
-            if "CurrOwner" in g:
-                for acct, o in zip(g.acct, g.CurrOwner):
-                    if isinstance(o, str) and acct not in owners:
-                        owners[acct] = clean(o)
-            log(f"  {min(off + step, total):,}/{total:,} read, {n_written:,} written")
-            if bbox is not None and off == 0 and len(g) < step:
-                break   # bbox reads ignore skip_features beyond the matches
-    log(f"parcels written: {n_written:,} ({n_norate:,} without a rate combo)")
-    return points, owners
+            v = val[i]
+            props = {"a": acct, "c": int(combo[i]), "t": int(tgrp[i]), "v": int(v) if v == v and v is not None else 0}
+            fo.write('{"type":"Feature","properties":' + json.dumps(props, separators=(",", ":")) +
+                     ',"geometry":' + geo + "}\n")
+            n_written += 1
+            n_norate += combo[i] < 0
+            prev = points.get(acct)
+            if prev is None or area[i] > prev[2]:
+                points[acct] = (round(float(rx[i]), 5), round(float(ry[i]), 5), area[i])
+        if "CurrOwner" in g:
+            for acct, o in zip(g.acct, g.CurrOwner):
+                if isinstance(o, str) and acct not in owners:
+                    owners[acct] = clean(o)
+        log(f"  {min(off + step, total):,}/{total:,} read, {n_written:,} written")
+        if bbox is not None and off == 0 and len(g) < step:
+            break   # bbox reads ignore skip_features beyond the matches
+    stats[0] += n_written
+    stats[1] += n_norate
 
 
 # ---------------------------------------------------------------- shards
@@ -255,9 +263,10 @@ def export_boundaries(a, outdir):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--gis", required=True)
-    ap.add_argument("--parcels", help="parcel source (default <gis>/Parcels.gdb)")
+    ap.add_argument("--parcels", action="append", help="parcel source, repeatable (default <gis>/Parcels.gdb)")
     ap.add_argument("--parcels-layer", default=None)
-    ap.add_argument("--cama", required=True, help="Real_acct_owner.zip or real_acct.txt")
+    ap.add_argument("--cama", required=True, action="append",
+                    help="Real_acct_owner.zip or a real_acct.txt-style file, repeatable (e.g. fb_real_acct.txt)")
     ap.add_argument("--rates", required=True)
     ap.add_argument("--out", default="out")
     ap.add_argument("--bbox", nargs=4, type=float, help="W S E N subset (testing)")
@@ -273,12 +282,23 @@ def main():
 
     # rates and account attributes
     log("reading rates")
-    ar = pd.read_csv(os.path.join(a.rates, "hcad_account_rates.csv.gz"), dtype={"acct": str},
-                     usecols=["acct", "combo_id"]).set_index("acct")
-    cb = pd.read_csv(os.path.join(a.rates, "hcad_combos.csv"), dtype=str, keep_default_na=False).set_index("combo_id")
-    rt = pd.read_csv(os.path.join(a.rates, "hcad_rate_table.csv"), dtype={"tax_dist": str}).set_index("tax_dist")
-    log("reading real_acct")
-    ra = read_real_acct(a.cama)
+    # every county's files in the rates folder: hcad_* (Harris), fb_* (Fort Bend), ...
+    ars, cbs, rts = [], [], []
+    for pre, county in COUNTIES.items():
+        f = os.path.join(a.rates, f"{pre}_combos.csv")
+        if not os.path.exists(f):
+            continue
+        ars.append(pd.read_csv(os.path.join(a.rates, f"{pre}_account_rates.csv.gz"), dtype={"acct": str},
+                               usecols=["acct", "combo_id"]))
+        cbs.append(pd.read_csv(f, dtype=str, keep_default_na=False).assign(county=county))
+        rts.append(pd.read_csv(os.path.join(a.rates, f"{pre}_rate_table.csv"), dtype={"tax_dist": str}))
+        log(f"  {county}: {len(cbs[-1]):,} combos, {len(ars[-1]):,} accounts")
+    ar = pd.concat(ars).drop_duplicates("acct").set_index("acct")
+    cb = pd.concat(cbs).set_index("combo_id")
+    rt = pd.concat(rts).drop_duplicates("tax_dist").set_index("tax_dist")
+    log("reading account details")
+    ra = pd.concat([read_real_acct(c) for c in a.cama])
+    ra = ra[~ra.index.duplicated()]
     acct = ar.join(ra, how="outer")
     acct["combo_id"] = acct.combo_id.fillna(-1).astype(int)
     acct["t"] = [type_group(c) for c in acct.state_class.fillna("").str.strip()]
@@ -364,13 +384,20 @@ def main():
         n = counts.loc[cid].tolist() if cid in counts.index else [0] * 7
         combos.append({"id": cid, "b": round(float(r.rate_base), 6), "m": round(float(r.rate_mgmt), 6),
                        "isd": r.isd, "city": r.city, "water": r.water_districts, "esd": r.esd, "college": r.college,
-                       "mg": r.mgmt_districts, "tirz": tirz, "mb": mb, "mm": mm, "p": parts, "n": [int(v) for v in n]})
+                       "mg": r.mgmt_districts, "tirz": tirz, "mb": mb, "mm": mm, "p": parts, "n": [int(v) for v in n],
+                       "co": r.county, "y": int(r.tax_year) if r.tax_year else None})
     jur = {c: [rt.loc[c, "name"], rt.loc[c, "category"], rt.loc[c, "bucket"]] for c in sorted(jur_codes) if c in rt.index}
     tax_year = int(cb.tax_year.iloc[0]) if "tax_year" in cb and len(cb) else 2025
+    years = {co: int(y) for co, y in cb.groupby("county").tax_year.first().items() if y}
+    if a.bbox:
+        extent = a.bbox
+    else:
+        xs = [p[0] for p in points.values()]; ys = [p[1] for p in points.values()]
+        extent = [round(min(xs) - .02, 3), round(min(ys) - .02, 3), round(max(xs) + .02, 3), round(max(ys) + .02, 3)]
     meta = {"taxYear": tax_year, "valueYear": a.value_year, "built": time.strftime("%Y-%m-%d"),
             "accounts": int(len(acct)), "parcels": int(len(points)), "noRateAccounts": int((acct.combo_id < 0).sum()),
             "noRateByType": [int(x) for x in np.bincount(acct.t[acct.combo_id < 0], minlength=7)],
-            "types": TYPE_KEYS, "bbox": a.bbox or [-95.97, 29.49, -94.90, 30.18]}
+            "types": TYPE_KEYS, "bbox": extent, "taxYears": years}
     with open(os.path.join(web, "combos.json"), "w") as f:
         json.dump({"meta": meta, "jur": jur, "combos": combos}, f, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
     with open(os.path.join(shards, "manifest.json"), "w") as f:
