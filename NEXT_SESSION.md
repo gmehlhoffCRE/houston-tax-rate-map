@@ -27,7 +27,11 @@ Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF
 Map features: Cresa styling, Google basemap (Esri fallback), PMTiles via deck.gl 9.0.38 `MVTLayer` + pmtiles 3.2.1,
 dissolved "zones" layer below Google zoom 14, parcels from 14 up, GPU filters, owner/address/account search,
 rate shading and parcel line toggles, county on/off toggles, card with monthly tax per SF, missing-file message
-for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on the three-county build).
+for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on the three-county build with the Google basemap). On the
+four-county build without a Maps key (Esri basemap, blocked in the sandbox) 19 pass: the 2 basemap-error checks
+fail on the blocked host, and hover/click on dense Harris parcels fail because headless software GL renders
+about 2 fps, so deck.gl drops the click (it never reaches onClick; Waller clicks work). Same with the old template.
+Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does not report camera moves made in code).
 
 ## Delivery formats
 
@@ -40,26 +44,32 @@ for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on th
 
 ## Open items (in priority order)
 
-1. **Waller County: built, not yet in a delivered map.** Next: full four-county rebuild and a new local folder
-   build for the user (README "Waller County" has the commands; `tests/waller_check.js` checks it). Open Waller
-   questions for the user or WCAD:
+1. **Chambers County** (user asked next, Nov 6). Chambers CAD parcels: Pritchard & Abbott ArcGIS MapServer
+   `https://gisdata.pandai.com/pamaps02/rest/services/Chambers/ChambersCADPublic/MapServer/0` (38,529 parcels,
+   1,000 per page, joined TaxParcels + Accounts fields: Account, Owner_Name, Primary_Category_Code (state class),
+   Prop_Street..., Acres; Market_Value blank in samples; no taxing unit codes). Layers 4 City Limits and 6 School
+   Districts can give city/ISD by overlay. Rates and units: chamberscad.org "Records | Data | Reports" page loads
+   its document list by script; county rates on chamberscountytx.gov/191. Hosts already allowed:
+   chamberscad.org, www.chamberscad.org, chamberscountytx.gov, gisdata.pandai.com, maps.pandai.com.
+2. **Waller County: delivered** in the Nov 6 four-county folder build (`houston-4county-tax-map.html` + six .txt
+   parts, 190 MB, 2,391,687 accounts). Open Waller questions for the user or WCAD:
    - Waller-Harris ESD 200 boundary (about 10% of the county is outside it; applied everywhere for now).
    - WCAD certified export (state class, building area, ag use value, exact taxing units per account) would
      replace the polygon overlay. WCAD sells bulk data; its eSearch terms prohibit scraping.
    - Brookshire MWD: TCEQ polygon catches about 55% of the certified parcels (rate is only 0.0139).
-2. **MCAD code list** (user is asking the county): fill `data/montgomery/mc_code_map.csv` (entity = exact
+3. **MCAD code list** (user is asking the county): fill `data/montgomery/mc_code_map.csv` (entity = exact
    workbook name, confirmed = yes), rerun `build_montgomery_rates.py`, then `build_county_data.py` and `inject.py`.
    Tiles do not need rebuilding.
-3. **MCAD appraised values**: 2025 certified export from mcad-tx.org/appraisal-data-exports (user download;
+4. **MCAD appraised values**: 2025 certified export from mcad-tx.org/appraisal-data-exports (user download;
    the site's file links go through True Prodigy, and extracting them from the site's code was correctly blocked).
-4. **2026 switch** once HCAD's `curr` column is filled: `build_rates.py --year 2026`,
+5. **2026 switch** once HCAD's `curr` column is filled: `build_rates.py --year 2026`,
    `build_fortbend_rates.py --rates-file data/fortbend/fb_rates_2026_grid.csv --year 2026`,
    `build_montgomery_rates.py --year 2026`. Combo ids are stable, so no re-tiling.
    Waller: WCAD posts the year's rate PDF on its certified totals page around January (the 2025 list came out
    Jan 16, 2026); parse it to `data/waller/wc_rates_2026.csv` like the 2025 one, then
    `build_waller_rates.py --rates data/waller/wc_rates_2026.csv --year 2026`.
-5. Fort Bend boundary overlays (FBCAD GIS "Shapefiles Only" zip) and county outlines for Fort Bend/Montgomery.
-6. Hosted deploy (bucket + Netlify).
+6. Fort Bend boundary overlays (FBCAD GIS "Shapefiles Only" zip) and county outlines for Fort Bend/Montgomery.
+7. Hosted deploy (bucket + Netlify).
 
 ## Gotchas learned the hard way
 

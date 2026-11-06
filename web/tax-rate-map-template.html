@@ -478,13 +478,14 @@ function initDeck(){
   const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20};
   baseTile=new deck.TileLayer({id:'base',data:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',maxZoom:16,tileSize:256,
     renderSubLayers:p=>{const b=p.tile.boundingBox;return new deck.BitmapLayer(p,{data:null,image:p.data,bounds:[b[0][0],b[0][1],b[1][0],b[1][1]]});}});
-  const vb=vs=>new deck.WebMercatorViewport({...vs,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds();
+  const vb=deckBounds;
   deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>isHovering?'pointer':'grab',
     layers:[baseTile,...buildLayers()],
     onViewStateChange:({viewState})=>{ debounceView(()=>viewChanged(viewState.zoom+1,vb(viewState))); }});
   const a=document.createElement('div');a.className='attr';a.textContent='Basemap: Esri, HERE, Garmin, OpenStreetMap contributors';wrap.appendChild(a);
   viewChanged(iv.zoom+1,vb(iv));
 }
+const deckBounds=vs=>new deck.WebMercatorViewport({...vs,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds();
 let vt=null; const debounceView=fn=>{clearTimeout(vt);vt=setTimeout(fn,120);};
 function initGoogle(){
   gmap=new google.maps.Map(mapEl,{center:{lat:(BB[1]+BB[3])/2,lng:(BB[0]+BB[2])/2},zoom:10,minZoom:8,mapTypeControl:false,
@@ -517,7 +518,10 @@ function flyTo(lon,lat,gz){
 }
 function setView(lon,lat,gz){   // exact camera, used by tests
   if(gmap){gmap.setCenter({lat,lng:lon}); gmap.setZoom(gz);}
-  else if(deckgl){deckgl.setProps({initialViewState:{longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20}});}
+  else if(deckgl){   // deck.gl does not report a camera set in code through onViewStateChange
+    const vs={longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20};
+    deckgl.setProps({initialViewState:vs}); viewChanged(gz,deckBounds(vs));
+  }
 }
 const parcelMode=()=>Math.round(state.gz-1)>=PARCEL_TZ;
 
