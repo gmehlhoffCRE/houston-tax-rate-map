@@ -1,0 +1,100 @@
+code,cad_name,boundary,rate_2025,cert_count_2025,confirmed,note
+CAD,WALLER CAD,none,,54676,,
+CBR,BROOKSHIRE CITY OF,cad:city,0.56514,2884,yes,
+CHD,HEMPSTEAD CITY OF,cad:city,0.559215,3873,yes,
+CKT,KATY CITY OF,cad:city,0.425,7171,yes,
+CPI,PINE ISLAND CITY OF,cad:city,0,628,yes,not on the CAD 2025 rate list: treated as no levy
+CPT,PATTISON CITY OF,cad:city,0,492,yes,not on the CAD 2025 rate list: treated as no levy
+CPV,PRAIRIE VIEW CITY OF,cad:city,0.73049,2036,yes,
+CTRZ1,COUNTY ENERGY TAX REINVESTMENT ZONE,none,,239,,"reinvestment zone (abatement), no rate"
+CWR,WALLER CITY OF,cad:city,0.4464,1896,yes,
+CWR1,WALLER CITY OS CAD,none,,,,
+DBK,B-K DRAINAGE DISTRICT,county:bkdd,0.05785,21534,no,Waller County GIS layer Brookshire_Katy_Drainage_District1
+ESD,WALLER-HARRIS ESD 200,countywide,0.10,49941,no,"no public boundary; applied countywide, but 2025 certified totals show 49,941 of 54,667 county properties"
+EWCMD,EAST WALLER CO MGMT DIST,tceq:East Waller County MD,1.50,2,no,
+GWA,WALLER COUNTY,countywide,0.532596,54667,yes,County M&O + I&S; Waller County RFM (road and FM) is a separate line
+HM554,HARRIS CO MUD #554 (RENAMED TO HWM12),none,,,,renamed HWM12
+HMCMD,HARRIS MONTGOMERY COUNTIES MGMT DIST,none,,,,
+HWCM2,HARRIS-WALLER COUNTIES MUD #2,tceq:Harris-Waller Counties MUD 2,0.65,2573,no,
+HWCM3,HARRIS-WALLER COUNTIES MUD #3,tceq:Harris-Waller Counties MUD 3,0.88,5836,no,
+HWCM4,HARRIS-WALLER COUNTIES MUD #4,tceq:Harris-Waller Counties MUD 4,1.50,3459,no,
+HWCM5,HARRIS-WALLER COUNTIES MUD #5,tceq:Harris-Waller Counties MUD 5,1.50,4772,no,
+HWCM7,HARRIS-WALLER COUNTIES MUD #7,tceq:Harris-Waller Counties MUD 7,1.50,143,no,
+HWM10,HARRIS-WALLER COUNTIES MUD #10,tceq:Harris-Waller Counties MUD 10,1.50,1,no,
+HWM11,HARRIS-WALLER COUNTIES MUD #11,none,0,1,,not on the CAD 2025 rate list: treated as no levy
+HWM12,HARRIS- WALLER COUNTIES MUD #12,tceq:Harris-Waller Counties MUD 12,0,2,no,not on the CAD 2025 rate list: treated as no levy
+HWM13,HARRIS -WALLER COUNTIES MUD #13,tceq:Harris-Waller Counties MUD 13,0,9,no,not on the CAD 2025 rate list: treated as no levy
+M20A,WALLER COUNTY MUD #20A,tceq:Waller County MUD 20A,0,2,no,not on the CAD 2025 rate list: treated as no levy
+M34A,WALLER COUNTY MUD #34A,tceq:Waller County MUD 34A,0.90,167,no,
+M34B,WALLER COUNTY MUD #34B,tceq:Waller County MUD 34B,0,23,no,not on the CAD 2025 rate list: treated as no levy
+M34C,WALLER COUNTY MUD #34C,tceq:Waller County MUD 34C,0,6,no,not on the CAD 2025 rate list: treated as no levy
+M34D,WALLER COUNTY MUD #34D,tceq:Waller County MUD 34D,1.00,8,no,
+M50,WILLOW CREEK FARMS MUD,tceq:Willow Creek Farms MUD,1.15,3286,no,
+M52,KATY WEST MUNICIPAL UTILITY DIST,tceq:Katy West MUD,0.80,3549,no,
+M53,FB-WALLER CO MUD#1(NOT IN WALLER CO),none,,,,
+M54,FB-WALLER CO MUD#3,tceq:Fort Bend-Waller Counties MUD 3,0.84,2227,no,
+M55,FULSHEAR MUD #3A,tceq:Fulshear MUD 3A,1.12,2230,no,
+M55A,WALLER COUNTY MUD #55A,tceq:Waller County MUD 55A,1.50,387,no,
+M55B,WALLER COUNTY MUD #55B,tceq:Waller County MUD 55B,0,14,no,No levy in 2025
+M60A,WALLER COUNTY MUD #60A,tceq:Waller County MUD 60A,1.50,13,no,
+M60B,WALLER COUNTY MUD #60B,tceq:Waller County MUD 60B,0,6,no,not on the CAD 2025 rate list: treated as no levy
+MWMUD,MAGNOLIA WOODS MUD #3,tceq:Magnolia Woods MUD 3,0,8,no,not on the CAD 2025 rate list: treated as no levy
+R01,WC ROAD IMP1,tceq:Waller County Road Improvement District 1,0.95,2928,no,county layer WC RID1 is a partial outline; TCEQ used
+RFM,WALLER CO FM,countywide,0.023591,54667,yes,"Farm-to-market and lateral road levy, countywide"
+SERMD,SE REG MGMT DIST,tceq:Southeast Regional Management District,1.23,184,no,
+SHD,HEMPSTEAD ISD,cad:school,1.076,8825,yes,
+SKT,KATY I S D,cad:school,1.1171,13024,yes,
+SRL,ROYAL ISD,cad:school,1.069917,17575,yes,
+SWR,WALLER ISD,cad:school,1.0626,18789,yes,
+TCB,CITY OF BROOKSHIRE TIF,none,,237,,"TIF, no separate rate"
+THPID,TEXAS HERITAGE PARKWAY IMPROVEMENT DISTRICT,tceq:Texas Heritage Parkway ID,0,1,no,not on the CAD 2025 rate list: treated as no levy
+TKT,KATY TIF,none,,2,,"TIF, no separate rate"
+WBR,BROOKSHIRE MWD,tceq:Brookshire MUD,0.0139,2848,no,CAD calls it Brookshire MWD; TCEQ Brookshire MUD
+WCID2,WC IMPR DIST #2,tceq:Waller County Improvement District 2,0.80,3500,no,"Waller County Improvement District 2 (TCEQ type MMD), not a WCID"
+WCID3,WC WATER CNTRL IMP DIST# 3,tceq:Waller County WCID 3,0.50,198,no,
+WCM1,WALLER CO MUD #1,tceq:Waller County MUD 1,0,7,no,not on the CAD 2025 rate list: treated as no levy
+WCM13,WALLER CO MUD #13,tceq:Waller County MUD 13,0,3,no,not on the CAD 2025 rate list: treated as no levy
+WCM14,WALLER CO MUD #14,tceq:Waller County MUD 14,0,8,no,not on the CAD 2025 rate list: treated as no levy
+WCM15,WALLER CO MUD #15,tceq:Waller County MUD 15,0,2,no,not on the CAD 2025 rate list: treated as no levy
+WCM18,WALLER CO MUD #18,tceq:Waller County MUD 18,0.90,64,no,
+WCM19,WALLER CO MUD #19,tceq:Waller County MUD 19,0.75,64,no,
+WCM2,WALLER CO MUD #2,tceq:Waller County MUD 2,0,19,no,not on the CAD 2025 rate list: treated as no levy
+WCM20,WALLER CO MUD #20,tceq:Waller County MUD 20,0,7,no,No levy in 2025
+WCM23,WALLER CO MUD #23,tceq:Waller County MUD 23,0,10,no,not on the CAD 2025 rate list: treated as no levy
+WCM3,WALLER CO MUD #3,tceq:Waller County MUD 3,0,5,no,not on the CAD 2025 rate list: treated as no levy
+WCM33,WALLER CO MUD #33,tceq:Waller County MUD 33,1.00,465,no,
+WCM34,WALLER CO MUD #34,none,0,,,not on the CAD 2025 rate list: treated as no levy
+WCM35,WALLER CO MUD #35,tceq:Waller County MUD 35,1.50,2182,no,
+WCM37,WALLER CO MUD #37,tceq:Waller County MUD 37,1.50,4719,no,
+WCM38,WALLER CO MUD #38,tceq:Waller County MUD 38,0.90,244,no,
+WCM39,WALLER CO MUD #39,none,0,6,,not on the CAD 2025 rate list: treated as no levy
+WCM40,WALLER CO MUD #40,tceq:Waller County MUD 40,0,2,no,not on the CAD 2025 rate list: treated as no levy
+WCM41,WALLER CO MUD #41,tceq:Waller County MUD 41,1.35,556,no,
+WCM42,WALLER CO MUD #42,tceq:Waller County MUD 42,0,6,no,No levy in 2025
+WCM43,WALLER CO MUD #43,tceq:Waller County MUD 43,1.50,8,no,
+WCM44,WALLER CO MUD #44,tceq:Waller County MUD 44,0,2,no,No levy in 2025
+WCM45,WALLER CO MUD #45,tceq:Waller County MUD 45,1.50,134,no,
+WCM46,WALLER CO MUD #46,tceq:Waller County MUD 46,0,7,no,No levy in 2025
+WCM47,WALLER CO MUD #47,tceq:Waller County MUD 47,1.50,11,no,
+WCM48,WALLER CO MUD #48,tceq:Waller County MUD 48,0,4,no,not on the CAD 2025 rate list: treated as no levy
+WCM50,WALLER CO MUD #50,none,0,3,,not on the CAD 2025 rate list: treated as no levy
+WCM52,WALLER CO MUD #52,tceq:Waller County MUD 52,1.50,17,no,
+WCM53,WALLER CO MUD #53,tceq:Waller County MUD 53,0,6,no,not on the CAD 2025 rate list: treated as no levy
+WCM54,WALLER CO MUD #54,tceq:Waller County MUD 54,1.50,7,no,
+WCM55,WALLER CO MUD #55,tceq:Waller County MUD 55,0,8,no,Will not ever levy
+WCM56,WALLER CO MUD #56,tceq:Waller County MUD 56,0,6,no,No levy in 2025
+WCM58,WALLER CO MUD #58,tceq:Waller County MUD 58,1.50,13,no,
+WCM59,WALLER CO MUD #59,tceq:Waller County MUD 59,1.50,13,no,
+WCM60,WALLER CO MUD #60,tceq:Waller County MUD 60,0,8,no,No levy in 2025
+WCM61,WALLER CO MUD #61,tceq:Waller County MUD 61,0,9,no,not on the CAD 2025 rate list: treated as no levy
+WCM62,WALLER CO MUD #62,none,0,9,,not on the CAD 2025 rate list: treated as no levy
+WCM63,WALLER CO MUD #63,none,0,7,,not on the CAD 2025 rate list: treated as no levy
+WCM64,WALLER CO MUD #64,none,0,11,,not on the CAD 2025 rate list: treated as no levy
+WCM66,WALLER CO MUD #66,none,0,9,,not on the CAD 2025 rate list: treated as no levy
+WCM67,WALLER CO MUD #67,none,0,1,,not on the CAD 2025 rate list: treated as no levy
+WCM68,WALLER CO MUD #68,tceq:Waller County MUD 68,0,8,no,not on the CAD 2025 rate list: treated as no levy
+WCM69,WALLER CO MUD #69,tceq:Waller County MUD 69,0,8,no,not on the CAD 2025 rate list: treated as no levy
+WCM71,WALLER CO MUD #71,none,0,4,,not on the CAD 2025 rate list: treated as no levy
+WCM9,WALLER CO MUD #9,tceq:Waller County MUD 9A,0,2202,no,TCEQ has 9A and 9B only; CAD WCM9 assumed to be 9A
+WCM9B,WALLER CO MUD #9B,tceq:Waller County MUD 9B,0.74,3071,no,
+WPMUD,WILLOW POINT MUD,tceq:Willow Point MUD,1.25,2196,no,

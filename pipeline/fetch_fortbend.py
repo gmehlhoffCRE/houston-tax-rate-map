@@ -45,6 +45,7 @@ def main():
     ap.add_argument("--fields", default=",".join(FIELDS))
     ap.add_argument("--prefix", default="fb", help="output file prefix")
     ap.add_argument("--no-rates", action="store_true")
+    ap.add_argument("--oid", default="objectid", help="object id field to page on (Waller CAD: ObjectID_1)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
@@ -57,8 +58,8 @@ def main():
     last, n = -1, 0
     with open(os.path.join(a.out, f"{a.prefix}_parcels_raw.geojsonl"), "w") as fo:
         while True:   # page by objectid: steadier than offsets on a large layer
-            q = urllib.parse.urlencode({"where": f"objectid>{last}", "outFields": a.fields,
-                                        "orderByFields": "objectid", "resultRecordCount": a.page,
+            q = urllib.parse.urlencode({"where": f"{a.oid}>{last}", "outFields": a.fields,
+                                        "orderByFields": a.oid, "resultRecordCount": a.page,
                                         "outSR": 4326, "geometryPrecision": 6, "f": "geojson"})
             feats = json.loads(get(f"{a.layer}/query?{q}")).get("features", [])
             if not feats:
@@ -66,7 +67,7 @@ def main():
             for ft in feats:
                 fo.write(json.dumps(ft, separators=(",", ":")) + "\n")
             n += len(feats)
-            last = max(next(v for k, v in ft["properties"].items() if k.lower() == "objectid") for ft in feats)
+            last = max(next(v for k, v in ft["properties"].items() if k.lower() == a.oid.lower()) for ft in feats)
             if n % 40000 < a.page:
                 print(f"  {n:,}/{total:,}", flush=True)
     print(f"{n:,} parcels written", flush=True)

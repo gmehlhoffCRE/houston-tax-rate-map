@@ -4,26 +4,16 @@ Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF
 
 ## Where the code is
 
-- Repo `gmehlhoffCRE/.claude-skills-` (public), branch `claude/relaxed-ritchie-7m99j6`, folder `houston-tax-rate-map/`.
-- Start the new session in the cloud environment **"claude-skills tax map data"**. It allows
-  `download.hcad.org`, `hcad.org`, `fbcad.org`, `www.fbcad.org`, `gisweb.fbcad.org`, `mcad-tx.org`,
-  `www.mcad-tx.org`, `services1.arcgis.com`, `cms2.revize.com`, `prod-container.trueprodigyapi.com`,
-  `cdn.builder.io`, `geohwp.houstontx.gov`. Waller hosts are not added yet.
-- Built outputs (tiles, shards, local files) and raw downloads lived in the old session's scratchpad and are gone.
+- Private repo `gmehlhoffCRE/houston-tax-rate-map`, branch `main` (moved Nov 6, 2026 with its full history from
+  `gmehlhoffCRE/.claude-skills-`, branch `claude/relaxed-ritchie-7m99j6`, folder `houston-tax-rate-map/`; that copy
+  is now stale). Waller work is on branch `claude/waller-county` until merged.
+- Cloud environment **"claude-skills tax map data"**. Hosts now also include the Waller sources:
+  `services3.arcgis.com` (Waller CAD parcels), `gisweb.tceq.texas.gov` (TCEQ districts), `waller-cad.org`,
+  `www.arcgis.com` (item search) and a few others. The environment lists only `.claude-skills-` as its repo; add
+  `houston-tax-rate-map` in Settings so new sessions clone it.
+- Built outputs (tiles, shards, local files) and raw downloads live in a session's scratchpad and are gone.
   Rebuilding everything takes about 40 minutes (downloads about 10, data about 5, tiles about 15, test about 10).
-
-## First step: move to the new private repo
-
-The user is creating a private repo (e.g. `gmehlhoffCRE/houston-tax-rate-map`, empty). Attach it with `add_repo`
-(push access), then move the folder with its history:
-
-```bash
-cd .claude-skills- && git subtree split -P houston-tax-rate-map -b taxmap-export
-git push https://github.com/gmehlhoffCRE/<new-repo>.git taxmap-export:main
-```
-
-Then work in the new repo (paths in this file drop the `houston-tax-rate-map/` prefix). Being private, it may hold
-built outputs that stay under GitHub's 100 MB per-file limit (use the `.txt` parts); keep the Maps key out of git.
+  Waller alone: about 1 minute to download, 10 s for rates, 10 s for data, 6 s for tiles.
 
 ## What works today
 
@@ -32,6 +22,7 @@ built outputs that stay under GitHub's 100 MB per-file limit (use the `.txt` par
 | Harris | 1,536,057 from HCAD `Parcels.zip` | 2025 adopted, `build_rates.py` | 2026 appraised, `real_acct.txt` | Acceptance accounts pass (0281700000001 = 1.9557, 0402040000009 = 2.1252 + TIRZ Eastside 6) |
 | Fort Bend | 386,201 from FBCAD public ArcGIS layer | 2025 from the Fort Bend rate grid CSV (`data/fortbend/fb_rates_2025_grid.csv`) | current FBCAD values | R101338 = 2.2859. Building area is living area only, so tax/SF is often blank for commercial |
 | Montgomery (demo) | 329,989 from the City of Houston mirror of MCAD parcels | 2025 from user's workbook (`data/montgomery/...xlsx`) joined through `data/montgomery/mc_code_map.csv` | **none yet** | 352872 = 1.9071. About 15% of accounts "rate incomplete" (about 79 unknown unit codes); about 90 codes matched by pattern, unconfirmed |
+| Waller | 54,128 shapes / 47,907 accounts from Waller CAD's public layer | 2025 from WCAD's rate list (`data/waller/wc_rates_2025.csv`); MUD/district areas by TCEQ and county polygons | WCAD market value | W44584 = 1.7322, W248025 = 3.1361. ESD 200 applied countywide (unconfirmed). No property class or building area |
 
 Map features: Cresa styling, Google basemap (Esri fallback), PMTiles via deck.gl 9.0.38 `MVTLayer` + pmtiles 3.2.1,
 dissolved "zones" layer below Google zoom 14, parcels from 14 up, GPU filters, owner/address/account search,
@@ -49,14 +40,13 @@ for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on th
 
 ## Open items (in priority order)
 
-1. **Waller County** (user asked; not started). Plan: same pattern as Montgomery.
-   - Parcels: TxGIO statewide StratMap parcels (Waller tax year 2026) or Waller County GIS open data hub
-     (waller-county-gis-open-data-portal-wallercounty-gis.hub.arcgis.com). Check for a per-parcel taxing unit field.
-   - Rates: ask the user for a 2025 rate list for all Waller units (county 2025 = 0.439463 M&O + 0.093133 I&S).
-   - If no unit codes on parcels: Waller CAD code list or certified export (search.waller-cad.org is the property search).
-   - Needs hosts added to the environment (propose with update_environment).
-   - Write `build_waller_rates.py` modeled on `build_montgomery_rates.py`; add `"wc": "Waller"` to `COUNTIES`
-     in `build_county_data.py`; extend `countyOf`/`CAD` in the page if Waller account ids are distinct.
+1. **Waller County: built, not yet in a delivered map.** Next: full four-county rebuild and a new local folder
+   build for the user (README "Waller County" has the commands; `tests/waller_check.js` checks it). Open Waller
+   questions for the user or WCAD:
+   - Waller-Harris ESD 200 boundary (about 10% of the county is outside it; applied everywhere for now).
+   - WCAD certified export (state class, building area, ag use value, exact taxing units per account) would
+     replace the polygon overlay. WCAD sells bulk data; its eSearch terms prohibit scraping.
+   - Brookshire MWD: TCEQ polygon catches about 55% of the certified parcels (rate is only 0.0139).
 2. **MCAD code list** (user is asking the county): fill `data/montgomery/mc_code_map.csv` (entity = exact
    workbook name, confirmed = yes), rerun `build_montgomery_rates.py`, then `build_county_data.py` and `inject.py`.
    Tiles do not need rebuilding.
@@ -64,9 +54,12 @@ for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on th
    the site's file links go through True Prodigy, and extracting them from the site's code was correctly blocked).
 4. **2026 switch** once HCAD's `curr` column is filled: `build_rates.py --year 2026`,
    `build_fortbend_rates.py --rates-file data/fortbend/fb_rates_2026_grid.csv --year 2026`,
-   `build_montgomery_rates.py --year 2026`. Combo ids are stable, so no re-tiling.
+   `build_montgomery_rates.py --year 2026`. Combo ids are stable, so no re-tiling
+   Waller: WCAD posts the year's rate PDF on its certified totals page around January (the 2025 list came out
+   Jan 16, 2026); parse it to `data/waller/wc_rates_2026.csv` like the 2025 one, then
+   `build_waller_rates.py --rates data/waller/wc_rates_2026.csv --year 2026`.
 5. Fort Bend boundary overlays (FBCAD GIS "Shapefiles Only" zip) and county outlines for Fort Bend/Montgomery.
-6. Hosted deploy (bucket + Netlify), and optionally a separate private repo for the project.
+6. Hosted deploy (bucket + Netlify).
 
 ## Gotchas learned the hard way
 

@@ -1,0 +1,82 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+WC-CBR,City of Brookshire,,City,base,2152,0.56514,,0.56514,False
+WC-CHD,City of Hempstead,,City,base,3300,0.559215,,0.559215,False
+WC-CKT,City of Katy,,City,base,3436,0.425,,0.425,False
+WC-CPI,Pine Island City Of,,City,base,470,0.0,,0.0,False
+WC-CPT,Pattison City Of,,City,base,402,0.0,,0.0,False
+WC-CPV,City of Prairie View,,City,base,1787,0.73049,,0.73049,False
+WC-CWR,City of Waller,,City,base,1786,0.4464,,0.4464,False
+WC-DBK,Brookshire-Katy Drainage Dist,,Drainage District,base,18982,0.05785,,0.05785,False
+WC-ESD,Waller Harris ESD 200,,ESD,base,47907,0.1,,0.1,False
+WC-EWCMD,East Waller Co. Mgmt District,,Management District,mgmt,414,1.5,,1.5,False
+WC-GWA,Waller County,,County / Countywide,base,47907,0.532596,,0.532596,False
+WC-HWCM2,Harris Waller Co MUD #2,,Water District (MUD/WCID/UD),base,367,0.65,,0.65,False
+WC-HWCM3,Harris Waller Co MUD #3,,Water District (MUD/WCID/UD),base,2334,0.88,,0.88,False
+WC-HWCM4,Harris Waller Co MUD #4,,Water District (MUD/WCID/UD),base,29,1.5,,1.5,False
+WC-HWCM5,Harris Waller Co MUD #5,,Water District (MUD/WCID/UD),base,1301,1.5,,1.5,False
+WC-HWCM7,Harris Waller Co MUD #7,,Water District (MUD/WCID/UD),base,227,1.5,,1.5,False
+WC-HWM10,Harris Waller Co MUD #10,,Water District (MUD/WCID/UD),base,1,1.5,,1.5,False
+WC-HWM12,Harris- Waller Counties Mud #12,,Water District (MUD/WCID/UD),base,107,0.0,,0.0,False
+WC-HWM13,Harris -Waller Counties Mud #13,,Water District (MUD/WCID/UD),base,9,0.0,,0.0,False
+WC-M20A,Waller County Mud #20A,,Water District (MUD/WCID/UD),base,1104,0.0,,0.0,False
+WC-M34A,Waller County MUD 34A,,Water District (MUD/WCID/UD),base,206,0.9,,0.9,False
+WC-M34B,Waller County Mud #34B,,Water District (MUD/WCID/UD),base,27,0.0,,0.0,False
+WC-M34C,Waller County Mud #34C,,Water District (MUD/WCID/UD),base,4,0.0,,0.0,False
+WC-M34D,Waller County MUD 34D,,Water District (MUD/WCID/UD),base,98,1.0,,1.0,False
+WC-M50,Willow Creek Farms MUD,,Water District (MUD/WCID/UD),base,1052,1.15,,1.15,False
+WC-M52,Katy West MUD,,Water District (MUD/WCID/UD),base,59,0.8,,0.8,False
+WC-M54,FB-Waller Co MUD #3,,Water District (MUD/WCID/UD),base,31,0.84,,0.84,False
+WC-M55,Fulshear MUD 3A,,Water District (MUD/WCID/UD),base,37,1.12,,1.12,False
+WC-M55A,Waller County MUD 55A,,Water District (MUD/WCID/UD),base,585,1.5,,1.5,False
+WC-M55B,Waller County MUD 55B,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
+WC-M60A,Waller County MUD 60A,,Water District (MUD/WCID/UD),base,656,1.5,,1.5,False
+WC-M60B,Waller County Mud #60B,,Water District (MUD/WCID/UD),base,758,0.0,,0.0,False
+WC-MWMUD,Magnolia Woods Mud #3,,Water District (MUD/WCID/UD),base,3,0.0,,0.0,False
+WC-R01,Waller County Road Impr #1,,Road District,base,665,0.95,,0.95,False
+WC-RFM,Waller County RFM,,County / Countywide,base,47907,0.023591,,0.023591,False
+WC-SERMD,Southeast Regional Mgmt Dist,,Management District,mgmt,315,1.23,,1.23,False
+WC-SHD,Hempstead ISD,,ISD,base,6512,1.076,,1.076,False
+WC-SKT,Katy ISD,,ISD,base,9537,1.1171,,1.1171,False
+WC-SRL,Royal ISD,,ISD,base,13215,1.069917,,1.069917,False
+WC-SWR,Waller ISD,,ISD,base,18643,1.0626,,1.0626,False
+WC-THPID,Texas Heritage Parkway Improvement District,,Management District,mgmt,1,0.0,,0.0,False
+WC-WBR,Brookshire Municipal Water Dist,,Water District (MUD/WCID/UD),base,1349,0.0139,,0.0139,False
+WC-WCID2,Waller Co Improvement Dist #2,,Management District,mgmt,22,0.8,,0.8,False
+WC-WCID3,Waller County Water Contrl Imp Dist,,Water District (MUD/WCID/UD),base,332,0.5,,0.5,False
+WC-WCM1,Waller Co Mud #1,,Water District (MUD/WCID/UD),base,7,0.0,,0.0,False
+WC-WCM13,Waller Co Mud #13,,Water District (MUD/WCID/UD),base,2,0.0,,0.0,False
+WC-WCM14,Waller Co Mud #14,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,False
+WC-WCM15,Waller Co Mud #15,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
+WC-WCM18,Waller County MUD 18,,Water District (MUD/WCID/UD),base,49,0.9,,0.9,False
+WC-WCM19,Waller County MUD 19,,Water District (MUD/WCID/UD),base,33,0.75,,0.75,False
+WC-WCM2,Waller Co Mud #2,,Water District (MUD/WCID/UD),base,12,0.0,,0.0,False
+WC-WCM20,Waller County MUD 20,,Water District (MUD/WCID/UD),base,12,0.0,,0.0,False
+WC-WCM23,Waller Co Mud #23,,Water District (MUD/WCID/UD),base,8,0.0,,0.0,False
+WC-WCM3,Waller Co Mud #3,,Water District (MUD/WCID/UD),base,3,0.0,,0.0,False
+WC-WCM33,Waller County MUD 33,,Water District (MUD/WCID/UD),base,511,1.0,,1.0,False
+WC-WCM35,Waller County MUD 35,,Water District (MUD/WCID/UD),base,2169,1.5,,1.5,False
+WC-WCM37,Waller County MUD 37,,Water District (MUD/WCID/UD),base,1273,1.5,,1.5,False
+WC-WCM38,Waller County MUD 38,,Water District (MUD/WCID/UD),base,249,0.9,,0.9,False
+WC-WCM40,Waller Co Mud #40,,Water District (MUD/WCID/UD),base,136,0.0,,0.0,False
+WC-WCM41,Waller County MUD 41,,Water District (MUD/WCID/UD),base,907,1.35,,1.35,False
+WC-WCM42,Waller County MUD 42,,Water District (MUD/WCID/UD),base,8,0.0,,0.0,False
+WC-WCM43,Waller County MUD 43,,Water District (MUD/WCID/UD),base,141,1.5,,1.5,False
+WC-WCM44,Waller County MUD 44,,Water District (MUD/WCID/UD),base,8,0.0,,0.0,False
+WC-WCM45,Waller County MUD 45,,Water District (MUD/WCID/UD),base,252,1.5,,1.5,False
+WC-WCM46,Waller County MUD 46,,Water District (MUD/WCID/UD),base,231,0.0,,0.0,False
+WC-WCM47,Waller County MUD 47,,Water District (MUD/WCID/UD),base,334,1.5,,1.5,False
+WC-WCM48,Waller Co Mud #48,,Water District (MUD/WCID/UD),base,4,0.0,,0.0,False
+WC-WCM52,Waller County MUD 52,,Water District (MUD/WCID/UD),base,17,1.5,,1.5,False
+WC-WCM53,Waller Co Mud #53,,Water District (MUD/WCID/UD),base,7,0.0,,0.0,False
+WC-WCM54,Waller County MUD 54,,Water District (MUD/WCID/UD),base,167,1.5,,1.5,False
+WC-WCM55,Waller County MUD 55,,Water District (MUD/WCID/UD),base,11,0.0,,0.0,False
+WC-WCM56,Waller County MUD 56,,Water District (MUD/WCID/UD),base,2,0.0,,0.0,False
+WC-WCM58,Waller County MUD 58,,Water District (MUD/WCID/UD),base,389,1.5,,1.5,False
+WC-WCM59,Waller County MUD 59,,Water District (MUD/WCID/UD),base,158,1.5,,1.5,False
+WC-WCM60,Waller County MUD 60,,Water District (MUD/WCID/UD),base,100,0.0,,0.0,False
+WC-WCM61,Waller Co Mud #61,,Water District (MUD/WCID/UD),base,9,0.0,,0.0,False
+WC-WCM68,Waller Co Mud #68,,Water District (MUD/WCID/UD),base,13,0.0,,0.0,False
+WC-WCM69,Waller Co Mud #69,,Water District (MUD/WCID/UD),base,8,0.0,,0.0,False
+WC-WCM9,Waller Co Mud #9,,Water District (MUD/WCID/UD),base,15,0.0,,0.0,False
+WC-WCM9B,Waller County MUD 9B,,Water District (MUD/WCID/UD),base,850,0.74,,0.74,False
+WC-WPMUD,Willow Point MUD,,Water District (MUD/WCID/UD),base,8,1.25,,1.25,False

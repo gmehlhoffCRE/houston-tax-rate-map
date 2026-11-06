@@ -111,6 +111,40 @@ python pipeline/build_montgomery_rates.py --src montgomery --out data --year 202
 then `build_county_data.py` with `--parcels montgomery/mc_parcels.gpkg --cama montgomery/mc_real_acct.txt` added.
 No appraised values yet (MCAD's certified export would add them), so Montgomery cards show the rate only.
 
+## Waller County
+
+Waller CAD's public parcel layer (BIS, 54,128 shapes, 47,907 accounts) carries owner, site address, market value
+and only the school, city and county codes. Every other taxing unit is placed by overlaying district polygons on
+a point inside each parcel:
+
+- MUDs, WCIDs, management, improvement and road districts, Brookshire MWD: TCEQ water district map
+- Brookshire-Katy Drainage District: Waller County GIS
+- Waller County, its road and FM levy (RFM) and Waller-Harris ESD 200: every parcel. ESD 200 has no public
+  boundary and covers about 90% of the county (49,941 of 54,667 properties in 2025), so it is flagged on the card
+
+Rates are Waller CAD's adopted 2025 list (`data/waller/wcad_2025_tax_rates.pdf`, parsed to `wc_rates_2025.csv`).
+`data/waller/wc_district_map.csv` says how each CAD code is found (`cad:school`, `cad:city`, `countywide`,
+`tceq:<name>`, `county:bkdd`, `none`) and holds the CAD's 2025 certified property count for each code.
+
+```bash
+python pipeline/fetch_waller.py --out waller        # parcels, county outline, TCEQ districts, B-K drainage (1 min)
+python pipeline/build_waller_rates.py --src waller --out data --year 2025 \
+  --rates data/waller/wc_rates_2025.csv --map data/waller/wc_district_map.csv
+```
+
+then `build_county_data.py` with `--parcels waller/wc_parcels.gpkg --cama waller/wc_real_acct.txt` added.
+
+- Accounts are `W` + WCAD property id (plain WCAD ids collide with MCAD's). Cards show the bare id, labeled
+  "WCAD property ID"; search finds a typed WCAD id with or without the `W`. Combo ids start at 70000.
+- Overlay counts agree with the 2025 certified counts within a few percent for the established districts
+  (Harris-Waller MUD 3 and 5, Waller MUD 35, 37 and 9B, Willow Creek Farms, Road District 1, ISDs, cities).
+  New districts show many more parcels than certified in 2025 (Waller MUD 60A 656 vs 13, East Waller MD 414 vs
+  2): these are builder-owned lots platted since certification (Sunterra, Lakes of Cane Island, Woodhaven).
+- Values are WCAD market value; agricultural use value and exemptions are not applied, so ag land is overstated.
+  The layer has no state class or building area: Waller parcels are property type "other", no tax per SF.
+- Hosts: services3.arcgis.com, services1.arcgis.com, gisweb.tceq.texas.gov, waller-cad.org.
+  WCAD's eSearch terms prohibit data scraping (bulk data is sold separately), so it is not used.
+
 ## Running it
 
 ```bash
@@ -171,9 +205,10 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/build_rates.py` | HCAD rates per jurisdiction combo. Now with stable combo ids (`combo_registry.csv`), TIRZ names deduplicated, pandas 3 safe |
 | `pipeline/build_county_data.py` | parcels for tiling, account and search shards, `combos.json`, boundary lines |
 | `pipeline/build_tiles.sh`, `merge_pmtiles.py` | tippecanoe runs and merge into one PMTiles file |
+| `pipeline/fetch_waller.py`, `build_waller_rates.py` | Waller County parcels, district overlay and rates |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |
-| `tests/` | fixture builder, range-capable static server, browser test |
+| `tests/` | fixture builder, range-capable static server, browser test, Waller browser check |
 | `data/` | 2025 rate outputs (Nov 1, 2026 HCAD export) and the review workbook |
 | `legacy/` | prototype template and its data builder, for reference |
