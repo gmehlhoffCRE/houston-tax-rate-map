@@ -173,6 +173,34 @@ then `build_county_data.py` with `--parcels chambers/ch_parcels.gpkg --cama cham
 - Values are certified market value (2026); exemptions, ag use value and abatements are not applied. No
   building area. Personal property and mineral accounts (about 15%) have no parcel shape but are searchable.
 
+## Brazoria County
+
+Brazoria CAD posts its downloads on pCloud public folders (linked from brazoriacad.org's "Public GIS and Property
+Data Downloads" page). The certified appraisal export (PACS 8.0 fixed-width layout, layout spreadsheet inside the
+zip) lists each property's entities in `APPRAISAL_INFO.TXT`, so no overlay is needed; `PARCELS.shp` carries
+`PID` = property id.
+
+- Entity codes and names: `APPRAISAL_ENTITY_TOTALS.TXT` (157 codes; 42 inactive, TIRZ or agreements carry no rate).
+- 2025 rates: Texas Comptroller rates and levies files, Brazoria rows in
+  `data/brazoria/comptroller_2025_brazoria_units.csv`, matched by name into `data/brazoria/br_units_2025.csv`.
+  By hand: road & bridge fund (RDB 0.04221, a separate entity from the county's 0.262548), Brookside Village,
+  Angleton-Danbury hospital, West Brazoria drainage, and Fort Bend / Harris County for the few edge parcels
+  BCAD lists with them. Port Freeport adopted a zero rate. MUD 38, 48, 67, 90 and Preservation Creek MUD 1 are
+  not on the Comptroller's list and carry no rate.
+
+```bash
+python pipeline/fetch_brazoria.py --out brazoria     # 2026 certified export (191 MB) + parcels (103 MB)
+python pipeline/build_brazoria_rates.py --src brazoria --units data/brazoria/br_units_2025.csv --out data
+```
+
+then `build_county_data.py` with `--parcels brazoria/br_parcels.gpkg --cama brazoria/br_real_acct.txt` added.
+
+- Accounts are `B` + BCAD property id; cards show the bare id. Combo ids start at 90000. Partial owners: the
+  larger value is shown and "ET AL" added. About 30% of accounts (personal property, minerals) have no shape.
+- Building area: main-area improvement segments (type codes MA*, plus numeric commercial occupancy codes), so
+  Brazoria cards show tax per building SF. Values are certified market value; exemptions are not applied.
+- Hosts: brazoriacad.org, api.pcloud.com, def1..def4.pcloud.com.
+
 ## Running it
 
 ```bash
@@ -235,9 +263,10 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/build_tiles.sh`, `merge_pmtiles.py` | tippecanoe runs and merge into one PMTiles file |
 | `pipeline/fetch_waller.py`, `build_waller_rates.py` | Waller County parcels, district overlay and rates |
 | `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
+| `pipeline/fetch_brazoria.py`, `build_brazoria_rates.py` | Brazoria County certified export, parcels and rates |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |
-| `tests/` | fixture builder, range-capable static server, browser test, Waller and Chambers browser checks |
+| `tests/` | fixture builder, range-capable static server, browser test, Waller, Chambers and Brazoria browser checks |
 | `data/` | 2025 rate outputs (Nov 1, 2026 HCAD export) and the review workbook |
 | `legacy/` | prototype template and its data builder, for reference |

@@ -23,6 +23,7 @@ Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF
 | Fort Bend | 386,201 from FBCAD public ArcGIS layer | 2025 from the Fort Bend rate grid CSV (`data/fortbend/fb_rates_2025_grid.csv`) | current FBCAD values | R101338 = 2.2859. Building area is living area only, so tax/SF is often blank for commercial |
 | Montgomery (demo) | 329,989 from the City of Houston mirror of MCAD parcels | 2025 from user's workbook (`data/montgomery/...xlsx`) joined through `data/montgomery/mc_code_map.csv` | **none yet** | 352872 = 1.9071. About 15% of accounts "rate incomplete" (about 79 unknown unit codes); about 90 codes matched by pattern, unconfirmed |
 | Chambers | 38,500 shapes / 43,198 accounts from Chambers CAD's 2026 certified roll + parcel shapefile | 2025 from the Comptroller's rates and levies files (`data/chambers/ch_units_2025.csv`) | 2026 certified market value | C49490 = 2.2568. 5 unit codes unidentified (no rate). No building area |
+| Brazoria | 255,806 shapes / 252,094 rated accounts from BCAD's 2026 certified export + parcel shapefile | 2025 from the Comptroller (`data/brazoria/br_units_2025.csv`) | 2026 certified market value | B600116 = 2.3546 (+ Pearland MMD 2), B500027 = 2.8546. Building area from improvement records |
 | Waller | 54,128 shapes / 47,907 accounts from Waller CAD's public layer | 2025 from WCAD's rate list (`data/waller/wc_rates_2025.csv`); MUD/district areas by TCEQ and county polygons | WCAD market value | W44584 = 1.7322, W248025 = 3.1361. ESD 200 applied countywide (unconfirmed). No property class or building area |
 
 Map features: Cresa styling, Google basemap (Esri fallback), PMTiles via deck.gl 9.0.38 `MVTLayer` + pmtiles 3.2.1,
@@ -44,6 +45,10 @@ Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does no
   `.txt` works.
 
 ## Open items (in priority order)
+
+0. **Brazoria County: built Nov 6** (README "Brazoria County", `tests/brazoria_check.js`). Open: five MUDs with
+   no Comptroller rate (38, 48, 67, 90, Preservation Creek 1) carry 0; confirm with BCAD or the MUDs' tax
+   assessors. Next counties the user may ask for: Galveston, Liberty.
 
 1. **Chambers County: built Nov 6** from the CAD's 2026 certified roll (taxing units per account) and parcel
    shapefile; 2025 rates from the Comptroller (README "Chambers County"). C49490 = 2.2568, C67998 = 2.2509

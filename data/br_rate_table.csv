@@ -1,0 +1,158 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+BR-021,(Inactive) Pasadena ISD,,Other,excluded,0,0.0,,0.0,False
+BR-CAD,Brazoria Central Appraisal District,,Other,excluded,0,0.0,,0.0,False
+BR-CAL,City Of Alvin,,City,base,13101,0.685,,0.685,False
+BR-CAN,City Of Angleton,,City,base,9839,0.515246,,0.515246,False
+BR-CBO,(Inactive) City Of Bonney,,Other,excluded,0,0.0,,0.0,False
+BR-CBP,Village Of Bailey'S Prairie,,City,base,567,0.039066,,0.039066,False
+BR-CBR,City Of Brazoria,,City,base,2242,0.651499,,0.651499,False
+BR-CBS,Village Of Brookside,,City,base,965,0.480347,,0.480347,False
+BR-CCL,City Of Clute,,City,base,4569,0.471757,,0.471757,False
+BR-CDA,(Inactive) City Of Damon,,Other,excluded,0,0.0,,0.0,False
+BR-CDB,City Of Danbury,,City,base,823,0.383,,0.383,False
+BR-CFP,City Of Freeport,,City,base,6811,0.51421,,0.51421,False
+BR-CHL,Town Of Holiday Lakes,,City,base,1523,1.051105,,1.051105,False
+BR-CHV,City Of Hillcrest Village,,City,base,335,0.324537,,0.324537,False
+BR-CIC,City Of Iowa Colony,,City,base,7192,0.519209,,0.519209,False
+BR-CJC,Village Of Jones Creek,,City,base,1146,0.52,,0.52,False
+BR-CLJ,City Of Lake Jackson,,City,base,10721,0.378911,,0.378911,False
+BR-CLP,City Of Liverpool,,City,base,468,0.120395,,0.120395,False
+BR-CMV,City Of Manvel,,City,base,11516,0.56,,0.56,False
+BR-COC,City Of Oyster Creek,,City,base,1004,0.1573,,0.1573,False
+BR-CPL,City Of Pearland,,City,base,44735,0.63,,0.63,False
+BR-CQU,Town Of Quintana,,City,base,635,0.014122,,0.014122,False
+BR-CRW,City Of Richwood,,City,base,1930,0.557993,,0.557993,False
+BR-CSS,Village Of Surfside,,City,base,2345,0.292923,,0.292923,False
+BR-CSW,City Of Sweeny,,City,base,4765,0.901224,,0.901224,False
+BR-CWC,City Of West Columbia,,City,base,2415,0.656503,,0.656503,False
+BR-DR1,Angleton Drainage District,,Drainage District,base,13738,0.052816,,0.052816,False
+BR-DR11,(Inactive) West Braz Drain Dist #11,,Other,excluded,0,0.0,,0.0,False
+BR-DR2,Velasco Drainage District,,Drainage District,base,34722,0.079124,,0.079124,False
+BR-DR3,Brazoria County Conservation & Reclamation District #3 (Alvin),,Drainage District,base,34890,0.15,,0.15,False
+BR-DR4,Brazoria County Drainage District #4 (Pearland),,Drainage District,base,76580,0.113276,,0.113276,False
+BR-DR5,Brazoria County Drainage District #5 (Iowa Colony),,Drainage District,base,20527,0.108452,,0.108452,False
+BR-DR8,Brazoria County Drainage District #8 (Danbury),,Drainage District,base,2637,0.15,,0.15,False
+BR-DR9,West Brazoria County Drainage District #11,,Drainage District,base,55159,0.014781,,0.014781,False
+BR-EAL,(Inactive) Alvin Ced,,Other,excluded,0,0.0,,0.0,False
+BR-EAN,(Inactive) Angleton Ced,,Other,excluded,0,0.0,,0.0,False
+BR-EBR,(Inactive) Brazosport Ced,,Other,excluded,0,0.0,,0.0,False
+BR-ECB,(Inactive) Columbia-Brazoria Ced,,Other,excluded,0,0.0,,0.0,False
+BR-EDA,(Inactive) Damon Ced,,Other,excluded,0,0.0,,0.0,False
+BR-EDB,(Inactive) Danbury Ced,,Other,excluded,0,0.0,,0.0,False
+BR-EDLJ1,City Of Lake Jackson 380 Agreement #1,,Other,excluded,0,0.0,,0.0,False
+BR-EM1,Brazoria County Emergency District #1,,ESD,base,15049,0.049391,,0.049391,False
+BR-EM2,Brazoria County Emergency District #2,,ESD,base,56846,0.078971,,0.078971,False
+BR-EM3,Brazoria County Emergency District #3,,ESD,base,70342,0.079229,,0.079229,False
+BR-EM4,Brazoria County Emergency District #4,,ESD,base,5040,0.1,,0.1,False
+BR-EM5,Brazoria County Emergency District #5,,ESD,base,2121,0.1,,0.1,False
+BR-EM6,Brazoria County Emergency District #6,,ESD,base,8604,0.051883,,0.051883,False
+BR-EPL,(Inactive) Pearland Ced,,Other,excluded,0,0.0,,0.0,False
+BR-ESW,(Inactive) Sweeny Ced,,Other,excluded,0,0.0,,0.0,False
+BR-ET1,(Inactive) Brazoria County Energy Trans Reinvest Zone #1 - Cr 48,,Other,excluded,0,0.0,,0.0,False
+BR-FD1,(Inactive) Braz Co Em Ser Dist #2,,Other,excluded,0,0.0,,0.0,False
+BR-GBC,Brazoria County,,County / Countywide,base,251835,0.262548,,0.262548,False
+BR-GFB,Fort Bend County,,County / Countywide,base,0,0.412,,0.412,False
+BR-GHC,Harris County,,County / Countywide,base,0,0.38096,,0.38096,False
+BR-HAD,Angleton-Danbury Hospital District,,County / Countywide,base,31507,0.074685,,0.074685,False
+BR-HSW,Sweeny Hospital District,,County / Countywide,base,31910,0.195748,,0.195748,False
+BR-HWC,(Inactive) West Columbia-Damon Hosp,,Other,excluded,0,0.0,,0.0,False
+BR-JAL,Alvin College,,College District,base,87787,0.156543,,0.156543,False
+BR-JBR,Brazosport College,,College District,base,35427,0.278592,,0.278592,False
+BR-M1,(Inactive) Brazoria County MUD #05,,Other,excluded,0,0.0,,0.0,False
+BR-M10,Brazoria County MUD #06,,Water District (MUD/WCID/UD),base,1800,0.33,,0.33,False
+BR-M100,Sedona Lakes MUD #01,,Water District (MUD/WCID/UD),base,784,1.135,,1.135,False
+BR-M101,Freeport MUD #1,,Water District (MUD/WCID/UD),base,557,0.8,,0.8,False
+BR-M105,Rancho Isabella MUD,,Water District (MUD/WCID/UD),base,516,1.45,,1.45,False
+BR-M11,Brazoria / Fort Bend County MUD #01,,Water District (MUD/WCID/UD),base,2882,0.42,,0.42,False
+BR-M12,Brazoria / Fort Bend County MUD #03,,Water District (MUD/WCID/UD),base,7,1.3,,1.3,False
+BR-M16,(Inactive) Brazoria County MUD #16,,Other,excluded,0,0.0,,0.0,False
+BR-M17,Brazoria County MUD #17,,Water District (MUD/WCID/UD),base,2369,0.2,,0.2,False
+BR-M18,Brazoria County MUD #18,,Water District (MUD/WCID/UD),base,1187,0.18,,0.18,False
+BR-M19,Brazoria County MUD #19,,Water District (MUD/WCID/UD),base,2604,0.16,,0.16,False
+BR-M2,Brazoria County MUD #02,,Water District (MUD/WCID/UD),base,1371,0.394,,0.394,False
+BR-M21,Brazoria County MUD #21,,Water District (MUD/WCID/UD),base,1779,0.825,,0.825,False
+BR-M22,Brazoria County MUD #22,,Water District (MUD/WCID/UD),base,1590,0.95,,0.95,False
+BR-M23,Brazoria County MUD #23,,Water District (MUD/WCID/UD),base,1053,0.36,,0.36,False
+BR-M24,Brazoria County MUD #24,,Water District (MUD/WCID/UD),base,372,1.25,,1.25,False
+BR-M25,Brazoria County MUD #25,,Water District (MUD/WCID/UD),base,962,0.46117,,0.46117,False
+BR-M26,Brazoria County MUD #26,,Water District (MUD/WCID/UD),base,3418,0.076,,0.076,False
+BR-M28,Brazoria County MUD #28,,Water District (MUD/WCID/UD),base,2308,0.56,,0.56,False
+BR-M29,Brazoria County MUD #29,,Water District (MUD/WCID/UD),base,2411,0.71,,0.71,False
+BR-M3,Commodore Cove Improvement District,,Water District (MUD/WCID/UD),base,270,0.159875,,0.159875,False
+BR-M31,Brazoria County MUD #31,,Water District (MUD/WCID/UD),base,2609,0.78,,0.78,False
+BR-M32,Brazoria County MUD #32,,Water District (MUD/WCID/UD),base,1350,1.35,,1.35,False
+BR-M34,Brazoria County MUD #34,,Water District (MUD/WCID/UD),base,1936,0.5,,0.5,False
+BR-M35,Brazoria County MUD #35,,Water District (MUD/WCID/UD),base,223,0.81,,0.81,False
+BR-M36,Brazoria County MUD #36,,Water District (MUD/WCID/UD),base,771,0.645,,0.645,False
+BR-M38,Brazoria County MUD #38,,Water District (MUD/WCID/UD),base,7,0.0,,0.0,False
+BR-M39,Brazoria County MUD #39,,Water District (MUD/WCID/UD),base,1233,1.19,,1.19,False
+BR-M4,(Inactive) Brazoria County MUD #04,,Other,excluded,0,0.0,,0.0,False
+BR-M40,Brazoria County MUD #40,,Water District (MUD/WCID/UD),base,1358,1.3,,1.3,False
+BR-M42,Brazoria County MUD #42,,Water District (MUD/WCID/UD),base,83,0.95,,0.95,False
+BR-M43,Brazoria County MUD #43,,Water District (MUD/WCID/UD),base,545,0.95,,0.95,False
+BR-M44,Brazoria County MUD #44,,Water District (MUD/WCID/UD),base,885,1.5,,1.5,False
+BR-M47,Brazoria County MUD #47,,Water District (MUD/WCID/UD),base,14,1.5,,1.5,False
+BR-M48,Brazoria County MUD #48,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,False
+BR-M49,Brazoria County MUD #49,,Water District (MUD/WCID/UD),base,9,0.0,,0.0,False
+BR-M5,Oak Manor MUD,,Water District (MUD/WCID/UD),base,223,0.52,,0.52,False
+BR-M509,Harris-Brazoria Counties MUD #509,,Water District (MUD/WCID/UD),base,820,0.67,,0.67,False
+BR-M51,Brazoria County MUD #51,,Water District (MUD/WCID/UD),base,148,0.85,,0.85,False
+BR-M53,Brazoria County MUD #53,,Water District (MUD/WCID/UD),base,1496,1.35,,1.35,False
+BR-M55,Brazoria County MUD #55,,Water District (MUD/WCID/UD),base,2529,0.9,,0.9,False
+BR-M56,Brazoria County MUD #56,,Water District (MUD/WCID/UD),base,1471,0.9,,0.9,False
+BR-M57,Brazoria County MUD #57,,Water District (MUD/WCID/UD),base,1395,0.9,,0.9,False
+BR-M6,(Inactive) Brazoria County MUD #01,,Other,excluded,0,0.0,,0.0,False
+BR-M61,Brazoria County MUD #61,,Water District (MUD/WCID/UD),base,811,0.62,,0.62,False
+BR-M64,Brazoria County MUD #64,,Water District (MUD/WCID/UD),base,129,1.5,,1.5,False
+BR-M66,Brazoria County MUD #66,,Water District (MUD/WCID/UD),base,407,0.864,,0.864,False
+BR-M67,Brazoria County MUD #67,,Water District (MUD/WCID/UD),base,13,0.0,,0.0,False
+BR-M69,Brazoria County MUD #69,,Water District (MUD/WCID/UD),base,495,0.9,,0.9,False
+BR-M7,Treasure Island MUD,,Water District (MUD/WCID/UD),base,613,0.252864,,0.252864,False
+BR-M73,Brazoria County MUD #73,,Water District (MUD/WCID/UD),base,701,0.7,,0.7,False
+BR-M76,Brazoria County MUD #76,,Water District (MUD/WCID/UD),base,9,0.0,,0.0,False
+BR-M8,Varner Creek Utility District,,Water District (MUD/WCID/UD),base,1566,0.364,,0.364,False
+BR-M81,Brazoria County MUD #81,,Water District (MUD/WCID/UD),base,273,0.85,,0.85,False
+BR-M82,Brazoria County MUD #82,,Water District (MUD/WCID/UD),base,524,1.5,,1.5,False
+BR-M83,Brazoria County MUD #83,,Water District (MUD/WCID/UD),base,730,1.0,,1.0,False
+BR-M87,Brazoria County MUD #87,,Water District (MUD/WCID/UD),base,419,0.72,,0.72,False
+BR-M88,Brazoria County MUD #88,,Water District (MUD/WCID/UD),base,8,1.5,,1.5,False
+BR-M89,Brazoria County MUD #89,,Water District (MUD/WCID/UD),base,8,1.5,,1.5,False
+BR-M9,Brazoria County MUD #03,,Water District (MUD/WCID/UD),base,1523,0.335,,0.335,False
+BR-M90,Brazoria County MUD #90,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
+BR-M92,Brazoria County MUD #92,,Water District (MUD/WCID/UD),base,445,1.2,,1.2,False
+BR-MPC1,Preservation Creek MUD #01,,Water District (MUD/WCID/UD),base,62,0.0,,0.0,False
+BR-NAV,Port Freeport,,Other,base,133295,0.0,,0.0,False
+BR-PMMD2,Pearland Municipal Management Dist #2,,Management District,mgmt,1566,0.06598,,0.06598,False
+BR-R03,(Inactive) Road #3,,Other,excluded,0,0.0,,0.0,False
+BR-R33,(Inactive) Road #33,,Other,excluded,0,0.0,,0.0,False
+BR-R34,(Inactive) Road #34,,Other,excluded,0,0.0,,0.0,False
+BR-R36,(Inactive) Road #36,,Other,excluded,0,0.0,,0.0,False
+BR-RDB,Road & Bridge Fund,,County / Countywide,base,251835,0.04221,,0.04221,False
+BR-RO3,(Inactive) Road,,Other,excluded,0,0.0,,0.0,False
+BR-S01,(Inactive) Houston ISD,,Other,excluded,0,0.0,,0.0,False
+BR-S12,Friendswood ISD,,ISD,base,6,1.03,,1.03,False
+BR-S16,(Inactive) Clear Creek ISD,,Other,excluded,0,0.0,,0.0,False
+BR-SAL,Alvin Independent School District,,ISD,base,85635,1.15,,1.15,False
+BR-SAN,Angleton Independent School District,,ISD,base,29315,1.0219,,1.0219,False
+BR-SBR,Brazosport Independent School District,,ISD,base,35425,0.8975,,0.8975,False
+BR-SCB,Columbia-Brazoria  Independent School District,,ISD,base,23882,0.953,,0.953,False
+BR-SDA,Damon Independent School District,,ISD,base,2864,0.7072,,0.7072,False
+BR-SDB,Danbury Independent School District,,ISD,base,3666,1.1161,,1.1161,False
+BR-SPL,Pearland Independent School District,,ISD,base,42067,1.135,,1.135,False
+BR-SSW,Sweeny Independent School District,,ISD,base,31991,0.8439,,0.8439,False
+BR-T1CAL,Tax Increment Reinvestment Zone #1 (Cal-Jbr),,TIRZ,excluded,66,0.0,,0.0,False
+BR-T1CAN,Tax Increment Reinvestment Zone #1 (Can-Dr1),,TIRZ,excluded,2,0.0,,0.0,False
+BR-T1CBR,Tax Increment Reinvestment Zone #1 Austin Colony (Cbr),,TIRZ,excluded,129,0.0,,0.0,False
+BR-T1CFP,Tax Increment Reinvestment Zone #1 (Cfp),,TIRZ,excluded,505,0.0,,0.0,False
+BR-T1CMV,(Inactive) Tax Increment Reinvestment Zone #1 (Cmv),,Other,excluded,0,0.0,,0.0,False
+BR-T2CAL,Tax Increment Reinvestment Zone #2 (Cal),,TIRZ,excluded,744,0.0,,0.0,False
+BR-T2CAN,Tax Increment Reinvestment Zone #2 (Can),,TIRZ,excluded,365,0.0,,0.0,False
+BR-T2CIC,Tax Increment Reinvestment Zone #2 (Cic),,TIRZ,excluded,2440,0.0,,0.0,False
+BR-T2CMV,(Inactive) Tax Increment Reinvestment Zone #2 (Cmv),,Other,excluded,0,0.0,,0.0,False
+BR-T2CPL,Tax Increment Reinvestment Zone #2 (Cpl-Sal-Gbc),,TIRZ,excluded,6633,0.0,,0.0,False
+BR-T3CAL,(Inactive) Tax Increment Reinvestment Zone #3 (Cal),,Other,excluded,0,0.0,,0.0,False
+BR-T3CMV,Tax Increment Reinvestment Zone #3 (Cmv),,TIRZ,excluded,2866,0.0,,0.0,False
+BR-TIF1,(Inactive) Tax Increment Finance Zone #1,,Other,excluded,0,0.0,,0.0,False
+BR-TIF2,(Inactive) Tax Increment Finance Zone #2,,Other,excluded,0,0.0,,0.0,False
+BR-W01,(Inactive) Brazoria County Fresh Water Supply District #1,,Other,excluded,0,0.0,,0.0,False
+BR-W02,Brazoria County Fresh Water Supply District #2,,Water District (MUD/WCID/UD),base,340,0.230872,,0.230872,False
