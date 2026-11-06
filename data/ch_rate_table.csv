@@ -1,0 +1,41 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+CH-01,Chambers County,,County / Countywide,base,42875,0.414192,,0.414192,False
+CH-01SE,Chambers County School Equalization,,County / Countywide,base,42875,0.025554,,0.025554,False
+CH-10,City of Mont Belvieu,,City,base,6978,0.525826,,0.525826,False
+CH-11,City of Anahuac,,City,base,1679,0.587902,,0.587902,False
+CH-22,City of Baytown,,City,base,2432,0.69803,,0.69803,False
+CH-97,City of Texas City,,City,base,0,0.478433,,0.478433,False
+CH-12,Beach City (no city tax),,City,base,1638,0.0,,0.0,False
+CH-13,Cove (no city tax),,City,base,170,0.0,,0.0,False
+CH-16,Old River-Winfree (no city tax),,City,base,508,0.0,,0.0,False
+CH-30,Anahuac ISD,,ISD,base,13053,1.1769,,1.1769,False
+CH-31,Barbers Hill ISD,,ISD,base,19052,1.0631,,1.0631,False
+CH-32,Goose Creek CISD,,ISD,base,5028,1.07,,1.07,False
+CH-33,East Chambers ISD,,ISD,base,5740,1.1119,,1.1119,False
+CH-34,La Porte ISD,,ISD,base,2,1.0641,,1.0641,False
+CH-31BC,Lee College (Barbers Hill branch),,College District,base,19052,0.05,,0.05,False
+CH-64,Lee College,,College District,base,5030,0.18706,,0.18706,False
+CH-61,San Jacinto College,,College District,base,2,0.154615,,0.154615,False
+CH-60,Chambers-Liberty Counties Navigation District,,Other,base,20757,0.01017,,0.01017,False
+CH-66,Cedar Bayou Navigation District,,Other,base,515,0.0165,,0.0165,False
+CH-67,Cedar Port Navigation & Improvement District,,Other,base,421,0.72,,0.72,False
+CH-62,Trinity Bay Conservation District,,Drainage District,base,17051,0.291133,,0.291133,False
+CH-68,Jefferson County Drainage District 6,,Drainage District,base,20,0.184235,,0.184235,False
+CH-65,Chambers County Public Hospital District 1,,County / Countywide,base,13012,0.20624,,0.20624,False
+CH-63,Chambers County MUD 1,,Water District (MUD/WCID/UD),base,1662,0.56,,0.56,False
+CH-63-3,Chambers County MUD 3,,Water District (MUD/WCID/UD),base,322,1.5,,1.5,False
+CH-63-4,Chambers County MUD 4,,Water District (MUD/WCID/UD),base,8,0.0,,0.0,False
+CH-63-5,Windcress MUD of Chambers County,,Water District (MUD/WCID/UD),base,205,0.0,,0.0,False
+CH-74,Riceland MUD 1,,Water District (MUD/WCID/UD),base,821,0.0,,0.0,False
+CH-75,Riceland MUD 2,,Water District (MUD/WCID/UD),base,8,0.8,,0.8,False
+CH-76,Riceland MUD 3,,Water District (MUD/WCID/UD),base,38,0.8,,0.8,False
+CH-71,Chambers County Improvement District 2,,Management District,mgmt,163,0.69,,0.69,False
+CH-72,Chambers County Improvement District 3,,Management District,mgmt,133,1.25,,1.25,False
+CH-77,Riceland Management District,,Management District,mgmt,867,0.0,,0.0,False
+CH-73,Baytown TIRZ 1,,TIRZ,excluded,520,0.0,,0.0,False
+CH-00,Chambers Appraisal District,,Other,excluded,0,0.0,,0.0,False
+CH-21,Unknown unit 21 (Baytown area),,Other,base,3478,0.0,,0.0,False
+CH-23,Unknown unit 23 (Mont Belvieu area),,Other,base,122,0.0,,0.0,False
+CH-69,Unknown unit 69 (Beach City area),,Other,base,186,0.0,,0.0,False
+CH-70,Unknown unit 70 (Winnie/Stowell),,Other,base,5738,0.0,,0.0,False
+CH-78,Unknown unit 78 (Baytown/Mont Belvieu),,Other,base,516,0.0,,0.0,False

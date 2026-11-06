@@ -658,7 +658,7 @@ document.addEventListener('mousedown',e=>{document.querySelectorAll('.ms.open').
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.ms.open').forEach(x=>x.classList.remove('open')); closeResults(); if(state.sel!=null)select(null);}});
 // county toggles (only when the build has more than one county)
 { const counts=new Map(); for(const c of CB.combos){ const co=c.co||'Harris'; counts.set(co,(counts.get(co)||0)+c.acc); }
-  const order=['Harris','Fort Bend','Montgomery','Waller'], cos=[...counts.keys()].sort((a,b)=>(order.indexOf(a)+1||9)-(order.indexOf(b)+1||9));
+  const order=['Harris','Fort Bend','Montgomery','Waller','Chambers'], cos=[...counts.keys()].sort((a,b)=>(order.indexOf(a)+1||9)-(order.indexOf(b)+1||9));
   if(cos.length>1){
     const box=$('countyBox'); box.innerHTML='<div class="fs-t" style="margin-top:10px">Counties</div>';
     for(const co of cos){
@@ -692,10 +692,11 @@ $('fClear').onclick=()=>{
 const YEARS=META.taxYears||{Harris:META.taxYear}, MIXED=new Set(Object.values(YEARS)).size>1;
 $('statusTxt').textContent=(MIXED?Object.entries(YEARS).sort((a,b)=>(a[0]==='Harris'?-1:b[0]==='Harris'?1:a[0].localeCompare(b[0]))).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
 $('legT').textContent=MIXED?'Combined rate per $100':`${META.taxYear} combined rate per $100`;
-// account formats: HCAD 13 digits, FBCAD R + digits, MCAD up to 7 digits, Waller W + WCAD property id
-const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':/^W\d/.test(acct||'')?'Waller':/^\d{1,9}$/.test(acct||'')?'Montgomery':'Harris';
-const CAD={Harris:'HCAD','Fort Bend':'FBCAD',Montgomery:'MCAD',Waller:'WCAD'};
-const acctLabel=(acct,county)=>county==='Waller'?String(acct).replace(/^W/,''):acct;
+// account formats: HCAD 13 digits, FBCAD R + digits, MCAD up to 7 digits, Waller W + WCAD property id,
+// Chambers C + Chambers CAD property id
+const countyOf=(acct,c)=>c&&c.co?c.co:/^R\d/.test(acct||'')?'Fort Bend':/^W\d/.test(acct||'')?'Waller':/^C\d/.test(acct||'')?'Chambers':/^\d{1,9}$/.test(acct||'')?'Montgomery':'Harris';
+const CAD={Harris:'HCAD','Fort Bend':'FBCAD',Montgomery:'MCAD',Waller:'WCAD',Chambers:'Chambers CAD'};
+const acctLabel=(acct,county)=>county==='Waller'||county==='Chambers'?String(acct).replace(/^[WC]/,''):acct;
 
 // ---------------------------------------------------------------- shards (account records + search)
 const shardCache=new Map();
@@ -721,7 +722,7 @@ async function runSearch(q){
   if(EMB){
     // embedded build: scan the in-memory records (already ordered by appraised value, highest first)
     const C=EMB.cols;
-    if(/^(\d{6,13}|[RW]\d{3,})$/.test(digits)){
+    if(/^(\d{6,13}|[RWC]\d{3,})$/.test(digits)){
       for(let i=0;i<EMB.n;i++) if(C.acct[i].startsWith(digits)){ const r=EMB.row(i); list.push({acct:r[0],owner:r[1],addr:r[2],full:r}); if(list.length>500) break; }
     } else {
       const qw=words(raw);
@@ -736,7 +737,7 @@ async function runSearch(q){
       }
       list.sort((a,b)=>b.score-a.score);
     }
-  } else if(/^(\d{6,13}|[RW]\d{3,})$/.test(digits)){
+  } else if(/^(\d{6,13}|[RWC]\d{3,})$/.test(digits)){
     const s=await shard('a',shardKey('a',digits)); if(seq!==qSeq) return;
     list=s.r.filter(r=>r[0].startsWith(digits)).map(r=>({acct:r[0],owner:r[1],addr:r[2],full:r}));
     partial=!!s.p&&digits.length<13;
@@ -754,7 +755,7 @@ async function runSearch(q){
     }
     list.sort((a,b)=>b.score-a.score);   // stable: shard order is highest value first
   }
-  if(/^\d{4,6}$/.test(digits)) for(const id of [digits,'W'+digits]){   // short MCAD accounts and WCAD property ids look like house numbers: offer them too
+  if(/^\d{4,6}$/.test(digits)) for(const id of [digits,'W'+digits,'C'+digits]){   // short MCAD accounts and WCAD / Chambers CAD property ids look like house numbers: offer them too
     const r=await getAccount(id); if(seq!==qSeq) return;
     if(r&&!list.some(x=>x.acct===r.acct)) list.unshift({acct:r.acct,owner:r.owner,addr:r.addr,full:[r.acct,r.owner,r.addr,r.city,r.cls,r.val,r.bld,r.land,r.combo,r.lon==null?null:Math.round(r.lon*1e5),r.lat==null?null:Math.round(r.lat*1e5)]});
   }
@@ -817,7 +818,7 @@ function renderDrawer(p){
       </div>
       <div class="grid">
         ${F('Owner',esc(tc(p.owner)),true)}
-        ${F(cad+(county==='Waller'?' property ID':' account'),esc(acctLabel(p.acct,county)))}
+        ${F(cad+(county==='Waller'||county==='Chambers'?' property ID':' account'),esc(acctLabel(p.acct,county)))}
         ${F('Property class',esc(clsName))}
         ${F((county==='Harris'?META.valueYear+' ':'')+'Appraised value',money(p.val))}
         ${F('Est. annual tax',money(tax))}
@@ -844,6 +845,7 @@ function renderDrawer(p){
   if(c&&!c.city&&tg===2) notes.push(['',`Outside city limits. Plants in industrial districts typically pay the city under separate agreements not reflected in this rate.`]);
   if(county==='Montgomery') notes.push(['gold',`Demo: uses ${ry} adopted rates from the Montgomery County Tax Office. Some MCAD unit codes are matched by pattern until MCAD confirms its code list, and MCAD appraised values are not loaded yet, so no tax estimate is shown.`]);
   else if(county==='Waller') notes.push(['gold',`Uses ${ry} adopted rates from Waller CAD on current WCAD market value (agricultural use value, exemptions and abatements are not applied, so taxes on ag land are overstated). MUD, drainage, road and management districts are placed by TCEQ and county boundary maps, and Waller-Harris ESD 200 is applied countywide, so confirm districts with WCAD. WCAD does not publish property class or building area.`]);
+  else if(county==='Chambers') notes.push(['',`Uses ${ry} adopted rates (Texas Comptroller and Chambers County) for the taxing units on Chambers CAD's ${META.valueYear} certified roll, on certified market value. Exemptions, agricultural use value and abatements are not applied. Chambers CAD does not publish building area.`]);
   else if(county==='Fort Bend') notes.push(['',`Uses ${ry} adopted rates on current FBCAD appraised values. Building area is FBCAD's living area, so it is often blank for commercial property. Exemptions and abatements are not applied.`]);
   else notes.push(['',`Uses ${ry} adopted rates on ${META.valueYear} appraised values. Exemptions and abatements are not applied.`]);
   const gm=p.lon!=null?`${p.lat.toFixed(6)},${p.lon.toFixed(6)}`:encodeURIComponent((p.addr||'')+' '+(p.city||'')+' TX');
@@ -851,7 +853,7 @@ function renderDrawer(p){
     </div>
     <div class="d-act">
       <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${gm}">Open in Google Maps</a>
-      <button class="btn primary" id="copyAcct">Copy ${cad} ${county==='Waller'?'ID':'account'}</button>
+      <button class="btn primary" id="copyAcct">Copy ${cad} ${county==='Waller'||county==='Chambers'?'ID':'account'}</button>
     </div></div>`;
   host.innerHTML=h;
   host.querySelector('.x').onclick=()=>select(null);

@@ -145,6 +145,34 @@ then `build_county_data.py` with `--parcels waller/wc_parcels.gpkg --cama waller
 - Hosts: services3.arcgis.com, services1.arcgis.com, gisweb.tceq.texas.gov, waller-cad.org.
   WCAD's eSearch terms prohibit data scraping (bulk data is sold separately), so it is not used.
 
+## Chambers County
+
+Chambers CAD (Pritchard & Abbott) publishes its certified appraisal roll as a CSV with each account's taxing
+unit codes (`Jur 1` to `Jur 12`), market value, state class, owner and situs, plus a parcel shapefile keyed by
+`ParcelCAMA` = the roll's `Parcel_ID`. So Chambers needs no polygon overlay.
+
+- Unit codes to names: the `(code) - NAME` header on each of the CAD's 2026 certified value reports (e.g.
+  `(31) - BARBERS HILL ISD`, `(31BC) - LEE COLLEGE - Barbers Hill`, `(64) - LEE COLLEGE`).
+- 2025 rates: Texas Comptroller 2025 rates and levies files (Chambers rows kept in
+  `data/chambers/comptroller_2025_chambers_units.csv`); county 0.414192 includes the FM/FC road fund (CAD code
+  01R), matching chamberscountytx.gov/191. All in `data/chambers/ch_units_2025.csv`.
+- Codes with no certified value report carry no rate and a note: 12 Beach City, 13 Cove, 16 Old River-Winfree
+  (cities with no property tax), and 21, 23, 69, 70, 78 (unidentified; 70 covers exactly East Chambers ISD's
+  area and may be the Winnie-Stowell Hospital District).
+
+```bash
+python pipeline/fetch_chambers.py --out chambers          # 2026 certified roll CSV + newest parcel shapefile
+python pipeline/build_chambers_rates.py --src chambers --units data/chambers/ch_units_2025.csv --out data
+```
+
+then `build_county_data.py` with `--parcels chambers/ch_parcels.gpkg --cama chambers/ch_real_acct.txt` added.
+
+- Accounts are `C` + Chambers CAD property id (the CAD's search takes it); cards show the bare id. A parcel with
+  several owners has one roll row per share: values are summed, the first owner is shown with "ET AL".
+  Combo ids start at 80000. 323 accounts list no taxing unit and show no rate.
+- Values are certified market value (2026); exemptions, ag use value and abatements are not applied. No
+  building area. Personal property and mineral accounts (about 15%) have no parcel shape but are searchable.
+
 ## Running it
 
 ```bash
@@ -206,9 +234,10 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/build_county_data.py` | parcels for tiling, account and search shards, `combos.json`, boundary lines |
 | `pipeline/build_tiles.sh`, `merge_pmtiles.py` | tippecanoe runs and merge into one PMTiles file |
 | `pipeline/fetch_waller.py`, `build_waller_rates.py` | Waller County parcels, district overlay and rates |
+| `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |
-| `tests/` | fixture builder, range-capable static server, browser test, Waller browser check |
+| `tests/` | fixture builder, range-capable static server, browser test, Waller and Chambers browser checks |
 | `data/` | 2025 rate outputs (Nov 1, 2026 HCAD export) and the review workbook |
 | `legacy/` | prototype template and its data builder, for reference |

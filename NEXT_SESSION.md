@@ -22,6 +22,7 @@ Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF
 | Harris | 1,536,057 from HCAD `Parcels.zip` | 2025 adopted, `build_rates.py` | 2026 appraised, `real_acct.txt` | Acceptance accounts pass (0281700000001 = 1.9557, 0402040000009 = 2.1252 + TIRZ Eastside 6) |
 | Fort Bend | 386,201 from FBCAD public ArcGIS layer | 2025 from the Fort Bend rate grid CSV (`data/fortbend/fb_rates_2025_grid.csv`) | current FBCAD values | R101338 = 2.2859. Building area is living area only, so tax/SF is often blank for commercial |
 | Montgomery (demo) | 329,989 from the City of Houston mirror of MCAD parcels | 2025 from user's workbook (`data/montgomery/...xlsx`) joined through `data/montgomery/mc_code_map.csv` | **none yet** | 352872 = 1.9071. About 15% of accounts "rate incomplete" (about 79 unknown unit codes); about 90 codes matched by pattern, unconfirmed |
+| Chambers | 38,500 shapes / 43,198 accounts from Chambers CAD's 2026 certified roll + parcel shapefile | 2025 from the Comptroller's rates and levies files (`data/chambers/ch_units_2025.csv`) | 2026 certified market value | C49490 = 2.2568. 5 unit codes unidentified (no rate). No building area |
 | Waller | 54,128 shapes / 47,907 accounts from Waller CAD's public layer | 2025 from WCAD's rate list (`data/waller/wc_rates_2025.csv`); MUD/district areas by TCEQ and county polygons | WCAD market value | W44584 = 1.7322, W248025 = 3.1361. ESD 200 applied countywide (unconfirmed). No property class or building area |
 
 Map features: Cresa styling, Google basemap (Esri fallback), PMTiles via deck.gl 9.0.38 `MVTLayer` + pmtiles 3.2.1,
@@ -44,15 +45,12 @@ Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does no
 
 ## Open items (in priority order)
 
-1. **Chambers County** (user asked next, Nov 6). Chambers CAD parcels: Pritchard & Abbott ArcGIS MapServer
-   `https://gisdata.pandai.com/pamaps02/rest/services/Chambers/ChambersCADPublic/MapServer/0` (38,529 parcels,
-   1,000 per page, joined TaxParcels + Accounts fields: Account, Owner_Name, Primary_Category_Code (state class),
-   Prop_Street..., Acres; Market_Value blank in samples; no taxing unit codes). Layers 4 City Limits and 6 School
-   Districts can give city/ISD by overlay. Rates and units: chamberscad.org "Records | Data | Reports" page loads
-   its document list by script; county rates on chamberscountytx.gov/191. Hosts already allowed:
-   chamberscad.org, www.chamberscad.org, chamberscountytx.gov, gisdata.pandai.com, maps.pandai.com.
-2. **Waller County: delivered** in the Nov 6 four-county folder build (`houston-4county-tax-map.html` + six .txt
-   parts, 190 MB, 2,391,687 accounts). Open Waller questions for the user or WCAD:
+1. **Chambers County: built Nov 6** from the CAD's 2026 certified roll (taxing units per account) and parcel
+   shapefile; 2025 rates from the Comptroller (README "Chambers County"). C49490 = 2.2568, C67998 = 2.2509
+   (`tests/chambers_check.js`). Open: identify unit codes 21, 23, 69, 70, 78 (no certified value report, no rate
+   applied; ask Chambers CAD, 409-267-3795). 70 may be the Winnie-Stowell Hospital District.
+2. **Waller County: delivered** in the Nov 6 folder builds (four-county, then five-county with Chambers).
+   Open Waller questions for the user or WCAD:
    - Waller-Harris ESD 200 boundary (about 10% of the county is outside it; applied everywhere for now).
    - WCAD certified export (state class, building area, ag use value, exact taxing units per account) would
      replace the polygon overlay. WCAD sells bulk data; its eSearch terms prohibit scraping.

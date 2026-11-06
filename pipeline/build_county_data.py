@@ -28,7 +28,7 @@ import pyogrio
 import shapely
 from pyproj import Transformer
 
-COUNTIES = {"hcad": "Harris", "fb": "Fort Bend", "mc": "Montgomery", "wc": "Waller"}   # rates file prefix -> county name shown on the map
+COUNTIES = {"hcad": "Harris", "fb": "Fort Bend", "mc": "Montgomery", "wc": "Waller", "ch": "Chambers"}   # rates file prefix -> county name shown on the map
 TYPE_KEYS = ["res", "com", "ind", "vac", "util", "ex", "other"]  # index = tile property t, must match the web page
 # Words skipped as search keys (still matched when typed alongside a longer word). Keep in sync with STOP in the page.
 STOP = set("""llc inc ltd lp llp co corp company the of and etal et al est estate trust trustee trustees

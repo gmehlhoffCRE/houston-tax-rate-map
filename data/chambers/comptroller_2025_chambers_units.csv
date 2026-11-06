@@ -1,0 +1,30 @@
+taxing_unit_id,name,kind,market_value,mo_rate,is_rate,total_rate
+036-000-00-036-036,Chambers County,county,33991288869,0.3373,0.076892,0.414192
+036-101-03-036-036,Anahuac,city,257302379,0.07453,0.513372,0.587902
+036-102-03-036-036,Mont Belvieu,city,9827634565,0.301011,0.224815,0.525826
+084-108-03-036-036,Texas City,city,38,0.399737,0.078696,0.478433
+101-120-03-036-036,Baytown,city,812559552,0.42464,0.27339,0.69803
+036-901-02-036-036,Anahuac ISD,school-district,1913760019,0.6769,0.5,1.1769
+036-902-02-036-036,Barbers Hill ISD,school-district,22717893009,0.813,0.2501,1.0631
+036-903-02-036-036,East Chambers ISD,school-district,1009397638,0.7869,0.325,1.1119
+101-911-02-036-036,Goose Creek CISD,school-district,8349433365,0.745,0.325,1.07
+101-916-02-036-036,La Porte ISD,school-district,769290,0.8022,0.2619,1.0641
+036-201-04-036-036,Chambers County MUD,special-district,569408401,0.22,0.34,0.56
+036-201-09-036-036,Cedar Port Navigation & ID,special-district,4235134776,0.03,0.69,0.72
+036-201-11-036-036,Chambers County Public HD #1,special-district,1917899297,0.20624,0,0.20624
+036-201-15-036-036,Lee Junior College Dist - Barber's Hill **,special-district,22717893009,0.05,0,0.05
+036-201-18-036-036,Chambers-Liberty Co Nav Dist South,special-district,7501980219,0.01017,0,0.01017
+036-201-23-036-036,Trinity Bay Conservation District,special-district,2658080324,0.291133,0,0.291133
+036-201-33-036-036,Chambers Co School Equalization District,special-district,33991288869,0.025554,0,0.025554
+036-201-48-036-036,Riceland Management District *,special-district,87468892,0,0,0
+036-202-04-036-036,Chambers County MUD #3,special-district,71796427,0.9,0.6,1.5
+036-202-09-036-036,Chambers County ID #2,special-district,1104243537,0.2,0.49,0.69
+036-202-18-036-036,Cedar Bayou Navigation District,special-district,5279418894,0.0165,0,0.0165
+036-203-04-036-036,Riceland MUD #1 *,special-district,74441413,0,0,0
+036-203-09-036-036,Chambers County ID #3,special-district,301463274,0.75,0.5,1.25
+036-204-04-036-036,Riceland MUD #2,special-district,1138414,0.8,0,0.8
+036-205-04-036-036,Riceland MUD #3,special-district,11889066,0.8,0,0.8
+036-206-04-036-036,Windcress MUD of Chambers County *,special-district,10807997,0,0,0
+101-202-15-036-036,Lee Junior College District              **,special-district,8350168445,0.18081,0.00625,0.18706
+101-203-15-036-036,San Jacinto Junior College District      **,special-district,769290,0.108529,0.046086,0.154615
+123-202-08-036-036,Jefferson County Drainage District #6,special-district,2353660,0.184235,0,0.184235

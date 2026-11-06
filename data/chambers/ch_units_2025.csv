@@ -1,0 +1,41 @@
+code,name,category,bucket,rate_2025,source,note
+01,Chambers County,County / Countywide,base,0.414192,chamberscountytx.gov/191 (general 0.2844 + I&S 0.076892 + road & bridge 0.0049 + FM/FC 0.048),county road FM & FC fund (CAD 01R) included
+01SE,Chambers County School Equalization,County / Countywide,base,0.025554,Comptroller 2025 special district rates,
+10,City of Mont Belvieu,City,base,0.525826,Comptroller 2025 city rates,
+11,City of Anahuac,City,base,0.587902,Comptroller 2025 city rates,
+22,City of Baytown,City,base,0.69803,Comptroller 2025 city rates,
+97,City of Texas City,City,base,0.478433,Comptroller 2025 city rates,
+12,Beach City (no city tax),City,base,0,not on the Comptroller's 2025 levying list,code inferred from property city (Beach City); not on CAD certified value list
+13,Cove (no city tax),City,base,0,not on the Comptroller's 2025 levying list,code inferred from property city (Cove); not on CAD certified value list
+16,Old River-Winfree (no city tax),City,base,0,not on the Comptroller's 2025 levying list,code inferred from property city (Old River); not on CAD certified value list
+30,Anahuac ISD,ISD,base,1.1769,Comptroller 2025 ISD rates,
+31,Barbers Hill ISD,ISD,base,1.0631,Comptroller 2025 ISD rates,
+32,Goose Creek CISD,ISD,base,1.07,Comptroller 2025 ISD rates,
+33,East Chambers ISD,ISD,base,1.1119,Comptroller 2025 ISD rates,
+34,La Porte ISD,ISD,base,1.0641,Comptroller 2025 ISD rates,
+31BC,Lee College (Barbers Hill branch),College District,base,0.05,Comptroller 2025 special district rates,
+64,Lee College,College District,base,0.18706,Comptroller 2025 special district rates,
+61,San Jacinto College,College District,base,0.154615,Comptroller 2025 special district rates,
+60,Chambers-Liberty Counties Navigation District,Other,base,0.01017,Comptroller 2025 special district rates,
+66,Cedar Bayou Navigation District,Other,base,0.0165,Comptroller 2025 special district rates,
+67,Cedar Port Navigation & Improvement District,Other,base,0.72,Comptroller 2025 special district rates,
+62,Trinity Bay Conservation District,Drainage District,base,0.291133,Comptroller 2025 special district rates,
+68,Jefferson County Drainage District 6,Drainage District,base,0.184235,Comptroller 2025 special district rates,
+65,Chambers County Public Hospital District 1,County / Countywide,base,0.20624,Comptroller 2025 special district rates,
+63,Chambers County MUD 1,Water District (MUD/WCID/UD),base,0.56,Comptroller 2025 special district rates,
+63-3,Chambers County MUD 3,Water District (MUD/WCID/UD),base,1.5,Comptroller 2025 special district rates,
+63-4,Chambers County MUD 4,Water District (MUD/WCID/UD),base,0,not on the Comptroller's 2025 levying list,treated as no levy
+63-5,Windcress MUD of Chambers County,Water District (MUD/WCID/UD),base,0,Comptroller 2025 special district rates (0),
+74,Riceland MUD 1,Water District (MUD/WCID/UD),base,0,Comptroller 2025 special district rates (0),
+75,Riceland MUD 2,Water District (MUD/WCID/UD),base,0.8,Comptroller 2025 special district rates,
+76,Riceland MUD 3,Water District (MUD/WCID/UD),base,0.8,Comptroller 2025 special district rates,
+71,Chambers County Improvement District 2,Management District,mgmt,0.69,Comptroller 2025 special district rates,
+72,Chambers County Improvement District 3,Management District,mgmt,1.25,Comptroller 2025 special district rates,
+77,Riceland Management District,Management District,mgmt,0,Comptroller 2025 special district rates (0),
+73,Baytown TIRZ 1,TIRZ,excluded,0,CAD certified value list,a TIRZ adds no rate
+00,Chambers Appraisal District,Other,excluded,0,,the appraisal district itself
+21,Unknown unit 21 (Baytown area),Other,base,0,not on CAD certified value list,unconfirmed: holds all of Baytown TIRZ 1 and MUD 1 accounts; no rate applied
+23,Unknown unit 23 (Mont Belvieu area),Other,base,0,not on CAD certified value list,unconfirmed: 122 accounts in Barbers Hill ISD; no rate applied
+69,Unknown unit 69 (Beach City area),Other,base,0,not on CAD certified value list,unconfirmed: 187 accounts inside code 12; no rate applied
+70,Unknown unit 70 (Winnie/Stowell),Other,base,0,not on CAD certified value list,unconfirmed: same area as East Chambers ISD; may be Winnie-Stowell Hospital District; no rate applied
+78,Unknown unit 78 (Baytown/Mont Belvieu),Other,base,0,not on CAD certified value list,unconfirmed: 519 accounts in Barbers Hill ISD; no rate applied
