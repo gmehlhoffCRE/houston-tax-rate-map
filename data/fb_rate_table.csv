@@ -22,16 +22,16 @@ FB-C14,Village Of Pleak,City,City,base,610,0.25,,0.25,False
 FB-J07,Houston City College Missouri City,Community College,College District,base,31302,0.098802,,0.098802,False
 FB-J03,Houston City College Stafford,Community College,College District,base,5653,0.098802,,0.098802,False
 FB-J01,Wharton County Jr College,Community College,College District,base,13377,0.14,,0.14,False
-FB-G01,Fort Bend General,County General,County / Countywide,base,386106,0.412,,0.412,False
+FB-G01,Fort Bend General,County General,County / Countywide,base,386110,0.412,,0.412,False
 FB-W43,Fort Bend Improvement District 24,Public,County / Countywide,base,32,1.45,,1.45,False
 FB-W44,Fort Bend County WCID No 12,Drainage District,Drainage District,base,59,0.0,,0.0,False
-FB-D01,Fort Bend Drainage,Drainage District,Drainage District,base,386106,0.01,,0.01,False
+FB-D01,Fort Bend Drainage,Drainage District,Drainage District,base,386110,0.01,,0.01,False
 FB-W20,Willow Fork Drainage,Drainage District,Drainage District,base,12177,0.145,,0.145,False
 FB-R37,Fort Bend ESD 1,Emergency,ESD,base,1339,0.065659,,0.065659,False
 FB-R55,Fort Bend ESD 10,Emergency,ESD,base,4277,0.0964,,0.0964,False
 FB-R41,Fort Bend ESD 2,Emergency,ESD,base,25699,0.095749,,0.095749,False
 FB-R07,Fort Bend ESD 3,Emergency,ESD,base,1697,0.1,,0.1,False
-FB-R05,Fort Bend ESD 4,Emergency,ESD,base,54637,0.096628,,0.096628,False
+FB-R05,Fort Bend ESD 4,Emergency,ESD,base,54641,0.096628,,0.096628,False
 FB-R50,Fort Bend ESD 5,Emergency,ESD,base,27296,0.1,,0.1,False
 FB-R51,Fort Bend ESD 6,Emergency,ESD,base,7909,0.1,,0.1,False
 FB-R52,Fort Bend ESD 7,Emergency,ESD,base,22183,0.098479,,0.098479,False
@@ -42,7 +42,7 @@ FB-T149,Foreign Trade Zone 149,Foreign Trade,Foreign Trade Zone,excluded,1,0.0,,
 FB-S03,Brazos ISD,School,ISD,base,2386,0.92377,,0.92377,False
 FB-S07,Fort Bend ISD,School,ISD,base,188899,1.0569,,1.0569,False
 FB-S13,Katy ISD,School,ISD,base,52574,1.1171,,1.1171,False
-FB-S01,Lamar CISD,School,ISD,base,123222,1.1469,,1.1469,False
+FB-S01,Lamar CISD,School,ISD,base,123226,1.1469,,1.1469,False
 FB-S05,Needville ISD,School,ISD,base,13377,1.2869,,1.2869,False
 FB-S11,Stafford MSD,School,ISD,base,5654,1.002121,,1.002121,False
 FB-SM110,Arcola Municipal Management District 1,Municipal,Management District,mgmt,536,0.84,,0.84,False
