@@ -12,6 +12,19 @@ Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF
 - Built outputs (tiles, shards, local files) and raw downloads lived in the old session's scratchpad and are gone.
   Rebuilding everything takes about 40 minutes (downloads about 10, data about 5, tiles about 15, test about 10).
 
+## First step: move to the new private repo
+
+The user is creating a private repo (e.g. `gmehlhoffCRE/houston-tax-rate-map`, empty). Attach it with `add_repo`
+(push access), then move the folder with its history:
+
+```bash
+cd .claude-skills- && git subtree split -P houston-tax-rate-map -b taxmap-export
+git push https://github.com/gmehlhoffCRE/<new-repo>.git taxmap-export:main
+```
+
+Then work in the new repo (paths in this file drop the `houston-tax-rate-map/` prefix). Being private, it may hold
+built outputs that stay under GitHub's 100 MB per-file limit (use the `.txt` parts); keep the Maps key out of git.
+
 ## What works today
 
 | County | Parcels | Rates | Values | Notes |
