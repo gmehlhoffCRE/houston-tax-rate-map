@@ -54,7 +54,7 @@ for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on th
    the site's file links go through True Prodigy, and extracting them from the site's code was correctly blocked).
 4. **2026 switch** once HCAD's `curr` column is filled: `build_rates.py --year 2026`,
    `build_fortbend_rates.py --rates-file data/fortbend/fb_rates_2026_grid.csv --year 2026`,
-   `build_montgomery_rates.py --year 2026`. Combo ids are stable, so no re-tiling
+   `build_montgomery_rates.py --year 2026`. Combo ids are stable, so no re-tiling.
    Waller: WCAD posts the year's rate PDF on its certified totals page around January (the 2025 list came out
    Jan 16, 2026); parse it to `data/waller/wc_rates_2026.csv` like the 2025 one, then
    `build_waller_rates.py --rates data/waller/wc_rates_2026.csv --year 2026`.
