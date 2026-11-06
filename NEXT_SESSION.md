@@ -50,7 +50,12 @@ Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does no
 
 Coverage (Nov 6): the user has all the counties they care about for now: Harris, Fort Bend, Montgomery, Waller,
 Chambers, Brazoria, Liberty, Galveston. Austin County (the ninth Houston MSA county) may be added later; ignore
-until asked. Delivered build: `houston-8county-tax-map.html` + six .txt parts.
+until asked. Delivered build: `houston-8county-tax-map.html` + eight .txt parts (241 MB).
+
+Load speed (user asked Nov 6, chose to leave as is): the folder build reads every data part before the map
+shows, so county toggles (or a Harris-only default) do not speed opening. Options if it comes up again:
+per-county data/tile parts loaded when a county is switched on; a separate Harris-only build; or the hosted
+build (bucket + Netlify), which fetches only tiles and shards in view.
 
 0. **Galveston County: built Nov 6** (README "Galveston County", `tests/galveston_check.js`). Comptroller's 2025
    special district rows for Galveston are wrong (copied rates); GCAD's own rate sheet is used.
