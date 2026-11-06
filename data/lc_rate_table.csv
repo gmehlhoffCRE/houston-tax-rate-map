@@ -1,0 +1,47 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+LC-GLI,Liberty County,,County / Countywide,base,113909,0.48,,0.48,False
+LC-HD1,Liberty County Hospital District 1,,County / Countywide,base,21730,0.089328,,0.089328,False
+LC-NAVN,Chambers-Liberty Counties Navigation District (North),,Other,base,19776,0.0072,,0.0072,False
+LC-NAVS,Chambers-Liberty Counties Navigation District (South),,Other,base,8903,0.01017,,0.01017,False
+LC-SCL,Cleveland ISD,,ISD,base,51227,1.0241,,1.0241,False
+LC-SDY,Dayton ISD,,ISD,base,23581,0.9572,,0.9572,False
+LC-SDV,Devers ISD,,ISD,base,1255,0.6822,,0.6822,False
+LC-SHA,Hardin ISD,,ISD,base,12396,0.8637,,0.8637,False
+LC-SHD,Hull-Daisetta ISD,,ISD,base,3404,0.7589,,0.7589,False
+LC-SLI,Liberty ISD,,ISD,base,8164,0.97,,0.97,False
+LC-STA,Tarkington ISD,,ISD,base,13882,0.9302,,0.9302,False
+LC-CAM,City of Ames,,City,base,888,0.572059,,0.572059,False
+LC-CCL,City of Cleveland,,City,base,4281,0.63,,0.63,False
+LC-CDS,City of Daisetta,,City,base,703,0.406017,,0.406017,False
+LC-CDY,City of Dayton,,City,base,5287,0.647593,,0.647593,False
+LC-CDL,City of Dayton Lakes,,City,base,1376,0.40514,,0.40514,False
+LC-CDV,City of Devers,,City,base,353,0.199296,,0.199296,False
+LC-CHA,City of Hardin,,City,base,534,0.3803,,0.3803,False
+LC-CLI,City of Liberty,,City,base,5154,0.5838,,0.5838,False
+LC-CMB,City of Mont Belvieu,,City,base,17,0.525826,,0.525826,False
+LC-CPG,City of Plum Grove,,City,base,720,0.267521,,0.267521,False
+LC-CKE,City of Kenefick (no city tax),,City,base,420,0.0,,0.0,False
+LC-DR1,Old River Drainage District 1,,Drainage District,base,6265,0.061178,,0.061178,False
+LC-DR2,Raywood Drainage District 2,,Drainage District,base,1266,0.14633,,0.14633,False
+LC-DR4,Devers Drainage District 4,,Drainage District,base,793,0.126944,,0.126944,False
+LC-ESD1,Liberty County ESD 1,,ESD,base,6453,0.03,,0.03,False
+LC-ESD2,Liberty County ESD 2,,ESD,base,3495,0.1,,0.1,False
+LC-ESD3,Liberty County ESD 3,,ESD,base,6283,0.03,,0.03,False
+LC-ESD7,Liberty County ESD 7,,ESD,base,5235,0.03,,0.03,False
+LC-WD1,Liberty County WCID 1 (Eastgate),,Water District (MUD/WCID/UD),base,2318,0.150644,,0.150644,False
+LC-WD5,Liberty County WCID 5 (Liberty),,Water District (MUD/WCID/UD),base,6175,0.078708,,0.078708,False
+LC-LC1,Liberty County MUD 1,,Water District (MUD/WCID/UD),base,1847,0.35,,0.35,False
+LC-LC9,Liberty County MUD 9,,Water District (MUD/WCID/UD),base,22,0.4,,0.4,False
+LC-LC10,Liberty County MUD 10,,Water District (MUD/WCID/UD),base,315,0.0,,0.0,False
+LC-LC13A,Liberty County MUD 13A,,Water District (MUD/WCID/UD),base,179,1.25,,1.25,False
+LC-LC16,Liberty County MUD 16,,Water District (MUD/WCID/UD),base,7,0.0,,0.0,False
+LC-RR1,River Ranch MUD 1,,Water District (MUD/WCID/UD),base,12,1.0,,1.0,False
+LC-RR2,River Ranch MUD 2,,Water District (MUD/WCID/UD),base,20,0.5,,0.5,False
+LC-RR3,River Ranch MUD 3,,Water District (MUD/WCID/UD),base,1390,1.0,,1.0,False
+LC-RR4,River Ranch MUD 4,,Water District (MUD/WCID/UD),base,1443,1.0,,1.0,False
+LC-RR5,River Ranch MUD 5,,Water District (MUD/WCID/UD),base,10,1.0,,1.0,False
+LC-LCM1,Liberty County Municipal Management District 1,,Management District,mgmt,10735,0.35,,0.35,False
+LC-LCM2,Liberty County Municipal Management District 2,,Management District,mgmt,19,0.0,,0.0,False
+LC-PCM1A,Plum Creek Management District 1A,,Management District,mgmt,11,1.25,,1.25,False
+LC-RRID1,River Ranch Improvement District,,Management District,mgmt,2893,0.5,,0.5,False
+LC-SRMD,Southeast Regional Management District,,Management District,mgmt,5,1.23,,1.23,False

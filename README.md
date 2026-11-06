@@ -201,6 +201,32 @@ then `build_county_data.py` with `--parcels brazoria/br_parcels.gpkg --cama braz
   Brazoria cards show tax per building SF. Values are certified market value; exemptions are not applied.
 - Hosts: brazoriacad.org, api.pcloud.com, def1..def4.pcloud.com.
 
+## Liberty County
+
+Liberty CAD uses the same BIS public layer as Waller (parcels with owner, situs, market value and school /
+city / county codes only), so other units are placed by polygon overlay, listed in `data/liberty/lc_units_2025.csv`:
+
+- hospital, navigation (north/south), ESD 1/2/3/7, drainage 1/2/4 and water districts 1/5: the CAD's own "Special
+  Districts" layer (the code is in each name, e.g. `WATER DIST 5 (WD5)`)
+- MUDs, River Ranch MUDs and improvement district, Liberty County MMD 1 and 2, Plum Creek MD 1A: TCEQ map
+- rates: Liberty CAD's 2025 rate sheet (`data/liberty/lcad_2025_tax_rates.pdf`). Kenefick (CKE) has no city
+  tax; MUD 10, MUD 16 and MMD 2 are not on the sheet (no rate). Southeast Regional MD uses Waller CAD's 1.23.
+
+```bash
+python pipeline/fetch_liberty.py --out liberty        # 156,254 parcel shapes + district layers (about 4 min)
+python pipeline/build_liberty_rates.py --src liberty --units data/liberty/lc_units_2025.csv --out data
+```
+
+then `build_county_data.py` with `--parcels liberty/lc_parcels.gpkg --cama liberty/lc_real_acct.txt` added.
+
+- Accounts are `L` + LCAD property id; combo ids start at 100000. The public layer has about 82% as many
+  accounts as LCAD's 2026 certified real roll (113,909 vs 139,538), and most units overlay at about that ratio.
+- Known gap: TCEQ's Liberty County MMD 1 polygon holds 10,735 accounts; LCAD certifies 32,363. MMD 1 (0.35) is a
+  management district, so the base rate is unaffected, but "Incl. mgmt districts" misses it for about 21,000
+  accounts. No public current boundary was found (LCAD GIS request or the district would have it).
+- No state class or building area (property type "other", no tax per SF). Hosts: services3.arcgis.com,
+  gisweb.tceq.texas.gov, libertycad.com.
+
 ## Running it
 
 ```bash
@@ -264,9 +290,10 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/fetch_waller.py`, `build_waller_rates.py` | Waller County parcels, district overlay and rates |
 | `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
 | `pipeline/fetch_brazoria.py`, `build_brazoria_rates.py` | Brazoria County certified export, parcels and rates |
+| `pipeline/fetch_liberty.py`, `build_liberty_rates.py` | Liberty County parcels, district overlay and rates |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |
-| `tests/` | fixture builder, range-capable static server, browser test, Waller, Chambers and Brazoria browser checks |
+| `tests/` | fixture builder, range-capable static server, browser test, Waller, Chambers, Brazoria and Liberty browser checks |
 | `data/` | 2025 rate outputs (Nov 1, 2026 HCAD export) and the review workbook |
 | `legacy/` | prototype template and its data builder, for reference |
