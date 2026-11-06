@@ -40,7 +40,7 @@ const res=[]; const check=(n,ok,d='')=>{res.push(ok);console.log(`${ok?'PASS':'F
     await sleep(6000); await p.screenshot({path:path.join(shots,name+'.png')});
     return p.evaluate(()=>document.getElementById('drawerHost').innerText);
   };
-  let d=await ask('18096',/18096/,'l2-card-18096');
+  let d=await ask('18096',/LCAD 18096/,'l2-card-18096');
   check('card L18096 rate 2.2120',/2\.2120/.test(d),d.match(/Rate \/ \$100\s*([\d.]+)/)?.[1]);
   check('card shows Liberty County and LCAD property ID 18096',/Liberty County/.test(d)&&/LCAD property ID\s*18096/i.test(d));
   check('card Liberty note',/Liberty CAD/.test(d));

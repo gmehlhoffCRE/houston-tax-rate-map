@@ -190,7 +190,8 @@ zip) lists each property's entities in `APPRAISAL_INFO.TXT`, so no overlay is ne
 
 ```bash
 python pipeline/fetch_brazoria.py --out brazoria     # 2026 certified export (191 MB) + parcels (103 MB)
-python pipeline/build_brazoria_rates.py --src brazoria --units data/brazoria/br_units_2025.csv --out data
+python pipeline/build_pacs_rates.py --prefix br --letter B --offset 90000 --src brazoria \
+  --units data/brazoria/br_units_2025.csv --out data
 ```
 
 then `build_county_data.py` with `--parcels brazoria/br_parcels.gpkg --cama brazoria/br_real_acct.txt` added.
@@ -226,6 +227,29 @@ then `build_county_data.py` with `--parcels liberty/lc_parcels.gpkg --cama liber
   accounts. No public current boundary was found (LCAD GIS request or the district would have it).
 - No state class or building area (property type "other", no tax per SF). Hosts: services3.arcgis.com,
   gisweb.tceq.texas.gov, libertycad.com.
+
+## Galveston County
+
+Galveston CAD posts the same PACS 8.0 certified export as Brazoria on its "Preliminary and Certified Roll Export
+Data" page, and a parcels shapefile (PID = property id) on its "GIS Data" page, so it runs through the same
+builder (`build_pacs_rates.py`, which was `build_brazoria_rates.py`).
+
+- Rates: GCAD's own 2025 rate sheet with entity codes (`data/galveston/gcad_2025_tax_rates.pdf`), parsed into
+  `data/galveston/gv_units_2025.csv` (74 levying units). Do not use the Comptroller's 2025 special district file
+  for Galveston: several of its Galveston rows carry copied rates (seven districts at 0.085476, five at 0.060041).
+- County 0.32266 plus road & flood (RFL) 0.003. Public improvement districts (P codes) are assessments, not
+  rates; TIRZs add no rate. 20 inactive codes appear on property entity lists only (e.g. S15, La Marque ISD,
+  merged into Texas City ISD) and carry no rate. Management districts (Westwood, GC MMD 1, Kemah MD 1, West
+  Ranch) are in the "Incl. mgmt districts" total.
+
+```bash
+python pipeline/fetch_galveston.py --out galveston      # 2026 certified export (138 MB) + parcels (47 MB)
+python pipeline/build_pacs_rates.py --prefix gv --letter G --offset 110000 --src galveston \
+  --units data/galveston/gv_units_2025.csv --out data
+```
+
+then `build_county_data.py` with `--parcels galveston/gv_parcels.gpkg --cama galveston/gv_real_acct.txt` added.
+Accounts are `G` + GCAD property id. 202,064 accounts, 188,039 parcel shapes, building area on 135,659.
 
 ## Running it
 
@@ -289,11 +313,11 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/build_tiles.sh`, `merge_pmtiles.py` | tippecanoe runs and merge into one PMTiles file |
 | `pipeline/fetch_waller.py`, `build_waller_rates.py` | Waller County parcels, district overlay and rates |
 | `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
-| `pipeline/fetch_brazoria.py`, `build_brazoria_rates.py` | Brazoria County certified export, parcels and rates |
+| `pipeline/fetch_brazoria.py`, `fetch_galveston.py`, `build_pacs_rates.py` | Brazoria and Galveston: PACS certified exports, parcels and rates |
 | `pipeline/fetch_liberty.py`, `build_liberty_rates.py` | Liberty County parcels, district overlay and rates |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |
-| `tests/` | fixture builder, range-capable static server, browser test, Waller, Chambers, Brazoria and Liberty browser checks |
+| `tests/` | fixture builder, range-capable static server, browser test, Waller, Chambers, Brazoria, Liberty and Galveston browser checks |
 | `data/` | 2025 rate outputs (Nov 1, 2026 HCAD export) and the review workbook |
 | `legacy/` | prototype template and its data builder, for reference |

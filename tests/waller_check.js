@@ -39,7 +39,7 @@ const res=[]; const check=(n,ok,d='')=>{res.push(ok);console.log(`${ok?'PASS':'F
     await sleep(6000); await p.screenshot({path:path.join(shots,name+'.png')});
     return p.evaluate(()=>document.getElementById('drawerHost').innerText);
   };
-  let d=await ask('44584',/44584/,'w2-card-44584');
+  let d=await ask('44584',/WCAD 44584/,'w2-card-44584');
   check('card W44584 rate 1.7322',/1\.7322/.test(d)); check('card shows Waller County and WCAD property ID 44584',/Waller County/.test(d)&&/WCAD property ID\s*44584/i.test(d));
   check('card Waller note',/Waller-Harris ESD 200 is applied countywide/.test(d));
   check('card breakdown has Hempstead ISD',/Hempstead Isd|Hempstead ISD/i.test(d));

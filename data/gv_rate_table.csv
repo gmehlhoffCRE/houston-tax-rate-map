@@ -1,0 +1,121 @@
+tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+GV-C30,Galveston City,,City,base,33214,0.408687,,0.408687,False
+GV-C31,Texas City,,City,base,28329,0.478433,,0.478433,False
+GV-C32,La Marque City,,City,base,11129,0.418501,,0.418501,False
+GV-C33,Hitchcock City,,City,base,6695,0.54,,0.54,False
+GV-C34,Jamaica Beach City,,City,base,1572,0.147355,,0.147355,False
+GV-C36,Dickinson City,,City,base,9572,0.3682,,0.3682,False
+GV-C37,Friendswood City,,City,base,13388,0.514172,,0.514172,False
+GV-C38,City of Kemah,,City,base,2152,0.1999,,0.1999,False
+GV-C40,League City,,City,base,47312,0.36355,,0.36355,False
+GV-C46,Clear Lake Shores,,City,base,1611,0.0,,0.0,False
+GV-C53,Inactive unit C53,,Other,excluded,0,0.0,,0.0,False
+GV-C54,City of Santa Fe,,City,base,7847,0.23163,,0.23163,False
+GV-C56,Village of Tiki Island,,City,base,1242,0.411738,,0.411738,False
+GV-C58,City of Bayou Vista,,City,base,1265,0.42273,,0.42273,False
+GV-CAD,Galveston Central Appraisal District,,Other,excluded,0,0.0,,0.0,False
+GV-D01,GalCo Drainage Dist #1,,Drainage District,base,21417,0.0665,,0.0665,False
+GV-D02,GalCo Drainage Dist #2,,Drainage District,base,19380,0.04508,,0.04508,False
+GV-D03,Inactive unit D03,,Other,excluded,0,0.0,,0.0,False
+GV-D05,Inactive unit D05,,Other,excluded,0,0.0,,0.0,False
+GV-D08,Gal Co Consolidated Drainage,,Drainage District,base,14883,0.11555,,0.11555,False
+GV-E16,Inactive unit E16,,Other,excluded,0,0.0,,0.0,False
+GV-F01,GalCo Emergency Service #1,,ESD,base,14197,0.085476,,0.085476,False
+GV-F02,GalCo Emergency Service #2,,ESD,base,15990,0.060041,,0.060041,False
+GV-GGA,Galveston County,,County / Countywide,base,201739,0.32266,,0.32266,False
+GV-I01,Inactive unit I01,,Other,excluded,0,0.0,,0.0,False
+GV-I02,Inactive unit I02,,Other,excluded,0,0.0,,0.0,False
+GV-J01,Galveston College,,College District,base,46046,0.1194,,0.1194,False
+GV-J05,College of the Mainland,,College District,base,95261,0.2638,,0.2638,False
+GV-M02,Inactive unit M02,,Other,excluded,0,0.0,,0.0,False
+GV-M03,Inactive unit M03,,Other,excluded,0,0.0,,0.0,False
+GV-M04,Bacliff MUD,,Water District (MUD/WCID/UD),base,4323,0.28,,0.28,False
+GV-M05,Bayview MUD,,Water District (MUD/WCID/UD),base,873,0.3806,,0.3806,False
+GV-M07,San Leon MUD,,Water District (MUD/WCID/UD),base,5750,0.4729,,0.4729,False
+GV-M08,Galveston County MUD No. 6,,Water District (MUD/WCID/UD),base,2753,0.06,,0.06,False
+GV-M09,GC Fresh Water Supply Dist. No. 6,,Water District (MUD/WCID/UD),base,1250,0.194,,0.194,False
+GV-M12,Galveston County MUD No. 12,,Water District (MUD/WCID/UD),base,1685,0.204591,,0.204591,False
+GV-M13,Inactive unit M13,,Other,excluded,0,0.0,,0.0,False
+GV-M14,Inactive unit M14,,Other,excluded,0,0.0,,0.0,False
+GV-M16,Inactive unit M16,,Other,excluded,0,0.0,,0.0,False
+GV-M19,Westwood Management District,,Management District,mgmt,1242,0.92,,0.92,False
+GV-M20,Flamingo Isles MUD,,Water District (MUD/WCID/UD),base,441,0.71,,0.71,False
+GV-M21,Galveston Co Management Dist #1,,Management District,mgmt,91,0.95,,0.95,False
+GV-M22,Bay Colony West MUD,,Water District (MUD/WCID/UD),base,1618,0.86,,0.86,False
+GV-M23,Kemah Management District No. 1,,Management District,mgmt,351,1.0,,1.0,False
+GV-M27,South Shore Harbour MUD No. 7,,Water District (MUD/WCID/UD),base,1352,0.42,,0.42,False
+GV-M30,Galveston County MUD No. 30,,Water District (MUD/WCID/UD),base,335,0.0,,0.0,False
+GV-M31,Galveston County MUD No. 31,,Water District (MUD/WCID/UD),base,939,0.8,,0.8,False
+GV-M32,Galveston County MUD No. 32,,Water District (MUD/WCID/UD),base,881,0.70436,,0.70436,False
+GV-M33,West Ranch Municipal District No. 1,,Management District,mgmt,1394,0.2,,0.2,False
+GV-M35,Galveston County MUD No. 35,,Water District (MUD/WCID/UD),base,238,1.15,,1.15,False
+GV-M36,Galveston County MUD No. 36,,Water District (MUD/WCID/UD),base,728,1.15,,1.15,False
+GV-M39,Galveston County MUD No. 39,,Water District (MUD/WCID/UD),base,1523,0.36,,0.36,False
+GV-M43,Galveston County MUD No. 43,,Water District (MUD/WCID/UD),base,1066,0.45,,0.45,False
+GV-M44,Galveston County MUD No. 44,,Water District (MUD/WCID/UD),base,1020,0.55,,0.55,False
+GV-M45,Galveston County MUD No. 45,,Water District (MUD/WCID/UD),base,1700,0.71,,0.71,False
+GV-M46,Galveston County MUD No. 46,,Water District (MUD/WCID/UD),base,1475,0.545,,0.545,False
+GV-M52,Galveston County MUD No. 52,,Water District (MUD/WCID/UD),base,230,1.39,,1.39,False
+GV-M53,Galveston County MUD No. 53,,Water District (MUD/WCID/UD),base,26,1.0,,1.0,False
+GV-M54,Galveston County MUD No. 54,,Water District (MUD/WCID/UD),base,154,0.54,,0.54,False
+GV-M56,Galveston County MUD No. 56,,Water District (MUD/WCID/UD),base,2799,0.94,,0.94,False
+GV-M57,Galveston County MUD No. 57,,Water District (MUD/WCID/UD),base,288,0.9,,0.9,False
+GV-M58,Galveston County MUD No. 58,,Water District (MUD/WCID/UD),base,24,0.0,,0.0,False
+GV-M59,Galveston County MUD No. 59,,Water District (MUD/WCID/UD),base,1521,0.98,,0.98,False
+GV-M66,Galveston County MUD No. 66,,Water District (MUD/WCID/UD),base,981,0.88,,0.88,False
+GV-M68,Galveston County MUD No. 68,,Water District (MUD/WCID/UD),base,1364,0.864,,0.864,False
+GV-M73,Galveston County MUD No. 73,,Water District (MUD/WCID/UD),base,929,1.1,,1.1,False
+GV-M74,Galveston County MUD No. 74,,Water District (MUD/WCID/UD),base,217,1.5,,1.5,False
+GV-M76,Galveston County MUD No. 76,,Water District (MUD/WCID/UD),base,95,0.93,,0.93,False
+GV-M79,Galveston County MUD No. 79,,Water District (MUD/WCID/UD),base,245,1.0,,1.0,False
+GV-M81,Galveston County MUD No. 81,,Water District (MUD/WCID/UD),base,47,1.0,,1.0,False
+GV-M82,Galveston County MUD No. 82,,Water District (MUD/WCID/UD),base,380,1.15,,1.15,False
+GV-M83,Inactive unit M83,,Other,excluded,0,0.0,,0.0,False
+GV-N01,GC Navigation District No. 1,,Other,base,22821,0.02374,,0.02374,False
+GV-P01,Pid-League City No 1,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P02,Pid-League City No 2,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P03,Pid-League City No 3,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P05,Pid-Park On Clear Creek,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P06,Pid-Campeche Shores,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P07,La Marque Pid #1,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P08,Pid-Bayou Lakes #1,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P09,Pid-Beachside Village,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P10,Pid-Waterman,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P12,Bayou Lakes Pid #2,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P13,Dickinson Bayou Maison Pid No 3,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P14,Dickinson Pid #4 Bayou Bend Ests,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-P15,Mulberry Farms P.I.D.,,Public Improvement District,excluded,0,0.0,,0.0,False
+GV-R01,Inactive unit R01,,Other,excluded,0,0.0,,0.0,False
+GV-RFL,Galveston County Road & Flood,,County / Countywide,base,201738,0.003,,0.003,False
+GV-S10,Galveston ISD,,ISD,base,46049,0.8415,,0.8415,False
+GV-S11,Dickinson ISD,,ISD,base,40625,1.142,,1.142,False
+GV-S12,Friendswood ISD,,ISD,base,13346,1.03,,1.03,False
+GV-S13,High Island ISD,,ISD,base,4733,1.1573,,1.1573,False
+GV-S14,Hitchcock ISD,,ISD,base,9907,1.030097,,1.030097,False
+GV-S15,Inactive unit S15,,Other,excluded,0,0.0,,0.0,False
+GV-S16,Clear Creek ISD,,ISD,base,42626,0.969,,0.969,False
+GV-S17,Santa Fe ISD,,ISD,base,16460,1.1014,,1.1014,False
+GV-S18,Texas City ISD,,ISD,base,28150,1.1543,,1.1543,False
+GV-T01,Reinvestment zone T01,,TIRZ,excluded,809,0.0,,0.0,False
+GV-T02,League City Rz 02 - Saddle Creek Ranch,,TIRZ,excluded,804,0.0,,0.0,False
+GV-T03,League City Rz 03 - Centerpointe,,TIRZ,excluded,488,0.0,,0.0,False
+GV-T04,Hitchcock Rz 01 - Flamingo Isles,,TIRZ,excluded,449,0.0,,0.0,False
+GV-T05,Reinvestment zone T05,,TIRZ,excluded,255,0.0,,0.0,False
+GV-T06,Galveston Rz 12 - N Broadway/Gateway (Closed),,TIRZ,excluded,213,0.0,,0.0,False
+GV-T07,Galveston Rz 13 - Beachtown,,TIRZ,excluded,368,0.0,,0.0,False
+GV-T08,League City Rz 02 Annex - Saddle Creek Ranch,,TIRZ,excluded,31,0.0,,0.0,False
+GV-T09,League City Rz 04 - West Oak,,TIRZ,excluded,1414,0.0,,0.0,False
+GV-T10,Galveston Rz 14 - Galveston Airport  (Closed),,TIRZ,excluded,1206,0.0,,0.0,False
+GV-T11,Texas City Rz 1,,TIRZ,excluded,4065,0.0,,0.0,False
+GV-T12,Texas City Rz 1 (Comm),,TIRZ,excluded,283,0.0,,0.0,False
+GV-T13,Texas City Rz #2,,TIRZ,excluded,0,0.0,,0.0,False
+GV-T15,League City Tirz 05 - Historic District,,TIRZ,excluded,76,0.0,,0.0,False
+GV-T16,La Marque Tirz # 2 Omega Bay,,TIRZ,excluded,278,0.0,,0.0,False
+GV-T17,Reinvestment zone T17,,TIRZ,excluded,175,0.0,,0.0,False
+GV-T18,Reinvestment zone T18,,TIRZ,excluded,176,0.0,,0.0,False
+GV-T19,Friendswood Tirz #2,,TIRZ,excluded,32,0.0,,0.0,False
+GV-T90,Reinvestment zone T90,,TIRZ,excluded,43,0.0,,0.0,False
+GV-W01,WCID No. 1,,Water District (MUD/WCID/UD),base,11136,0.250014,,0.250014,False
+GV-W02,WCID No. 8,,Water District (MUD/WCID/UD),base,2784,0.28,,0.28,False
+GV-W03,WCID No. 12,,Water District (MUD/WCID/UD),base,3564,0.1812,,0.1812,False
+GV-W04,WCID No. 19,,Water District (MUD/WCID/UD),base,608,0.383302,,0.383302,False

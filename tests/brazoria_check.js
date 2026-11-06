@@ -40,7 +40,7 @@ const res=[]; const check=(n,ok,d='')=>{res.push(ok);console.log(`${ok?'PASS':'F
     await sleep(6000); await p.screenshot({path:path.join(shots,name+'.png')});
     return p.evaluate(()=>document.getElementById('drawerHost').innerText);
   };
-  let d=await ask('600116',/600116/,'b2-card-600116');
+  let d=await ask('600116',/BCAD 600116/,'b2-card-600116');
   check('card B600116 rate 2.3546',/2\.3546/.test(d),d.match(/Rate \/ \$100\s*([\d.]+)/)?.[1]);
   check('card shows Brazoria County and BCAD property ID 600116',/Brazoria County/.test(d)&&/BCAD property ID\s*600116/i.test(d));
   check('card Brazoria note',/Brazoria CAD/.test(d));

@@ -39,7 +39,7 @@ const res=[]; const check=(n,ok,d='')=>{res.push(ok);console.log(`${ok?'PASS':'F
     await sleep(6000); await p.screenshot({path:path.join(shots,name+'.png')});
     return p.evaluate(()=>document.getElementById('drawerHost').innerText);
   };
-  let d=await ask('49490',/49490/,'c2-card-49490');
+  let d=await ask('49490',/Chambers CAD 49490/,'c2-card-49490');
   check('card C49490 rate 2.2568',/2\.2568/.test(d),d.match(/Rate \/ \$100\s*([\d.]+)/)?.[1]);
   check('card shows Chambers County and Chambers CAD property ID 49490',/Chambers County/.test(d)&&/Chambers CAD property ID\s*49490/i.test(d));
   check('card Chambers note',/certified roll/.test(d));

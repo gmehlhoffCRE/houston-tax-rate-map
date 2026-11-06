@@ -1,25 +1,28 @@
 """
-Brazoria County rates in the same shape as the Harris pipeline, so build_county_data.py can map it.
+Rates for a county whose appraisal district publishes a PACS 8.0 appraisal export (Brazoria, Galveston), in the
+same shape as the Harris pipeline, so build_county_data.py can map it.
 
 Inputs
-  --src     folder from fetch_brazoria.py (br_certified.zip, br_parcels.zip)
-  --units   data/brazoria/br_units_2025.csv: one row per Brazoria CAD entity code with name, category, bucket and
-            2025 adopted rate. Codes and names come from the export's APPRAISAL_ENTITY_TOTALS.TXT; rates from
-            the Texas Comptroller 2025 rates and levies files, matched by name (a few by hand, see notes)
-Outputs (into --out): br_rate_table.csv, br_combos.csv, br_account_rates.csv.gz, br_combo_registry.csv
-        (into --src): br_real_acct.txt, br_parcels.gpkg
+  --src     folder with <prefix>_certified.zip (the CAD's certified export) and <prefix>_parcels.zip (a parcel
+            shapefile whose --pid-field is the property id); fetch_brazoria.py / fetch_galveston.py write them
+  --units   data/<county>/<prefix>_units_2025.csv: one row per entity code with name, category, bucket and 2025
+            adopted rate. Codes and names come from the export's APPRAISAL_ENTITY_TOTALS.TXT; rates from the
+            Texas Comptroller 2025 rates and levies files, matched by name (hand matches noted)
+  --prefix  br | gv: output file prefix; --letter B | G: account prefix; --offset: first combo id
+Outputs (into --out): <prefix>_rate_table.csv, _combos.csv, _account_rates.csv.gz, _combo_registry.csv
+        (into --src): <prefix>_real_acct.txt, <prefix>_parcels.gpkg
 
-APPRAISAL_INFO.TXT (PACS 8.0 layout) lists each property's entities, so no polygon overlay is needed. Accounts
-are "B" + Brazoria CAD property id (plain ids collide with MCAD's). Values are certified market value; exemptions,
+APPRAISAL_INFO.TXT lists each property's entities, so no polygon overlay is needed. Accounts are the letter +
+the CAD's property id (plain ids collide across counties). Values are certified market value; exemptions,
 ag use value and abatements are not applied. Building area is the sum of main-area improvement segments
 (type codes MA*, plus numeric commercial occupancy codes); garages, porches, patios and paving are left out.
 
-Usage: python build_brazoria_rates.py --src brazoria --units ../data/brazoria/br_units_2025.csv --out ../data
+Usage: python build_pacs_rates.py --prefix br --letter B --offset 90000 --src brazoria \\
+         --units ../data/brazoria/br_units_2025.csv --out ../data
 """
 import argparse, collections, io, os, re, zipfile
 import numpy as np, pandas as pd, geopandas as gpd
 
-BR_OFFSET = 90000
 F = lambda line, a, b: line[a - 1:b].strip()   # 1-based inclusive positions from the PACS layout
 
 
@@ -32,15 +35,22 @@ def num(s, dec=0):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--src", default="brazoria")
+    ap.add_argument("--src", required=True)
     ap.add_argument("--units", required=True)
     ap.add_argument("--out", default="../data")
     ap.add_argument("--year", type=int, default=2025)
+    ap.add_argument("--prefix", required=True, help="file prefix, e.g. br or gv")
+    ap.add_argument("--letter", required=True, help="account prefix letter, e.g. B or G")
+    ap.add_argument("--offset", type=int, required=True, help="first combo id, e.g. 90000")
+    ap.add_argument("--pid-field", default="PID", help="property id field in the parcel shapefile")
     a = ap.parse_args()
+    X = a.prefix
+    UP = X.upper() + "-"
+    L = a.letter
 
     U = pd.read_csv(a.units, dtype={"code": str}, keep_default_na=False).set_index("code")
     U["rate"] = pd.to_numeric(U[f"rate_{a.year}"])
-    z = zipfile.ZipFile(os.path.join(a.src, "br_certified.zip"))
+    z = zipfile.ZipFile(os.path.join(a.src, f"{X}_certified.zip"))
     member = lambda tag: next(n for n in z.namelist() if n.endswith(tag))
 
     # ---- properties (one line per property and owner)
@@ -76,7 +86,7 @@ def main():
     unknown = sorted({e for r in recs.values() for e in r["ents"]} - set(U.index))
     if unknown:
         raise SystemExit(f"entity codes missing from {a.units}: {unknown}")
-    acc = pd.DataFrame({"acct": ["B" + p for p in recs],
+    acc = pd.DataFrame({"acct": [L + p for p in recs],
                         "units": [sorted(e for e in r["ents"] if U.bucket[e] != "excluded" or U.category[e] == "TIRZ")
                                   for r in recs.values()]})
     acc["key"] = acc.units.map("|".join)
@@ -85,18 +95,18 @@ def main():
 
     # ---- rate table
     used = pd.Series([c for us in acc.units for c in us]).value_counts()
-    t = pd.DataFrame({"tax_dist": "BR-" + U.index, "name": U.name.values, "tp_cd": "", "category": U.category.values,
+    t = pd.DataFrame({"tax_dist": UP + U.index, "name": U.name.values, "tp_cd": "", "category": U.category.values,
                       "bucket": U.bucket.values, "accounts": [int(used.get(c, 0)) for c in U.index],
                       "rate_prior": U.rate.values, "rate_current": np.nan, "rate_used": U.rate.values,
                       "missing_rate": False})
-    t.to_csv(os.path.join(a.out, "br_rate_table.csv"), index=False)
+    t.to_csv(os.path.join(a.out, f"{X}_rate_table.csv"), index=False)
     T = t.set_index("tax_dist")
 
     # ---- combos with stable ids
-    reg_path = os.path.join(a.out, "br_combo_registry.csv")
+    reg_path = os.path.join(a.out, f"{X}_combo_registry.csv")
     reg = pd.read_csv(reg_path, keep_default_na=False).set_index("combo_key").combo_id if os.path.exists(reg_path) \
         else pd.Series(dtype=np.int64)
-    nxt = int(reg.max()) + 1 if len(reg) else BR_OFFSET
+    nxt = int(reg.max()) + 1 if len(reg) else a.offset
     keys = acc.key.value_counts(); ids = {}
     for k in keys.index:
         if k in reg.index:
@@ -106,7 +116,7 @@ def main():
     reg.rename("combo_id").rename_axis("combo_key").reset_index().to_csv(reg_path, index=False)
     out = []
     for k, n in keys.items():
-        rr = T.reindex(["BR-" + c for c in k.split("|")])
+        rr = T.reindex([UP + c for c in k.split("|")])
         names = lambda m: "; ".join(sorted(set(rr[m].name)))
         base = rr[rr.bucket == "base"].rate_used.sum(); mgmt = rr[rr.bucket == "mgmt"].rate_used.sum()
         out.append({"combo_id": ids[k], "rate_base": round(base, 6), "rate_mgmt": round(mgmt, 6),
@@ -120,33 +130,33 @@ def main():
                                           zip(rr.index, rr.rate_used, rr.bucket) if b != "excluded"),
                     "rate_total_incl_mgmt": round(base + mgmt, 6), "accounts": int(n), "tax_year": a.year})
     C = pd.DataFrame(out).sort_values("combo_id")
-    C.to_csv(os.path.join(a.out, "br_combos.csv"), index=False)
+    C.to_csv(os.path.join(a.out, f"{X}_combos.csv"), index=False)
     ar = acc.assign(combo_id=acc.key.map(ids)).merge(C[["combo_id", "rate_base", "rate_mgmt", "rate_total_incl_mgmt"]],
                                                      on="combo_id")
     ar[["acct", "combo_id", "rate_base", "rate_mgmt", "rate_total_incl_mgmt"]].to_csv(
-        os.path.join(a.out, "br_account_rates.csv.gz"), index=False, compression="gzip")
+        os.path.join(a.out, f"{X}_account_rates.csv.gz"), index=False, compression="gzip")
 
     # ---- account details (real_acct layout)
     ra = pd.DataFrame({
-        "acct": ["B" + p for p in recs],
+        "acct": [L + p for p in recs],
         "mailto": [r["owner"] + (" ET AL" if r["owners"] > 1 else "") for r in recs.values()],
         "site_addr_1": [r["addr"] for r in recs.values()], "site_addr_2": [r["city"] for r in recs.values()],
         "state_class": [r["cls"] for r in recs.values()], "tot_appr_val": [r["mv"] for r in recs.values()],
         "bld_ar": [bld.get(p, np.nan) or np.nan for p in recs],
         "land_ar": [round(r["acres"] * 43560) if r["acres"] == r["acres"] else np.nan for r in recs.values()],
     })
-    ra.to_csv(os.path.join(a.src, "br_real_acct.txt"), sep="\t", index=False, encoding="latin-1", errors="replace")
+    ra.to_csv(os.path.join(a.src, f"{X}_real_acct.txt"), sep="\t", index=False, encoding="latin-1", errors="replace")
 
     # ---- parcel shapes keyed by account
-    zp = os.path.join(a.src, "br_parcels.zip")
+    zp = os.path.join(a.src, f"{X}_parcels.zip")
     shp = [n for n in zipfile.ZipFile(zp).namelist() if n.lower().endswith(".shp")][0]
-    g = gpd.read_file(f"/vsizip/{os.path.abspath(zp)}/{shp}", columns=["PID"])
-    g = g[pd.to_numeric(g.PID, errors="coerce").fillna(0) > 0]
-    g["acct"] = "B" + g.PID.astype("int64").astype(str)
+    g = gpd.read_file(f"/vsizip/{os.path.abspath(zp)}/{shp}", columns=[a.pid_field])
+    g = g[pd.to_numeric(g[a.pid_field], errors="coerce").fillna(0) > 0]
+    g["acct"] = L + pd.to_numeric(g[a.pid_field]).astype("int64").astype(str)
     g = g[g.geometry.notna()][["acct", "geometry"]]
     g = g.to_crs(2278) if g.crs and g.crs.to_epsg() != 2278 else g
     g["geometry"] = g.geometry.make_valid()
-    g.to_file(os.path.join(a.src, "br_parcels.gpkg"), driver="GPKG")
+    g.to_file(os.path.join(a.src, f"{X}_parcels.gpkg"), driver="GPKG")
     print(f"{len(g):,} parcel shapes, {g.acct.isin(set(acc.acct)).mean():.1%} with a rate; "
           f"{acc.acct.isin(set(g.acct)).mean():.1%} of rated accounts have a shape (personal property, minerals do not)")
     print(f"{len(C):,} combos; building area on {sum(1 for v in ra.bld_ar if v == v):,} properties")
