@@ -48,6 +48,10 @@ Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does no
 
 ## Open items (in priority order)
 
+Coverage (Nov 6): the user has all the counties they care about for now: Harris, Fort Bend, Montgomery, Waller,
+Chambers, Brazoria, Liberty, Galveston. Austin County (the ninth Houston MSA county) may be added later; ignore
+until asked. Delivered build: `houston-8county-tax-map.html` + six .txt parts.
+
 0. **Galveston County: built Nov 6** (README "Galveston County", `tests/galveston_check.js`). Comptroller's 2025
    special district rows for Galveston are wrong (copied rates); GCAD's own rate sheet is used.
 0. **Liberty County: built Nov 6** (README "Liberty County", `tests/liberty_check.js`). Open: a current Liberty
