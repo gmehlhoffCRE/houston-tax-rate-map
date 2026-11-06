@@ -48,6 +48,12 @@ Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does no
 
 ## Open items (in priority order)
 
+**Google Maps key (user plans to set it up the weekend of Nov 7-8, 2026):** a new key just for this project,
+restricted to the Maps JavaScript API, application restriction None (local file), daily quota and a billing
+alert. The user opens the map as `houston-8county-tax-map.html?key=KEY`; no rebuild needed. If they want the
+key built into the file, get it through a secure channel (not chat) and pass `inject.py --key`. Without a key
+the page uses Esri basemaps, and Map / Satellite / Hybrid now works there too.
+
 Coverage (Nov 6): the user has all the counties they care about for now: Harris, Fort Bend, Montgomery, Waller,
 Chambers, Brazoria, Liberty, Galveston. Austin County (the ninth Houston MSA county) may be added later; ignore
 until asked. Delivered build: `houston-8county-tax-map.html` + eight .txt parts (241 MB).
