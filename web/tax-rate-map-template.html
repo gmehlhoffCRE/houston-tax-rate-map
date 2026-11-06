@@ -459,9 +459,20 @@ function buildLayers(){
 
 // ---------------------------------------------------------------- map engines
 const mapEl=$('map'), wrap=$('mapwrap'), tip=$('tip');
-let overlay=null, deckgl=null, gmap=null, baseTile=null;
+let overlay=null, deckgl=null, gmap=null, baseLayers=[], baseType='cresa', attrEl=null;
+// Esri basemaps for the no-key (deck.gl) mode, matching the Google Map / Satellite / Hybrid buttons
+const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/';
+const ESRI_BASE={cresa:[['Canvas/World_Light_Gray_Base',16]],satellite:[['World_Imagery',19]],
+  hybrid:[['World_Imagery',19],['Reference/World_Transportation',19],['Reference/World_Boundaries_and_Places',19]]};
+const ESRI_ATTR={cresa:'Basemap: Esri, HERE, Garmin, OpenStreetMap contributors',
+  satellite:'Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+  hybrid:'Imagery: Esri, Maxar, Earthstar Geographics; labels: Esri, HERE, Garmin, OpenStreetMap contributors'};
+function esriBase(t){
+  return ESRI_BASE[t].map(([svc,mz])=>new deck.TileLayer({id:'base-'+svc,data:ESRI+svc+'/MapServer/tile/{z}/{y}/{x}',maxZoom:mz,tileSize:256,
+    renderSubLayers:p=>{const b=p.tile.boundingBox;return new deck.BitmapLayer(p,{data:null,image:p.data,bounds:[b[0][0],b[0][1],b[1][0],b[1][1]]});}}));
+}
 const BB=META.bbox;
-function refresh(){const l=buildLayers(); if(overlay)overlay.setProps({layers:l}); if(deckgl)deckgl.setProps({layers:[baseTile,...l]});}
+function refresh(){const l=buildLayers(); if(overlay)overlay.setProps({layers:l}); if(deckgl)deckgl.setProps({layers:[...baseLayers,...l]});}
 function viewChanged(gz,bounds){
   const prev=state.gz-1;
   state.gz=gz; state.bounds=bounds;
@@ -473,16 +484,15 @@ function viewChanged(gz,bounds){
 function initDeck(){
   if(deckgl)return;
   if(gmap){mapEl.innerHTML='';overlay&&overlay.setMap(null);overlay=null;gmap=null;}
-  $('mtBar').style.display='none';
+  $('mtBar').style.display='flex';
   const f=new deck.WebMercatorViewport({width:mapEl.clientWidth,height:mapEl.clientHeight}).fitBounds([[BB[0],BB[1]],[BB[2],BB[3]]],{padding:10});
   const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20};
-  baseTile=new deck.TileLayer({id:'base',data:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',maxZoom:16,tileSize:256,
-    renderSubLayers:p=>{const b=p.tile.boundingBox;return new deck.BitmapLayer(p,{data:null,image:p.data,bounds:[b[0][0],b[0][1],b[1][0],b[1][1]]});}});
+  baseLayers=esriBase(baseType);
   const vb=deckBounds;
   deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>isHovering?'pointer':'grab',
-    layers:[baseTile,...buildLayers()],
+    layers:[...baseLayers,...buildLayers()],
     onViewStateChange:({viewState})=>{ debounceView(()=>viewChanged(viewState.zoom+1,vb(viewState))); }});
-  const a=document.createElement('div');a.className='attr';a.textContent='Basemap: Esri, HERE, Garmin, OpenStreetMap contributors';wrap.appendChild(a);
+  attrEl=document.createElement('div');attrEl.className='attr';attrEl.textContent=ESRI_ATTR[baseType];wrap.appendChild(attrEl);
   viewChanged(iv.zoom+1,vb(iv));
 }
 const deckBounds=vs=>new deck.WebMercatorViewport({...vs,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds();
@@ -510,7 +520,9 @@ function startMap(){
     s.async=true;s.onerror=initDeck;document.head.appendChild(s);
   } else initDeck();
 }
-document.querySelectorAll('#mtBar .mt').forEach(b=>b.onclick=()=>{ if(!gmap)return; gmap.setMapTypeId(b.dataset.t);
+document.querySelectorAll('#mtBar .mt').forEach(b=>b.onclick=()=>{ baseType=b.dataset.t;
+  if(gmap) gmap.setMapTypeId(baseType);
+  else if(deckgl){ baseLayers=esriBase(baseType); if(attrEl) attrEl.textContent=ESRI_ATTR[baseType]; refresh(); }
   document.querySelectorAll('#mtBar .mt').forEach(x=>x.classList.toggle('on',x===b)); });
 function flyTo(lon,lat,gz){
   if(gmap){gmap.panTo({lat,lng:lon}); if(gmap.getZoom()<gz)gmap.setZoom(gz);}
