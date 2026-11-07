@@ -251,6 +251,38 @@ python pipeline/build_pacs_rates.py --prefix gv --letter G --offset 110000 --src
 then `build_county_data.py` with `--parcels galveston/gv_parcels.gpkg --cama galveston/gv_real_acct.txt` added.
 Accounts are `G` + GCAD property id. 202,064 accounts, 188,039 parcel shapes, building area on 135,659.
 
+## Industrial layers and drive times
+
+Toggles under "Industrial" in the rail (all off by default except ports and airports), each with hover details:
+
+| Layer | Source |
+|---|---|
+| Flood zones | FEMA flood hazard areas (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
+| Rail lines | US DOT BTS North American Rail Network (owner, trackage rights, subdivision) |
+| Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals (railroad) |
+| Pipelines | Texas Railroad Commission pipelines (operator, commodity, diameter, status) |
+| Transmission lines, substations | HIFLD electric transmission and substations (public copies; the federal HIFLD Open portal closed in 2025) |
+| Water and sewer service areas | Texas PUC water and sewer CCN service areas (provider) |
+| Traffic counts | TxDOT annual average daily traffic stations (shown from Google zoom 11) |
+| Foreign-Trade Zones | International Trade Administration list: grantee locations only, zone sites are not mapped |
+| Ports and airports | Ports (Army Corps list via US DOT BTS) and FAA public-use airports |
+
+Drive time: the "Drive time" button under the basemap toggle, then a click on the map, shades 15/30/45/60-minute
+reach for a car or a truck. It runs in the page on a 200 m speed grid built from TxDOT's Roadway Inventory (road
+class and posted speed, with factors for signals and lower truck speeds; see `pipeline/build_drive_grid.py`).
+It is a screening estimate: free-flow speeds, no live traffic, freeways can be joined anywhere along them.
+OpenStreetMap hosts (Overpass, Geofabrik) were unreachable from the build environment, hence TxDOT.
+
+```bash
+python pipeline/build_layers.py --raw layers_raw --out layers_out       # about 5 min, mostly flood zones
+python pipeline/build_drive_grid.py --raw layers_raw --out layers_out   # about 5 min to fetch 200k road segments
+python pipeline/inject.py --embed out --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
+  --out houston-8county-tax-map.html
+```
+
+Hosted builds serve the same files at `<data>/layers/<key>.json`. Hosts: services.arcgis.com,
+services2.arcgis.com, services6.arcgis.com, gis.rrc.texas.gov. The layers add about 10 MB to the folder build.
+
 ## Running it
 
 ```bash
@@ -315,6 +347,7 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
 | `pipeline/fetch_brazoria.py`, `fetch_galveston.py`, `build_pacs_rates.py` | Brazoria and Galveston: PACS certified exports, parcels and rates |
 | `pipeline/fetch_liberty.py`, `build_liberty_rates.py` | Liberty County parcels, district overlay and rates |
+| `pipeline/build_layers.py`, `build_drive_grid.py` | industrial context layers and the drive-time speed grid |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |

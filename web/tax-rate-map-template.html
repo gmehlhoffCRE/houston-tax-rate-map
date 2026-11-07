@@ -87,7 +87,18 @@ button{font-family:inherit}
 .chk input:focus-visible+.box{box-shadow:0 0 0 3px rgba(255,182,0,.5)}
 .chk .sw{width:18px;height:0;border-top:2.5px solid;flex-shrink:0}
 .chk .sw.dash{border-top-style:dashed}
-.pinned{padding:12px 16px 8px;border-top:1px solid var(--line);flex-shrink:0;background:#fff}
+.pinned{padding:12px 16px 8px;border-top:1px solid var(--line);flex-shrink:0;background:#fff;max-height:52vh;overflow-y:auto}
+.chk .sw.fill{height:10px;border:0;border-radius:2px}
+.chk .sw.dot{width:10px;height:10px;border:0;border-radius:50%;margin:0 4px}
+.dtbar{position:absolute;top:52px;left:12px;z-index:10;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow1);padding:3px;font-size:11.5px;color:var(--ink2);max-width:300px}
+.dtbar .row{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.dtbar .body{padding:6px 6px 4px;display:none}
+.dtbar.open .body{display:block}
+.dtbar .bands{display:flex;gap:4px;margin:6px 0 4px}
+.dtbar .bands span{display:inline-flex;align-items:center;gap:4px;font-size:10.5px}
+.dtbar .bands i{width:12px;height:10px;border-radius:2px;display:inline-block}
+.dtbar .note{font-size:10px;color:#8A93A8;line-height:1.35;margin-top:4px}
+.dtbar .msg{font-size:11px;color:var(--navy);margin-top:4px}
 .pinned .chk{padding:4px 0}
 .rail-f{padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3)}
 .rail-f b{color:var(--navy)}
@@ -241,6 +252,7 @@ button{font-family:inherit}
         <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
         <div id="countyBox"></div>
         <div class="fs-t" style="margin-top:10px">Boundaries</div><div id="layers"></div>
+        <div class="fs-t" style="margin-top:10px">Industrial</div><div id="indLayers"></div>
       </div>
       <div class="rail-f" id="mFoot"><b id="mCount">0</b> <span id="mLab">parcels match</span></div>
     </div>
@@ -252,6 +264,16 @@ button{font-family:inherit}
           <button class="mt on" data-t="cresa">Map</button>
           <button class="mt" data-t="satellite">Satellite</button>
           <button class="mt" data-t="hybrid">Hybrid</button>
+      </div>
+      <div class="dtbar" id="dtBar">
+        <div class="row"><button class="mt" id="dtBtn" title="Estimate how far a car or truck can drive in 15 to 60 minutes">Drive time</button>
+          <span id="dtMode" style="display:none"><button class="mt on" data-m="car">Car</button><button class="mt" data-m="truck">Truck</button></span>
+          <button class="mt" id="dtClear" style="display:none">Clear</button></div>
+        <div class="body">
+          <div class="msg" id="dtMsg">Click the map to set a starting point.</div>
+          <div class="bands"><span><i style="background:rgba(0,30,90,.55)"></i>15</span><span><i style="background:rgba(70,110,200,.45)"></i>30</span><span><i style="background:rgba(255,182,0,.45)"></i>45</span><span><i style="background:rgba(255,226,154,.6)"></i>60 min</span></div>
+          <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere. Use for radius screening, not routing.</div>
+        </div>
       </div>
       <div class="legend" id="legend">
         <div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
@@ -431,6 +453,147 @@ function parcelLayer(){
     onHover,onClick
   });
 }
+// ---------------------------------------------------------------- industrial layers (pipeline/build_layers.py)
+const RAIL_C={UP:[214,160,0],BNSF:[230,110,30],PTRA:[0,128,140],CPKC:[180,40,60],TCT:[110,60,150],GVSR:[60,140,70]};
+const PIPE_C=c=>{c=(c||'').toUpperCase(); return c.includes('NATURAL GAS')?[230,140,30]:c.includes('VOLATILE')?[150,60,170]:c.includes('CRUDE')?[120,72,30]:c.includes('REFINED')?[200,40,40]:[120,120,130];};
+const KV_C=kv=>kv>=345?[200,30,30]:kv>=230?[230,90,30]:kv>=100?[245,150,40]:[245,190,90];
+const FLOOD_C={'Floodway':[20,60,170,130],'100-year':[40,110,210,95],'500-year':[120,170,235,55]};
+const fmtN=n=>n==null?'':Number(n).toLocaleString();
+const IND=[
+  {key:'flood',label:'Flood zones (FEMA)',kind:'fill',sw:'rgba(40,110,210,.45)',tip:p=>`<b>${esc(p.zone)}</b> flood zone`},
+  {key:'rail',label:'Rail lines',kind:'line',sw:'rgb(214,160,0)',color:p=>RAIL_C[p.owner]||[90,90,100],width:p=>2.2,
+    tip:p=>`<b>Rail: ${esc(p.owner||'Unknown owner')}</b>${p.rights?'<br>Trackage rights: '+esc(p.rights):''}${p.SUBDIV?'<br>'+esc(tc(p.SUBDIV)):''}${p.yard?'<br>Yard: '+esc(tc(p.yard)):''}`},
+  {key:'intermodal',label:'Rail intermodal terminals',kind:'point',sw:'rgb(214,160,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
+    tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
+  {key:'pipelines',label:'Pipelines (RRC)',kind:'line',sw:'rgb(230,140,30)',color:p=>PIPE_C(p.commodity),width:p=>p.diameter>=20?2.6:p.diameter>=8?1.7:1.1,
+    tip:p=>`<b>Pipeline: ${esc(tc(p.commodity||'unknown commodity'))}</b><br>${esc(p.operator||'')}${p.diameter?'<br>'+p.diameter+' in. diameter':''}${p.status?' · '+esc(p.status):''}`},
+  {key:'power',label:'Transmission lines',kind:'line',sw:'rgb(200,30,30)',color:p=>KV_C(p.kv||0),width:p=>(p.kv||0)>=345?3:(p.kv||0)>=230?2.3:1.6,
+    tip:p=>`<b>Transmission line${p.kv>0?': '+p.kv+' kV':''}</b><br>${esc(tc(p.owner||''))}`},
+  {key:'substations',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C(p.kv||0),radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',
+    tip:p=>`<b>Substation${p.kv>0?' · '+p.kv+' kV':''}</b><br>${esc(p.name||'')}`},
+  {key:'water_ccn',label:'Water service areas (PUC)',kind:'outline',sw:'rgb(0,140,200)',color:()=>[0,140,200],labelZ:12,
+    tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
+  {key:'sewer_ccn',label:'Sewer service areas (PUC)',kind:'outline',sw:'rgb(120,80,40)',color:()=>[120,80,40],dash:true,labelZ:12,
+    tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
+  {key:'aadt',label:'Traffic counts (TxDOT, zoom in)',kind:'point',sw:'rgb(0,128,128)',color:()=>[0,128,128],radius:p=>Math.min(6,1.5+Math.sqrt((p.aadt||0)/5000)),labelZ:12,minZ:10,
+    text:p=>p.aadt>=1000?Math.round(p.aadt/1000)+'k':String(p.aadt||''),tip:p=>`<b>${fmtN(p.aadt)}</b> vehicles a day<br>TxDOT ${p.year||''} annual average · station ${esc(p.station||'')}`},
+  {key:'ftz',label:'Foreign-Trade Zones',kind:'point',sw:'rgb(27,143,106)',color:()=>[27,143,106],radius:8,labelZ:7,text:p=>'FTZ '+p.zone,
+    tip:p=>`<b>Foreign-Trade Zone ${esc(String(p.zone))}</b><br>${esc(p.name||'')}<br>${esc(p.location||'')}<br><span style="color:#8A93A8">Grantee location; zone sites are not mapped</span>`},
+  {key:'ports',label:'Ports and airports',kind:'point',sw:'rgb(0,30,90)',on:true,color:p=>p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.major?7:4,
+    labelZ:7,labelMinor:11,text:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
+];
+const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on]));
+async function ensureInd(key){
+  if(indData[key]!==undefined) return;
+  indData[key]=null;
+  try{ indData[key]=EMB?(EMB.layers&&EMB.layers[key])||null:await getJSON(CONFIG.data+'layers/'+key+'.json'); }catch(e){ indData[key]=null; }
+  refresh();
+}
+function indTip(info){
+  if(!info.object){tip.style.display='none';return;}
+  const o=IND.find(x=>info.layer.id.startsWith('ind-'+x.key+'-')); if(!o) return;
+  tip.innerHTML=o.tip(info.object.properties||{});
+  tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px';
+}
+function indLayers(dz){
+  const L=[];
+  for(const o of IND){
+    const d=indData[o.key];
+    if(!state.ind[o.key]||!d||!d.features||(o.minZ&&dz<o.minZ)) continue;
+    const id='ind-'+o.key+'-';
+    if(o.kind==='fill') L.push(new deck.GeoJsonLayer({id:id+'f',data:d,filled:true,stroked:false,pickable:true,onHover:indTip,
+      getFillColor:f=>FLOOD_C[f.properties.zone]||[40,110,210,80]}));
+    else if(o.kind==='outline'){
+      L.push(new deck.GeoJsonLayer({id:id+'o',data:d,filled:true,stroked:true,pickable:true,onHover:indTip,getFillColor:[0,0,0,0],
+        getLineColor:[...o.color(),200],getLineWidth:1.6,lineWidthUnits:'pixels',...(o.dash?{getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}:{})}));
+    }
+    else if(o.kind==='line'){
+      L.push(new deck.GeoJsonLayer({id:id+'c',data:d,stroked:true,filled:false,pickable:false,getLineColor:[255,255,255,170],getLineWidth:f=>o.width(f.properties)+2,lineWidthUnits:'pixels'}));
+      L.push(new deck.GeoJsonLayer({id:id+'l',data:d,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],
+        getLineColor:f=>[...o.color(f.properties),230],getLineWidth:f=>o.width(f.properties),lineWidthUnits:'pixels'}));
+    }
+    else if(o.kind==='point'){
+      const r=typeof o.radius==='function'?o.radius:()=>o.radius;
+      const vis=o.key==='ports'?d.features.filter(f=>f.properties.major||dz>=o.labelMinor):d.features;
+      L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,
+        getFillColor:f=>[...o.color(f.properties),220],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
+        getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
+      if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'t',data:vis,getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),
+        getSize:o.key==='aadt'||o.key==='substations'?10:12,getColor:f=>[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:[0,-14],
+        fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
+        extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:0}));
+    }
+  }
+  return L;
+}
+
+// ---------------------------------------------------------------- drive time (pipeline/build_drive_grid.py)
+const DT={open:false,mode:'car',origin:null,grid:null,img:null};
+const DT_BANDS=[[900,[0,30,90,140]],[1800,[70,110,200,115]],[2700,[255,182,0,115]],[3600,[255,226,154,150]]];
+async function dtGrid(){
+  if(DT.grid) return DT.grid;
+  const g=EMB?(EMB.layers&&EMB.layers.drivegrid):await getJSON(CONFIG.data+'layers/drivegrid.json');
+  if(!g) throw new Error('drive-time data is not in this build');
+  const dec=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0));
+  DT.grid={...g,car:dec(g.car),truck:dec(g.truck)}; return DT.grid;
+}
+function dtSolve(G,lon,lat,mode){
+  const {nx,ny}=G, sp=G[mode], N=nx*ny, T=new Float64Array(N).fill(Infinity), cell=G.cell_m, TMAX=3600;
+  const x0=Math.floor((lon-G.bbox[0])/G.dx), y0=Math.floor((lat-G.bbox[1])/G.dy);
+  if(x0<0||y0<0||x0>=nx||y0>=ny) return null;
+  // binary min-heap of (time, index)
+  let hk=new Float64Array(1<<16), hv=new Int32Array(1<<16), hn=0;
+  const push=(k,v)=>{ if(hn>=hk.length){const a=new Float64Array(hk.length*2);a.set(hk);hk=a;const b=new Int32Array(hv.length*2);b.set(hv);hv=b;}
+    let i=hn++; while(i>0){const p=(i-1)>>1; if(hk[p]<=k)break; hk[i]=hk[p];hv[i]=hv[p];i=p;} hk[i]=k;hv[i]=v; };
+  const pop=()=>{ const v=hv[0],k=hk[0]; hn--; if(hn>0){const lk=hk[hn],lv=hv[hn]; let i=0; for(;;){let c=2*i+1; if(c>=hn)break; if(c+1<hn&&hk[c+1]<hk[c])c++; if(hk[c]>=lk)break; hk[i]=hk[c];hv[i]=hv[c];i=c;} hk[i]=lk;hv[i]=lv;} return [k,v]; };
+  const s0=y0*nx+x0; T[s0]=0; push(0,s0);
+  const NB=[[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,Math.SQRT2],[1,-1,Math.SQRT2],[-1,1,Math.SQRT2],[-1,-1,Math.SQRT2]];
+  while(hn){
+    const [t,i]=pop(); if(t>T[i]) continue; if(t>TMAX) break;
+    const x=i%nx, y=(i-x)/nx, va=sp[i]/3.6;
+    for(const [ddx,ddy,m] of NB){
+      const xx=x+ddx, yy=y+ddy; if(xx<0||yy<0||xx>=nx||yy>=ny) continue;
+      const j=yy*nx+xx, d=cell*m, nt=t+0.5*d/va+0.5*d/(sp[j]/3.6);
+      if(nt<T[j]){T[j]=nt; push(nt,j);}
+    }
+  }
+  return T;
+}
+function dtImage(G,T){
+  const cv=document.createElement('canvas'); cv.width=G.nx; cv.height=G.ny;
+  const ctx=cv.getContext('2d'), im=ctx.createImageData(G.nx,G.ny), px=im.data;
+  for(let y=0;y<G.ny;y++){ const row=(G.ny-1-y)*G.nx; for(let x=0;x<G.nx;x++){ const t=T[y*G.nx+x]; if(!(t<=3600)) continue;
+    const c=DT_BANDS.find(b=>t<=b[0])[1], o=(row+x)*4; px[o]=c[0];px[o+1]=c[1];px[o+2]=c[2];px[o+3]=c[3]; } }
+  ctx.putImageData(im,0,0); return cv;
+}
+async function dtRun(lon,lat){
+  $('dtMsg').textContent='Calculating...';
+  try{
+    const G=await dtGrid(); await new Promise(r=>setTimeout(r,20));
+    const t0=performance.now(), T=dtSolve(G,lon,lat,DT.mode);
+    if(!T){ $('dtMsg').textContent='That point is outside the drive-time area.'; return; }
+    DT.origin=[lon,lat]; DT.img=dtImage(G,T);
+    $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from the marked point. Click elsewhere to move it.`;
+    $('dtClear').style.display=''; window.__dtMs=Math.round(performance.now()-t0); refresh();
+  }catch(e){ $('dtMsg').textContent='Drive time unavailable: '+e.message; }
+}
+function dtLayers(){
+  if(!DT.img||!DT.grid) return [];
+  const b=DT.grid.bbox;
+  return [new deck.BitmapLayer({id:'dt-img',image:DT.img,bounds:[b[0],b[1],b[2],b[3]],_imageCoordinateSystem:deck.COORDINATE_SYSTEM.LNGLAT,opacity:1,pickable:false}),
+    new deck.ScatterplotLayer({id:'dt-origin',data:[DT.origin],getPosition:d=>d,getRadius:7,radiusUnits:'pixels',getFillColor:[255,182,0,255],
+      stroked:true,getLineColor:[0,30,90,255],getLineWidth:2.5,lineWidthUnits:'pixels'})];
+}
+function mapClick(info){
+  if(DT.open&&info&&info.coordinate){ dtRun(info.coordinate[0],info.coordinate[1]); return true; }
+  return false;
+}
+$('dtBtn').onclick=()=>{ DT.open=!DT.open; $('dtBar').classList.toggle('open',DT.open); $('dtBtn').classList.toggle('on',DT.open);
+  $('dtMode').style.display=DT.open?'':'none'; if(!DT.open){ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; refresh(); }
+  else { $('dtMsg').textContent='Click the map to set a starting point.'; dtGrid().catch(e=>{$('dtMsg').textContent='Drive time unavailable: '+e.message;}); } };
+document.querySelectorAll('#dtMode .mt').forEach(b=>b.onclick=()=>{ DT.mode=b.dataset.m; document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x===b)); if(DT.origin) dtRun(...DT.origin); });
+$('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; $('dtMsg').textContent='Click the map to set a starting point.'; refresh(); };
+
 const boundaryData={};
 async function ensureBoundary(key){
   if(boundaryData[key]!==undefined) return;
@@ -439,8 +602,9 @@ async function ensureBoundary(key){
   refresh();
 }
 function buildLayers(){
-  const L=[parcelLayer()];
   const dz=state.gz-1;
+  const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
+  const L=[parcelLayer(),...under,...dtLayers()];
   for(const o of OVERLAYS){
     const d=boundaryData[o.key];
     if(!state.layers[o.key]||!d) continue;
@@ -454,7 +618,7 @@ function buildLayers(){
       outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
       extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='isd'?3:o.key==='city'?2:1}));
   }
-  return L;
+  return [...L,...over];
 }
 
 // ---------------------------------------------------------------- map engines
@@ -489,7 +653,7 @@ function initDeck(){
   const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20};
   baseLayers=esriBase(baseType);
   const vb=deckBounds;
-  deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>isHovering?'pointer':'grab',
+  deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
     layers:[...baseLayers,...buildLayers()],
     onViewStateChange:({viewState})=>{ debounceView(()=>viewChanged(viewState.zoom+1,vb(viewState))); }});
   attrEl=document.createElement('div');attrEl.className='attr';attrEl.textContent=ESRI_ATTR[baseType];wrap.appendChild(attrEl);
@@ -504,7 +668,7 @@ function initGoogle(){
     styles:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'poi.business',stylers:[{visibility:'off'}]}]});
   gmap.mapTypes.set('cresa',new google.maps.StyledMapType(CRESA_STYLES,{name:'Map'})); gmap.setMapTypeId('cresa');
   gmap.fitBounds({west:BB[0],south:BB[1],east:BB[2],north:BB[3]},0);
-  overlay=new deck.GoogleMapsOverlay({interleaved:false,layers:buildLayers()}); overlay.setMap(gmap); window.__gmap=gmap; window.__ovl=overlay;
+  overlay=new deck.GoogleMapsOverlay({interleaved:false,layers:buildLayers(),onClick:mapClick}); overlay.setMap(gmap); window.__gmap=gmap; window.__ovl=overlay;
   gmap.addListener('idle',()=>{const b=gmap.getBounds(); if(!b)return; const ne=b.getNorthEast(),sw=b.getSouthWest(); viewChanged(gmap.getZoom(),[sw.lng(),sw.lat(),ne.lng(),ne.lat()]);});
   $('mtBar').style.display='flex';
 }
@@ -551,6 +715,7 @@ function onHover(info){
   tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px';
 }
 function onClick(info){
+  if(mapClick(info)) return true;
   if(!info.object){ if(state.sel!=null) select(null); return; }
   const p=info.object.properties||{};
   if(p.a==null){ if(info.coordinate) flyTo(info.coordinate[0],info.coordinate[1],15); return; }
@@ -694,6 +859,15 @@ for(const o of OVERLAYS){
   l.querySelector('input').onchange=e=>{state.layers[o.key]=e.target.checked; if(e.target.checked) ensureBoundary(o.key); refresh();};
   layersEl.appendChild(l);
   if(o.on) ensureBoundary(o.key);
+}
+const indEl=$('indLayers');
+for(const o of IND){
+  const l=document.createElement('label'); l.className='chk';
+  const sw=o.kind==='fill'?`<span class="sw fill" style="background:${o.sw}"></span>`:o.kind==='point'?`<span class="sw dot" style="background:${o.sw}"></span>`:`<span class="sw ${o.dash?'dash':''}" style="border-color:${o.sw}"></span>`;
+  l.innerHTML=`<input type="checkbox" ${o.on?'checked':''}><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>${sw}<span>${o.label}</span>`;
+  l.querySelector('input').onchange=e=>{state.ind[o.key]=e.target.checked; if(e.target.checked) ensureInd(o.key); refresh();};
+  indEl.appendChild(l);
+  if(o.on) ensureInd(o.key);
 }
 $('fClear').onclick=()=>{
   Object.assign(state,{rate:[RMIN,RMAX],types:[],isd:[],city:[],water:[],val:[null,null]}); state.binsOff.clear();
@@ -882,7 +1056,7 @@ function renderDrawer(p){
 // ---------------------------------------------------------------- go
 rebuildColors(); rebuildFilters(); syncRate(); updateStats();
 startMap();
-window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos};
+window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos,dtRun,DT};
 })();
 </script>
 </body>

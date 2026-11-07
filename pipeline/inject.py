@@ -29,6 +29,8 @@ ap.add_argument("--shards", default="shards/")
 ap.add_argument("--data", default="data/")
 ap.add_argument("--out", default="index.html")
 ap.add_argument("--embed", metavar="OUT_DIR")
+ap.add_argument("--layers", metavar="DIR", help="industrial layers from build_layers.py / build_drive_grid.py "
+                "(default <embed>/web/data/layers); hosted builds serve them at <data>layers/")
 ap.add_argument("--chunk-mb", type=float, default=95, help="with --split: max size of each data file in MB")
 ap.add_argument("--part-ext", default="js", help="with --split: data file extension; 'txt' avoids download blocks on .js")
 ap.add_argument("--split", action="store_true",
@@ -55,8 +57,10 @@ if a.embed:
         print(f"note: {len(records):,} accounts; expect a file over 100 MB that takes several seconds to open.")
     bounds = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f))
               for f in glob.glob(os.path.join(o, "web", "data", "boundaries", "*.json"))}
+    ldir = a.layers or os.path.join(o, "web", "data", "layers")
+    layers = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f)) for f in glob.glob(os.path.join(ldir, "*.json"))}
     bundle = {"combos": json.load(open(os.path.join(o, "web", "data", "combos.json"))),
-              "boundaries": bounds, "cols": cols}
+              "boundaries": bounds, "layers": layers, "cols": cols}
     data_b64 = base64.b64encode(gzip.compress(json.dumps(bundle, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode(), 9)).decode()
     lean = os.path.join(o, "bucket", "harris_parcels_lean.pmtiles")
     tpath = lean if os.path.exists(lean) else os.path.join(o, "bucket", "harris_parcels.pmtiles")
@@ -79,7 +83,7 @@ if a.embed:
         embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
                  f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
     cfg.update({"embed": True, "tiles": "", "shards": "", "data": ""})
-    print(f"embedded {len(records):,} account records, {len(bounds)} boundary layers, "
+    print(f"embedded {len(records):,} account records, {len(bounds)} boundary layers, {len(layers)} industrial layers, "
           f"{len(tiles_b64) * 3 // 4 / 1e6:.1f} MB of tiles")
 t = t.replace("__MARK__", mark).replace("__CONFIG__", json.dumps(cfg)).replace("<!--__EMBED__-->", embed)
 os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
