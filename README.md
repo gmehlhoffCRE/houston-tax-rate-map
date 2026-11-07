@@ -273,6 +273,11 @@ class and posted speed, with factors for signals and lower truck speeds; see `pi
 It is a screening estimate: free-flow speeds, no live traffic, freeways can be joined anywhere along them.
 OpenStreetMap hosts (Overpass, Geofabrik) were unreachable from the build environment, hence TxDOT.
 
+The starting point can also be typed: the address box in the drive time panel matches parcel addresses in the
+loaded counties (works offline) and Esri's World Geocoder (`geocode.arcgis.com`, any address, intersection or
+place; free for lookups that are not stored, no key). A parcel's drawer has a "Drive time from here" button.
+Water (bays, lakes, rivers, the Gulf) is impassable except where a road or bridge crosses it.
+
 ```bash
 python pipeline/build_layers.py --raw layers_raw --out layers_out       # about 5 min, mostly flood zones
 python pipeline/build_drive_grid.py --raw layers_raw --out layers_out   # about 5 min to fetch 200k road segments

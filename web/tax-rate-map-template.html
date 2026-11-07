@@ -99,6 +99,11 @@ button{font-family:inherit}
 .dtbar .bands i{width:12px;height:10px;border-radius:2px;display:inline-block}
 .dtbar .note{font-size:10px;color:#8A93A8;line-height:1.35;margin-top:4px}
 .dtbar .msg{font-size:11px;color:var(--navy);margin-top:4px}
+.dtbar.open{width:300px;box-sizing:border-box}
+.dtq{position:relative;margin:0 0 2px}
+.dtq input{width:100%;box-sizing:border-box;height:30px;border:1px solid var(--line);border-radius:4px;padding:0 8px;font-size:12px;color:var(--ink);outline:none;background:#fff}
+.dtq input:focus{border-color:var(--navy)}
+.dtq .sres{top:calc(100% + 3px);left:0;right:0;max-height:260px}
 .pinned .chk{padding:4px 0}
 .rail-f{padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3)}
 .rail-f b{color:var(--navy)}
@@ -155,7 +160,8 @@ button{font-family:inherit}
 .brk .tot{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:4px;padding-top:7px;font-size:12px;font-weight:700;color:var(--navy)}
 .note{padding:10px 12px;background:var(--blueSofter);border:1px solid var(--line);border-radius:6px;font-size:12px;line-height:1.5;color:var(--ink2);margin-top:8px}
 .note.gold{background:#FFF8E6;border-color:var(--goldSoft)}
-.d-act{padding:14px;border-top:1px solid var(--line);display:flex;gap:8px}
+.d-act{padding:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
+.d-act .dthere{flex-basis:100%}
 .btn{height:34px;padding:0 14px;border-radius:6px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;letter-spacing:-.1px;white-space:nowrap;text-decoration:none;flex:1}
 .btn.primary{background:var(--navy);color:#fff;border:1px solid var(--navy)}
 .btn.primary:hover{background:var(--navyLight)}
@@ -270,7 +276,8 @@ button{font-family:inherit}
           <span id="dtMode" style="display:none"><button class="mt on" data-m="car">Car</button><button class="mt" data-m="truck">Truck</button></span>
           <button class="mt" id="dtClear" style="display:none">Clear</button></div>
         <div class="body">
-          <div class="msg" id="dtMsg">Click the map to set a starting point.</div>
+          <div class="dtq"><input id="dtQ" placeholder="Enter an address or place" aria-label="Drive time from an address" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="dtRes"><div class="sres" id="dtRes" role="listbox"></div></div>
+          <div class="msg" id="dtMsg">Enter an address or click the map to set a starting point.</div>
           <div class="bands"><span><i style="background:rgba(0,30,90,.55)"></i>15</span><span><i style="background:rgba(70,110,200,.45)"></i>30</span><span><i style="background:rgba(255,182,0,.45)"></i>45</span><span><i style="background:rgba(255,226,154,.6)"></i>60 min</span></div>
           <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere; water crossed only on roads and bridges. Use for radius screening, not routing.</div>
         </div>
@@ -572,14 +579,15 @@ function dtImage(G,T){
     const c=DT_BANDS.find(b=>t<=b[0])[1], o=(row+x)*4; px[o]=c[0];px[o+1]=c[1];px[o+2]=c[2];px[o+3]=c[3]; } }
   ctx.putImageData(im,0,0); return cv;
 }
-async function dtRun(lon,lat){
+const DT_START='Enter an address or click the map to set a starting point.';
+async function dtRun(lon,lat,label){
   $('dtMsg').textContent='Calculating...';
   try{
     const G=await dtGrid(); await new Promise(r=>setTimeout(r,20));
     const t0=performance.now(), T=dtSolve(G,lon,lat,DT.mode);
     if(!T){ $('dtMsg').textContent='That point is outside the drive-time area or open water.'; return; }
-    DT.origin=[lon,lat]; DT.img=dtImage(G,T);
-    $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from the marked point. Click elsewhere to move it.`;
+    DT.origin=[lon,lat]; DT.label=label||''; DT.img=dtImage(G,T);
+    $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from ${label||'the marked point'}. Click the map or enter an address to move it.`;
     $('dtClear').style.display=''; window.__dtMs=Math.round(performance.now()-t0); refresh();
   }catch(e){ $('dtMsg').textContent='Drive time unavailable: '+e.message; }
 }
@@ -591,14 +599,98 @@ function dtLayers(){
       stroked:true,getLineColor:[0,30,90,255],getLineWidth:2.5,lineWidthUnits:'pixels'})];
 }
 function mapClick(info){
-  if(DT.open&&info&&info.coordinate){ dtRun(info.coordinate[0],info.coordinate[1]); return true; }
+  if(DT.open&&info&&info.coordinate){ dtCloseRes(); dtRun(info.coordinate[0],info.coordinate[1]); return true; }
   return false;
 }
+function dtOpen(){ if(!DT.open) $('dtBtn').onclick(); }
 $('dtBtn').onclick=()=>{ DT.open=!DT.open; $('dtBar').classList.toggle('open',DT.open); $('dtBtn').classList.toggle('on',DT.open);
   $('dtMode').style.display=DT.open?'':'none'; if(!DT.open){ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; refresh(); }
-  else { $('dtMsg').textContent='Click the map to set a starting point.'; dtGrid().catch(e=>{$('dtMsg').textContent='Drive time unavailable: '+e.message;}); } };
-document.querySelectorAll('#dtMode .mt').forEach(b=>b.onclick=()=>{ DT.mode=b.dataset.m; document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x===b)); if(DT.origin) dtRun(...DT.origin); });
-$('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; $('dtMsg').textContent='Click the map to set a starting point.'; refresh(); };
+  else { $('dtMsg').textContent=DT_START; dtGrid().catch(e=>{$('dtMsg').textContent='Drive time unavailable: '+e.message;}); } };
+document.querySelectorAll('#dtMode .mt').forEach(b=>b.onclick=()=>{ DT.mode=b.dataset.m; document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x===b)); if(DT.origin) dtRun(DT.origin[0],DT.origin[1],DT.label); });
+$('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtQ').value=''; $('dtClear').style.display='none'; $('dtMsg').textContent=DT_START; refresh(); };
+
+// Drive time from an address: parcel addresses in the loaded counties (offline), then Esri's World Geocoder for
+// anything else (any address, intersection or place; free for lookups that are not stored, no key needed).
+const GEO='https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
+const GEO_AREA='-96.75,28.55,-94.05,30.85';
+const dtQ=$('dtQ'), dtRes=$('dtRes'); let dtSeq=0, dtHits=[], dtAct=-1, dtT=null;
+function dtCloseRes(){ dtRes.classList.remove('open'); dtQ.setAttribute('aria-expanded','false'); dtAct=-1; }
+function dtShowMsg(m){ dtRes.innerHTML=`<div class="smsg">${esc(m)}</div>`; dtRes.classList.add('open'); }
+function dtLocal(q){
+  if(typeof EMB==='undefined'||!EMB) return [];
+  const qw=words(q); if(!qw.length||!qw.some(w=>w.length>=3&&!STOP.has(w))) return [];
+  const C=EMB.cols, pre=qw.map(w=>' '+w), joined=' '+qw.join(' '), out=[];
+  if(!EMB.text){ EMB.text=new Array(EMB.n); for(let i=0;i<EMB.n;i++) EMB.text[i]=' '+words(C.owner[i]+' '+C.addr[i]+' '+C.acct[i]).join(' ')+' '; }
+  for(let i=0;i<EMB.n&&out.length<4;i++){
+    const t=EMB.text[i]; if(!pre.every(w=>t.includes(w))) continue;
+    if(!(' '+words(C.addr[i]).join(' ')).startsWith(joined)) continue;
+    const r=EMB.row(i); if(r[9]==null) continue;
+    const text=r[2]+(r[3]?', '+r[3]:''); if(out.some(h=>h.text===text)) continue;   // condos, multi-account sites
+    out.push({src:'parcel',text,sub:'Parcel · '+acctTag(r[0]),lon:r[9]/1e5,lat:r[10]/1e5});
+  }
+  return out;
+}
+async function dtGeoSuggest(q){
+  const u=GEO+'suggest?'+new URLSearchParams({text:q,location:'-95.37,29.76',searchExtent:GEO_AREA,countryCode:'USA',maxSuggestions:'6',f:'json'});
+  const j=await (await fetch(u)).json();
+  return (j.suggestions||[]).filter(x=>!x.isCollection).map(x=>({src:'esri',text:x.text,sub:'Address search (Esri)',magicKey:x.magicKey}));
+}
+async function dtGeocode(q,magicKey){
+  const prm={SingleLine:q,maxLocations:'1',outFields:'Match_addr',searchExtent:GEO_AREA,countryCode:'USA',f:'json'};
+  if(magicKey) prm.magicKey=magicKey;
+  const j=await (await fetch(GEO+'findAddressCandidates?'+new URLSearchParams(prm))).json();
+  const c=(j.candidates||[])[0]; return c?{lon:c.location.x,lat:c.location.y,text:c.address||q}:null;
+}
+async function dtSearch(q){
+  const seq=++dtSeq, raw=q.trim();
+  if(raw.length<4){ dtCloseRes(); return; }
+  const local=dtLocal(raw); let geo=[], err=false;
+  if(local.length) dtRender(local,true);
+  try{ geo=await dtGeoSuggest(raw); }catch(e){ err=true; }
+  if(seq!==dtSeq) return;
+  const seen=new Set(local.map(h=>words(h.text).slice(0,3).join(' ')));
+  dtRender([...local,...geo.filter(h=>!seen.has(words(h.text).slice(0,3).join(' ')))],false,err);
+}
+function dtRender(list,pending,err){
+  dtHits=list.slice(0,8); dtAct=-1;
+  if(!dtHits.length){ dtShowMsg(pending?'Searching...':err?'Address search is offline. Parcel addresses in the loaded counties still work, or click the map.':'No matches. Try adding the city.'); return; }
+  dtRes.innerHTML=dtHits.map((h,i)=>`<button class="sr" role="option" data-i="${i}"><div class="a">${esc(h.text)}</div><div class="b">${esc(h.sub)}</div></button>`).join('')
+    +(err?'<div class="smsg">Address search (Esri) is offline; showing parcel addresses only.</div>':'');
+  dtRes.querySelectorAll('.sr').forEach(b=>b.onmousedown=e=>{ e.preventDefault(); dtPick(+b.dataset.i); });
+  dtRes.classList.add('open'); dtQ.setAttribute('aria-expanded','true');
+}
+async function dtPick(i){
+  const h=dtHits[i]; if(!h) return; dtCloseRes(); dtQ.value=h.text;
+  let at=h;
+  if(h.src==='esri'){ $('dtMsg').textContent='Finding address...';
+    try{ at=await dtGeocode(h.text,h.magicKey); }catch(e){ at=null; }
+    if(!at){ $('dtMsg').textContent='Could not place that address. Try another or click the map.'; return; } }
+  dtGoTo(at.lon,at.lat,h.text);
+}
+async function dtSubmit(){
+  const raw=dtQ.value.trim(); if(raw.length<4) return;
+  if(dtHits.length){ dtPick(dtAct<0?0:dtAct); return; }
+  dtCloseRes(); $('dtMsg').textContent='Finding address...';
+  let at=null; try{ at=await dtGeocode(raw); }catch(e){}
+  if(!at){ const l=dtLocal(raw); if(l.length) at=l[0]; }
+  if(!at){ $('dtMsg').textContent='Could not find that address. Try adding the city, or click the map.'; return; }
+  dtQ.value=at.text; dtGoTo(at.lon,at.lat,at.text);
+}
+function dtGoTo(lon,lat,label){
+  dtOpen();
+  if(gmap){ gmap.panTo({lat,lng:lon}); gmap.setZoom(10); } else flyTo(lon,lat,10);
+  dtRun(lon,lat,label);
+}
+dtQ.oninput=()=>{ clearTimeout(dtT); dtT=setTimeout(()=>dtSearch(dtQ.value),300); };
+dtQ.onfocus=()=>{ if(dtHits.length&&dtQ.value.trim().length>=4) dtRes.classList.add('open'); };
+dtQ.onblur=()=>setTimeout(dtCloseRes,150);
+dtQ.onkeydown=e=>{
+  const items=[...dtRes.querySelectorAll('.sr')];
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){ if(!items.length) return; e.preventDefault(); dtAct=(dtAct+(e.key==='ArrowDown'?1:-1)+items.length)%items.length; items.forEach((x,k)=>x.classList.toggle('act',k===dtAct)); }
+  else if(e.key==='Enter'){ e.preventDefault(); clearTimeout(dtT); dtSubmit(); }
+  else if(e.key==='Escape') dtCloseRes();
+};
+window.__dt={dtSearch,dtSubmit,dtGoTo,emb:()=>EMB};
 
 const boundaryData={};
 async function ensureBoundary(key){
@@ -1065,9 +1157,11 @@ function renderDrawer(p){
     <div class="d-act">
       <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${gm}">Open in Google Maps</a>
       <button class="btn primary" id="copyAcct">Copy ${cad} ${PID_COUNTIES.has(county)?'ID':'account'}</button>
+      ${p.lon!=null?'<button class="btn outline dthere" id="dtHere">Drive time from here</button>':''}
     </div></div>`;
   host.innerHTML=h;
   host.querySelector('.x').onclick=()=>select(null);
+  const dh=host.querySelector('#dtHere'); if(dh) dh.onclick=()=>{ const lbl=p.addr||acctTag(p.acct); $('dtQ').value=lbl; dtGoTo(p.lon,p.lat,lbl); };
   host.querySelector('#copyAcct').onclick=()=>{ const id=acctLabel(p.acct,county); (navigator.clipboard?navigator.clipboard.writeText(id):Promise.reject()).then(()=>toast('Copied account '+id)).catch(()=>toast('Account '+id)); };
 }
 
