@@ -12,6 +12,8 @@ the speed of the fastest road through it, for a car and a truck:
   F_SYSTEM 4-5 (minor arterials, major collectors)  x 0.65     truck x 0.58
   F_SYSTEM 6-7 (minor collectors, local streets)   x 0.60     truck x 0.52
   Missing posted limits use 65 / 45 / 40 / 30 mph by class. Cells with no road: 8 km/h (car and truck).
+  Water (Esri USA Detailed Water Bodies, 0.05 sq km and up) and cells off the coastline (Esri generalized county
+  outlines) are impassable, speed 0, unless a road crosses them (bridges, causeways).
 
 The page runs a shortest-path search over the grid (8 neighbors) from the clicked point and draws 15/30/45/60
 minute bands. This is an estimate: free-flow speeds, no live traffic, freeways can be joined anywhere along
@@ -26,6 +28,9 @@ from fetch_fortbend import get
 BBOX = (-96.75, 28.55, -94.05, 30.85)   # the 8 counties plus a buffer so radii near the edge are not cut short
 CELL_M = 200.0
 URL = "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Roadway_Inventory/FeatureServer/0"
+ESRI = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services"
+WATER = f"{ESRI}/USA_Detailed_Water_Bodies/FeatureServer/0"            # bays, lakes, rivers (USGS NHD based)
+LAND = f"{ESRI}/USA_Counties_Generalized_Boundaries/FeatureServer/0"   # county outlines clipped to the shoreline
 MPH = 1.609344
 
 
@@ -49,6 +54,20 @@ def fetch(path):
     print(f"fetched {len(feats):,} road segments", flush=True)
 
 
+def fetch_polys(url, path, fields):
+    feats, off = [], 0
+    while True:
+        q = {"where": "1=1", "geometry": ",".join(map(str, BBOX)), "geometryType": "esriGeometryEnvelope", "inSR": 4326,
+             "spatialRel": "esriSpatialRelIntersects", "outFields": fields, "outSR": 4326, "geometryPrecision": 5,
+             "resultOffset": off, "resultRecordCount": 1000, "f": "geojson"}
+        fs = json.loads(get(f"{url}/query?{urllib.parse.urlencode(q)}")).get("features", [])
+        feats += fs; off += len(fs)
+        if len(fs) < 1000:
+            break
+    json.dump({"type": "FeatureCollection", "features": feats}, open(path, "w"))
+    print(f"fetched {len(feats):,} features from {url.split('/services/')[1].split('/')[0]}", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", default="layers_raw")
@@ -58,6 +77,9 @@ def main():
     p = os.path.join(a.raw, "roads.geojson")
     if not os.path.exists(p):
         fetch(p)
+    for name, url, fields in (("water", WATER, "NAME,FTYPE,SQKM"), ("land", LAND, "NAME,STATE_ABBR")):
+        if not os.path.exists(os.path.join(a.raw, name + ".geojson")):
+            fetch_polys(url, os.path.join(a.raw, name + ".geojson"), fields)
     g = gpd.read_file(p)
     g = g[g.geometry.notna() & ~g.geometry.is_empty].explode(index_parts=False).reset_index(drop=True)
     g = g[(shapely.get_num_coordinates(g.geometry.values) >= 2) & (g.geometry.length > 0)]   # drop one-point lines
@@ -84,7 +106,21 @@ def main():
     ok = (ix >= 0) & (ix < nx) & (iy >= 0) & (iy < ny)
     for k, sp in enumerate((car, truck)):
         np.maximum.at(gc[k], (iy[ok], ix[ok]), np.asarray(sp, dtype=np.float32)[idx[ok]])
-    b64 = [base64.b64encode(np.clip(np.rint(gc[k]), 1, 255).astype(np.uint8).tobytes()).decode() for k in (0, 1)]
+    # water mask: cells whose center is in a bay, lake or river, or off the coastline, are impassable (speed 0)
+    # unless a road runs through them (bridges, causeways, the Galveston seawall)
+    water = gpd.read_file(os.path.join(a.raw, "water.geojson"))
+    water = water[pd.to_numeric(water.get("SQKM"), errors="coerce").fillna(1) >= 0.05]   # skip ponds
+    land = gpd.read_file(os.path.join(a.raw, "land.geojson"))
+    wu = shapely.make_valid(water.geometry.union_all()); lu = shapely.make_valid(land.geometry.union_all())
+    shapely.prepare(wu); shapely.prepare(lu)
+    cx = BBOX[0] + (np.arange(nx) + 0.5) * dx; cy = BBOX[1] + (np.arange(ny) + 0.5) * dy
+    X, Y = np.meshgrid(cx, cy)
+    wet = shapely.contains_xy(wu, X, Y) | ~shapely.contains_xy(lu, X, Y)
+    road = gc[0] > 8
+    for k in (0, 1):
+        gc[k][wet & ~road] = 0
+    print(f"water mask: {int((wet & ~road).sum()):,} impassable cells; {int((wet & road).sum()):,} road cells over water kept")
+    b64 = [base64.b64encode(np.clip(np.rint(gc[k]), 0, 255).astype(np.uint8).tobytes()).decode() for k in (0, 1)]
     od = os.path.join(a.out, "web", "data", "layers"); os.makedirs(od, exist_ok=True)
     out = {"bbox": BBOX, "nx": nx, "ny": ny, "dx": dx, "dy": dy, "cell_m": CELL_M, "unit": "km/h",
            "car": b64[0], "truck": b64[1]}

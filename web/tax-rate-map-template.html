@@ -272,7 +272,7 @@ button{font-family:inherit}
         <div class="body">
           <div class="msg" id="dtMsg">Click the map to set a starting point.</div>
           <div class="bands"><span><i style="background:rgba(0,30,90,.55)"></i>15</span><span><i style="background:rgba(70,110,200,.45)"></i>30</span><span><i style="background:rgba(255,182,0,.45)"></i>45</span><span><i style="background:rgba(255,226,154,.6)"></i>60 min</span></div>
-          <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere. Use for radius screening, not routing.</div>
+          <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere; water crossed only on roads and bridges. Use for radius screening, not routing.</div>
         </div>
       </div>
       <div class="legend" id="legend">
@@ -546,14 +546,20 @@ function dtSolve(G,lon,lat,mode){
   const push=(k,v)=>{ if(hn>=hk.length){const a=new Float64Array(hk.length*2);a.set(hk);hk=a;const b=new Int32Array(hv.length*2);b.set(hv);hv=b;}
     let i=hn++; while(i>0){const p=(i-1)>>1; if(hk[p]<=k)break; hk[i]=hk[p];hv[i]=hv[p];i=p;} hk[i]=k;hv[i]=v; };
   const pop=()=>{ const v=hv[0],k=hk[0]; hn--; if(hn>0){const lk=hk[hn],lv=hv[hn]; let i=0; for(;;){let c=2*i+1; if(c>=hn)break; if(c+1<hn&&hk[c+1]<hk[c])c++; if(hk[c]>=lk)break; hk[i]=hk[c];hv[i]=hv[c];i=c;} hk[i]=lk;hv[i]=lv;} return [k,v]; };
-  const s0=y0*nx+x0; T[s0]=0; push(0,s0);
+  let s0=y0*nx+x0;
+  if(!sp[s0]){   // clicked on water: start from the nearest passable cell within about 2 km
+    let best=-1,bd=1e9; for(let r=1;r<=10&&best<0;r++) for(let yy=y0-r;yy<=y0+r;yy++) for(let xx=x0-r;xx<=x0+r;xx++){
+      if(xx<0||yy<0||xx>=nx||yy>=ny) continue; const j=yy*nx+xx; if(sp[j]){const d=(xx-x0)**2+(yy-y0)**2; if(d<bd){bd=d;best=j;}} }
+    if(best<0) return null; s0=best;
+  }
+  T[s0]=0; push(0,s0);
   const NB=[[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,Math.SQRT2],[1,-1,Math.SQRT2],[-1,1,Math.SQRT2],[-1,-1,Math.SQRT2]];
   while(hn){
     const [t,i]=pop(); if(t>T[i]) continue; if(t>TMAX) break;
     const x=i%nx, y=(i-x)/nx, va=sp[i]/3.6;
     for(const [ddx,ddy,m] of NB){
       const xx=x+ddx, yy=y+ddy; if(xx<0||yy<0||xx>=nx||yy>=ny) continue;
-      const j=yy*nx+xx, d=cell*m, nt=t+0.5*d/va+0.5*d/(sp[j]/3.6);
+      const j=yy*nx+xx; if(!sp[j]) continue; const d=cell*m, nt=t+0.5*d/va+0.5*d/(sp[j]/3.6);
       if(nt<T[j]){T[j]=nt; push(nt,j);}
     }
   }
@@ -571,7 +577,7 @@ async function dtRun(lon,lat){
   try{
     const G=await dtGrid(); await new Promise(r=>setTimeout(r,20));
     const t0=performance.now(), T=dtSolve(G,lon,lat,DT.mode);
-    if(!T){ $('dtMsg').textContent='That point is outside the drive-time area.'; return; }
+    if(!T){ $('dtMsg').textContent='That point is outside the drive-time area or open water.'; return; }
     DT.origin=[lon,lat]; DT.img=dtImage(G,T);
     $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from the marked point. Click elsewhere to move it.`;
     $('dtClear').style.display=''; window.__dtMs=Math.round(performance.now()-t0); refresh();
