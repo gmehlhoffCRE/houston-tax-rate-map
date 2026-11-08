@@ -99,7 +99,7 @@ button{font-family:inherit}
 .dtbar .bands i{width:12px;height:10px;border-radius:2px;display:inline-block}
 .dtbar .note{font-size:10px;color:#8A93A8;line-height:1.35;margin-top:4px}
 .dtbar .msg{font-size:11px;color:var(--navy);margin-top:4px}
-.dtbar.open{width:300px;box-sizing:border-box}
+.dtbar.open{width:340px;box-sizing:border-box}
 .dtq{position:relative;margin:0 0 2px}
 .dtq input{width:100%;box-sizing:border-box;height:30px;border:1px solid var(--line);border-radius:4px;padding:0 8px;font-size:12px;color:var(--ink);outline:none;background:#fff}
 .dtq input:focus{border-color:var(--navy)}
@@ -557,10 +557,15 @@ const WET_C={'Emergent':[70,160,140],'Forested / shrub':[40,120,90],'Estuarine':
 const PROJ_C={now:[214,40,40],soon:[240,140,20],later:[130,80,190],done:[120,130,145]};
 const PROJ_NAME={now:'Under construction',soon:'Next 1 to 3 years (design, bidding)',later:'3+ years out (planning)',done:'Finished since 2023'};
 const money$=v=>v==null?'':v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+Math.round(v/1e6)+'M':v>=1e3?'$'+Math.round(v/1e3)+'K':'$'+Math.round(v);
+const BR_C={low:[200,20,40],posted:[235,120,0],permit:[240,190,120],closed:[20,20,30],poor:[200,160,0],damage:[130,60,170]};
+const BR_NAME={low:'Low clearance (under 16 ft)',posted:'Load posted below 80,000 lb',permit:'Posted at 80,000 lb or more (overweight permit loads only)',closed:'Closed',poor:'Poor condition',damage:'Over-height load damage on record'};
+const brKind=p=>p.kind==='posted'&&p.limit_k>=80?'permit':p.kind;   // a posting at or above the legal gross weight only limits permit loads
+const ftIn=v=>{ if(v==null||!(v>0)) return ''; const f=Math.floor(v), i=Math.round((v-f)*12); return i===12?`${f+1}'0"`:`${f}'${i}"`; };
+const TRANSIT_RAIL={Red:[200,30,45],Green:[30,140,70],Purple:[110,50,150]};
 const USE_C=[[244,211,94],[228,87,46],[123,79,160],[185,215,168],[122,138,153],[79,163,209],[201,183,156]];   // index = tile property t
 const fmtN=n=>n==null?'':Number(n).toLocaleString();
 const fmtK=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
-const GROUPS=[['logistics','Logistics'],['infra','Infrastructure'],['env','Environment'],['planning','Planning and incentives']];
+const GROUPS=[['logistics','Logistics'],['trucking','Trucking'],['infra','Infrastructure'],['workforce','Workforce access'],['env','Environment'],['planning','Planning and incentives']];
 const IND=[
   // logistics
   {key:'rail',group:'logistics',label:'Rail lines by owner',kind:'line',style:'rail',sw:'rgb(214,160,0)',color:p=>railC(p.owner),width:()=>2.4,
@@ -594,6 +599,19 @@ const IND=[
   {key:'aadt',group:'logistics',label:'Traffic counts (TxDOT, zoom in)',kind:'point',sw:'rgb(0,128,128)',color:()=>[0,128,128],radius:p=>Math.min(6,1.5+Math.sqrt((p.aadt||0)/5000)),labelZ:12,minZ:10,
     legend:()=>[['Vehicles a day (dot size)','dot',[0,128,128]]],name:p=>fmtN(p.aadt)+' vehicles a day',
     text:p=>p.aadt>=1000?Math.round(p.aadt/1000)+'k':String(p.aadt||''),tip:p=>`<b>${fmtN(p.aadt)}</b> vehicles a day<br>TxDOT ${p.year||''} annual average · station ${esc(p.station||'')}`},
+  // trucking
+  {key:'bridges',group:'trucking',label:'Truck restrictions (bridges)',kind:'point',sw:'rgb(200,20,40)',color:p=>BR_C[brKind(p)]||[120,120,120],radius:p=>p.kind==='low'||p.kind==='closed'?6:brKind(p)==='permit'?3:4.5,
+    labelZ:13,text:p=>p.kind==='low'&&p.clr?ftIn(p.clr):'',
+    legend:()=>Object.keys(BR_C).map(k=>[BR_NAME[k],'dot',BR_C[k]]).concat([['Only bridges that can stop or reroute a truck (TxDOT bridge inventory); clearance shown from zoom 14','note']]),
+    name:p=>`${p.name} bridge: ${BR_NAME[brKind(p)]}`,
+    tip:p=>`<b>${esc(p.name||'Bridge')}</b>${p.over?' over '+esc(tc(p.over)):''}<br>`+[
+      p.clr?`<b>${ftIn(p.clr)}</b> clearance ${p.clr_where==='under'?'for the road underneath':'over the bridge deck'}`:'',
+      p.kind==='closed'?'<b>Closed</b>':'', p.posted?`<b>Load posted</b>${p.limit_k?' · '+p.limit_k+',000 lb':''}${p.limit_k>=80?' (limits overweight permit loads only)':''}`:'',
+      p.poor?`Poor condition (lowest rating ${p.rating} of 9)`:'', p.damage?'Over-height load damage on record':''].filter(Boolean).join('<br>')+
+      `<br><span style="color:#8A93A8">TxDOT bridge ${esc(p.BRDG_ID||'')}${p.YR_BLT?' · built '+esc(p.YR_BLT):''}</span>`},
+  {key:'freight',group:'trucking',label:'Highway freight network (TxDOT)',kind:'line',style:'freight',sw:'rgb(0,110,120)',color:()=>[0,110,120],width:()=>5,
+    legend:()=>[['Texas Highway Freight Network','line',[0,110,120]]],name:p=>(p.name||'Freight route')+' (freight network)',
+    tip:p=>`<b>${esc(p.name||'Freight route')}</b><br>Texas Highway Freight Network`},
   // infrastructure
   {key:'pipelines',group:'infra',label:'Pipelines (RRC)',kind:'line',style:'dash',sw:'rgb(230,140,30)',color:p=>PIPE_C[PIPE_CLS(p.commodity)],
     width:p=>p.diameter>=20?2.6:p.diameter>=8?2:1.5,show:(p,dz)=>dz>=11||(p.diameter||0)>=8,
@@ -611,6 +629,12 @@ const IND=[
     legend:()=>[['Water CCN boundary','line',[0,140,200]]],name:p=>tc(p.name||'')+' water',tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
   {key:'sewer_ccn',group:'infra',label:'Sewer service areas (PUC)',kind:'outline',sw:'rgb(120,80,40)',color:()=>[120,80,40],dash:true,
     legend:()=>[['Sewer CCN boundary','dash',[120,80,40]]],name:p=>tc(p.name||'')+' sewer',tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
+  // workforce access
+  {key:'transit',group:'workforce',label:'METRO transit (routes, rail, stops)',kind:'transit',sw:'rgb(110,50,150)',
+    legend:()=>[['Bus route','line',[110,90,170]],['METRORail line','line',[200,30,45]],['Transit center or park and ride','dot',[110,50,150]],['Bus stop (zoom in)','dot',[150,130,190]],['METRO service area only (Harris County and nearby)','note']],
+    name:p=>p.name,
+    tip:p=>p.kind==='route'?`<b>METRO ${esc(p.name)}</b><br>${esc(p.serv||'')} bus route`:p.kind==='rail'?`<b>METRORail ${esc(p.name)}</b>`:
+      p.kind==='stop'?`<b>Bus stop</b><br>${esc(p.name||'')}${p.shelter?' · shelter':''}`:`<b>${esc(p.name)} ${p.kind==='tc'?'Transit Center':'Park and Ride'}</b><br>${esc(p.addr||'')}${p.routes?'<br>Routes '+esc(p.routes):''}`},
   // environment
   {key:'flood',group:'env',label:'Flood zones (FEMA)',kind:'fill',sw:'rgb(40,110,210)',fill:p=>FLOOD_C[p.zone]||[40,110,210,80],
     legend:()=>Object.keys(FLOOD_C).map(k=>[k,'fill',FLOOD_C[k]]),name:p=>p.zone+' flood zone',tip:p=>`<b>${esc(p.zone)}</b> flood zone`},
@@ -698,6 +722,22 @@ function indLayers(dz){
       continue;
     }
     if(!d.features) continue;
+    if(o.kind==='transit'){
+      const T=d.features, routes=T.filter(f=>f.properties.kind==='route'), rail=T.filter(f=>f.properties.kind==='rail'),
+        stops=T.filter(f=>f.properties.kind==='stop'), hubs=T.filter(f=>f.properties.kind==='tc'||f.properties.kind==='pnr');
+      if(dz>=10) L.push(new deck.GeoJsonLayer({id:id+'l',data:{type:'FeatureCollection',features:routes},stroked:true,filled:false,pickable:true,onHover:indTip,opacity:op,
+        getLineColor:[110,90,170,150],getLineWidth:dz>=13?2:1.2,lineWidthUnits:'pixels',updateTriggers:{getLineWidth:dz>=13}}));
+      L.push(new deck.GeoJsonLayer({id:id+'d',data:{type:'FeatureCollection',features:rail},stroked:true,filled:false,pickable:true,onHover:indTip,opacity:op,
+        getLineColor:f=>[...(TRANSIT_RAIL[f.properties.color]||[110,50,150]),240],getLineWidth:3.5,lineWidthUnits:'pixels'}));
+      if(dz>=14) L.push(new deck.ScatterplotLayer({id:id+'f',data:stops,getPosition:f=>f.geometry.coordinates,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:[150,130,190,230],getLineColor:[255,255,255,230],stroked:true,lineWidthUnits:'pixels',getLineWidth:1,getRadius:3,radiusUnits:'pixels'}));
+      L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:hubs},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:[110,50,150,235],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',getPointRadius:6,pointRadiusUnits:'pixels'}));
+      if(dz>=11) L.push(new deck.TextLayer({id:id+'x',data:hubs,getPosition:f=>f.geometry.coordinates,getText:f=>f.properties.name,getSize:11,getColor:[90,40,130,255],
+        getPixelOffset:[0,-14],fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
+        extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:1}));
+      continue;
+    }
     if(o.kind==='proj'){
       const P=state.proj, ck='proj:'+Object.values(P).join(',');
       if(!showCache[ck]||showCache[ck].src!==d) showCache[ck]={src:d,fc:{type:'FeatureCollection',features:d.features.filter(f=>P[f.properties.stage]&&(P.routine||!f.properties.routine))}};
@@ -732,6 +772,8 @@ function indLayers(dz){
       if(o.style==='rail'&&dz>=11) L.push(new deck.GeoJsonLayer({id:id+'t',data,stroked:true,filled:false,pickable:false,opacity:op,   // cross ties
         getLineColor:f=>[...o.color(f.properties).map(v=>v*0.55),235],getLineWidth:f=>w(f.properties)+5,lineWidthUnits:'pixels',
         getDashArray:[0.22,1.1],dashJustified:false,extensions:[dashExt]}));
+      if(o.style==='freight'){ L.push(new deck.GeoJsonLayer({id:id+'l',data,stroked:true,filled:false,pickable:true,onHover:indTip,opacity:op,
+        getLineColor:[0,110,120,95],getLineWidth:7,lineWidthUnits:'pixels',capRounded:true,jointRounded:true})); continue; }
       const dash=o.style==='dash'?{getDashArray:[3,2],dashJustified:true,extensions:[dashExt]}:o.style==='dot'?{getDashArray:[0.01,1.6],dashJustified:false,capRounded:true,extensions:[dashExt]}:{};
       L.push(new deck.GeoJsonLayer({id:id+'l',data,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],opacity:op,
         getLineColor:f=>[...o.color(f.properties),240],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',...dash}));
@@ -1218,7 +1260,7 @@ const indEl=$('indLayers');
 const CHK='<span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>';
 const CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
 let openGroups; try{ openGroups=new Set(JSON.parse(localStorage.getItem('taxmap.groups')||'["logistics"]')); }catch(e){ openGroups=new Set(['logistics']); }
-const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','ports','ftz','aadt']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines']],
+const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','ports','ftz','aadt']],['Trucking',['bridges','freight','road_projects','ports','intermodal']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines']],
   ['Risk',['flood','wetlands','evac','contam']],['Development',['zoning','opp_zones','contam','rail','road_projects','ports']],['Clear',[]]];
 for(const [gk,gt] of GROUPS){
   const g=document.createElement('div'); g.className='grp'+(openGroups.has(gk)?' open':''); g.dataset.g=gk;
@@ -1310,7 +1352,7 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects','bridges','freight','transit']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
@@ -1331,6 +1373,15 @@ async function siteChecks(p){
       rows.push([t,nm.replace(' Container Terminal','')]); }
     if(rows.length) out.push(['Truck time to container terminals',rows.sort((a,b)=>a[0]-b[0]).map(([t,n])=>`${esc(n)} <span>${t<=7200?Math.round(t/60)+' min':'over 2 hr'}</span>`).join('<br>')]);
   }catch(e){}
+  if(D.bridges&&D.bridges.features){
+    const near=[]; for(const f of D.bridges.features){ if(brKind(f.properties)==='permit') continue; const dm=miles([x,y],f.geometry.coordinates); if(dm<=2) near.push([dm,f.properties]); }
+    near.sort((a,b)=>a[0]-b[0]);
+    out.push(['Truck restrictions within 2 mi',near.length?near.slice(0,2).map(([dm,q])=>`${esc(q.name)}${q.over?' / '+esc(tc(q.over)):''} <span>${q.kind==='low'?ftIn(q.clr)+' clearance':esc(BR_NAME[brKind(q)])}, ${dm<0.1?'adjacent':dm.toFixed(1)+' mi'}</span>`).join('<br>')+(near.length>2?` <span>+${near.length-2} more</span>`:''):'<span>No low, load-posted (under 80,000 lb), closed or poor bridges within 2 mi</span>']); }
+  if(D.freight&&D.freight.features){ let best=Infinity,nm=''; for(const f of D.freight.features){ const b=fBox(f); if(x<b[0]-0.15||x>b[2]+0.15||y<b[1]-0.15||y>b[3]+0.15) continue; const dm=geomMiles([x,y],f.geometry); if(dm<best){best=dm;nm=f.properties.name;} }
+    out.push(['Highway freight network',best<=10?`${esc(nm||'Freight route')} <span>${best<0.1?'adjacent':best.toFixed(1)+' mi'}</span>`:'<span>Over 10 mi</span>']); }
+  if(D.transit&&D.transit.features){ let bs=Infinity,hub=null,hd=Infinity; for(const f of D.transit.features){ const k=f.properties.kind; if(k==='stop'){ const dm=miles([x,y],f.geometry.coordinates); if(dm<bs) bs=dm; }
+      else if(k==='tc'||k==='pnr'){ const dm=miles([x,y],f.geometry.coordinates); if(dm<hd){hd=dm;hub=f.properties;} } }
+    out.push(['Transit (METRO)',bs<=5?`Bus stop <span>${bs<0.1?'adjacent':bs.toFixed(1)+' mi'}</span>${hub&&hd<=5?`<br>${esc(hub.name)} ${hub.kind==='tc'?'Transit Center':'Park and Ride'} <span>${hd.toFixed(1)} mi</span>`:''}`:'<span>No METRO service within 5 mi</span>']); }
   if(D.road_projects&&D.road_projects.features){
     const near=[]; for(const f of D.road_projects.features){ const q=f.properties; if(q.routine||q.stage==='done') continue; const b=fBox(f);
       if(x<b[0]-0.02||x>b[2]+0.02||y<b[1]-0.02||y>b[3]+0.02) continue; const dm=geomMiles([x,y],f.geometry); if(dm<=1) near.push([dm,q]); }
@@ -1339,19 +1390,22 @@ async function siteChecks(p){
   el.innerHTML=out.map(([k,v])=>`<div class="k">${k}</div><div class="v">${v}</div>`).join('')||'<div class="k">Layer data not in this build</div><div></div>';
   if(state.selRec&&state.selRec.acct===p.acct) state.selRec._checks=Object.fromEntries(out.map(([k,v])=>[k,v.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()]));
 }
-// labor shed: ACS tract workers whose tract center falls inside each drive-time band
+// labor shed: ACS and LEHD figures for census tracts whose center falls inside each drive-time band
 async function dtLabor(G,T){
   const el=$('dtLab'); const d=await loadLayerData('labor');
   if(!d||!d.features){ el.classList.remove('on'); return; }
-  const B=[900,1800,2700,3600], s=B.map(()=>({lf:0,emp:0,un:0,n:0}));
+  const B=[900,1800,2700,3600], s=B.map(()=>({lf:0,un:0,ptm:0,ew:0,ewn:0,rac:0,wac:0,tw:0}));
   for(const f of d.features){ const [lon,lat]=f.geometry.coordinates, p=f.properties;
     const x=Math.floor((lon-G.bbox[0])/G.dx), y=Math.floor((lat-G.bbox[1])/G.dy); if(x<1||y<1||x>=G.nx-1||y>=G.ny-1) continue;
     let t=Infinity; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const v=T[(y+dy)*G.nx+x+dx]; if(v<t) t=v; }
-    B.forEach((b,i)=>{ if(t<=b){ s[i].lf+=p.lf||0; s[i].emp+=p.emp||0; s[i].un+=p.unemp||0; s[i].n++; } }); }
-  DT.labor=s;
-  el.innerHTML=`<div class="lt">Labor shed</div><table><tr><th>Within</th><th>Labor force</th><th>Employed</th><th>Unemployed</th></tr>`+
-    B.map((b,i)=>`<tr><td>${b/60} min</td><td>${fmtK(s[i].lf)}</td><td>${fmtK(s[i].emp)}</td><td>${fmtK(s[i].un)} <span style="color:#8A93A8">${s[i].lf?(100*s[i].un/s[i].lf).toFixed(1)+'%':''}</span></td></tr>`).join('')+
-    `</table><div class="ln">Residents 16 and over, ACS 5-year estimates by census tract (tract center inside the band). Where people live, not where they work.</div>`;
+    B.forEach((b,i)=>{ if(t<=b){ const q=s[i]; q.lf+=p.lf||0; q.un+=p.unemp||0; q.ptm+=p.ptm||0; if(p.ptm_earn&&p.ptm){ q.ew+=p.ptm_earn*p.ptm; q.ewn+=p.ptm; }
+      q.rac+=p.rac_ind||0; q.wac+=p.wac_ind||0; q.tw+=p.wac_tw||0; } }); }
+  DT.labor=s; const has=s.some(q=>q.ptm>0), m=d.meta||{};
+  const pay=q=>q.ewn?'$'+Math.round(q.ew/q.ewn/1000)+'k':NA;
+  el.innerHTML=`<div class="lt">Labor shed</div><table><tr><th>Within</th><th>Labor force</th>${has?'<th>Prod. and warehouse</th><th>Their pay</th><th>Industrial jobs</th>':'<th>Unemployed</th>'}</tr>`+
+    B.map((b,i)=>{ const q=s[i]; return `<tr><td>${b/60} min</td><td>${fmtK(q.lf)}</td>`+(has?`<td>${fmtK(q.ptm)}</td><td>${pay(q)}</td><td>${fmtK(q.wac)}</td>`:`<td>${fmtK(q.un)}</td>`)+'</tr>'; }).join('')+
+    `</table><div class="ln">${has?`<b>Prod. and warehouse</b>: residents in production, transportation and material moving jobs; <b>their pay</b>: median earnings, tracts weighted by those workers (ACS ${m.acs?m.acs-4+'-'+m.acs:''}). <b>Industrial jobs</b>: manufacturing, wholesale, transportation and warehousing jobs located in the band, the competition for the same workers (LEHD ${m.lodes||''}). `:''}`+
+    `Unemployment in 30 min: ${s[1].lf?(100*s[1].un/s[1].lf).toFixed(1)+'%':NA}. Counts where people live, by census tract center.</div>`;
   el.classList.add('on');
 }
 // shortlist: sites saved in this browser, exported as CSV

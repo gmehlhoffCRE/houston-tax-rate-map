@@ -37,6 +37,11 @@ Layers (key: source)
               others (TxDOT's own TIP entries are left to DCIS), City of Houston Public Works active roadway
               projects, Fort Bend County mobility bond projects, Montgomery County 2025 road bond projects.
               Routine work (seal coat, overlay, landscaping, signs and striping) is flagged so the page can hide it
+  bridges     Truck restrictions: TxDOT bridge inventory (NBI data), only bridges that can stop a truck: under 16 ft
+              of vertical clearance over or under the road, load posted or restricted, closed, poor condition
+              (deck, superstructure, substructure or culvert rated 4 or less), or a record of over-height load damage
+  freight     Texas Highway Freight Network (TxDOT)
+  transit     METRO (Houston) bus routes, rail lines, bus stops, transit centers and park and rides
   labor       Workforce by census tract (ACS 5-year): population 16+, labor force, employed, unemployed;
               tract centroids, for the labor shed totals in the drive time panel
 
@@ -45,7 +50,7 @@ Hosts: services.arcgis.com, services1/2/3/5/6/8.arcgis.com, gis.rrc.texas.gov, g
 interactivemaps.sugarlandtx.gov.
 """
 import argparse, json, os, re, sys, time, urllib.parse
-import geopandas as gpd, pandas as pd, shapely
+import geopandas as gpd, numpy as np, pandas as pd, shapely
 
 sys.path.insert(0, os.path.dirname(__file__))
 from fetch_fortbend import get
@@ -83,6 +88,19 @@ SOURCES = {
     "tceq_vcp": ("https://gisweb.tceq.texas.gov/arcgis/rest/services/Public/VCP/MapServer/0", "SITE_NAME,PHYS_ADDR,CITY,VCP_ID"),
     "evac": ("https://services1.arcgis.com/Z6SBWLWGRRejblAA/arcgis/rest/services/Hurricane_Evacuation_ZipZones_2025/FeatureServer/0",
              "GEOID20,ZipZone,County"),
+    "bridges_raw": ("https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Bridges/FeatureServer/0",
+                    "BRDG_ID,FACLTY_CARRD_BY_STRUC,FEAT_INTSECTD,LOCN,MIN_VERT_CLEAR_DECK_FT,MIN_VERT_UNDR_CLRNC_FT,REF_FEAT_MIN_VERT_CLRNC,"
+                    "OPRTL_STAT_CD,OPRTL_STAT,LDNG_RSTRCN,LDNG_RSTRCN_THOUS_LBS,DECK_COND_RTNG,SUPERSTRUC_COND_RTNG,SUBSTRUC_COND_RTNG,"
+                    "CULV_COND_RTNG,OVER_HGHT_LD_DAMG,YR_BLT,INSPT_DT,ADT_TRK"),
+    "freight_raw": ("https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Texas_Highway_Freight_Network/FeatureServer/0", "RTE_NM"),
+    "metro_routes": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/5",
+                     "RouteNum,RouteName,ServType,STATUS"),
+    "metro_rail": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/4", "NAME,LineColor,Status"),
+    "metro_stops": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/3",
+                    "STREET,STYPE,DIR_P,X1_STRT,X1_STYPE,IN_SERVICE,SHELTER"),
+    "metro_tc": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/1", "NAME1,ADDRESS,ROUTES_SER"),
+    "metro_pnr": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/2",
+                  "NAME1,ADDRESS,ROUTES_SER,PSPACES"),
     "labor": ("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Employment_Status_Centroids/FeatureServer/2",
               "GEOID,NAME,B23025_001E,B23025_002E,B23025_004E,B23025_005E"),
 }
@@ -462,6 +480,54 @@ def main():
     print("road projects by stage: " + ", ".join(f"{k} {v}" for k, v in g.stage.value_counts().items()) + f"; routine {int(g.routine.sum())}", flush=True)
     g = simplify(g.explode(index_parts=False), 8)
     out["road_projects"] = (g, ["src", "name", "limits", "work", "cls", "cost", "phase", "stage", "date", "freight", "id", "routine"])
+
+    # truck restrictions: keep only bridges that can stop or reroute a truck
+    g = load(a.raw, "bridges_raw")
+    num = lambda c: pd.to_numeric(g[c], errors="coerce")
+    under = num("MIN_VERT_UNDR_CLRNC_FT").where(g.REF_FEAT_MIN_VERT_CLRNC.fillna("").str.upper() == "H")   # a road passes beneath
+    deck = num("MIN_VERT_CLEAR_DECK_FT")
+    rt = pd.concat([num(c) for c in ("DECK_COND_RTNG", "SUPERSTRUC_COND_RTNG", "SUBSTRUC_COND_RTNG", "CULV_COND_RTNG")], axis=1).min(axis=1)
+    stat = g.OPRTL_STAT_CD.fillna("A").str.upper()
+    lr = g.LDNG_RSTRCN.fillna("N").str.upper()
+    low_u = (under > 0) & (under < 16); low_d = (deck > 0) & (deck < 16)
+    posted = stat.isin(["B", "P", "R", "D", "E", "G"]) | ~lr.isin(["N", ""])
+    closed = stat == "K"; poor = rt <= 4; dmg = g.OVER_HGHT_LD_DAMG.fillna("N").str.upper().eq("Y")
+    keep = low_u | low_d | posted | closed | poor | dmg
+    b = g[keep].copy()
+    b["kind"] = np.select([closed[keep], (low_u | low_d)[keep], posted[keep], poor[keep]], ["closed", "low", "posted", "poor"], "damage")
+    b["clr"] = pd.concat([under[keep].where(low_u[keep]), deck[keep].where(low_d[keep])], axis=1).min(axis=1).round(2)
+    b["clr_where"] = np.where(low_u[keep], "under", np.where(low_d[keep], "over", ""))
+    b["posted"] = posted[keep]; b["poor"] = poor[keep]; b["damage"] = dmg[keep]
+    b["limit_k"] = pd.to_numeric(b.LDNG_RSTRCN_THOUS_LBS.astype(str).str.extract(r"(\d+)")[0], errors="coerce")
+    b["status"] = b.OPRTL_STAT.fillna("")
+    b["name"] = b.FACLTY_CARRD_BY_STRUC.fillna("").str.strip(); b["over"] = b.FEAT_INTSECTD.fillna("").str.strip()
+    b["rating"] = rt[keep]
+    print("bridges: " + ", ".join(f"{k} {v}" for k, v in b.kind.value_counts().items()) + f" (of {len(g):,} in the region)", flush=True)
+    out["bridges"] = (b, ["kind", "name", "over", "clr", "clr_where", "posted", "limit_k", "status", "poor", "rating", "damage", "YR_BLT", "BRDG_ID"])
+
+    g = load(a.raw, "freight_raw")
+    g["name"] = g.RTE_NM.fillna("").str.extract(r"^([A-Z]{2})0*(\d+)").fillna("").agg(" ".join, axis=1).str.strip()
+    g["name"] = g.name.str.replace(r"^IH ", "I-", regex=True)
+    out["freight"] = (simplify(g, 10), ["name"])
+
+    parts = []
+    r = load(a.raw, "metro_routes"); r = r[r.STATUS.fillna("Active").str.upper().ne("INACTIVE")]
+    parts.append(gpd.GeoDataFrame({"kind": "route", "name": r.RouteNum.astype(str) + " " + r.RouteName.fillna(""), "serv": r.ServType.fillna("")},
+                                  geometry=simplify(r, 8).geometry, crs=4326))
+    r = load(a.raw, "metro_rail")
+    parts.append(gpd.GeoDataFrame({"kind": "rail", "name": r.NAME.fillna("") + " Line", "color": r.LineColor.fillna("")}, geometry=r.geometry, crs=4326))
+    r = load(a.raw, "metro_stops"); r = r[pd.to_numeric(r.IN_SERVICE, errors="coerce").fillna(1) == 1]
+    st_ = (r.DIR_P.fillna("").str.strip() + " " + r.STREET.fillna("").str.strip() + " " + r.STYPE.fillna("").str.strip()).str.strip().str.title()
+    x1 = (r.X1_STRT.fillna("").str.strip() + " " + r.X1_STYPE.fillna("").str.strip()).str.strip().str.title()
+    parts.append(gpd.GeoDataFrame({"kind": "stop", "name": st_ + np.where(x1 != "", " @ " + x1, ""), "shelter": r.SHELTER.fillna("").str.strip().ne("")},
+                                  geometry=r.geometry, crs=4326))
+    for key, kind in (("metro_tc", "tc"), ("metro_pnr", "pnr")):
+        r = load(a.raw, key)
+        parts.append(gpd.GeoDataFrame({"kind": kind, "name": r.NAME1.fillna(""), "addr": r.ADDRESS.fillna("").str.title(),
+                                       "routes": r.ROUTES_SER.fillna("").str.strip(" -").str.split().str.join(", ")}, geometry=r.geometry, crs=4326))
+    g = gpd.GeoDataFrame(pd.concat(parts, ignore_index=True), crs=4326)
+    print("transit: " + ", ".join(f"{k} {v}" for k, v in g.kind.value_counts().items()), flush=True)
+    out["transit"] = (g, ["kind", "name", "serv", "color", "shelter", "addr", "routes"])
 
     g = load(a.raw, "labor")
     g = g.rename(columns={"B23025_001E": "p16", "B23025_002E": "lf", "B23025_004E": "emp", "B23025_005E": "unemp", "GEOID": "tract"})

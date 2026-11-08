@@ -270,9 +270,12 @@ Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 | | Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals |
 | | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |
 | | Traffic counts | TxDOT AADT stations (from Google zoom 11) |
+| Trucking | Truck restrictions (bridges) | TxDOT bridge inventory (NBI data), only bridges that can stop or reroute a truck: under 16 ft of clearance for the road underneath or over the deck, load posted (postings at 80,000 lb or more shown lighter: they only limit overweight permit loads), closed, poor condition (a component rated 4 or less), or over-height load damage on record. Site checks list the nearest within 2 miles (straight-line distance, not along a route) |
+| | Highway freight network | TxDOT Texas Highway Freight Network; site checks give the distance to it |
 | Infrastructure | Pipelines | Texas Railroad Commission; dashed, colored by product; under 8 in. only from zoom 12 |
 | | Transmission lines, substations | HIFLD public copies; dotted, colored by voltage class; under 100 kV lines and substations from zoom 12; tower dots (line vertices) from zoom 15 |
 | | Water and sewer service areas | Texas PUC CCN boundaries |
+| Workforce access | METRO transit | METRO bus routes, METRORail lines, transit centers and park and rides; bus stops from Google zoom 15. Site checks give the nearest bus stop and transit center or park and ride |
 | Environment | Flood zones | FEMA (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
 | | Wetlands | USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub, estuarine; 1 acre and up |
 | | Hurricane evacuation zones | H-GAC 2025 ZIP zones A, B, C |
@@ -314,14 +317,19 @@ loaded counties (works offline) and Esri's World Geocoder (`geocode.arcgis.com`,
 place; free for lookups that are not stored, no key). A parcel's drawer has a "Drive time from here" button.
 Water (bays, lakes, rivers, the Gulf) is impassable except where a road or bridge crosses it.
 
-Labor shed: with a drive time drawn, the panel totals the labor force, employed and unemployed residents (16 and
-over, ACS 5-year by census tract, Esri Living Atlas) of tracts whose center falls inside each band. It counts where
-workers live, not where they work.
+Labor shed: with a drive time drawn, the panel totals, for census tracts whose center falls inside each band:
+the labor force (ACS employment status, Esri Living Atlas); residents working in production, transportation and
+material moving occupations (ACS C24010) and their median earnings (ACS B24021, tract medians weighted by those
+workers); and industrial jobs located in the band (manufacturing, wholesale, transportation and warehousing; LEHD
+LODES workplace data), the competition for the same workers. `pipeline/build_labor.py` adds these to the labor
+layer from the Census ACS table-based summary files (no API key) and LODES (www2.census.gov, lehd.ces.census.gov).
+Not included: commuting flows (LODES origin-destination) and BLS county wages.
 
 ```bash
 python pipeline/build_layers.py --raw layers_raw --out layers_out       # about 5 min, mostly flood zones
 python pipeline/build_drive_grid.py --raw layers_raw --out layers_out   # about 5 min to fetch 200k road segments
 python pipeline/build_rail_served.py --parcels out/parcels.geojsonl --raw layers_raw --out layers_out   # about 3 min
+python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers.py; about 3 min
 python pipeline/inject.py --embed out --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
   --out houston-8county-tax-map.html
 ```

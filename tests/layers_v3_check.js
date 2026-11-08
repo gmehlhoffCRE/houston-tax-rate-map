@@ -13,7 +13,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await sleep(3000);
  const groups=await p.$$eval('#indLayers .grp .grp-h',x=>x.map(e=>e.innerText.trim()));
  const rows=await p.$$eval('#indLayers .lrow',x=>x.length), presets=await p.$$eval('#presets button',x=>x.map(e=>e.textContent));
- check('4 layer groups, 19 layers, 5 presets',groups.length===4&&rows===19&&presets.length===5,groups.join('|')+' / '+rows+' / '+presets.join('|'));
+ check('6 layer groups, 22 layers, 6 presets',groups.length===6&&rows===22&&presets.length===6,groups.join('|')+' / '+rows+' / '+presets.join('|'));
  const lay=await p.evaluate(()=>Object.fromEntries(Object.entries(window.__app.indData).map(([k,v])=>[k,v&&v.features?v.features.length:v&&v.a?Object.keys(v.a).length:null])));
  // logistics preset
  await clk('#presets button:has-text("Logistics")'); await sleep(800);
@@ -57,6 +57,16 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
    await p.mouse.move(316+1100*gx,76+800*gy); await sleep(250);
    const t=await p.evaluate(()=>{const e=document.getElementById('tip'); return e.style.display==='block'?e.innerText:'';}); if(/features here/.test(t)) multi=t; }
  check('hover lists every feature under the cursor',!!multi,multi.replace(/\n/g,' | '));
+ await clk('#presets button:has-text("Trucking")'); await sleep(800);
+ await p.evaluate(()=>window.__app.setView(-95.28,29.75,12)); await sleep(9000);
+ ids=await p.evaluate(()=>window.__app.layerIds());
+ check('trucking preset: problem bridges and freight network drawn',ids.includes('ind-bridges-p')&&ids.includes('ind-freight-l'),ids.filter(i=>/bridges|freight/.test(i)).join(','));
+ await p.screenshot({path:path.join(shots,'V4b-trucking.png')});
+ await p.evaluate(()=>{window.__app.setLayer('transit',true); window.__app.setView(-95.36,29.75,15);}); await sleep(9000);
+ ids=await p.evaluate(()=>window.__app.layerIds());
+ check('METRO transit drawn (routes, rail, stops, hubs)',['ind-transit-l','ind-transit-d','ind-transit-f','ind-transit-p'].every(i=>ids.includes(i)));
+ await p.screenshot({path:path.join(shots,'V4c-transit.png')});
+ await p.evaluate(()=>window.__app.setLayer('transit',false));
  // risk and development presets
  await clk('#presets button:has-text("Risk")'); await sleep(800);
  await p.evaluate(()=>window.__app.setView(-95.0,29.55,10)); await sleep(12000);
@@ -79,7 +89,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.evaluate(a=>window.__app.openAccount(a,{fly:true}),rs);
  await p.waitForFunction(()=>{const e=document.getElementById('siteChk'); return e&&/Rail/.test(e.innerText);},null,{timeout:60000}).catch(()=>{});
  const sc=await p.evaluate(()=>{const e=document.getElementById('siteChk'); return e?e.innerText.replace(/\n/g,' | '):'';});
- check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc)&&/Truck time to container terminals \| Barbours Cut \d+ min/.test(sc.replace(/\n/g,' ')),sc);
+ check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc)&&/Truck time to container terminals \| Barbours Cut \d+ min/.test(sc.replace(/\n/g,' '))&&/Truck restrictions within 2 mi/.test(sc)&&/Highway freight network/.test(sc)&&/Transit \(METRO\)/.test(sc),sc);
  await sleep(9000); await p.screenshot({path:path.join(shots,'V7-railserved-drawer.png')});
  await clk('#slAdd'); await sleep(300);
  check('shortlist add',(await p.evaluate(()=>window.__app.shortlist().length))===1&&/Shortlist \(1\)/.test(await p.textContent('#slBtn')));
@@ -99,6 +109,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  const lab=await p.evaluate(()=>document.getElementById('dtLab').innerText.replace(/\n/g,' | '));
  const L=await p.evaluate(()=>window.__app.DT.labor);
  check('labor shed totals by band, increasing',L&&L.length===4&&L[0].lf>0&&L[0].lf<L[1].lf&&L[1].lf<L[2].lf&&L[2].lf<=L[3].lf,lab);
+ check('labor shed has production and warehouse workers, pay, industrial jobs',L[1].ptm>0&&L[1].ewn>0&&L[1].wac>0&&/Prod\. and warehouse/.test(lab)&&/\$\d+k/.test(lab));
  await sleep(4000); await p.screenshot({path:path.join(shots,'V9-laborshed.png')});
  // share link round trip
  await p.evaluate(()=>window.__app.setLayer('flood',true)); await p.evaluate(()=>window.__app.writeUrl());
