@@ -280,11 +280,10 @@ Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 | Planning | Zoning | City GIS layers: Baytown, Pearland, Sugar Land, Missouri City, La Porte, Seabrook, Friendswood, Dickinson, Hitchcock, Tomball, Angleton, Lake Jackson, Richmond, West University Place. Each district is put in a category (industrial, commercial, mixed use, planned, residential, agricultural/open) from its code and description. Houston, Pasadena and unincorporated areas have no zoning |
 | | Opportunity Zones | HUD Qualified Opportunity Zones (2018 census tracts) |
 
-Map icons: Cresa map pins from the Cresa Icon Library ("Mapping Elements"), one for ports and port terminals
-(`web/icons/port.png`) and one for airports (`airport.png`), larger for major ports, container terminals and
-major airports. Each pin is anchored at the tip of its pointer, so the tip sits on the location. The SVGs in
-`web/icons` are fallbacks used only when the PNG is missing. Rail intermodal terminals use the Cresa rail
-pin (`web/icons/rail.svg`, vector).
+Map icons: Cresa map pins from the Cresa Icon Library ("Mapping Elements"), vector SVG: one for ports and port
+terminals (`web/icons/port.svg`), one for airports (`airport.svg`) and one for rail intermodal terminals
+(`rail.svg`); larger for major ports, container terminals and major airports. Each pin is anchored at the tip of
+its pointer, so the tip sits on the location.
 
 Styling: rail, pipelines and transmission lines use different line patterns (solid with ties, dashed, dotted)
 so they read apart in grayscale, all on a white casing. With any layer on, parcel shading fades to 30%
