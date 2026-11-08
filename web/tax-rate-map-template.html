@@ -365,9 +365,11 @@ button{font-family:inherit}
 const CONFIG = __CONFIG__;
 const MAP_ICONS=__ICONS__;   // marker images (web/icons), embedded by inject.py
 // deck.gl's image loader cannot decode SVG in every browser: rasterize each icon to a 128 px PNG first
-const MAP_ICON_PNG={}; let iconsReady=false;
-Promise.all(Object.entries(MAP_ICONS).map(([k,u])=>new Promise(res=>{ const im=new Image(); im.onload=()=>{ try{ const c=document.createElement('canvas'); c.width=c.height=128;
-  c.getContext('2d').drawImage(im,0,0,128,128); MAP_ICON_PNG[k]=c.toDataURL('image/png'); }catch(e){} res(); }; im.onerror=()=>res(); im.src=u; })))
+// (keeps each icon's own proportions; map pins are anchored at their bottom-center tip)
+const MAP_ICON_PNG={}, MAP_ICON_WH={}; let iconsReady=false;
+Promise.all(Object.entries(MAP_ICONS).map(([k,u])=>new Promise(res=>{ const im=new Image(); im.onload=()=>{ try{ const c=document.createElement('canvas');
+  const w=im.naturalWidth||128, h=im.naturalHeight||128, sc=Math.min(1,96/h); c.width=Math.round(w*sc); c.height=Math.round(h*sc);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height); MAP_ICON_PNG[k]=c.toDataURL('image/png'); MAP_ICON_WH[k]=[c.width,c.height]; }catch(e){} res(); }; im.onerror=()=>res(); im.src=u; })))
   .then(()=>{ iconsReady=Object.keys(MAP_ICON_PNG).length>0; try{ refresh(); }catch(e){} });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/deck.gl@9.0.38/dist.min.js"></script>
@@ -576,7 +578,7 @@ const IND=[
   {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
     legend:()=>[['Intermodal terminal','dot',[150,100,0]]],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
   {key:'ports',group:'logistics',label:'Ports, terminals and airports',kind:'point',sw:'rgb(0,30,90)',on:true,
-    icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?24:17,
+    icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?34:24,
     color:p=>p.kind==='terminal'?(p.major?[255,182,0]:[214,150,40]):p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.kind==='terminal'?(p.major?8:5.5):p.major?7:4,
     labelZ:7,labelMinor:11,text:p=>p.name,
     legend:()=>[['Port or port terminal','icon:port'],['Public-use airport','icon:airport'],['Larger icons: major ports, container terminals and airports','note']],name:p=>p.name,
@@ -738,13 +740,15 @@ function indLayers(dz){
       const r=typeof o.radius==='function'?o.radius:()=>o.radius;
       const base=o.show?shown(o,d,dz).features:d.features, vis=o.key==='ports'?base.filter(f=>f.properties.major||dz>=o.labelMinor):base;
       if(o.icon&&iconsReady&&MAP_ICON_PNG[o.icon({})]) L.push(new deck.IconLayer({id:id+'p',data:vis,pickable:true,onHover:indTip,opacity:op,getPosition:f=>f.geometry.coordinates,
-        getIcon:f=>{const k=o.icon(f.properties); return {id:k,url:MAP_ICON_PNG[k],width:128,height:128,anchorY:64,mask:false};},getSize:f=>o.iconSize(f.properties),sizeUnits:'pixels',
-        extensions:[collideExt],collisionGroup:'icons',getCollisionPriority:f=>(f.properties.major?2:0)+(f.properties.kind==='terminal'?1:0)}));
+        getIcon:f=>{const k=o.icon(f.properties), [w,h]=MAP_ICON_WH[k]; return {id:k,url:MAP_ICON_PNG[k],width:w,height:h,anchorX:w/2,anchorY:h,mask:false};},   // tip of the pin on the point
+        getSize:f=>o.iconSize(f.properties),sizeUnits:'pixels',
+        // no collision filter here: it tests each icon at its anchor, the thin pin tip, and draws the pins half transparent
+        }));
       else L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
         getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
       if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:vis.filter(f=>o.text(f.properties)),getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),opacity:op,
-        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>o.key==='ports'&&f.properties.kind==='terminal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-20]:[0,-14],
+        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>o.key==='ports'&&f.properties.kind==='terminal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-42]:[0,-14],
         fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
         extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:0}));
     }
@@ -753,7 +757,7 @@ function indLayers(dz){
 }
 // swatches drawn the same way as the map styles
 function swatch(style,c){
-  if(String(style).startsWith('icon:')){ const u=MAP_ICONS[style.slice(5)]; return u?`<img class="sws" src="${u}" width="16" height="16" alt="">`:''; }
+  if(String(style).startsWith('icon:')){ const u=MAP_ICONS[style.slice(5)]; return u?`<img class="sws" src="${u}" height="18" style="width:auto" alt="">`:''; }
   const col=`rgb(${c[0]},${c[1]},${c[2]})`;
   if(style==='fill') return `<svg class="sws" width="22" height="12"><rect x="1" y="1" width="20" height="10" rx="2" fill="${col}" fill-opacity=".45" stroke="${col}" stroke-width="1.2"/></svg>`;
   if(style==='outline') return `<svg class="sws" width="22" height="12"><rect x="2" y="2" width="18" height="8" rx="1" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
