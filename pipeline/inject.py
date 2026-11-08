@@ -86,7 +86,7 @@ if a.embed:
     print(f"embedded {len(records):,} account records, {len(bounds)} boundary layers, {len(layers)} industrial layers, "
           f"{len(tiles_b64) * 3 // 4 / 1e6:.1f} MB of tiles")
 icons = {}   # map markers: web/icons/<name>.png (e.g. exported from the Cresa Icon Library) wins over <name>.svg
-for name in ("airport", "port"):
+for name in ("airport", "port", "rail"):
     png, svg = os.path.join(web, "icons", name + ".png"), os.path.join(web, "icons", name + ".svg")
     if os.path.exists(png):
         icons[name] = "data:image/png;base64," + base64.b64encode(open(png, "rb").read()).decode()

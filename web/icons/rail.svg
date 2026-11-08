@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.67 603.36" width="511.67" height="603.36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-3);
+      }
+
+      .cls-5 {
+        fill: #fcb514;
+      }
+
+      .cls-6 {
+        fill: #1d2657;
+      }
+
+      .cls-7 {
+        fill: #0056da;
+      }
+
+      .cls-8 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-9 {
+        opacity: .2;
+      }
+
+      .cls-10 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" width="511.67" height="603.36"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-2" width="511.67" height="603.36"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-2" width="511.67" height="603.36"/>
+    </clipPath>
+    <clipPath id="clippath-3">
+      <rect class="cls-2" x="99.68" y="66.55" width="156.15" height="375.26"/>
+    </clipPath>
+  </defs>
+  <g id="PublicTransit_Midnight">
+    <g class="cls-10">
+      <g class="cls-3">
+        <polygon class="cls-6" points="0 0 0 511.68 202.9 511.68 255.84 603.36 308.77 511.68 511.68 511.68 511.68 0 0 0"/>
+        <polygon class="cls-5" points="155.88 441.81 99.68 441.81 162.55 362.46 218.74 362.46 155.88 441.81"/>
+        <polygon class="cls-5" points="355.55 441.81 411.75 441.81 348.88 362.46 292.69 362.46 355.55 441.81"/>
+        <rect class="cls-7" x="101.28" y="100.67" width="307.95" height="281.22"/>
+        <rect class="cls-7" x="172.73" y="66.55" width="165.07" height="43.92"/>
+        <rect class="cls-5" x="140.29" y="156.87" width="97.32" height="75.43"/>
+        <rect class="cls-5" x="273.82" y="156.87" width="97.32" height="75.43"/>
+        <rect class="cls-5" x="309.78" y="289.19" width="44.91" height="44.91"/>
+        <rect class="cls-5" x="156.74" y="289.19" width="44.91" height="44.91"/>
+        <g class="cls-8">
+          <g class="cls-9">
+            <g class="cls-4">
+              <polygon class="cls-1" points="255.84 66.55 172.73 66.55 172.73 100.67 101.28 100.67 101.28 381.89 147.16 381.89 99.68 441.81 155.88 441.81 203.35 381.89 255.84 381.89 255.84 66.55"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

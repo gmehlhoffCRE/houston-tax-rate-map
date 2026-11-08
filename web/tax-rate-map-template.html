@@ -577,7 +577,8 @@ const IND=[
       `${p.date||p.cost?'<br>'+[esc(p.date||''),p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · '):''}${p.freight?'<br><b>Freight network project</b>':''}`+
       `${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
   {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
-    legend:()=>[['Intermodal terminal','dot',[150,100,0]]],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
+    icon:()=>'rail',iconSize:()=>30,show:(p,dz)=>dz>=11||!/Container Terminal|Jacintoport/.test(p.name||''),   // dockside ramps sit next to the port pins
+    legend:()=>[['Intermodal rail terminal','icon:rail'],['Dockside ramps at the container terminals from zoom 12','note']],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
   {key:'ports',group:'logistics',label:'Ports, terminals and airports',kind:'point',sw:'rgb(0,30,90)',on:true,
     icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?34:24,
     color:p=>p.kind==='terminal'?(p.major?[255,182,0]:[214,150,40]):p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.kind==='terminal'?(p.major?8:5.5):p.major?7:4,
@@ -749,7 +750,7 @@ function indLayers(dz){
         getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
       if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:vis.filter(f=>o.text(f.properties)),getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),opacity:op,
-        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>o.key==='ports'&&f.properties.kind==='terminal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-42]:[0,-14],
+        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>(o.key==='ports'&&f.properties.kind==='terminal')||o.key==='intermodal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-42]:[0,-14],
         fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
         extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:0}));
     }
@@ -771,7 +772,7 @@ function swatch(style,c){
 function rowSwatch(o){
   const c=(o.sw.match(/\d+/g)||[0,0,0]).map(Number);
   if(o.kind==='proj') return swatch('line',c);
-  if(o.icon&&MAP_ICONS.port) return swatch('icon:port');
+  if(o.icon&&MAP_ICONS[o.icon({})]) return swatch('icon:'+o.icon({}));
   return swatch(o.kind==='fill'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
 }
 
