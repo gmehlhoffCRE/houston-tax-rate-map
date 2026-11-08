@@ -101,23 +101,38 @@ ZONING = [
 
 
 def zone_cat(code, desc):
-    """Coarse zoning category from a city's district code and description (codes differ city to city)."""
-    c = (code or "").upper().strip(); d = (desc or "").upper()
-    t = c + " " + d
-    if re.search(r"INDUSTR|MANUFACT|WAREHOUS|PORT|MARINE IND", t) or re.match(r"^(M-?\d|LI|HI|BI|IND|I-?\d?|I$|LI-|HI-|ML|MH-I|OBP)", c):
-        return "industrial"
-    if re.match(r"^(SF|MF|R-?\d|RS|RM|TH|PH|GH|UR|MH$)", c):   # residential codes even when described as mixed density
-        return "residential"
-    if re.search(r"MIXED|MU\b", t) or re.match(r"^(MU|MXD|MX|DN|OT|OS-?MU|G/O-MU|TC|TOD)", c):
-        return "mixed"
-    if re.search(r"PLANNED|PUD|PDD|\bPD\b", t) or re.match(r"^(PD|PUD|PDD|P-?D)", c):
+    """Coarse zoning category from a city's district code and description (codes differ city to city).
+    The description wins when there is one; the code patterns cover cities that publish codes only."""
+    c = (code or "").upper().strip(); d = re.sub(r"\s+", " ", (desc or "").upper())
+    if d:
+        for pat, cat in ((r"MANUFACTURED HOM|MANUFACTURED HOUS|MOBILE HOME|MIXED RES|SINGLE-FAM", "residential"),
+                         (r"INDUSTR|MANUFACTUR|WAREHOUS", "industrial"),
+                         (r"MIXED|SPECTRUM|LIVABLE CENTER", "mixed"),
+                         (r"PLANNED|\bPUD\b|CLUSTER", "planned"),
+                         (r"OPEN SPACE|PARK(S|WAY)? AND|CONSERVATION|RECREATION|AGRICULT", "ag_open"),
+                         (r"RESID|FAMILY|TOWNH|DUPLEX|ESTATE|GARDEN HOME", "residential"),
+                         (r"COMMERC|BUSINESS|RETAIL|OFFICE|SHOPPING|DOWNTOWN|SERVICE|ENTERTAIN|MAIN STREET", "commercial"),
+                         (r"PUBLIC|INSTITUTION", "other")):
+            if re.search(pat, d):
+                return cat
+    if re.match(r"^CLUSTER", c):
         return "planned"
-    if re.search(r"COMMERC|BUSINESS|RETAIL|OFFICE|HIGHWAY|CORRIDOR|DOWNTOWN|CENTRAL", t) or re.match(r"^(C-?\d?|GC|NC|CG|CS|B-?\d|GB|LC|OP|O-?\d?|CBD|GR|SC|RC|HC|BP|CR)", c):
-        return "commercial"
-    if re.search(r"AGRIC|OPEN SPACE|PARK|RURAL|ESTATE", t) or re.match(r"^(AG|A-?\d?|OS|P|RE|SD|SUD)$", c):
-        return "ag_open"
-    if re.search(r"RESID|FAMILY|DWELL|MOBILE|MANUFACTURED HOME|TOWNHOME|PATIO|DUPLEX|APART", t) or re.match(r"^(R|SF|MF|MH|TH|RS|RM|PH|GH|UR|LR|SR|D)", c):
+    if re.match(r"^(ROW|ROADS|ETJ|SUP|NO ZONING|-9)", c):
+        return "other"
+    if re.match(r"^(MH|MHP|MHR)$", c):
         return "residential"
+    if re.match(r"^(M-?\d|LI|HI|BI|GI|IN$|IND|I-?\d?$|I$|ISOD)", c):
+        return "industrial"
+    if re.match(r"^(MU|MXD|MX|TCC|OT|C-MU|G/O-MU|TOD)", c):
+        return "mixed"
+    if re.match(r"^(PD|PUD|PDD|P-?D)", c):
+        return "planned"
+    if re.match(r"^(SF|MF|R-?\d|R$|RR|SR|RS|RM|TH|PH|GH|UR|LLD|\dF|D$)", c):
+        return "residential"
+    if re.match(r"^(C-?\d?|GC|NC|CG|CS|CR|B-?\d|GB|LC|OP|O$|CBD|SC|RC|HC|BP|NS)", c):
+        return "commercial"
+    if re.match(r"^(AG|A-?\d|OS|P$|PARK|RE$|SD$)", c):
+        return "ag_open"
     return "other"
 
 
