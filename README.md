@@ -268,19 +268,23 @@ Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 | | Ports, terminals and airports | Ports (Army Corps list via US DOT BTS), FAA public-use airports, and 12 port terminals (`data/ports/port_terminals.csv`): Port Houston's Barbours Cut and Bayport container terminals, Bayport cruise, Turning Basin, Woodhouse, Jacintoport, Care, Manchester and the Bulk Materials Handling Plant; Port Freeport Velasco; Port of Galveston cargo and cruise piers; Texas City docks. Placed at their berths (Houston Pilots dock list, Army Corps / BTS Navigation Facilities). Site checks give truck drive time to the three container terminals from the drive-time grid |
 | | Ship docks and drafts | Houston Pilots dock list as of May 20, 2025 (`data/ports/houston_pilots_docks_2025-05-20.csv`, 175 docks with maximum draft); small dots from Google zoom 12, off by default and in no preset. Drafts change; check with the terminal and Houston Pilots |
 | | Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals |
-| | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |
+| | Foreign-Trade Zones and subzones | ITA grantee locations plus 73 subzone company sites (Feb 2025 list, third-party compilation on ArcGIS Online); points only, zone boundaries are PDFs at ofis.trade.gov |
 | | Traffic counts | TxDOT AADT stations (from Google zoom 11) |
 | Trucking | Truck restrictions (bridges) | TxDOT bridge inventory (NBI data), only bridges that can stop or reroute a truck: under 16 ft of clearance for the road underneath or over the deck, load posted (postings at 80,000 lb or more shown lighter: they only limit overweight permit loads), closed, poor condition (a component rated 4 or less), or over-height load damage on record. Site checks list the nearest within 2 miles (straight-line distance, not along a route) |
 | | Highway freight network | TxDOT Texas Highway Freight Network; site checks give the distance to it |
 | Infrastructure | Pipelines | Texas Railroad Commission; dashed, colored by product; under 8 in. only from zoom 12 |
 | | Transmission lines, substations | HIFLD public copies; dotted, colored by voltage class; under 100 kV lines and substations from zoom 12; tower dots (line vertices) from zoom 15 |
 | | Water and sewer service areas | Texas PUC CCN boundaries |
+| | Electric service areas | PUCT investor-owned, co-op and municipal utility areas (marked unofficial). Feeder or substation capacity is not public in Texas; transmission lines and substations are the proxy |
+| | Gas utility service areas | Natural gas distribution territories (HIFLD copy, 2017) |
 | Workforce access | METRO transit | METRO bus routes, METRORail lines, transit centers and park and rides; bus stops from Google zoom 15. Site checks give the nearest bus stop and transit center or park and ride |
-| Environment | Flood zones | FEMA (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
+| Environment | Watersheds | HCFCD's 23 Harris County watersheds. Detention requirements live in the HCFCD criteria manual (PDF), not GIS |
+| | Flood zones | FEMA (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
 | | Wetlands | USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub, estuarine; 1 acre and up |
 | | Hurricane evacuation zones | H-GAC 2025 ZIP zones A, B, C |
 | | Superfund and brownfield sites | EPA NPL, EPA ACRES brownfields (FRS), TCEQ state Superfund, TCEQ brownfield assessments, TCEQ Voluntary Cleanup Program |
 | Planning | Zoning | City GIS layers: Baytown, Pearland, Sugar Land, Missouri City, La Porte, Seabrook, Friendswood, Dickinson, Hitchcock, Tomball, Angleton, Lake Jackson, Richmond, West University Place. Each district is put in a category (industrial, commercial, mixed use, planned, residential, agricultural/open) from its code and description. Houston, Pasadena and unincorporated areas have no zoning |
+| | Texas Enterprise Zones | Governor's office eligible block groups (2020 geography) |
 | | Opportunity Zones | HUD Qualified Opportunity Zones (2018 census tracts) |
 
 Map icons: Cresa map pins from the Cresa Icon Library ("Mapping Elements"), vector SVG: one for ports and port
@@ -299,6 +303,23 @@ vacant, utility, exempt/public, other/agricultural; parcel zoom only).
 Site checks: the parcel drawer lists rail access (railroad and distance), zoning, Opportunity Zone, flood zone,
 wetlands at the parcel center, evacuation zone and the nearest cleanup site within 2 miles. These are screens
 from public layers, not surveys or delineations.
+
+Development sites: the Filters rail's "Development sites" option keeps only undeveloped parcels at or above an
+acreage (default 10): vacant land (state class C), agricultural land (D) and commercial or industrial parcels with
+no building area (F1, F2), from the appraisal records. At metro zoom gold dots mark them (size by acreage); the
+match count switches to development sites. Montgomery County records have no land area yet.
+
+Freeway access: site checks give the truck drive time to the nearest freeway or tollway cell of the drive-time
+grid (roads whose modeled car speed is 78 km/h or more).
+
+Compare: with two or more shortlisted sites, "Compare" in the shortlist opens a side-by-side table (up to 6
+sites): property, tax, access (freeway, container terminals, rail, freight network, truck restrictions, road
+projects, transit), a 30-minute car labor shed per site, and site checks (zoning, flood, wetlands, evacuation,
+Opportunity and Enterprise Zones, FTZ, electric and gas utility, watershed, cleanup sites). "Print or save as PDF"
+prints just the table, landscape, with the Cresa mark.
+
+Not mapped (no public GIS found): Chapter 312 reinvestment zones and abatements, JETI agreements, CenterPoint
+hosting or feeder capacity, detention rates by area.
 
 Shortlist and sharing: "Add to shortlist" in the drawer saves a site in this browser; the Shortlist button lists
 them and exports a CSV (county, ID, address, owner, class, value, rate, estimated tax, coordinates, site checks).

@@ -42,6 +42,11 @@ Layers (key: source)
               (deck, superstructure, substructure or culvert rated 4 or less), or a record of over-height load damage
   freight     Texas Highway Freight Network (TxDOT)
   transit     METRO (Houston) bus routes, rail lines, bus stops, transit centers and park and rides
+  watersheds  HCFCD watersheds (Harris County, 23); detention rules are in the HCFCD criteria manual, not GIS
+  tez         Texas Enterprise Zone eligible block groups (Governor's office, 2020 census geography)
+  ftz         also FTZ subzones (company sites, Feb 2025 list published on ArcGIS Online by a third party)
+  electric    Electric service areas (PUCT, marked unofficial): investor-owned, co-op and municipal utilities
+  gas_util    Natural gas distribution company territories (HIFLD copy, 2017)
   labor       Workforce by census tract (ACS 5-year): population 16+, labor force, employed, unemployed;
               tract centroids, for the labor shed totals in the drive time panel
 
@@ -101,6 +106,15 @@ SOURCES = {
     "metro_tc": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/1", "NAME1,ADDRESS,ROUTES_SER"),
     "metro_pnr": ("https://services5.arcgis.com/p8QKnlioaN3sruqA/arcgis/rest/services/METRO_transit_layers/FeatureServer/2",
                   "NAME1,ADDRESS,ROUTES_SER,PSPACES"),
+    "watersheds_raw": ("https://services2.arcgis.com/nLl0k0Mja5hnSeSl/arcgis/rest/services/HCFCD_Watershed_Layer/FeatureServer/0", "WTSHNAME,WTSHUNIT"),
+    "tez_raw": ("https://services6.arcgis.com/qBPMNP2zACwkFVPe/arcgis/rest/services/TEZ_2020/FeatureServer/0", "County,TRT,BG,Poverty_Ra"),
+    "ftz_sub": ("https://services5.arcgis.com/9b85MAhVnAUWydgW/arcgis/rest/services/FTZ_Subzones_February_2025/FeatureServer/0",
+                "Zone,Grantee,Subzone_Nu,Company_Na,Status"),
+    "elec_iou": ("https://services6.arcgis.com/N6Lzvtb46cpxThhu/arcgis/rest/services/IOU/FeatureServer/300", "COMPANY_NAME,CCN_NO"),
+    "elec_coop": ("https://services6.arcgis.com/N6Lzvtb46cpxThhu/arcgis/rest/services/COOP_DIST/FeatureServer/310", "COMPANY_NAME,CCN_NO"),
+    "elec_muni": ("https://services6.arcgis.com/N6Lzvtb46cpxThhu/arcgis/rest/services/MUNI/FeatureServer/320", "COMPANY_NAME,CCN_NO"),
+    "gas_raw": ("https://services5.arcgis.com/HDRa0B57OVrv2E1q/arcgis/rest/services/Natural_Gas_Local_Distribution_Company_Service_Territories/FeatureServer/0",
+                "NAME,TYPE,HOLDINGCO"),
     "labor": ("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Employment_Status_Centroids/FeatureServer/2",
               "GEOID,NAME,B23025_001E,B23025_002E,B23025_004E,B23025_005E"),
 }
@@ -394,8 +408,31 @@ def main():
         g = g[g.ACTIVE.fillna("Y").astype(str).str.upper().isin(["Y", "YES", "1", "TRUE", "ACTIVE"]) | (g.ACTIVE.isna())]
     out["aadt"] = (g, ["aadt", "year", "station"])
 
-    g = load(a.raw, "ftz")
-    out["ftz"] = (g.rename(columns={"Zone": "zone", "Grantee": "name", "Location": "location"}), ["zone", "name", "location"])
+    g = load(a.raw, "ftz").rename(columns={"Zone": "zone", "Grantee": "name", "Location": "location"}); g["kind"] = "grantee"
+    sz = load(a.raw, "ftz_sub")
+    sz = sz[sz.Status.fillna("Active").str.contains("Active", case=False)]
+    sz = gpd.GeoDataFrame({"kind": "subzone", "zone": sz.Zone.astype(str).str.lstrip("0"), "name": sz.Company_Na.fillna(""),
+                           "sub": sz.Subzone_Nu.fillna("").astype(str).str.lstrip("0"), "location": sz.Grantee.fillna("")}, geometry=sz.geometry, crs=4326)
+    g = gpd.GeoDataFrame(pd.concat([g[["kind", "zone", "name", "location", "geometry"]], sz]), crs=4326)
+    out["ftz"] = (g, ["kind", "zone", "name", "location", "sub"])
+
+    g = load(a.raw, "watersheds_raw")
+    g["name"] = g.WTSHNAME.fillna("").str.title()
+    out["watersheds"] = (simplify(g, 20), ["name"])
+    g = load(a.raw, "tez_raw")
+    g = gpd.GeoDataFrame({"county": g.County, "tract": g.TRT.astype(str), "bg": g.BG.astype(str),
+                          "pov": pd.to_numeric(g.Poverty_Ra, errors="coerce").round(3)}, geometry=g.geometry, crs=4326)
+    out["tez"] = (simplify(g, 10), ["county", "tract", "bg", "pov"])
+    parts = []
+    for key, kind in (("elec_iou", "Investor-owned"), ("elec_coop", "Electric cooperative"), ("elec_muni", "Municipal")):
+        e = load(a.raw, key); e["kind"] = kind; e["name"] = e.COMPANY_NAME.fillna("").str.title(); parts.append(e[["kind", "name", "CCN_NO", "geometry"]])
+    g = gpd.GeoDataFrame(pd.concat(parts), crs=4326)
+    g = gpd.GeoDataFrame(g.drop(columns="geometry"), geometry=g.geometry.intersection(clip), crs=4326)
+    out["electric"] = (simplify(g, 30), ["kind", "name", "CCN_NO"])
+    g = load(a.raw, "gas_raw")
+    g = gpd.GeoDataFrame({"name": g.NAME.fillna("").str.title(), "kind": g.TYPE.fillna("").str.title(), "holding": g.HOLDINGCO.fillna("").str.title()},
+                         geometry=g.geometry.intersection(clip), crs=4326)
+    out["gas_util"] = (simplify(g, 30), ["name", "kind", "holding"])
 
     ports = load(a.raw, "ports_raw").rename(columns={"NAME": "name", "OPERATOR": "operator"})
     ports["name"] = ports.name.str.replace(r",\s*TX$", "", regex=True).str.title().str.replace("Of", "of")
