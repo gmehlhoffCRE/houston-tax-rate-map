@@ -425,12 +425,13 @@ def main():
     out["tez"] = (simplify(g, 10), ["county", "tract", "bg", "pov"])
     parts = []
     for key, kind in (("elec_iou", "Investor-owned"), ("elec_coop", "Electric cooperative"), ("elec_muni", "Municipal")):
-        e = load(a.raw, key); e["kind"] = kind; e["name"] = e.COMPANY_NAME.fillna("").str.title(); parts.append(e[["kind", "name", "CCN_NO", "geometry"]])
+        e = load(a.raw, key); e["kind"] = kind; e["name"] = e.COMPANY_NAME.fillna("").str.title().str.replace("Centerpoint", "CenterPoint"); parts.append(e[["kind", "name", "CCN_NO", "geometry"]])
     g = gpd.GeoDataFrame(pd.concat(parts), crs=4326)
     g = gpd.GeoDataFrame(g.drop(columns="geometry"), geometry=g.geometry.intersection(clip), crs=4326)
     out["electric"] = (simplify(g, 30), ["kind", "name", "CCN_NO"])
     g = load(a.raw, "gas_raw")
-    g = gpd.GeoDataFrame({"name": g.NAME.fillna("").str.title(), "kind": g.TYPE.fillna("").str.title(), "holding": g.HOLDINGCO.fillna("").str.title()},
+    g = gpd.GeoDataFrame({"name": g.NAME.fillna("").str.title().str.replace("Centerpoint", "CenterPoint"), "kind": g.TYPE.fillna("").str.title(),
+                          "holding": g.HOLDINGCO.fillna("").str.title().str.replace("Centerpoint", "CenterPoint")},
                          geometry=g.geometry.intersection(clip), crs=4326)
     out["gas_util"] = (simplify(g, 30), ["name", "kind", "holding"])
 

@@ -594,6 +594,7 @@ const ftIn=v=>{ if(v==null||!(v>0)) return ''; const f=Math.floor(v), i=Math.rou
 const TRANSIT_RAIL={Red:[200,30,45],Green:[30,140,70],Purple:[110,50,150]};
 const USE_C=[[244,211,94],[228,87,46],[123,79,160],[185,215,168],[122,138,153],[79,163,209],[201,183,156]];   // index = tile property t
 const fmtN=n=>n==null?'':Number(n).toLocaleString();
+const coName=s=>String(s||'').replace(/Centerpoint/g,'CenterPoint');   // title-cased source names
 const fmtK=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
 const GROUPS=[['logistics','Logistics'],['trucking','Trucking'],['infra','Infrastructure'],['workforce','Workforce access'],['env','Environment'],['planning','Planning and incentives']];
 const IND=[
@@ -664,10 +665,10 @@ const IND=[
     legend:()=>[['Sewer CCN boundary','dash',[120,80,40]]],name:p=>tc(p.name||'')+' sewer',tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
   {key:'electric',group:'infra',label:'Electric service areas (PUCT)',kind:'outline',sw:'rgb(220,150,0)',color:p=>p.kind==='Investor-owned'?[220,150,0]:p.kind==='Municipal'?[150,90,0]:[200,110,60],lw:2,
     legend:()=>[['Investor-owned utility (CenterPoint, Entergy, TNMP...)','line',[220,150,0]],['Electric cooperative','line',[200,110,60]],['Municipal utility','line',[150,90,0]],['PUCT map, marked unofficial. Inside ERCOT the investor-owned area is wires only; retail is competitive','note']],
-    name:p=>p.name+' electric',tip:p=>`<b>${esc(p.name)}</b><br>${esc(p.kind)} electric utility${p.CCN_NO?' · CCN '+esc(p.CCN_NO):''}`},
+    name:p=>coName(p.name)+' electric',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} electric utility${p.CCN_NO?' · CCN '+esc(p.CCN_NO):''}`},
   {key:'gas_util',group:'infra',label:'Gas utility service areas',kind:'outline',sw:'rgb(230,120,40)',color:()=>[230,120,40],dash:true,
     legend:()=>[['Natural gas distribution territory','dash',[230,120,40]],['HIFLD data from 2017; confirm service with the utility','note']],
-    name:p=>p.name+' gas',tip:p=>`<b>${esc(p.name)}</b><br>${esc(p.kind)} gas utility${p.holding&&p.holding!==p.name?' · '+esc(p.holding):''}`},
+    name:p=>coName(p.name)+' gas',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} gas utility${p.holding&&p.holding!==p.name?' · '+esc(coName(p.holding)):''}`},
   // workforce access
   {key:'transit',group:'workforce',label:'METRO transit (routes, rail, stops)',kind:'transit',sw:'rgb(110,50,150)',
     legend:()=>[['Bus route','line',[110,90,170]],['METRORail line','line',[200,30,45]],['Transit center or park and ride','dot',[110,50,150]],['Bus stop (zoom in)','dot',[150,130,190]],['METRO service area only (Harris County and nearby)','note']],
@@ -1042,8 +1043,8 @@ function buildLayers(){
   const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|wetlands|evac|zoning|opp_zones|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
   const L=[parcelLayer(),...under,...dtLayers()];
   if(state.dev.on&&DEV_PTS.length&&dz<PARCEL_TZ) L.push(new deck.ScatterplotLayer({id:'dev-dots',data:DEV_PTS.filter(d=>d.c>=0&&d.c<=MAXID?passArr[d.c]:true),getPosition:d=>d.p,
-    pickable:true,getFillColor:[255,182,0,230],getLineColor:[0,30,90,255],stroked:true,lineWidthUnits:'pixels',getLineWidth:1,
-    getRadius:d=>Math.min(9,2.5+Math.sqrt(d.ac)/3),radiusUnits:'pixels',updateTriggers:{data:filterVer},
+    pickable:true,getFillColor:[255,182,0,200],getLineColor:[0,30,90,200],stroked:true,lineWidthUnits:'pixels',getLineWidth:0.7,
+    getRadius:d=>Math.min(6,(dz>=11?2.2:1.4)+Math.sqrt(d.ac)/8),radiusUnits:'pixels',updateTriggers:{data:filterVer,getRadius:dz>=11},
     onHover:info=>{ if(!info.object){tip.style.display='none';return;} const d=info.object; tip.innerHTML=`<b>${d.ac.toFixed(1)} acres</b> · ${esc(CLASS_NAME[d.cls]||CLASS_NAME[(d.cls||'')[0]]||d.cls||'')}<br><span style="color:#8A93A8">Click for details</span>`;
       tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px'; },
     onClick:info=>{ if(info.object){ openAccount(info.object.a,{fly:false}); return true; } }}));
@@ -1427,8 +1428,8 @@ async function siteChecks(p){
   if(D.tez){ const f=featAt(D.tez,x,y); out.push(['Enterprise Zone',f?'Eligible <span>block group</span>':'<span>No</span>']); }
   if(D.ftz&&D.ftz.features){ let best=null,bd=99; for(const f of D.ftz.features){ const dm=miles([x,y],f.geometry.coordinates); if(dm<bd){bd=dm;best=f.properties;} }
     out.push(['Foreign-Trade Zone',best&&bd<=5?`FTZ ${esc(String(best.zone))}${best.kind==='subzone'?' subzone ('+esc(best.name)+')':''} <span>${bd.toFixed(1)} mi</span>`:'<span>No FTZ site within 5 mi</span>']); }
-  if(D.electric){ const f=featAt(D.electric,x,y); out.push(['Electric utility',f?`${esc(f.properties.name)} <span>${esc(f.properties.kind)}</span>`:'<span>Not mapped</span>']); }
-  if(D.gas_util){ const f=featAt(D.gas_util,x,y); out.push(['Gas utility',f?esc(f.properties.name):'<span>None mapped (2017 data)</span>']); }
+  if(D.electric){ const f=featAt(D.electric,x,y); out.push(['Electric utility',f?`${esc(coName(f.properties.name))} <span>${esc(f.properties.kind)}</span>`:'<span>Not mapped</span>']); }
+  if(D.gas_util){ const f=featAt(D.gas_util,x,y); out.push(['Gas utility',f?esc(coName(f.properties.name)):'<span>None mapped (2017 data)</span>']); }
   if(D.watersheds){ const f=featAt(D.watersheds,x,y); if(f) out.push(['Watershed (HCFCD)',esc(f.properties.name)]); }
   if(D.flood){ const f=featAt(D.flood,x,y); out.push(['Flood zone',f?esc(f.properties.zone):'<span>Outside mapped 100 and 500-year zones</span>']); }
   if(D.wetlands){ const f=featAt(D.wetlands,x,y); out.push(['Wetlands',f?esc(f.properties.type)+' <span>at the parcel center</span>':'<span>None mapped at the parcel center</span>']); }
