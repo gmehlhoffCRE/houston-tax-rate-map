@@ -13,17 +13,24 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await sleep(3000);
  const groups=await p.$$eval('#indLayers .grp .grp-h',x=>x.map(e=>e.innerText.trim()));
  const rows=await p.$$eval('#indLayers .lrow',x=>x.length), presets=await p.$$eval('#presets button',x=>x.map(e=>e.textContent));
- check('4 layer groups, 17 layers, 5 presets',groups.length===4&&rows===17&&presets.length===5,groups.join('|')+' / '+rows+' / '+presets.join('|'));
+ check('4 layer groups, 18 layers, 5 presets',groups.length===4&&rows===18&&presets.length===5,groups.join('|')+' / '+rows+' / '+presets.join('|'));
  const lay=await p.evaluate(()=>Object.fromEntries(Object.entries(window.__app.indData).map(([k,v])=>[k,v&&v.features?v.features.length:v&&v.a?Object.keys(v.a).length:null])));
  // logistics preset
  await clk('#presets button:has-text("Logistics")'); await sleep(800);
  const ind=await p.evaluate(()=>window.__app.state.ind);
- check('Logistics preset turns on its layers only',ind.rail&&ind.rail_served&&ind.intermodal&&ind.ports&&ind.ftz&&ind.aadt&&!ind.pipelines&&!ind.flood,JSON.stringify(ind));
+ check('Logistics preset turns on its layers only',ind.road_projects&&ind.rail&&ind.rail_served&&ind.intermodal&&ind.ports&&ind.ftz&&ind.aadt&&!ind.pipelines&&!ind.flood,JSON.stringify(ind));
  const leg=await p.$$eval('#layLeg .ll .lt',x=>x.map(e=>e.textContent));
- check('legend lists only the layers that are on',leg.length===6&&leg.includes('Rail lines by owner'),leg.join('|'));
+ check('legend lists only the layers that are on',leg.length===7&&leg.includes('Rail lines by owner'),leg.join('|'));
  check('focus toggle shows when layers are on',await p.isVisible('#focusRow'));
  await p.evaluate(()=>window.__app.setView(-95.13,29.73,11)); await sleep(12000);
  await p.screenshot({path:path.join(shots,'V1-logistics-z11.png')});
+ const rp=await p.evaluate(()=>{const d=window.__app.indData.road_projects; const P=window.__app.state.proj; return [d.features.length,d.features.filter(f=>P[f.properties.stage]&&!f.properties.routine).length];});
+ check('road projects drawn, routine and finished hidden by default',(await p.evaluate(()=>window.__app.layerIds())).includes('ind-road_projects-l')&&rp[0]>4000&&rp[1]>1500&&rp[1]<rp[0],rp.join(' total / shown '));
+ await p.$eval('#projOpts input[data-k="done"]',e=>{e.checked=true;e.dispatchEvent(new Event('change'));}); await sleep(300);
+ check('finished projects toggle',await p.evaluate(()=>window.__app.state.proj.done)&&(await p.$$eval('#layLeg .le',x=>x.map(e=>e.textContent))).includes('Finished since 2023'));
+ await p.$eval('#projOpts input[data-k="done"]',e=>{e.checked=false;e.dispatchEvent(new Event('change'));});
+ await p.evaluate(()=>window.__app.setView(-95.40,29.80,13)); await sleep(9000);
+ await p.screenshot({path:path.join(shots,'V1b-road-projects-z13.png')});
  let ids=await p.evaluate(()=>window.__app.layerIds());
  check('rail drawn with casing and line; rail-served dots at metro zoom',['ind-rail-c','ind-rail-l','ind-rail_served-rs'].every(i=>ids.includes(i)),ids.filter(i=>i.startsWith('ind-')).join(','));
  // utilities preset, zoom filter
@@ -65,7 +72,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.evaluate(a=>window.__app.openAccount(a,{fly:true}),rs);
  await p.waitForFunction(()=>{const e=document.getElementById('siteChk'); return e&&/Rail/.test(e.innerText);},null,{timeout:60000}).catch(()=>{});
  const sc=await p.evaluate(()=>{const e=document.getElementById('siteChk'); return e?e.innerText.replace(/\n/g,' | '):'';});
- check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc),sc);
+ check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc),sc);
  await sleep(9000); await p.screenshot({path:path.join(shots,'V7-railserved-drawer.png')});
  await clk('#slAdd'); await sleep(300);
  check('shortlist add',(await p.evaluate(()=>window.__app.shortlist().length))===1&&/Shortlist \(1\)/.test(await p.textContent('#slBtn')));

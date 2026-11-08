@@ -256,14 +256,15 @@ Accounts are `G` + GCAD property id. 202,064 accounts, 188,039 parcel shapes, bu
 The "Layers" panel in the rail groups the toggles into Logistics, Infrastructure, Environment, and Planning and
 incentives. Each group collapses (the open/closed state is remembered in the browser), each layer has a swatch
 drawn in its map style and an opacity slider while it is on, and preset buttons switch sets at once:
-Logistics (rail, rail-served parcels, intermodal, ports, FTZ, traffic), Utilities (water and sewer CCN, power,
+Logistics (rail, rail-served parcels, road projects, intermodal, ports, FTZ, traffic), Utilities (water and sewer CCN, power,
 substations, pipelines), Risk (flood, wetlands, evacuation zones, cleanup sites), Development (zoning,
-Opportunity Zones, cleanup sites, rail, ports) and Clear.
+Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 
 | Group | Layer | Source |
 |---|---|---|
 | Logistics | Rail lines by owner | US DOT BTS North American Rail Network; colored by owning railroad, solid line with cross ties |
-| | Rail-served parcels | `build_rail_served.py`: parcels within 100 ft of an active track (dots at metro zoom, outlined in the railroad's color at parcel zoom; "show only rail-served" filter) |
+| | Rail-served parcels | `build_rail_served.py`: parcels within 100 ft of an active track (dots for non-residential parcels at metro zoom, every one outlined in the railroad's color at parcel zoom; "show only rail-served" filter) |
+| | Road projects | TxDOT project tracker (DCIS: open projects plus those let since 2023), H-GAC 2027-2030 TIP (cities, counties, toll authorities, METRO and others; TxDOT's entries come from DCIS), City of Houston Public Works active roadway projects, Fort Bend County mobility bond, Montgomery County 2025 road bond. Grouped by timeline: under construction, next 1 to 3 years (design, bidding), 3+ years out (planning, dashed), finished since 2023 (off by default). Line weight by estimated cost. Routine work (seal coat, overlay, landscaping, safety hardware, Houston local-street and sidewalk jobs) hidden unless turned on. Site checks list active projects within 1 mile. Harris County Engineering, Galveston and Brazoria counties publish no project layer beyond their TIP entries |
 | | Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals |
 | | Ports and airports | Army Corps ports via US DOT BTS, FAA public-use airports |
 | | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |

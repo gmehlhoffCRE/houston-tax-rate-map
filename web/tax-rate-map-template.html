@@ -226,6 +226,7 @@ button{font-family:inherit}
 .lrow .lop{width:54px;accent-color:#001E5A;display:none;height:12px}
 .lrow.on .lop{display:block}
 .chk.sub{padding:2px 0 4px 23px;font-size:11px;color:var(--ink3)}
+.chk .pdot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
 .seg.cm{margin:4px 0 6px}
 .dtlab{margin-top:6px;border-top:1px solid var(--line);padding-top:6px;display:none}
 .dtlab.on{display:block}
@@ -544,6 +545,9 @@ const CONTAM_C={npl:[180,0,30],state_sf:[230,80,20],brownfield:[130,80,40],vcp:[
 const CONTAM_NAME={npl:'EPA Superfund (NPL)',state_sf:'TCEQ state Superfund',brownfield:'Brownfield (EPA / TCEQ)',vcp:'TCEQ voluntary cleanup'};
 const EVAC_C={A:[220,50,50],B:[240,140,30],C:[245,200,60]};
 const WET_C={'Emergent':[70,160,140],'Forested / shrub':[40,120,90],'Estuarine':[60,150,190]};
+const PROJ_C={now:[214,40,40],soon:[240,140,20],later:[130,80,190],done:[120,130,145]};
+const PROJ_NAME={now:'Under construction',soon:'Next 1 to 3 years (design, bidding)',later:'3+ years out (planning)',done:'Finished since 2023'};
+const money$=v=>v==null?'':v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+Math.round(v/1e6)+'M':v>=1e3?'$'+Math.round(v/1e3)+'K':'$'+Math.round(v);
 const USE_C=[[244,211,94],[228,87,46],[123,79,160],[185,215,168],[122,138,153],[79,163,209],[201,183,156]];   // index = tile property t
 const fmtN=n=>n==null?'':Number(n).toLocaleString();
 const fmtK=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
@@ -555,7 +559,14 @@ const IND=[
     name:p=>`${RAIL_NAME[p.owner]||p.owner||'Unknown'} rail${p.yard?' yard':''}`,
     tip:p=>`<b>Rail: ${esc(RAIL_NAME[p.owner]||p.owner||'Unknown owner')}</b>${p.rights?'<br>Trackage rights: '+esc(p.rights):''}${p.SUBDIV?'<br>'+esc(tc(p.SUBDIV)):''}${p.yard?'<br>Yard: '+esc(tc(p.yard)):''}`},
   {key:'rail_served',group:'logistics',label:'Rail-served parcels (100 ft)',kind:'parcels',sw:'rgb(0,30,90)',
-    legend:()=>[['Parcel within 100 ft of track, outlined in the railroad\'s color','outline',[0,30,90]]]},
+    legend:()=>[['Parcel within 100 ft of track, outlined in the railroad\'s color','outline',[0,30,90]],['Zoomed out, dots show non-residential parcels only','note']]},
+  {key:'road_projects',group:'logistics',label:'Road projects (TxDOT, cities, counties)',kind:'proj',sw:'rgb(214,40,40)',
+    legend:()=>Object.keys(PROJ_C).filter(k=>state.proj[k]).map(k=>[PROJ_NAME[k],k==='later'?'dash':'line',PROJ_C[k]]).concat([['Line weight = estimated cost. Dates are agency estimates and often slip.','note']]),
+    name:p=>`${p.name} project`,
+    tip:p=>`<b>${esc(p.name||'Road project')}</b> <span style="color:#8A93A8">· ${esc(p.src||'')}</span><br>${esc(p.work||'')}${p.limits&&p.limits!==p.name?'<br>'+esc(tc(p.limits)):''}`+
+      `<br><span style="color:rgb(${PROJ_C[p.stage]})">&#9632;</span> ${esc(PROJ_NAME[p.stage]||'')}${p.phase?' · '+esc(p.phase):''}`+
+      `${p.date||p.cost?'<br>'+[esc(p.date||''),p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · '):''}${p.freight?'<br><b>Freight network project</b>':''}`+
+      `${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
   {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
     legend:()=>[['Intermodal terminal','dot',[150,100,0]]],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
   {key:'ports',group:'logistics',label:'Ports and airports',kind:'point',sw:'rgb(0,30,90)',on:true,color:p=>p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.major?7:4,
@@ -607,7 +618,7 @@ const IND=[
     tip:p=>`<b>Qualified Opportunity Zone</b><br>Census tract ${esc(p.tract||'')}`},
 ];
 const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
-state.focus=true; state.color='rate'; state.railOnly=false;
+state.focus=true; state.color='rate'; state.railOnly=false; state.proj={now:true,soon:true,later:true,done:false,routine:false};
 const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports');
 async function loadLayerData(key){
   if(indData[key]!==undefined) return indData[key];
@@ -621,7 +632,9 @@ async function ensureInd(key){ if(indData[key]!==undefined) return; await loadLa
 let RS=null, RS_PTS=[];
 function railServedPrep(){
   const d=indData.rail_served; if(!d||!d.a) return; RS=d.a; RS_PTS=[];
-  if(EMB){ const C=EMB.cols; for(const a in RS){ const i=EMB.byAcct.get(a); if(i!=null&&C.x[i]!=null) RS_PTS.push({a,o:RS[a][0],ft:RS[a][1],p:[C.x[i]/1e5,C.y[i]/1e5]}); } }
+  // metro-zoom dots: non-residential parcels only (homes along main lines would bury the industrial sites)
+  if(EMB){ const C=EMB.cols; for(const a in RS){ const i=EMB.byAcct.get(a); if(i==null||C.x[i]==null) continue; const k=(C.cls[i]||'')[0];
+    if(k==='A'||k==='B'||k==='E'||k==='M') continue; RS_PTS.push({a,o:RS[a][0],ft:RS[a][1],p:[C.x[i]/1e5,C.y[i]/1e5]}); } }
   filterVer++;
 }
 // features shown at this zoom (small pipelines and low-voltage lines only when zoomed in); cached per zoom step
@@ -639,7 +652,7 @@ function towers(o,d){   // line vertices stand in for structures at close zoom
   return towerCache[o.key]=pts;
 }
 // hover: list every feature under the cursor so overlapping lines are not ambiguous
-function indPickIds(){ return IND.filter(o=>state.ind[o.key]).flatMap(o=>['ind-'+o.key+'-f','ind-'+o.key+'-o','ind-'+o.key+'-l','ind-'+o.key+'-p','ind-'+o.key+'-rs']); }
+function indPickIds(){ return IND.filter(o=>state.ind[o.key]).flatMap(o=>['ind-'+o.key+'-f','ind-'+o.key+'-o','ind-'+o.key+'-l','ind-'+o.key+'-d','ind-'+o.key+'-p','ind-'+o.key+'-rs']); }
 function indTip(info){
   if(!info.object){tip.style.display='none';return;}
   let picks=[info];
@@ -664,11 +677,29 @@ function indLayers(dz){
     const id='ind-'+o.key+'-', op=state.indOp[o.key];
     if(o.kind==='parcels'){
       if(dz<PARCEL_TZ&&RS_PTS.length) L.push(new deck.ScatterplotLayer({id:id+'rs',data:RS_PTS,getPosition:d=>d.p,pickable:true,onHover:indTip,opacity:op,
-        getFillColor:d=>[...railC(d.o),230],getLineColor:[255,255,255,230],stroked:true,lineWidthUnits:'pixels',getLineWidth:1,
-        getRadius:dz>=11?4:dz>=9?3:2,radiusUnits:'pixels',updateTriggers:{getRadius:Math.floor(dz)}}));
+        getFillColor:d=>[...railC(d.o),210],getLineColor:[255,255,255,200],stroked:dz>=10,lineWidthUnits:'pixels',getLineWidth:0.8,
+        getRadius:dz>=11?3:dz>=9?2.2:1.6,radiusUnits:'pixels',updateTriggers:{getRadius:Math.floor(dz)}}));
       continue;
     }
     if(!d.features) continue;
+    if(o.kind==='proj'){
+      const P=state.proj, ck='proj:'+Object.values(P).join(',');
+      if(!showCache[ck]||showCache[ck].src!==d) showCache[ck]={src:d,fc:{type:'FeatureCollection',features:d.features.filter(f=>P[f.properties.stage]&&(P.routine||!f.properties.routine))}};
+      const data=showCache[ck].fc, w=p=>p.cost>=1e8?5:p.cost>=1e7?3.6:2.4, col=p=>PROJ_C[p.stage]||[120,120,120];
+      const lines={type:'FeatureCollection',features:data.features.filter(f=>/Line/.test(f.geometry.type))};
+      const later={type:'FeatureCollection',features:lines.features.filter(f=>f.properties.stage==='later')};
+      const solid={type:'FeatureCollection',features:lines.features.filter(f=>f.properties.stage!=='later')};
+      const other={type:'FeatureCollection',features:data.features.filter(f=>!/Line/.test(f.geometry.type))};
+      L.push(new deck.GeoJsonLayer({id:id+'c',data:lines,stroked:true,filled:false,pickable:false,opacity:op,getLineColor:[255,255,255,200],getLineWidth:f=>w(f.properties)+3,lineWidthUnits:'pixels',capRounded:true}));
+      L.push(new deck.GeoJsonLayer({id:id+'l',data:solid,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],opacity:op,
+        getLineColor:f=>[...col(f.properties),235],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',capRounded:true}));
+      L.push(new deck.GeoJsonLayer({id:id+'d',data:later,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],opacity:op,
+        getLineColor:f=>[...col(f.properties),235],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',getDashArray:[2.5,1.5],dashJustified:true,extensions:[dashExt]}));
+      L.push(new deck.GeoJsonLayer({id:id+'p',data:other,filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,pointType:'circle',
+        getFillColor:f=>[...col(f.properties),f.geometry.type==='Point'?230:55],getLineColor:f=>f.geometry.type==='Point'?[255,255,255,240]:[...col(f.properties),220],
+        getLineWidth:1.5,lineWidthUnits:'pixels',getPointRadius:f=>f.properties.cost>=1e8?8:6,pointRadiusUnits:'pixels'}));
+      continue;
+    }
     if(o.kind==='fill'){
       L.push(new deck.GeoJsonLayer({id:id+'f',data:d,filled:true,stroked:!!o.line,pickable:true,onHover:indTip,opacity:op,
         getFillColor:f=>o.fill(f.properties),getLineColor:f=>o.line?[...o.line(f.properties),210]:[0,0,0,0],getLineWidth:o.key==='zoning'&&dz<12?0:1.2,lineWidthUnits:'pixels',
@@ -718,6 +749,7 @@ function swatch(style,c){
 }
 function rowSwatch(o){
   const c=(o.sw.match(/\d+/g)||[0,0,0]).map(Number);
+  if(o.kind==='proj') return swatch('line',c);
   return swatch(o.kind==='fill'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
 }
 
@@ -1163,8 +1195,8 @@ const indEl=$('indLayers');
 const CHK='<span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>';
 const CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
 let openGroups; try{ openGroups=new Set(JSON.parse(localStorage.getItem('taxmap.groups')||'["logistics"]')); }catch(e){ openGroups=new Set(['logistics']); }
-const PRESETS=[['Logistics',['rail','rail_served','intermodal','ports','ftz','aadt']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines']],
-  ['Risk',['flood','wetlands','evac','contam']],['Development',['zoning','opp_zones','contam','rail','ports']],['Clear',[]]];
+const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','ports','ftz','aadt']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines']],
+  ['Risk',['flood','wetlands','evac','contam']],['Development',['zoning','opp_zones','contam','rail','road_projects','ports']],['Clear',[]]];
 for(const [gk,gt] of GROUPS){
   const g=document.createElement('div'); g.className='grp'+(openGroups.has(gk)?' open':''); g.dataset.g=gk;
   g.innerHTML=`<button class="grp-h" aria-expanded="${openGroups.has(gk)}">${CHEV}<span>${gt}</span><span class="n"></span></button><div class="grp-b"></div>`;
@@ -1177,6 +1209,13 @@ for(const [gk,gt] of GROUPS){
     row.querySelector('input[type=checkbox]').onchange=e=>setLayer(o.key,e.target.checked);
     row.querySelector('.lop').oninput=e=>{ state.indOp[o.key]=+e.target.value; refresh(); };
     body.appendChild(row);
+    if(o.key==='road_projects'){
+      const sub=document.createElement('div'); sub.id='projOpts'; sub.style.display='none';
+      sub.innerHTML=[['now','Under construction'],['soon','Next 1 to 3 years'],['later','3+ years out'],['done','Finished since 2023'],['routine','Include routine work (resurfacing, local streets)']]
+        .map(([k,t])=>`<label class="chk sub"><input type="checkbox" data-k="${k}" ${state.proj[k]?'checked':''}>${CHK}${k==='routine'?'':`<span class="pdot" style="background:rgb(${PROJ_C[k]})"></span>`}<span>${t}</span></label>`).join('');
+      sub.querySelectorAll('input').forEach(i=>i.onchange=()=>{ state.proj[i.dataset.k]=i.checked; renderLegend(); refresh(); scheduleUrl(); });
+      body.appendChild(sub);
+    }
     if(o.key==='rail_served'){
       const sub=document.createElement('label'); sub.className='chk sub'; sub.id='railOnlyRow'; sub.style.display='none';
       sub.innerHTML=`<input type="checkbox" id="railOnly">${CHK}<span>Show only rail-served parcels</span>`;
@@ -1190,6 +1229,7 @@ function syncPanel(){
   for(const row of indEl.querySelectorAll('.lrow')){ const on=!!state.ind[row.dataset.key]; row.classList.toggle('on',on); row.querySelector('input[type=checkbox]').checked=on; }
   for(const g of indEl.querySelectorAll('.grp')){ const n=IND.filter(o=>o.group===g.dataset.g&&state.ind[o.key]).length; g.querySelector('.n').textContent=n||''; }
   $('railOnlyRow').style.display=state.ind.rail_served?'':'none';
+  $('projOpts').style.display=state.ind.road_projects?'':'none';
   if(!state.ind.rail_served&&state.railOnly){ state.railOnly=false; $('railOnly').checked=false; filterVer++; }
   $('focusRow').style.display=anyIndOn()&&state.shade?'':'none';
   for(const b of $('presets').querySelectorAll('button')){ const keys=PRESETS.find(p=>p[0]===b.textContent)[1];
@@ -1233,11 +1273,21 @@ function featAt(fc,x,y){
     if(g.type==='Polygon'?inRings(x,y,g.coordinates):g.coordinates.some(pg=>inRings(x,y,pg))) return f; }
   return null;
 }
+function geomMiles(pt,g){   // miles from a point to a point, line or polygon outline (local flat approximation)
+  const k=Math.cos(pt[1]*Math.PI/180)*69.17, m=69.17; let best=Infinity;
+  const seg=(a,b)=>{ const ax=(a[0]-pt[0])*k, ay=(a[1]-pt[1])*m, bx=(b[0]-pt[0])*k, by=(b[1]-pt[1])*m, dx=bx-ax, dy=by-ay, L=dx*dx+dy*dy;
+    let t=L?-(ax*dx+ay*dy)/L:0; t=Math.max(0,Math.min(1,t)); const d=Math.hypot(ax+t*dx,ay+t*dy); if(d<best) best=d; };
+  const line=c=>{ if(c.length===1) seg(c[0],c[0]); for(let i=1;i<c.length;i++) seg(c[i-1],c[i]); };
+  if(g.type==='Point') seg(g.coordinates,g.coordinates); else if(g.type==='LineString') line(g.coordinates); else if(g.type==='MultiLineString') g.coordinates.forEach(line);
+  else if(g.type==='Polygon'){ if(inRings(pt[0],pt[1],g.coordinates)) return 0; g.coordinates.forEach(line); }
+  else if(g.type==='MultiPolygon'){ for(const pg of g.coordinates){ if(inRings(pt[0],pt[1],pg)) return 0; pg.forEach(line); } }
+  return best;
+}
 const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*k)*69.17, dy=(b[1]-a[1])*69.17; return Math.hypot(dx,dy); };
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
@@ -1248,6 +1298,11 @@ async function siteChecks(p){
   if(D.evac){ const f=featAt(D.evac,x,y); out.push(['Evacuation zone',f?'Zone '+esc(f.properties.zone):'<span>None</span>']); }
   if(D.contam&&D.contam.features){ let best=null,bd=9; for(const f of D.contam.features){ const d=miles([x,y],f.geometry.coordinates); if(d<bd){bd=d;best=f;} }
     out.push(['Nearest cleanup site',best&&bd<=2?`${esc(best.properties.name)} <span>${bd<0.1?'under 0.1':bd.toFixed(1)} mi · ${esc(CONTAM_NAME[best.properties.kind])}</span>`:'<span>None within 2 mi</span>']); }
+  if(D.road_projects&&D.road_projects.features){
+    const near=[]; for(const f of D.road_projects.features){ const q=f.properties; if(q.routine||q.stage==='done') continue; const b=fBox(f);
+      if(x<b[0]-0.02||x>b[2]+0.02||y<b[1]-0.02||y>b[3]+0.02) continue; const dm=geomMiles([x,y],f.geometry); if(dm<=1) near.push([dm,q]); }
+    near.sort((a,b)=>a[0]-b[0]); const seen=new Set(), top=[]; for(const [dm,q] of near){ const k=q.name+q.stage; if(seen.has(k)) continue; seen.add(k); top.push([dm,q]); if(top.length>=3) break; }
+    out.push(['Road projects within 1 mi',top.length?top.map(([dm,q])=>`${esc(q.name)} <span>${esc(PROJ_NAME[q.stage])}, ${dm<0.1?'adjacent':dm.toFixed(1)+' mi'}</span>`).join('<br>')+(seen.size>3?` <span>+${seen.size-3} more</span>`:''):'<span>None active</span>']); }
   el.innerHTML=out.map(([k,v])=>`<div class="k">${k}</div><div class="v">${v}</div>`).join('')||'<div class="k">Layer data not in this build</div><div></div>';
   if(state.selRec&&state.selRec.acct===p.acct) state.selRec._checks=Object.fromEntries(out.map(([k,v])=>[k,v.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()]));
 }
@@ -1310,6 +1365,7 @@ function writeUrl(){
   if(v) h.push('v='+v[0].toFixed(5)+','+v[1].toFixed(5)+','+(+v[2]).toFixed(2));
   const on=IND.filter(o=>state.ind[o.key]).map(o=>o.key); h.push('l='+on.join(','));
   if(state.color!=='rate') h.push('c='+state.color);
+  if(state.ind.road_projects) h.push('rp='+Object.keys(state.proj).filter(k=>state.proj[k]).join(','));
   if(baseType!=='cresa') h.push('b='+baseType);
   if(state.sel) h.push('p='+encodeURIComponent(state.sel));
   if(DT.origin) h.push('d='+DT.origin[0].toFixed(5)+','+DT.origin[1].toFixed(5)+','+DT.mode);
@@ -1318,6 +1374,7 @@ function writeUrl(){
 async function readUrl(){
   const h=new URLSearchParams(location.hash.slice(1)); if(![...h.keys()].length) return;
   if(h.has('l')){ const on=new Set(h.get('l').split(',').filter(Boolean)); for(const o of IND) setLayer(o.key,on.has(o.key),true); syncPanel(); renderLegend(); }
+  if(h.has('rp')){ const on=new Set(h.get('rp').split(',')); for(const k in state.proj){ state.proj[k]=on.has(k); const i=document.querySelector(`#projOpts input[data-k="${k}"]`); if(i) i.checked=state.proj[k]; } renderLegend(); }
   if(h.get('c')==='use') document.querySelector('#colorSeg button[data-c="use"]').click();
   if(h.get('b')) { const b=document.querySelector(`#mtBar .mt[data-t="${h.get('b')}"]`); if(b) b.click(); }
   if(h.get('v')){ const [lon,lat,z]=h.get('v').split(',').map(Number); if(isFinite(lon)&&isFinite(lat)&&isFinite(z)) setView(lon,lat,z); }
