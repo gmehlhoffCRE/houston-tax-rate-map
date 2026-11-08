@@ -342,7 +342,7 @@ button{font-family:inherit}
       </div>
       <div class="pinned">
         <div class="fs-t">Map layers</div>
-        <label class="chk" id="shadeBtn" title="Color parcels by combined rate"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Parcel shading</span></label>
+        <label class="chk" id="shadeBtn" title="Show or hide parcel colors (Tax rate or Land use)"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Parcel shading</span></label>
         <div class="seg cm" id="colorSeg" role="group" aria-label="Parcel color"><button class="on" data-c="rate">Tax rate</button><button data-c="use">Land use</button></div>
         <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
         <div id="countyBox"></div>
@@ -1276,8 +1276,13 @@ document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
   syncRate(); rebuildColors(); applyFilters(); if(state.selRec) renderDrawer(state.selRec);
 });
 $('linesChk').onchange=e=>{state.lines=e.target.checked; refresh();};
-$('shadeChk').onchange=e=>{state.shade=e.target.checked;
-  $('legend').classList.toggle('off',!state.shade); rebuildColors(); refresh(); syncPanel();};
+// Parcel shading on/off: the checkbox and the Tax rate / Land use buttons drive the same state
+// (clicking the lit button again turns shading off; clicking either button while off turns it back on)
+function setShade(on){ state.shade=on; $('shadeChk').checked=on;
+  $('legend').classList.toggle('off',!on); syncColorSeg(); renderLegend(); rebuildColors(); refresh(); syncPanel(); scheduleUrl(); }
+function syncColorSeg(){ document.querySelectorAll('#colorSeg button').forEach(x=>{ const lit=state.shade&&x.dataset.c===state.color;
+  x.classList.toggle('on',lit); x.setAttribute('aria-pressed',lit); x.title=lit?'Click again to turn parcel shading off':'Color parcels by '+x.textContent.toLowerCase(); }); }
+$('shadeChk').onchange=e=>setShade(e.target.checked);
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
 function multiSelect(el,placeholder,options,key){
   el.innerHTML=`<button class="ms-btn" aria-haspopup="listbox"><span class="lab">${esc(placeholder)}</span><span class="badge"></span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="ms-pop" role="listbox" aria-multiselectable="true"></div>`;
@@ -1383,12 +1388,16 @@ function renderLegend(){
   const on=IND.filter(o=>state.ind[o.key]);
   $('layLeg').innerHTML=on.map(o=>`<div class="ll"><div class="lt">${esc(o.label)}</div>${o.legend().map(([t,st,c])=>st==='note'?`<div class="ln">${esc(t)}</div>`:`<div class="le">${swatch(st,c)}<span>${esc(t)}</span></div>`).join('')}</div>`).join('');
   const use=state.color==='use';
-  $('rateLeg').style.display=use?'none':''; $('useLeg').style.display=use?'':'none';
+  $('rateLeg').style.display=use?'none':''; $('useLeg').style.display=use&&state.shade?'':'none';
   if(use) $('useLeg').innerHTML='<div class="t">Land use (CAD state class)</div>'+TYPE_LABEL.map((l,t)=>`<div class="le"><i style="background:rgb(${USE_C[t]})"></i>${esc(t===6?'Other / agricultural':t===5?'Exempt / public':l)}</div>`).join('')+'<div class="ln" style="font-size:9.5px;color:#8A93A8;margin-top:3px">Shown from zoom 14, where parcels draw</div>';
   syncPanel();
 }
-document.querySelectorAll('#colorSeg button').forEach(b=>b.onclick=()=>{ state.color=b.dataset.c; document.querySelectorAll('#colorSeg button').forEach(x=>x.classList.toggle('on',x===b));
-  renderLegend(); refresh(); scheduleUrl(); });
+document.querySelectorAll('#colorSeg button').forEach(b=>b.onclick=()=>{
+  if(state.shade&&state.color===b.dataset.c){ setShade(false); return; }   // lit button clicked again: shading off
+  state.color=b.dataset.c; renderLegend();
+  if(!state.shade){ setShade(true); return; }
+  syncColorSeg(); refresh(); scheduleUrl(); });
+syncColorSeg();
 $('focusChk').onchange=e=>{ state.focus=e.target.checked; refresh(); };
 renderLegend();
 // ---------------------------------------------------------------- site checks (drawer), labor shed, shortlist, share link
@@ -1531,6 +1540,7 @@ function writeUrl(){
   if(v) h.push('v='+v[0].toFixed(5)+','+v[1].toFixed(5)+','+(+v[2]).toFixed(2));
   const on=IND.filter(o=>state.ind[o.key]).map(o=>o.key); h.push('l='+on.join(','));
   if(state.color!=='rate') h.push('c='+state.color);
+  if(!state.shade) h.push('s=0');
   if(state.ind.road_projects) h.push('rp='+Object.keys(state.proj).filter(k=>state.proj[k]).join(','));
   if(baseType!=='cresa') h.push('b='+baseType);
   if(state.sel) h.push('p='+encodeURIComponent(state.sel));
@@ -1541,7 +1551,8 @@ async function readUrl(){
   const h=new URLSearchParams(location.hash.slice(1)); if(![...h.keys()].length) return;
   if(h.has('l')){ const on=new Set(h.get('l').split(',').filter(Boolean)); for(const o of IND) setLayer(o.key,on.has(o.key),true); syncPanel(); renderLegend(); }
   if(h.has('rp')){ const on=new Set(h.get('rp').split(',')); for(const k in state.proj){ state.proj[k]=on.has(k); const i=document.querySelector(`#projOpts input[data-k="${k}"]`); if(i) i.checked=state.proj[k]; } renderLegend(); }
-  if(h.get('c')==='use') document.querySelector('#colorSeg button[data-c="use"]').click();
+  if(h.get('c')==='use'){ state.color='use'; renderLegend(); syncColorSeg(); }
+  if(h.get('s')==='0') setShade(false);
   if(h.get('b')) { const b=document.querySelector(`#mtBar .mt[data-t="${h.get('b')}"]`); if(b) b.click(); }
   if(h.get('v')){ const [lon,lat,z]=h.get('v').split(',').map(Number); if(isFinite(lon)&&isFinite(lat)&&isFinite(z)) setView(lon,lat,z); }
   if(h.get('p')) openAccount(decodeURIComponent(h.get('p')),{fly:false});

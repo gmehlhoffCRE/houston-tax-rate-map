@@ -23,7 +23,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Basemaps: Map / Satellite / Hybrid (Esri without a key, Google with `?key=`) | Nov 6 | Keep | |
 | Esri tile retry (no blank squares) | Nov 7 | Keep | |
 | Folder build (.txt parts) | Nov 6 | Keep | `inject.py --split --part-ext txt` |
-| Land use coloring (Tax rate / Land use switch) | Nov 8 | Review | CAD state class groups, parcel zoom only |
+| Land use coloring (Tax rate / Land use switch) | Nov 8 | Review | CAD state class groups, parcel zoom only. Clicking the lit button again turns parcel shading off (same as the Parcel shading checkbox; share link `s=0`) |
 
 ## Layer panel and styling
 

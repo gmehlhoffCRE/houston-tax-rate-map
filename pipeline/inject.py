@@ -36,6 +36,9 @@ ap.add_argument("--part-ext", default="js", help="with --split: data file extens
 ap.add_argument("--split", action="store_true",
                 help="with --embed: put the data in .js files (each under 95 MB) next to the page instead of inline, "
                      "for hosts with a per-file limit such as GitHub (100 MB). Keep the files in one folder.")
+ap.add_argument("--page-only", metavar="DATA_N,TILES_N",
+                help="write only the page for an existing --split folder build whose parts (<stem>-data-1..N and "
+                     "<stem>-tiles-1..N with --part-ext) are already delivered; no data needed. Use for UI-only changes.")
 a = ap.parse_args()
 
 t = open(os.path.join(web, "tax-rate-map-template.html")).read()
@@ -43,7 +46,14 @@ mark = open(os.path.join(web, "cresa_mark.svg")).read().replace(
     'width="118" height="21"', 'width="112" height="20" aria-label="Cresa" style="display:block;flex-shrink:0"')
 cfg = {"gkey": a.key or "__NO_KEY__", "tiles": a.tiles, "shards": a.shards, "data": a.data}
 embed = ""
-if a.embed:
+if a.page_only:
+    nd, nt = (int(x) for x in a.page_only.split(","))
+    stem = os.path.splitext(os.path.basename(a.out))[0]
+    names = [f"{stem}-{k}-{i}.{a.part_ext}" for k, n in (("data", nd), ("tiles", nt)) for i in range(1, n + 1)]
+    embed = "\n".join(f'<script src="{n}" onload="this.dataset.ok=1"></script>' for n in names)
+    cfg.update({"parts": names, "embed": True, "tiles": "", "shards": "", "data": ""})
+    print(f"page only, referencing existing parts: {', '.join(names)}")
+elif a.embed:
     o = a.embed
     recs = {}
     for f in glob.glob(os.path.join(o, "bucket", "shards", "a", "*.json")):
@@ -97,5 +107,5 @@ t = t.replace("__MARK__", mark).replace("__CONFIG__", json.dumps(cfg)).replace("
 os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
 open(a.out, "w").write(t)
 print(f"wrote {a.out} ({os.path.getsize(a.out) / 1e6:.1f} MB, " +
-      ("embedded data" if a.embed else f"tiles {a.tiles}, shards {a.shards}, data {a.data}") +
+      ("embedded data" if a.embed or a.page_only else f"tiles {a.tiles}, shards {a.shards}, data {a.data}") +
       f", maps key {'set' if a.key else 'not set'})")

@@ -75,6 +75,11 @@ Last results: 26/26, 6/6, 11/11.
 
 ## Delivery formats
 
+- **Page-only change, no rebuild** (Nov 8): the folder build's html only names its .txt parts, so a UI change needs
+  no data. `python pipeline/inject.py --page-only 4,4 --part-ext txt --out dist/houston-8county-tax-map.html`
+  (4 data parts, 4 tile parts, matching the user's folder) and send just the html. Check it headless against a tiny
+  synthetic fixture with the same part names (parcels pmtiles + minimal combos/cols bundle).
+
 - **Hosted** (recommended for brokers): `pipeline/inject.py --tiles <bucket url> --shards <bucket url>`, then
   `deploy/upload_gcs.sh` to the Firebase/GCS bucket and Netlify for the page. Not deployed yet.
 - **Local folder** (what the user has): `build_tiles.sh OUT lean` then
