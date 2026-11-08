@@ -17,7 +17,11 @@ Layers (key: source)
   sewer_ccn   Texas PUC sewer CCN service areas (utility name)
   aadt        TxDOT annual average daily traffic count stations (latest year and count)
   ftz         Foreign-Trade Zone grantee locations (International Trade Administration list; points, not sites)
-  ports       Ports (US DOT BTS, Army Corps list) and airports (FAA facilities, public use only)
+  ports       Ports (US DOT BTS, Army Corps list), airports (FAA facilities, public use only) and port terminals
+              (data/ports/port_terminals.csv: Port Houston public terminals, Port Freeport Velasco, Port of Galveston,
+              Texas City; placed at their berths in the Army Corps / US DOT BTS Navigation Facilities (docks) data)
+  docks       Ship docks and berths on the Houston Ship Channel and Galveston Bay with maximum draft (Houston Pilots
+              dock list, data/ports/houston_pilots_docks_2025-05-20.csv; a few docks without coordinates are left out)
   zoning      City zoning districts where the city publishes a GIS layer (Houston, Pasadena and the counties have
               no zoning). Each district gets a category (industrial, commercial, mixed use, residential, planned,
               agricultural / open, other) from its code and description; the city's own code is kept
@@ -384,9 +388,17 @@ def main():
     major = {"IAH", "HOU", "EFD", "SGR", "DWH", "CXO", "IWS", "LVJ", "GLS", "AXH", "TME", "LBX", "HPY", "T41", "EYQ"}
     ap_["major"] = ap_.ARPT_ID.isin(major)
     ports["major"] = True
+    tp = os.path.join(os.path.dirname(__file__), "..", "data", "ports", "port_terminals.csv")
+    t = pd.read_csv(tp)
+    term = gpd.GeoDataFrame({"name": t.name, "kind": "terminal", "major": t.container.astype(bool), "port": t.port, "cargo": t.cargo,
+                             "note": t.note}, geometry=gpd.points_from_xy(t.lon, t.lat), crs=4326)
     g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]],
-                                    ap_[["name", "kind", "major", "geometry"]]]), crs=4326)
-    out["ports"] = (g, ["name", "kind", "major"])
+                                    ap_[["name", "kind", "major", "geometry"]], term]), crs=4326)
+    out["ports"] = (g, ["name", "kind", "major", "port", "cargo", "note"])
+
+    dp = os.path.join(os.path.dirname(__file__), "..", "data", "ports", "houston_pilots_docks_2025-05-20.csv")
+    d = pd.read_csv(dp, dtype={"draft": str, "note": str})
+    out["docks"] = (gpd.GeoDataFrame(d[["name", "draft", "note"]], geometry=gpd.points_from_xy(d.lon, d.lat), crs=4326), ["name", "draft", "note"])
 
     # zoning: one dissolved polygon set per city and district code
     zs = []

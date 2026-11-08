@@ -1,0 +1,13 @@
+name,port,cargo,container,lat,lon,note
+Barbours Cut Container Terminal,Port Houston,"Containers, ro-ro",1,29.6811,-94.9999,"Morgans Point / La Porte"
+Bayport Container Terminal,Port Houston,"Containers, ro-ro",1,29.6125,-95.0018,"Pasadena / Seabrook"
+Bayport Cruise Terminal,Port Houston,Cruise,0,29.6128,-95.0005,"Pasadena / Seabrook"
+Turning Basin Terminal,Port Houston,"Breakbulk, steel, project cargo",0,29.7420,-95.2820,"Houston, head of the Ship Channel"
+Woodhouse Terminal,Port Houston,"Breakbulk, project cargo",0,29.7237,-95.2381,"Galena Park"
+Jacintoport Terminal,Port Houston,"Breakbulk, project cargo",0,29.7495,-95.1094,"Houston, north bank of the Ship Channel"
+Care Terminal,Port Houston,"Breakbulk, project cargo",0,29.7444,-95.1064,"Houston, north bank of the Ship Channel"
+Bulk Materials Handling Plant,Port Houston,Dry bulk,0,29.7492,-95.1652,"Greens Bayou"
+Manchester Terminal,Port Houston,Liquid bulk,0,29.7245,-95.2634,"Houston, south bank of the Ship Channel"
+Velasco Container Terminal,Port Freeport,"Containers, ro-ro",1,28.9429,-95.3305,"Freeport"
+Port of Galveston cargo and cruise piers,Port of Galveston,"Containers, ro-ro, cruise",0,29.3155,-94.7834,"Galveston Channel, Piers 10 and 12"
+Texas City Terminal Railway docks,Port of Texas City,Liquid bulk,0,29.3740,-94.8910,"Texas City"

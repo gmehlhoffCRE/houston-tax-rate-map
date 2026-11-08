@@ -13,7 +13,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await sleep(3000);
  const groups=await p.$$eval('#indLayers .grp .grp-h',x=>x.map(e=>e.innerText.trim()));
  const rows=await p.$$eval('#indLayers .lrow',x=>x.length), presets=await p.$$eval('#presets button',x=>x.map(e=>e.textContent));
- check('4 layer groups, 18 layers, 5 presets',groups.length===4&&rows===18&&presets.length===5,groups.join('|')+' / '+rows+' / '+presets.join('|'));
+ check('4 layer groups, 19 layers, 5 presets',groups.length===4&&rows===19&&presets.length===5,groups.join('|')+' / '+rows+' / '+presets.join('|'));
  const lay=await p.evaluate(()=>Object.fromEntries(Object.entries(window.__app.indData).map(([k,v])=>[k,v&&v.features?v.features.length:v&&v.a?Object.keys(v.a).length:null])));
  // logistics preset
  await clk('#presets button:has-text("Logistics")'); await sleep(800);
@@ -43,6 +43,13 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.evaluate(()=>window.__app.setView(-95.06,29.70,15)); await sleep(9000);
  ids=await p.evaluate(()=>window.__app.layerIds()); check('tower dots at close zoom',ids.includes('ind-power-tw'));
  await p.screenshot({path:path.join(shots,'V3-utilities-z15.png')});
+ const terms=await p.evaluate(()=>window.__app.indData.ports.features.filter(f=>f.properties.kind==='terminal').map(f=>f.properties.name));
+ check('port terminals in the ports layer',terms.length===12&&terms.includes('Barbours Cut Container Terminal')&&terms.includes('Bayport Container Terminal'),terms.join('|'));
+ await p.evaluate(()=>window.__app.setLayer('docks',true)); await sleep(1500);
+ const nd=await p.evaluate(()=>{const d=window.__app.indData.docks; return d&&d.features?d.features.length:0;});
+ check('ship docks layer loads with drafts',nd>=170&&await p.evaluate(()=>window.__app.indData.docks.features.some(f=>f.properties.name==='Barbours Cut 1'&&f.properties.draft==='45/00')),nd+' docks');
+ await p.evaluate(()=>window.__app.setView(-95.00,29.65,14)); await sleep(9000); await p.screenshot({path:path.join(shots,'V2b-terminals-docks.png')});
+ await p.evaluate(()=>window.__app.setLayer('docks',false));
  // multi-feature tooltip: hover a grid of points until one lists several features
  await p.evaluate(()=>window.__app.setView(-95.13,29.73,12)); await sleep(9000);
  let multi='';
@@ -72,7 +79,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.evaluate(a=>window.__app.openAccount(a,{fly:true}),rs);
  await p.waitForFunction(()=>{const e=document.getElementById('siteChk'); return e&&/Rail/.test(e.innerText);},null,{timeout:60000}).catch(()=>{});
  const sc=await p.evaluate(()=>{const e=document.getElementById('siteChk'); return e?e.innerText.replace(/\n/g,' | '):'';});
- check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc),sc);
+ check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc)&&/Truck time to container terminals \| Barbours Cut \d+ min/.test(sc.replace(/\n/g,' ')),sc);
  await sleep(9000); await p.screenshot({path:path.join(shots,'V7-railserved-drawer.png')});
  await clk('#slAdd'); await sleep(300);
  check('shortlist add',(await p.evaluate(()=>window.__app.shortlist().length))===1&&/Shortlist \(1\)/.test(await p.textContent('#slBtn')));

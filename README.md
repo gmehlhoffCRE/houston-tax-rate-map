@@ -265,8 +265,9 @@ Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 | Logistics | Rail lines by owner | US DOT BTS North American Rail Network; colored by owning railroad, solid line with cross ties |
 | | Rail-served parcels | `build_rail_served.py`: parcels within 100 ft of an active track (dots for non-residential parcels at metro zoom, every one outlined in the railroad's color at parcel zoom; "show only rail-served" filter) |
 | | Road projects | TxDOT project tracker (DCIS: open projects plus those let since 2023), H-GAC 2027-2030 TIP (cities, counties, toll authorities, METRO and others; TxDOT's entries come from DCIS), City of Houston Public Works active roadway projects, Fort Bend County mobility bond, Montgomery County 2025 road bond. Grouped by timeline: under construction, next 1 to 3 years (design, bidding), 3+ years out (planning, dashed), finished since 2023 (off by default). Line weight by estimated cost. Routine work (seal coat, overlay, landscaping, safety hardware, Houston local-street and sidewalk jobs) hidden unless turned on. Site checks list active projects within 1 mile. Harris County Engineering, Galveston and Brazoria counties publish no project layer beyond their TIP entries |
+| | Ports, terminals and airports | Ports (Army Corps list via US DOT BTS), FAA public-use airports, and 12 port terminals (`data/ports/port_terminals.csv`): Port Houston's Barbours Cut and Bayport container terminals, Bayport cruise, Turning Basin, Woodhouse, Jacintoport, Care, Manchester and the Bulk Materials Handling Plant; Port Freeport Velasco; Port of Galveston cargo and cruise piers; Texas City docks. Placed at their berths (Houston Pilots dock list, Army Corps / BTS Navigation Facilities). Site checks give truck drive time to the three container terminals from the drive-time grid |
+| | Ship docks and drafts | Houston Pilots dock list as of May 20, 2025 (`data/ports/houston_pilots_docks_2025-05-20.csv`, 175 docks with maximum draft); small dots from Google zoom 12, off by default and in no preset. Drafts change; check with the terminal and Houston Pilots |
 | | Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals |
-| | Ports and airports | Army Corps ports via US DOT BTS, FAA public-use airports |
 | | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |
 | | Traffic counts | TxDOT AADT stations (from Google zoom 11) |
 | Infrastructure | Pipelines | Texas Railroad Commission; dashed, colored by product; under 8 in. only from zoom 12 |
@@ -278,6 +279,11 @@ Opportunity Zones, cleanup sites, rail, road projects, ports) and Clear.
 | | Superfund and brownfield sites | EPA NPL, EPA ACRES brownfields (FRS), TCEQ state Superfund, TCEQ brownfield assessments, TCEQ Voluntary Cleanup Program |
 | Planning | Zoning | City GIS layers: Baytown, Pearland, Sugar Land, Missouri City, La Porte, Seabrook, Friendswood, Dickinson, Hitchcock, Tomball, Angleton, Lake Jackson, Richmond, West University Place. Each district is put in a category (industrial, commercial, mixed use, planned, residential, agricultural/open) from its code and description. Houston, Pasadena and unincorporated areas have no zoning |
 | | Opportunity Zones | HUD Qualified Opportunity Zones (2018 census tracts) |
+
+Map icons: one ship marker for ports and port terminals and one plane marker for airports (larger for major
+ports, container terminals and major airports), from `web/icons/port.svg` and `airport.svg`. To use the Cresa Icon
+Library's "Mapping Elements" artwork (PortShipping, Airport Midnight), export them from InDesign as PNG
+(transparent, about 128 px) to `web/icons/port.png` and `airport.png`; `inject.py` uses a PNG over the SVG.
 
 Styling: rail, pipelines and transmission lines use different line patterns (solid with ties, dashed, dotted)
 so they read apart in grayscale, all on a white casing. With any layer on, parcel shading fades to 30%

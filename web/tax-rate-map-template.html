@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Cresa Houston Property Tax Rate Map</title>
-<!-- Built by pipeline/inject.py from web/tax-rate-map-template.html. Placeholders: __MARK__, __CONFIG__ -->
+<!-- Built by pipeline/inject.py from web/tax-rate-map-template.html. Placeholders: __MARK__, __CONFIG__, and the map icons -->
 <style>
 :root{
   --navy:#001E5A; --navyLight:#0A2D6E; --gold:#FFB600; --goldSoft:#FFE9B0;
@@ -363,6 +363,12 @@ button{font-family:inherit}
 <!--__EMBED__-->
 <script>
 const CONFIG = __CONFIG__;
+const MAP_ICONS=__ICONS__;   // marker images (web/icons), embedded by inject.py
+// deck.gl's image loader cannot decode SVG in every browser: rasterize each icon to a 128 px PNG first
+const MAP_ICON_PNG={}; let iconsReady=false;
+Promise.all(Object.entries(MAP_ICONS).map(([k,u])=>new Promise(res=>{ const im=new Image(); im.onload=()=>{ try{ const c=document.createElement('canvas'); c.width=c.height=128;
+  c.getContext('2d').drawImage(im,0,0,128,128); MAP_ICON_PNG[k]=c.toDataURL('image/png'); }catch(e){} res(); }; im.onerror=()=>res(); im.src=u; })))
+  .then(()=>{ iconsReady=Object.keys(MAP_ICON_PNG).length>0; try{ refresh(); }catch(e){} });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/deck.gl@9.0.38/dist.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pmtiles@3.2.1/dist/pmtiles.js"></script>
@@ -569,9 +575,15 @@ const IND=[
       `${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
   {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
     legend:()=>[['Intermodal terminal','dot',[150,100,0]]],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
-  {key:'ports',group:'logistics',label:'Ports and airports',kind:'point',sw:'rgb(0,30,90)',on:true,color:p=>p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.major?7:4,
-    labelZ:7,labelMinor:11,text:p=>p.name,legend:()=>[['Port','dot',[0,30,90]],['Public-use airport','dot',[90,100,130]]],name:p=>p.name,
-    tip:p=>`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
+  {key:'ports',group:'logistics',label:'Ports, terminals and airports',kind:'point',sw:'rgb(0,30,90)',on:true,
+    icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?24:17,
+    color:p=>p.kind==='terminal'?(p.major?[255,182,0]:[214,150,40]):p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.kind==='terminal'?(p.major?8:5.5):p.major?7:4,
+    labelZ:7,labelMinor:11,text:p=>p.name,
+    legend:()=>[['Port or port terminal','icon:port'],['Public-use airport','icon:airport'],['Larger icons: major ports, container terminals and airports','note']],name:p=>p.name,
+    tip:p=>p.kind==='terminal'?`<b>${esc(p.name)}</b><br>${esc(p.port||'')} terminal · ${esc(p.cargo||'')}${p.note?'<br>'+esc(p.note):''}`:`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
+  {key:'docks',group:'logistics',label:'Ship docks and drafts (zoom in)',kind:'point',sw:'rgb(70,95,120)',color:()=>[70,95,120],radius:2.8,minZ:11,labelZ:14,
+    text:p=>p.name,legend:()=>[['Dock or berth (Houston Pilots list)','dot',[70,95,120]],['Max drafts change; check with the terminal and Houston Pilots','note']],name:p=>p.name,
+    tip:p=>{ const m=/^(\d+)\/(\d+)$/.exec(p.draft||''); return `<b>${esc(p.name)}</b><br>${m?'Max draft '+(+m[1])+' ft'+(+m[2]?' '+(+m[2])+' in':''):'No draft listed'}${p.note?'<br>'+esc(p.note):''}<br><span style="color:#8A93A8">Houston Pilots dock list, May 20, 2025</span>`; }},
   {key:'ftz',group:'logistics',label:'Foreign-Trade Zones',kind:'point',sw:'rgb(27,143,106)',color:()=>[27,143,106],radius:8,labelZ:7,text:p=>'FTZ '+p.zone,
     legend:()=>[['FTZ grantee location','dot',[27,143,106]]],name:p=>'FTZ '+p.zone,
     tip:p=>`<b>Foreign-Trade Zone ${esc(String(p.zone))}</b><br>${esc(p.name||'')}<br>${esc(p.location||'')}<br><span style="color:#8A93A8">Grantee location; zone sites are not mapped</span>`},
@@ -725,11 +737,14 @@ function indLayers(dz){
     else if(o.kind==='point'){
       const r=typeof o.radius==='function'?o.radius:()=>o.radius;
       const base=o.show?shown(o,d,dz).features:d.features, vis=o.key==='ports'?base.filter(f=>f.properties.major||dz>=o.labelMinor):base;
-      L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
+      if(o.icon&&iconsReady&&MAP_ICON_PNG[o.icon({})]) L.push(new deck.IconLayer({id:id+'p',data:vis,pickable:true,onHover:indTip,opacity:op,getPosition:f=>f.geometry.coordinates,
+        getIcon:f=>{const k=o.icon(f.properties); return {id:k,url:MAP_ICON_PNG[k],width:128,height:128,anchorY:64,mask:false};},getSize:f=>o.iconSize(f.properties),sizeUnits:'pixels',
+        extensions:[collideExt],collisionGroup:'icons',getCollisionPriority:f=>(f.properties.major?2:0)+(f.properties.kind==='terminal'?1:0)}));
+      else L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
         getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
       if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:vis.filter(f=>o.text(f.properties)),getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),opacity:op,
-        getSize:o.key==='aadt'||o.key==='substations'?10:12,getColor:f=>[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:[0,-14],
+        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>o.key==='ports'&&f.properties.kind==='terminal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-20]:[0,-14],
         fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
         extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:0}));
     }
@@ -738,6 +753,7 @@ function indLayers(dz){
 }
 // swatches drawn the same way as the map styles
 function swatch(style,c){
+  if(String(style).startsWith('icon:')){ const u=MAP_ICONS[style.slice(5)]; return u?`<img class="sws" src="${u}" width="16" height="16" alt="">`:''; }
   const col=`rgb(${c[0]},${c[1]},${c[2]})`;
   if(style==='fill') return `<svg class="sws" width="22" height="12"><rect x="1" y="1" width="20" height="10" rx="2" fill="${col}" fill-opacity=".45" stroke="${col}" stroke-width="1.2"/></svg>`;
   if(style==='outline') return `<svg class="sws" width="22" height="12"><rect x="2" y="2" width="18" height="8" rx="1" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
@@ -750,6 +766,7 @@ function swatch(style,c){
 function rowSwatch(o){
   const c=(o.sw.match(/\d+/g)||[0,0,0]).map(Number);
   if(o.kind==='proj') return swatch('line',c);
+  if(o.icon&&MAP_ICONS.port) return swatch('icon:port');
   return swatch(o.kind==='fill'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
 }
 
@@ -763,8 +780,8 @@ async function dtGrid(){
   const dec=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0));
   DT.grid={...g,car:dec(g.car),truck:dec(g.truck)}; return DT.grid;
 }
-function dtSolve(G,lon,lat,mode){
-  const {nx,ny}=G, sp=G[mode], N=nx*ny, T=new Float64Array(N).fill(Infinity), cell=G.cell_m, TMAX=3600;
+function dtSolve(G,lon,lat,mode,tmax){
+  const {nx,ny}=G, sp=G[mode], N=nx*ny, T=new Float64Array(N).fill(Infinity), cell=G.cell_m, TMAX=tmax||3600;
   const x0=Math.floor((lon-G.bbox[0])/G.dx), y0=Math.floor((lat-G.bbox[1])/G.dy);
   if(x0<0||y0<0||x0>=nx||y0>=ny) return null;
   // binary min-heap of (time, index)
@@ -1260,7 +1277,7 @@ document.querySelectorAll('#colorSeg button').forEach(b=>b.onclick=()=>{ state.c
 $('focusChk').onchange=e=>{ state.focus=e.target.checked; refresh(); };
 renderLegend();
 // ---------------------------------------------------------------- site checks (drawer), labor shed, shortlist, share link
-const bbC=new WeakMap();
+const bbC=new WeakMap(), TERM_T={};   // truck-time fields from each container terminal, solved once
 function fBox(f){ let b=bbC.get(f); if(b) return b; b=[180,90,-180,-90];
   const walk=a=>{ if(typeof a[0]==='number'){ if(a[0]<b[0])b[0]=a[0]; if(a[1]<b[1])b[1]=a[1]; if(a[0]>b[2])b[2]=a[0]; if(a[1]>b[3])b[3]=a[1]; } else for(const x of a) walk(x); };
   walk(f.geometry.coordinates); bbC.set(f,b); return b; }
@@ -1298,6 +1315,16 @@ async function siteChecks(p){
   if(D.evac){ const f=featAt(D.evac,x,y); out.push(['Evacuation zone',f?'Zone '+esc(f.properties.zone):'<span>None</span>']); }
   if(D.contam&&D.contam.features){ let best=null,bd=9; for(const f of D.contam.features){ const d=miles([x,y],f.geometry.coordinates); if(d<bd){bd=d;best=f;} }
     out.push(['Nearest cleanup site',best&&bd<=2?`${esc(best.properties.name)} <span>${bd<0.1?'under 0.1':bd.toFixed(1)} mi · ${esc(CONTAM_NAME[best.properties.kind])}</span>`:'<span>None within 2 mi</span>']); }
+  try{
+    const G=await dtGrid(), ports=await loadLayerData('ports');
+    const cts=ports&&ports.features?ports.features.filter(f=>f.properties.kind==='terminal'&&f.properties.major):[];
+    const cx=Math.floor((x-G.bbox[0])/G.dx), cy=Math.floor((y-G.bbox[1])/G.dy), rows=[];
+    for(const f of cts){ const nm=f.properties.name; if(!TERM_T[nm]) TERM_T[nm]=dtSolve(G,f.geometry.coordinates[0],f.geometry.coordinates[1],'truck',7200);
+      const T=TERM_T[nm]; if(!T) continue; let t=Infinity;
+      for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++){ const xx=cx+dx, yy=cy+dy; if(xx<0||yy<0||xx>=G.nx||yy>=G.ny) continue; const v=T[yy*G.nx+xx]; if(v<t) t=v; }
+      rows.push([t,nm.replace(' Container Terminal','')]); }
+    if(rows.length) out.push(['Truck time to container terminals',rows.sort((a,b)=>a[0]-b[0]).map(([t,n])=>`${esc(n)} <span>${t<=7200?Math.round(t/60)+' min':'over 2 hr'}</span>`).join('<br>')]);
+  }catch(e){}
   if(D.road_projects&&D.road_projects.features){
     const near=[]; for(const f of D.road_projects.features){ const q=f.properties; if(q.routine||q.stage==='done') continue; const b=fBox(f);
       if(x<b[0]-0.02||x>b[2]+0.02||y<b[1]-0.02||y>b[3]+0.02) continue; const dm=geomMiles([x,y],f.geometry); if(dm<=1) near.push([dm,q]); }
