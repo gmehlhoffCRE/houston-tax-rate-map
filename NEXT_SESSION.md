@@ -1,41 +1,77 @@
 # Houston Property Tax Rate Map: handoff for the next session
 
-Updated Nov 6, 2026. Read this first, then `README.md` (how to run) and `HANDOFF.md` (original spec and decisions).
+Updated Nov 8, 2026. Read this first, then `README.md` (how to run, every layer and its source) and `HANDOFF.md`
+(original spec). The previous chat ran out of context; everything it learned is here or in the README.
 
 ## Where the code is
 
-- Private repo `gmehlhoffCRE/houston-tax-rate-map`, branch `main` (moved Nov 6, 2026 with its full history from
-  `gmehlhoffCRE/.claude-skills-`, branch `claude/relaxed-ritchie-7m99j6`, folder `houston-tax-rate-map/`; that copy
-  is now stale). Waller work is on branch `claude/waller-county` until merged.
-- Cloud environment **"claude-skills tax map data"**. Hosts now also include the Waller sources:
-  `services3.arcgis.com` (Waller CAD parcels), `gisweb.tceq.texas.gov` (TCEQ districts), `waller-cad.org`,
-  `www.arcgis.com` (item search) and a few others. The environment lists only `.claude-skills-` as its repo; add
-  `houston-tax-rate-map` in Settings so new sessions clone it.
-- Built outputs (tiles, shards, local files) and raw downloads live in a session's scratchpad and are gone.
-  Rebuilding everything takes about 40 minutes (downloads about 10, data about 5, tiles about 15, test about 10).
-  Waller alone: about 1 minute to download, 10 s for rates, 10 s for data, 6 s for tiles.
+- Private repo `gmehlhoffCRE/houston-tax-rate-map`. **All work since Nov 6 is on branch `claude/waller-county`**
+  (latest commit "CenterPoint name casing; smaller development-site dots"). Not merged to `main` yet; ask the user
+  before merging. `gmehlhoffCRE/.claude-skills-` has a stale old copy; ignore it.
+- Cloud environment **"claude-skills tax map data"** (allowlisted hosts include services*.arcgis.com 1-9,
+  www.arcgis.com, gis.rrc.texas.gov, gisweb.tceq.texas.gov, interactivemaps.sugarlandtx.gov, the CAD hosts,
+  api.census.gov, lehd.ces.census.gov, www2.census.gov). Blocked: porthouston.com, hcfcd.org, ofis.trade.gov,
+  comptroller.texas.gov, geocode.arcgis.com and server.arcgisonline.com (those two only matter in the user's
+  browser, where they work).
+- Built outputs and raw downloads lived in the old session's scratchpad and are gone. Full rebuild is about
+  1 hour (see "Rebuild" below).
 
-## What works today
+## What the user has now (delivered Nov 8)
 
-| County | Parcels | Rates | Values | Notes |
-|---|---|---|---|---|
-| Harris | 1,536,057 from HCAD `Parcels.zip` | 2025 adopted, `build_rates.py` | 2026 appraised, `real_acct.txt` | Acceptance accounts pass (0281700000001 = 1.9557, 0402040000009 = 2.1252 + TIRZ Eastside 6) |
-| Fort Bend | 386,201 from FBCAD public ArcGIS layer | 2025 from the Fort Bend rate grid CSV (`data/fortbend/fb_rates_2025_grid.csv`) | current FBCAD values | R101338 = 2.2859. Building area is living area only, so tax/SF is often blank for commercial |
-| Montgomery (demo) | 329,989 from the City of Houston mirror of MCAD parcels | 2025 from user's workbook (`data/montgomery/...xlsx`) joined through `data/montgomery/mc_code_map.csv` | **none yet** | 352872 = 1.9071. About 15% of accounts "rate incomplete" (about 79 unknown unit codes); about 90 codes matched by pattern, unconfirmed |
-| Chambers | 38,500 shapes / 43,198 accounts from Chambers CAD's 2026 certified roll + parcel shapefile | 2025 from the Comptroller's rates and levies files (`data/chambers/ch_units_2025.csv`) | 2026 certified market value | C49490 = 2.2568. 5 unit codes unidentified (no rate). No building area |
-| Galveston | 188,039 shapes / 202,064 accounts from GCAD's 2026 certified export + parcels | 2025 from GCAD's rate sheet (`data/galveston/gv_units_2025.csv`) | 2026 certified market value | G112187 = 1.7190, G744654 = 1.6758 + Kemah MD 1.00. Building area from improvement records |
-| Liberty | 147,249 shapes / 113,909 accounts from Liberty CAD's public layer | 2025 from LCAD's rate sheet; districts by CAD and TCEQ polygons | LCAD market value | L18096 = 2.2120, L254876 = 1.5041 + MMD 1 0.35. MMD 1 polygon covers about a third of its accounts |
-| Brazoria | 255,806 shapes / 252,094 rated accounts from BCAD's 2026 certified export + parcel shapefile | 2025 from the Comptroller (`data/brazoria/br_units_2025.csv`) | 2026 certified market value | B600116 = 2.3546 (+ Pearland MMD 2), B500027 = 2.8546. Building area from improvement records |
-| Waller | 54,128 shapes / 47,907 accounts from Waller CAD's public layer | 2025 from WCAD's rate list (`data/waller/wc_rates_2025.csv`); MUD/district areas by TCEQ and county polygons | WCAD market value | W44584 = 1.7322, W248025 = 3.1361. ESD 200 applied countywide (unconfirmed). No property class or building area |
+Folder build `houston-8county-tax-map.html` + `-data-1..4.txt` + `-tiles-1..4.txt` (about 258 MB, 40 MB parts,
+`.txt` because `.js` downloads were blocked for the user). Opens from a local folder; no Google key yet (Esri
+basemaps, Map / Satellite / Hybrid). Counties: Harris, Fort Bend, Montgomery, Waller, Chambers, Brazoria,
+Liberty, Galveston (3.01M accounts).
 
-Map features: Cresa styling, Google basemap (Esri fallback), PMTiles via deck.gl 9.0.38 `MVTLayer` + pmtiles 3.2.1,
-dissolved "zones" layer below Google zoom 14, parcels from 14 up, GPU filters, owner/address/account search,
-rate shading and parcel line toggles, county on/off toggles, card with monthly tax per SF, missing-file message
-for the folder build. Browser test: `tests/e2e.js` (24 checks, all passing on the three-county build with the Google basemap). On the
-four-county build without a Maps key (Esri basemap, blocked in the sandbox) 19 pass: the 2 basemap-error checks
-fail on the blocked host, and hover/click on dense Harris parcels fail because headless software GL renders
-about 2 fps, so deck.gl drops the click (it never reaches onClick; Waller clicks work). Same with the old template.
-Fixed: `setView` in Esri mode now updates the page's zoom state (deck.gl does not report camera moves made in code).
+Features (details and sources in README "Map layers, site checks and drive times"):
+- Rate map with filters, search, parcel drawer, Tax rate / Land use coloring, boundaries.
+- Layer panel: 6 collapsible groups (Logistics, Trucking, Infrastructure, Workforce access, Environment,
+  Planning and incentives), 26 layers, presets (Logistics, Trucking, Utilities, Risk, Development, Clear),
+  per-layer opacity, dynamic legend, multi-feature hover, parcel shading fades to 30% under layers.
+- Layers: rail by owner (cross ties), rail-served parcels (100 ft), road projects by timeline (TxDOT DCIS,
+  H-GAC TIP, Houston, Fort Bend, Montgomery bond), intermodal (Cresa rail pin), ports/terminals/airports
+  (Cresa vector pins in `web/icons/`, anchored at the pointer tip), Houston Pilots ship docks with drafts
+  (`data/ports/`), FTZ grantees and 54 subzones, AADT, truck-restriction bridges (TxDOT, 1,046 flagged; 84,000 lb
+  postings shown as permit-only), Texas Highway Freight Network, pipelines (dashed), transmission (dotted, towers),
+  substations, water/sewer CCN, electric service areas (PUCT), gas territories (2017), METRO transit, flood,
+  wetlands, evacuation zones, HCFCD watersheds, Superfund/brownfield, zoning (14 cities, categorized),
+  Enterprise Zones, Opportunity Zones.
+- Drive time (car/truck, 200 m TxDOT speed grid, water mask, address search via parcel addresses + Esri
+  geocoder) with a labor shed table: labor force, production/warehouse workers (ACS C24010), their median pay
+  (ACS B24021), industrial jobs in the band (LEHD 2024).
+- Parcel drawer site checks: rail, zoning, OZ, Enterprise Zone, FTZ, electric and gas utility, watershed, flood,
+  wetlands, evacuation, cleanup sites, truck time to Barbours Cut/Bayport/Velasco, freeway access minutes,
+  truck-restriction bridges within 2 mi, freight network, METRO transit, road projects within 1 mi.
+- Development sites filter (undeveloped parcels over N acres, gold dots at metro zoom).
+- Shortlist (browser storage) with CSV export and Compare (up to 6 sites side by side, print/save as PDF).
+- Share link (URL hash: view, layers, color mode, basemap, parcel, drive time, road-project stages).
+
+## Rebuild (fresh session)
+
+```bash
+# county data and tiles: see README "Running it" (about 40 min); folder used: out8/
+python pipeline/build_layers.py --raw layers_raw --out layers_out          # about 15 min (wetlands fetch is slow)
+python pipeline/build_drive_grid.py --raw layers_raw --out layers_out      # about 5 min
+python pipeline/build_rail_served.py --parcels out8/parcels.geojsonl --raw layers_raw --out layers_out
+python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers
+python pipeline/inject.py --embed out8 --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
+  --out dist/houston-8county-tax-map.html
+```
+
+Tests (headless Chromium; CDN scripts routed to local npm copies of deck.gl 9.0.38, pmtiles 3.2.1,
+@loaders.gl/mvt 4.2.0-beta.2 through a JSON map of URL regex to file, as in the old `cdnmap.json`):
+`tests/layers_v3_check.js` (26 checks), `tests/site_tools_check.js` (6), `tests/dt_address_check.js` (11),
+county checks `tests/*_check.js`. Serve the dist folder with `node tests/serve.js <dir> <port>`.
+Last results: 26/26, 6/6, 11/11.
+
+## Ideas discussed, not built
+
+- Commuting flows (LEHD origin-destination) for a true labor shed; BLS county wages.
+- City truck routes and oversize/overweight corridors (no public GIS found).
+- Chapter 312 abatement zones, JETI, FTZ zone boundaries, CenterPoint capacity, detention rates: no public GIS
+  (PDFs or tables only; hosts blocked).
+- Interstate on-ramp points (freeway access currently = nearest freeway cell of the drive grid).
+- Thinning wetlands (25 MB) if load time becomes a complaint.
 
 ## Delivery formats
 
@@ -112,8 +148,20 @@ build (bucket + Netlify), which fetches only tiles and shards in view.
   `tests/run_fixture_test.sh` and the cdn map pattern in `tests/e2e.js` usage).
 - FBCAD rate grid files: "Total Rate" is the file's year, "Prev Rate" the year before (2026 file = 2026 rates).
 
+- Census API now requires a key; `build_labor.py` streams the ACS table-based summary files from
+  www2.census.gov instead (245 + 180 MB nationwide, filtered to Texas tracts).
+- TxDOT DCIS project layer rejects date filters in `where`; fetch all and filter in pandas.
+- Worker restarts kill background jobs started with `&`; rerun them (raw downloads are cached in layers_raw).
+- deck.gl CollisionFilterExtension tests an icon at its anchor: with pins anchored at the tip it drew them half
+  transparent, so the icon layer has no collision filter.
+- A trailing `//` comment on a line of joined statements silently disabled the next statements once (icon canvas
+  size); keep statements on their own lines.
+- Headless clicks time out when many layers are on (software GL); tests click through `$eval(el=>el.click())`.
+
 ## User preferences
 
 - Grant (Cresa Houston). No em dashes in UI copy. Cresa styling. Confirm specs before major features.
 - Show 2025 rates until Harris has 2026, then switch all counties together.
-- Prefers files delivered in chat; large files as `.txt` parts of 40 MB or less.
+- Prefers files delivered in chat; large files as `.txt` parts of 40 MB or less. When only the page changed,
+  send just the html (data parts differ only by a gzip timestamp).
+- Industrial real estate focus (logistics, trucking, labor, utilities). Likes being offered next ideas.
