@@ -18,11 +18,23 @@ Layers (key: source)
   aadt        TxDOT annual average daily traffic count stations (latest year and count)
   ftz         Foreign-Trade Zone grantee locations (International Trade Administration list; points, not sites)
   ports       Ports (US DOT BTS, Army Corps list) and airports (FAA facilities, public use only)
+  zoning      City zoning districts where the city publishes a GIS layer (Houston, Pasadena and the counties have
+              no zoning). Each district gets a category (industrial, commercial, mixed use, residential, planned,
+              agricultural / open, other) from its code and description; the city's own code is kept
+  opp_zones   Qualified Opportunity Zones (HUD, census tracts designated in 2018)
+  contam      Contaminated and cleanup sites: EPA Superfund NPL, EPA brownfields (ACRES via FRS), TCEQ state
+              Superfund, TCEQ brownfield site assessments, TCEQ Voluntary Cleanup Program
+  wetlands    USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub and estuarine wetlands;
+              lakes, ponds, rivers and open bay water left out (the basemap shows them)
+  evac        Hurricane evacuation zones by ZIP (H-GAC 2025: A is the coast, then B, C)
+  labor       Workforce by census tract (ACS 5-year): population 16+, labor force, employed, unemployed;
+              tract centroids, for the labor shed totals in the drive time panel
 
 Raw downloads are cached in --raw; delete a file there to refetch it.
-Hosts: services.arcgis.com, services2.arcgis.com, services6.arcgis.com, gis.rrc.texas.gov.
+Hosts: services.arcgis.com, services1/2/3/5/6/8.arcgis.com, gis.rrc.texas.gov, gisweb.tceq.texas.gov,
+interactivemaps.sugarlandtx.gov.
 """
-import argparse, json, os, sys, time, urllib.parse
+import argparse, json, os, re, sys, time, urllib.parse
 import geopandas as gpd, pandas as pd, shapely
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -50,16 +62,74 @@ SOURCES = {
     "ports_raw": (f"{AGO}/Petroleum_Ports/FeatureServer/0", "NAME,OPERATOR"),
     "airports_raw": (f"{AGO}/NTAD_Aviation_Facilities/FeatureServer/0",
                      "ARPT_ID,ARPT_NAME,CITY,SITE_TYPE_CODE,FACILITY_USE_CODE,OWNERSHIP_TYPE_CODE"),
+    "opp_zones": ("https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Opportunity_Zones/FeatureServer/13", "*"),
+    "npl": ("https://services.arcgis.com/cJ9YHowT8TU7DUyn/arcgis/rest/services/"
+            "Superfund_National_Priorities_List_(NPL)_Sites_with_Status_Information/FeatureServer/0",
+            "Site_Name,Site_EPA_ID,Status,City,Listing_Date,Construction_Completion_Date,Deletion_Date"),
+    "acres": ("https://services.arcgis.com/cJ9YHowT8TU7DUyn/arcgis/rest/services/FRS_INTERESTS_ACRES/FeatureServer/0",
+              "PRIMARY_NAME,LOCATION_ADDRESS,CITY_NAME,PGM_SYS_ID,FAC_URL"),
+    "tceq_sf": ("https://gisweb.tceq.texas.gov/arcgis/rest/services/Public/Superfund/MapServer/0", "SITE_NAME,PHYS_ADDR,CITY,SF_ID,WEB_URL,EPA_TXID"),
+    "tceq_bf": ("https://gisweb.tceq.texas.gov/arcgis/rest/services/Public/Brownfield/MapServer/0", "SITE_NAME,PHYS_ADDR,CITY,BSA_ID"),
+    "tceq_vcp": ("https://gisweb.tceq.texas.gov/arcgis/rest/services/Public/VCP/MapServer/0", "SITE_NAME,PHYS_ADDR,CITY,VCP_ID"),
+    "evac": ("https://services1.arcgis.com/Z6SBWLWGRRejblAA/arcgis/rest/services/Hurricane_Evacuation_ZipZones_2025/FeatureServer/0",
+             "GEOID20,ZipZone,County"),
+    "labor": ("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Employment_Status_Centroids/FeatureServer/2",
+              "GEOID,NAME,B23025_001E,B23025_002E,B23025_004E,B23025_005E"),
 }
+# wetlands: 217k NWI polygons in the region; ask the server for the wetland types only, pre-generalized
+WETLANDS = ("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Wetlands/FeatureServer/0",
+            "WETLAND_TYPE,ATTRIBUTE",
+            "WETLAND_TYPE IN ('Freshwater Emergent Wetland','Freshwater Forested/Shrub Wetland','Estuarine and Marine Wetland')")
+# city zoning layers: (city, layer url, code field, description field or None)
+ZONING = [
+    ("Baytown", "https://services8.arcgis.com/2iaYWEMdQLPv0ZUw/arcgis/rest/services/Zoning_Municode/FeatureServer/16", "ULDCZON_20", "ORD_Text"),
+    ("Pearland", "https://services5.arcgis.com/iJ6DPCVBtManqbJU/arcgis/rest/services/Zoning/FeatureServer/0", "Zone_Name", "Zone_Description"),
+    ("Sugar Land", "https://interactivemaps.sugarlandtx.gov/512/rest/services/Planning/HomeBase/MapServer/9", "ZONE__", "ZONE_DEF"),
+    ("Missouri City", "https://services2.arcgis.com/6vRbgYSxztFGZwla/arcgis/rest/services/Zoning2026_1/FeatureServer/0", "ZONE_", None),
+    ("La Porte", "https://services3.arcgis.com/K8W2oZWmBOVHwjhP/arcgis/rest/services/ZONING_AUG_2018_Web_AppBuilder_Single_Services/FeatureServer/0", "zoning", "label"),
+    ("Seabrook", "https://services5.arcgis.com/KkzTh8g0dTwlw3DH/arcgis/rest/services/Official_Zoning_Districts_March_2019/FeatureServer/0",
+     "Zoning_Desktop_ZC_Abrv", "Zoning_Desktop_Zoning_Code"),
+    ("Friendswood", "https://services6.arcgis.com/ghs8JYGzwZM6Zl6x/arcgis/rest/services/City_of_Friendswood_Zoning_by_Parcel/FeatureServer/4", "ZONE", "ZoneDescription"),
+    ("Dickinson", "https://services3.arcgis.com/B9RpfHT8Gso9BEJP/arcgis/rest/services/Official_Zoning_Map/FeatureServer/5", "ZoningClass", None),
+    ("Hitchcock", "https://services8.arcgis.com/PyYnLy003aIw1xC3/arcgis/rest/services/Zoning_Public/FeatureServer/0", "LAYER", None),
+    ("Tomball", "https://services2.arcgis.com/Q162lMMZLeb8KwDU/arcgis/rest/services/Current_Zoning_(Public_View)/FeatureServer/344", "District_ID", "District"),
+    ("Angleton", "https://services3.arcgis.com/KGWVkDBbmA3Jt2Ut/arcgis/rest/services/Zoning/FeatureServer/1", "ZoningDesig", None),
+    ("Lake Jackson", "https://services6.arcgis.com/6L90KvW0ESJ4M9QG/arcgis/rest/services/Zoning_-_Public/FeatureServer/0", "REZONE_TO", None),
+    ("Richmond", "https://services6.arcgis.com/riku34rn6C8cs2t5/arcgis/rest/services/CORZONINGDISTRICTS020320/FeatureServer/0", "Zone", "ECP_Zone_Description"),
+    ("West University Place", "https://services2.arcgis.com/i0yOnTx5hca0RSx2/arcgis/rest/services/Zoning_Updated_WFL1/FeatureServer/18", "UpdatedZoningDistrict", None),
+]
 
 
-def fetch(url, fields, path, page=1000):
+def zone_cat(code, desc):
+    """Coarse zoning category from a city's district code and description (codes differ city to city)."""
+    c = (code or "").upper().strip(); d = (desc or "").upper()
+    t = c + " " + d
+    if re.search(r"INDUSTR|MANUFACT|WAREHOUS|PORT|MARINE IND", t) or re.match(r"^(M-?\d|LI|HI|BI|IND|I-?\d?|I$|LI-|HI-|ML|MH-I|OBP)", c):
+        return "industrial"
+    if re.match(r"^(SF|MF|R-?\d|RS|RM|TH|PH|GH|UR|MH$)", c):   # residential codes even when described as mixed density
+        return "residential"
+    if re.search(r"MIXED|MU\b", t) or re.match(r"^(MU|MXD|MX|DN|OT|OS-?MU|G/O-MU|TC|TOD)", c):
+        return "mixed"
+    if re.search(r"PLANNED|PUD|PDD|\bPD\b", t) or re.match(r"^(PD|PUD|PDD|P-?D)", c):
+        return "planned"
+    if re.search(r"COMMERC|BUSINESS|RETAIL|OFFICE|HIGHWAY|CORRIDOR|DOWNTOWN|CENTRAL", t) or re.match(r"^(C-?\d?|GC|NC|CG|CS|B-?\d|GB|LC|OP|O-?\d?|CBD|GR|SC|RC|HC|BP|CR)", c):
+        return "commercial"
+    if re.search(r"AGRIC|OPEN SPACE|PARK|RURAL|ESTATE", t) or re.match(r"^(AG|A-?\d?|OS|P|RE|SD|SUD)$", c):
+        return "ag_open"
+    if re.search(r"RESID|FAMILY|DWELL|MOBILE|MANUFACTURED HOME|TOWNHOME|PATIO|DUPLEX|APART", t) or re.match(r"^(R|SF|MF|MH|TH|RS|RM|PH|GH|UR|LR|SR|D)", c):
+        return "residential"
+    return "other"
+
+
+def fetch(url, fields, path, page=1000, where="1=1", offset=None):
     """Pages an ArcGIS layer (bbox filter) to a GeoJSON FeatureCollection file."""
     feats, off = [], 0
     while True:
-        q = {"where": "1=1", "geometry": ",".join(map(str, BBOX)), "geometryType": "esriGeometryEnvelope",
+        q = {"where": where, "geometry": ",".join(map(str, BBOX)), "geometryType": "esriGeometryEnvelope",
              "inSR": 4326, "spatialRel": "esriSpatialRelIntersects", "outFields": fields, "outSR": 4326,
              "resultOffset": off, "resultRecordCount": page, "f": "geojson"}
+        if offset:
+            q["maxAllowableOffset"] = offset
         d = json.loads(get(f"{url}/query?{urllib.parse.urlencode(q)}"))
         fs = d.get("features", [])
         feats += fs; off += len(fs)
@@ -108,6 +178,18 @@ def main():
             t = time.time()
             n = fetch(url, fields, p, page=1000 if "MapServer" in url else 2000)
             print(f"fetched {key}: {n:,} features ({time.time() - t:.0f} s)", flush=True)
+    p = os.path.join(a.raw, "wetlands.geojson")
+    if not os.path.exists(p):
+        t = time.time(); n = fetch(WETLANDS[0], WETLANDS[1], p, page=2000, where=WETLANDS[2], offset=0.00005)
+        print(f"fetched wetlands: {n:,} features ({time.time() - t:.0f} s)", flush=True)
+    for city, url, code, desc in ZONING:
+        p = os.path.join(a.raw, "zoning_" + re.sub(r"\W+", "_", city.lower()) + ".geojson")
+        if not os.path.exists(p):
+            try:
+                t = time.time(); n = fetch(url, ",".join(x for x in (code, desc) if x), p, page=1000)
+                print(f"fetched zoning {city}: {n:,} features ({time.time() - t:.0f} s)", flush=True)
+            except Exception as e:
+                print(f"zoning {city}: skipped ({e})", flush=True)
     clip = shapely.box(*BBOX)
     out = {}
 
@@ -176,6 +258,67 @@ def main():
     g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]],
                                     ap_[["name", "kind", "major", "geometry"]]]), crs=4326)
     out["ports"] = (g, ["name", "kind", "major"])
+
+    # zoning: one dissolved polygon set per city and district code
+    zs = []
+    for city, url, code, desc in ZONING:
+        p = os.path.join(a.raw, "zoning_" + re.sub(r"\W+", "_", city.lower()) + ".geojson")
+        if not os.path.exists(p):
+            continue
+        g = load(a.raw, os.path.basename(p)[:-8])
+        if g.empty or code not in g:
+            print(f"zoning {city}: no features", flush=True); continue
+        g["code"] = g[code].fillna("").astype(str).str.strip()
+        g["desc"] = g[desc].fillna("").astype(str).str.strip() if desc and desc in g else ""
+        g = g[g.code != ""]
+        g = g.dissolve(by=["code"], as_index=False, aggfunc={"desc": "first"})
+        g["city"] = city
+        g["cat"] = [zone_cat(c, d) for c, d in zip(g.code, g.desc)]
+        g["desc"] = g.desc.str.replace(r"^\s*" + "", "", regex=True)
+        zs.append(g[["city", "code", "desc", "cat", "geometry"]])
+        print(f"zoning {city:<22}{len(g):>4} districts  " + ", ".join(f"{k} {v}" for k, v in g.cat.value_counts().items()), flush=True)
+    if zs:
+        g = gpd.GeoDataFrame(pd.concat(zs), crs=4326)
+        out["zoning"] = (simplify(g.explode(index_parts=False), 4), ["city", "code", "desc", "cat"])
+
+    g = load(a.raw, "opp_zones")
+    tract = next((c for c in g.columns if c.upper() in ("GEOID10", "GEOID", "TRACT", "TRACTCE10", "GEOID_1")), None)
+    g["tract"] = g[tract].astype(str) if tract else ""
+    out["opp_zones"] = (simplify(g, 10), ["tract"])
+
+    rows = []
+    g = load(a.raw, "npl"); g["kind"] = "npl"; g["name"] = g.Site_Name.str.title(); g["id"] = g.Site_EPA_ID
+    g["status"] = g.Status; g["city"] = g.City; rows.append(g)
+    g = load(a.raw, "tceq_sf"); g["kind"] = "state_sf"; g["name"] = g.SITE_NAME.str.title(); g["id"] = g.SF_ID
+    g["addr"] = g.PHYS_ADDR; g["city"] = g.CITY; rows.append(g)
+    g = load(a.raw, "acres"); g["kind"] = "brownfield"; g["name"] = g.PRIMARY_NAME.str.title(); g["id"] = "ACRES " + g.PGM_SYS_ID.astype(str)
+    g["addr"] = g.LOCATION_ADDRESS; g["city"] = g.CITY_NAME; rows.append(g)
+    g = load(a.raw, "tceq_bf"); g["kind"] = "brownfield"; g["name"] = g.SITE_NAME.str.title(); g["id"] = "TCEQ BSA " + g.BSA_ID.astype(str)
+    g["addr"] = g.PHYS_ADDR; g["city"] = g.CITY; rows.append(g)
+    g = load(a.raw, "tceq_vcp"); g["kind"] = "vcp"; g["name"] = g.SITE_NAME.str.title(); g["id"] = "VCP " + g.VCP_ID.astype(str)
+    g["addr"] = g.PHYS_ADDR; g["city"] = g.CITY; rows.append(g)
+    cols = ["kind", "name", "id", "status", "addr", "city"]
+    g = gpd.GeoDataFrame(pd.concat([r[[c for c in cols if c in r] + ["geometry"]] for r in rows]), crs=4326)
+    g = g[g.geom_type == "Point"]
+    g["city"] = g.city.fillna("").str.title()
+    out["contam"] = (g, cols)
+
+    g = load(a.raw, "wetlands")
+    g["type"] = g.WETLAND_TYPE.map({"Freshwater Emergent Wetland": "Emergent", "Freshwater Forested/Shrub Wetland": "Forested / shrub",
+                                    "Estuarine and Marine Wetland": "Estuarine"})
+    g = gpd.GeoDataFrame(g[["type"]], geometry=g.geometry.intersection(clip), crs=4326)
+    g = simplify(g.dissolve(by="type", as_index=False).explode(index_parts=False), 12)
+    g = g[g.to_crs(2278).area > 43560]   # 1 acre and up
+    out["wetlands"] = (g, ["type"])
+
+    g = load(a.raw, "evac")
+    g = g.rename(columns={"ZipZone": "zone", "GEOID20": "zip", "County": "county"})
+    g = g[g.zone.fillna("").str.strip().isin(["A", "B", "C"])]
+    out["evac"] = (simplify(g, 25), ["zone", "zip", "county"])
+
+    g = load(a.raw, "labor")
+    g = g.rename(columns={"B23025_001E": "p16", "B23025_002E": "lf", "B23025_004E": "emp", "B23025_005E": "unemp", "GEOID": "tract"})
+    out["labor"] = (g, ["tract", "p16", "lf", "emp", "unemp"])
 
     for key, (g, cols) in out.items():
         g = g[g.intersects(clip)]

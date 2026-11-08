@@ -251,21 +251,50 @@ python pipeline/build_pacs_rates.py --prefix gv --letter G --offset 110000 --src
 then `build_county_data.py` with `--parcels galveston/gv_parcels.gpkg --cama galveston/gv_real_acct.txt` added.
 Accounts are `G` + GCAD property id. 202,064 accounts, 188,039 parcel shapes, building area on 135,659.
 
-## Industrial layers and drive times
+## Map layers, site checks and drive times
 
-Toggles under "Industrial" in the rail (all off by default except ports and airports), each with hover details:
+The "Layers" panel in the rail groups the toggles into Logistics, Infrastructure, Environment, and Planning and
+incentives. Each group collapses (the open/closed state is remembered in the browser), each layer has a swatch
+drawn in its map style and an opacity slider while it is on, and preset buttons switch sets at once:
+Logistics (rail, rail-served parcels, intermodal, ports, FTZ, traffic), Utilities (water and sewer CCN, power,
+substations, pipelines), Risk (flood, wetlands, evacuation zones, cleanup sites), Development (zoning,
+Opportunity Zones, cleanup sites, rail, ports) and Clear.
 
-| Layer | Source |
-|---|---|
-| Flood zones | FEMA flood hazard areas (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
-| Rail lines | US DOT BTS North American Rail Network (owner, trackage rights, subdivision) |
-| Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals (railroad) |
-| Pipelines | Texas Railroad Commission pipelines (operator, commodity, diameter, status) |
-| Transmission lines, substations | HIFLD electric transmission and substations (public copies; the federal HIFLD Open portal closed in 2025) |
-| Water and sewer service areas | Texas PUC water and sewer CCN service areas (provider) |
-| Traffic counts | TxDOT annual average daily traffic stations (shown from Google zoom 11) |
-| Foreign-Trade Zones | International Trade Administration list: grantee locations only, zone sites are not mapped |
-| Ports and airports | Ports (Army Corps list via US DOT BTS) and FAA public-use airports |
+| Group | Layer | Source |
+|---|---|---|
+| Logistics | Rail lines by owner | US DOT BTS North American Rail Network; colored by owning railroad, solid line with cross ties |
+| | Rail-served parcels | `build_rail_served.py`: parcels within 100 ft of an active track (dots at metro zoom, outlined in the railroad's color at parcel zoom; "show only rail-served" filter) |
+| | Rail intermodal terminals | US DOT BTS intermodal TOFC/COFC terminals |
+| | Ports and airports | Army Corps ports via US DOT BTS, FAA public-use airports |
+| | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |
+| | Traffic counts | TxDOT AADT stations (from Google zoom 11) |
+| Infrastructure | Pipelines | Texas Railroad Commission; dashed, colored by product; under 8 in. only from zoom 12 |
+| | Transmission lines, substations | HIFLD public copies; dotted, colored by voltage class; under 100 kV from zoom 12; tower dots (line vertices) from zoom 15 |
+| | Water and sewer service areas | Texas PUC CCN boundaries |
+| Environment | Flood zones | FEMA (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
+| | Wetlands | USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub, estuarine; 1 acre and up |
+| | Hurricane evacuation zones | H-GAC 2025 ZIP zones A, B, C |
+| | Superfund and brownfield sites | EPA NPL, EPA ACRES brownfields (FRS), TCEQ state Superfund, TCEQ brownfield assessments, TCEQ Voluntary Cleanup Program |
+| Planning | Zoning | City GIS layers: Baytown, Pearland, Sugar Land, Missouri City, La Porte, Seabrook, Friendswood, Dickinson, Hitchcock, Tomball, Angleton, Lake Jackson, Richmond, West University Place. Each district is put in a category (industrial, commercial, mixed use, planned, residential, agricultural/open) from its code and description. Houston, Pasadena and unincorporated areas have no zoning |
+| | Opportunity Zones | HUD Qualified Opportunity Zones (2018 census tracts) |
+
+Styling: rail, pipelines and transmission lines use different line patterns (solid with ties, dashed, dotted)
+so they read apart in grayscale, all on a white casing. With any layer on, parcel shading fades to 40%
+("Fade parcel shading under layers" in the legend turns that off). Hovering lists every feature under the
+cursor. The legend shows only the layers that are on, in their map styles.
+
+Parcel shading can show the tax rate or land use (CAD state class groups: residential, commercial, industrial,
+vacant, utility, exempt/public, other/agricultural; parcel zoom only).
+
+Site checks: the parcel drawer lists rail access (railroad and distance), zoning, Opportunity Zone, flood zone,
+wetlands at the parcel center, evacuation zone and the nearest cleanup site within 2 miles. These are screens
+from public layers, not surveys or delineations.
+
+Shortlist and sharing: "Add to shortlist" in the drawer saves a site in this browser; the Shortlist button lists
+them and exports a CSV (county, ID, address, owner, class, value, rate, estimated tax, coordinates, site checks).
+"Share" copies a link holding the view, layers, parcel color, basemap, selected parcel and drive time. Since the
+viewer is a local folder, the link opens for anyone who has the same folder at the same path, or once the
+viewer is hosted.
 
 Drive time: the "Drive time" button under the basemap toggle, then a click on the map, shades 15/30/45/60-minute
 reach for a car or a truck. It runs in the page on a 200 m speed grid built from TxDOT's Roadway Inventory (road
@@ -278,15 +307,21 @@ loaded counties (works offline) and Esri's World Geocoder (`geocode.arcgis.com`,
 place; free for lookups that are not stored, no key). A parcel's drawer has a "Drive time from here" button.
 Water (bays, lakes, rivers, the Gulf) is impassable except where a road or bridge crosses it.
 
+Labor shed: with a drive time drawn, the panel totals the labor force, employed and unemployed residents (16 and
+over, ACS 5-year by census tract, Esri Living Atlas) of tracts whose center falls inside each band. It counts where
+workers live, not where they work.
+
 ```bash
 python pipeline/build_layers.py --raw layers_raw --out layers_out       # about 5 min, mostly flood zones
 python pipeline/build_drive_grid.py --raw layers_raw --out layers_out   # about 5 min to fetch 200k road segments
+python pipeline/build_rail_served.py --parcels out/parcels.geojsonl --raw layers_raw --out layers_out   # about 3 min
 python pipeline/inject.py --embed out --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
   --out houston-8county-tax-map.html
 ```
 
 Hosted builds serve the same files at `<data>/layers/<key>.json`. Hosts: services.arcgis.com,
-services2.arcgis.com, services6.arcgis.com, gis.rrc.texas.gov. The layers add about 10 MB to the folder build.
+services1/2/3/5/6/8.arcgis.com, gis.rrc.texas.gov, gisweb.tceq.texas.gov, interactivemaps.sugarlandtx.gov.
+Wetlands take the longest to fetch (about 115,000 polygons).
 
 ## Running it
 
@@ -352,7 +387,7 @@ accounts, owner, address and account search, parcel click, shading toggle, filte
 | `pipeline/fetch_chambers.py`, `build_chambers_rates.py` | Chambers County roll, parcels and rates |
 | `pipeline/fetch_brazoria.py`, `fetch_galveston.py`, `build_pacs_rates.py` | Brazoria and Galveston: PACS certified exports, parcels and rates |
 | `pipeline/fetch_liberty.py`, `build_liberty_rates.py` | Liberty County parcels, district overlay and rates |
-| `pipeline/build_layers.py`, `build_drive_grid.py` | industrial context layers and the drive-time speed grid |
+| `pipeline/build_layers.py`, `build_drive_grid.py`, `build_rail_served.py` | map layers (logistics, infrastructure, environment, zoning), the drive-time speed grid, rail-served parcels |
 | `pipeline/inject.py` | assembles `index.html` from the template, logo and config |
 | `web/tax-rate-map-template.html` | the page |
 | `deploy/` | bucket CORS and upload script |

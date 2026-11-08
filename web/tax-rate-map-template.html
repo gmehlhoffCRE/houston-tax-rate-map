@@ -161,7 +161,7 @@ button{font-family:inherit}
 .note{padding:10px 12px;background:var(--blueSofter);border:1px solid var(--line);border-radius:6px;font-size:12px;line-height:1.5;color:var(--ink2);margin-top:8px}
 .note.gold{background:#FFF8E6;border-color:var(--goldSoft)}
 .d-act{padding:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
-.d-act .dthere{flex-basis:100%}
+.d-act .btn{flex:1 1 40%}
 .btn{height:34px;padding:0 14px;border-radius:6px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;letter-spacing:-.1px;white-space:nowrap;text-decoration:none;flex:1}
 .btn.primary{background:var(--navy);color:#fff;border:1px solid var(--navy)}
 .btn.primary:hover{background:var(--navyLight)}
@@ -198,6 +198,63 @@ button{font-family:inherit}
 .legend .nr{display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--ink4);margin-top:6px}
 .legend .nr i{width:14px;height:9px;border-radius:2px;background:rgb(160,166,180)}
 .legend.off .ramp,.legend.off .lab,.legend.off .nr,.legend.off .op{opacity:.35}
+.legend{max-height:calc(100% - 150px);overflow-y:auto;max-width:250px}
+.legend .fo{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:10.5px;color:var(--ink3);cursor:pointer}
+.legend .fo input{accent-color:#001E5A;margin:0}
+.ll{margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.ll .lt{font-size:9.5px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:3px}
+.ll .le{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink2);line-height:1.5}
+.ll .ln{font-size:9.5px;color:var(--ink4);line-height:1.35;margin-top:1px}
+.uleg .le{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink2);line-height:1.55}
+.uleg i{width:14px;height:9px;border-radius:2px;display:inline-block}
+.sws{flex-shrink:0;display:block}
+.tiprow+.tiprow{border-top:1px solid var(--line);margin-top:4px;padding-top:4px}
+.presets{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 8px}
+.presets button{height:24px;padding:0 9px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink2);font-size:11px;font-weight:600;cursor:pointer}
+.presets button:hover{background:var(--bg)}
+.presets button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.grp{border-top:1px solid var(--line)}
+.grp-h{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:7px 0;cursor:pointer;font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.7px;text-align:left}
+.grp-h svg{transition:transform .15s;flex-shrink:0}
+.grp.open .grp-h svg{transform:rotate(90deg)}
+.grp-h .n{margin-left:auto;font-size:10px;color:#fff;background:var(--navy);border-radius:8px;padding:0 6px;line-height:16px;letter-spacing:0}
+.grp-h .n:empty{display:none}
+.grp-b{display:none;padding:0 0 6px}
+.grp.open .grp-b{display:block}
+.lrow{display:flex;align-items:center;gap:6px}
+.lrow .chk{flex:1;min-width:0}
+.lrow .lop{width:54px;accent-color:#001E5A;display:none;height:12px}
+.lrow.on .lop{display:block}
+.chk.sub{padding:2px 0 4px 23px;font-size:11px;color:var(--ink3)}
+.seg.cm{margin:4px 0 6px}
+.dtlab{margin-top:6px;border-top:1px solid var(--line);padding-top:6px;display:none}
+.dtlab.on{display:block}
+.dtlab .lt{font-size:9.5px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.dtlab table{width:100%;border-collapse:collapse;font-size:10.5px;color:var(--ink2)}
+.dtlab td,.dtlab th{padding:1px 3px;text-align:right}
+.dtlab th{font-weight:600;color:var(--ink3)}
+.dtlab td:first-child,.dtlab th:first-child{text-align:left}
+.dtlab .ln{font-size:9.5px;color:#8A93A8;margin-top:3px;line-height:1.3}
+.tsep{width:1px;height:18px;background:var(--line);margin:0 3px}
+.slpanel{position:absolute;top:52px;left:12px;z-index:20;width:300px;max-height:60%;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,30,90,.14);padding:10px;display:none}
+.slpanel.open{display:block}
+.slh{display:flex;flex-direction:column;gap:1px;margin-bottom:6px;font-size:12px;color:var(--navy)}
+.slh span{font-size:10.5px;color:var(--ink3)}
+.sli{display:flex;align-items:center;gap:4px;border-top:1px solid var(--line)}
+.slgo{flex:1;min-width:0;text-align:left;border:0;background:none;padding:6px 2px;cursor:pointer}
+.slgo:hover{background:var(--blueSofter)}
+.slgo .a{font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slgo .b{font-size:10.5px;color:var(--ink3)}
+.slx{border:0;background:none;color:var(--ink3);font-size:16px;cursor:pointer;padding:0 6px}
+.sle{font-size:11px;color:var(--ink3);padding:6px 0}
+.slf{display:flex;gap:6px;margin-top:8px}
+.slf .btn{height:30px;font-size:11.5px}
+.slf .btn[disabled]{opacity:.45;cursor:default}
+#mtBar{align-items:center}
+.sc{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:12px;margin-top:4px}
+.sc .k{color:var(--ink3);font-size:11px}
+.sc .v{color:var(--ink);font-weight:600}
+.sc .v span{font-weight:400;color:var(--ink3)}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink3);z-index:3;background:#fff}
 .zoomhint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-size:11px;color:var(--ink2);box-shadow:var(--shadow1);pointer-events:none;white-space:nowrap}
 .d-load{padding:30px 18px;font-size:12px;color:var(--ink3)}
@@ -254,11 +311,12 @@ button{font-family:inherit}
       </div>
       <div class="pinned">
         <div class="fs-t">Map layers</div>
-        <label class="chk" id="shadeBtn" title="Color parcels by combined rate"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Rate shading</span></label>
+        <label class="chk" id="shadeBtn" title="Color parcels by combined rate"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Parcel shading</span></label>
+        <div class="seg cm" id="colorSeg" role="group" aria-label="Parcel color"><button class="on" data-c="rate">Tax rate</button><button data-c="use">Land use</button></div>
         <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
         <div id="countyBox"></div>
         <div class="fs-t" style="margin-top:10px">Boundaries</div><div id="layers"></div>
-        <div class="fs-t" style="margin-top:10px">Industrial</div><div id="indLayers"></div>
+        <div class="fs-t" style="margin-top:12px">Layers</div><div class="presets" id="presets" role="group" aria-label="Layer presets"></div><div id="indLayers"></div>
       </div>
       <div class="rail-f" id="mFoot"><b id="mCount">0</b> <span id="mLab">parcels match</span></div>
     </div>
@@ -270,7 +328,9 @@ button{font-family:inherit}
           <button class="mt on" data-t="cresa">Map</button>
           <button class="mt" data-t="satellite">Satellite</button>
           <button class="mt" data-t="hybrid">Hybrid</button>
+          <span class="tsep"></span><button class="mt" id="slBtn" title="Sites you saved">Shortlist</button><button class="mt" id="shareBtn" title="Copy a link to this view">Share</button>
       </div>
+      <div class="slpanel" id="slPanel"></div>
       <div class="dtbar" id="dtBar">
         <div class="row"><button class="mt" id="dtBtn" title="Estimate how far a car or truck can drive in 15 to 60 minutes">Drive time</button>
           <span id="dtMode" style="display:none"><button class="mt on" data-m="car">Car</button><button class="mt" data-m="truck">Truck</button></span>
@@ -279,13 +339,17 @@ button{font-family:inherit}
           <div class="dtq"><input id="dtQ" placeholder="Enter an address or place" aria-label="Drive time from an address" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="dtRes"><div class="sres" id="dtRes" role="listbox"></div></div>
           <div class="msg" id="dtMsg">Enter an address or click the map to set a starting point.</div>
           <div class="bands"><span><i style="background:rgba(0,30,90,.55)"></i>15</span><span><i style="background:rgba(70,110,200,.45)"></i>30</span><span><i style="background:rgba(255,182,0,.45)"></i>45</span><span><i style="background:rgba(255,226,154,.6)"></i>60 min</span></div>
+          <div class="dtlab" id="dtLab"></div>
           <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere; water crossed only on roads and bridges. Use for radius screening, not routing.</div>
         </div>
       </div>
       <div class="legend" id="legend">
-        <div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
-        <div class="nr"><i></i>Rate incomplete or not found</div>
+        <div id="layLeg"></div>
+        <div id="rateLeg"><div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
+        <div class="nr"><i></i>Rate incomplete or not found</div></div>
+        <div id="useLeg" class="uleg" style="display:none"></div>
         <label class="op">Opacity<input type="range" id="opac" min="0.2" max="1" step="0.05" value="0.85" aria-label="Shading opacity"></label>
+        <label class="fo" id="focusRow" style="display:none"><input type="checkbox" id="focusChk" checked>Fade parcel shading under layers</label>
       </div>
       <div class="zoomhint" id="zoomHint" style="display:none">Zoom in to see individual parcels</div>
       <div id="tip"></div>
@@ -443,95 +507,218 @@ function parcelLayer(){
     loadOptions:{mvt:{workerUrl:MVT_WORKER}},
     uniqueIdProperty:'a',pickable:true,autoHighlight:true,highlightColor:[255,255,255,110],
     filled:true,stroked:true,lineWidthUnits:'pixels',
-    getFillColor:f=>fillOf(f.properties.c),
-    getLineColor:f=>f.properties.a===state.sel?SEL:state.shade?[255,255,255,130]:[0,30,90,190],
-    getLineWidth:f=>f.properties.a===state.sel?3.5:!state.lines?0:state.shade?0.6:0.9,   // selection outline shows even with lines off
+    getFillColor:f=>state.color==='use'?(state.shade?[...USE_C[f.properties.t|0],210]:CLEAR):fillOf(f.properties.c),
+    getLineColor:f=>{const a=f.properties.a; if(a===state.sel) return SEL; const rs=RS&&state.ind.rail_served&&RS[a]; if(rs) return [...railC(rs[0]),255];
+      return state.shade?[255,255,255,130]:[0,30,90,190];},
+    getLineWidth:f=>{const a=f.properties.a; if(a===state.sel) return 3.5; if(RS&&state.ind.rail_served&&RS[a]) return 2.5; return !state.lines?0:state.shade?0.6:0.9;},   // selection outline shows even with lines off
     extensions:[filterExt],
-    getFilterValue:f=>{const p=f.properties,c=p.c==null?-1:p.c; return [rateOfId(c),p.v||0,comboPass(c)&&typeOk[p.t|0]?1:0];},
+    getFilterValue:f=>{const p=f.properties,c=p.c==null?-1:p.c; return [rateOfId(c),p.v||0,comboPass(c)&&typeOk[p.t|0]&&(!state.railOnly||!!(RS&&RS[p.a]))?1:0];},
     filterRange:filterRange(),
-    opacity:state.shade?state.opacity:1,
-    updateTriggers:{getFillColor:colorVer,getLineColor:[state.sel,state.shade],getLineWidth:[state.sel,state.shade,state.lines],getFilterValue:filterVer},
+    opacity:state.shade?(state.focus&&anyIndOn()?Math.min(state.opacity,0.4):state.opacity):1,
+    updateTriggers:{getFillColor:[colorVer,state.color,state.shade],getLineColor:[state.sel,state.shade,state.ind.rail_served,filterVer],getLineWidth:[state.sel,state.shade,state.lines,state.ind.rail_served,filterVer],getFilterValue:filterVer},
     renderSubLayers:p=>{
       const zone=p.tile.index.z<PARCEL_TZ;
-      return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade,highlightedObjectIndex:-1,
+      return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade&&state.color==='rate',highlightedObjectIndex:-1,
         filterRange:[p.filterRange[0],[-1,1e13],p.filterRange[2]]}:{});
     },
     onViewportLoad:tiles=>{lastTiles=tiles||[]; window.__lastTiles=lastTiles; scheduleStats();},
     onHover,onClick
   });
 }
-// ---------------------------------------------------------------- industrial layers (pipeline/build_layers.py)
-const RAIL_C={UP:[214,160,0],BNSF:[230,110,30],PTRA:[0,128,140],CPKC:[180,40,60],TCT:[110,60,150],GVSR:[60,140,70]};
-const PIPE_C=c=>{c=(c||'').toUpperCase(); return c.includes('NATURAL GAS')?[230,140,30]:c.includes('VOLATILE')?[150,60,170]:c.includes('CRUDE')?[120,72,30]:c.includes('REFINED')?[200,40,40]:[120,120,130];};
-const KV_C=kv=>kv>=345?[200,30,30]:kv>=230?[230,90,30]:kv>=100?[245,150,40]:[245,190,90];
+// ---------------------------------------------------------------- map layers (pipeline/build_layers.py, build_rail_served.py)
+// Each network gets its own line style so they read apart even in grayscale: rail = solid with cross ties,
+// pipelines = dashed, transmission = dotted. Every line sits on a white casing.
+const RAIL_C={UP:[214,160,0],BNSF:[230,110,30],PTRA:[0,128,140],CPKC:[180,40,60],TCT:[110,60,150],GVSR:[60,140,70],PVTX:[40,90,170]};
+const RAIL_NAME={UP:'Union Pacific',BNSF:'BNSF',PTRA:'Port Terminal RR',CPKC:'CPKC (KCS)',TCT:'Texas City Terminal',GVSR:'Galveston Railroad',PVTX:'Point Comfort & Northern / PVTX'};
+const railC=o=>RAIL_C[o]||[90,90,100];
+const PIPE_CLS=c=>{c=(c||'').toUpperCase(); return c.includes('NATURAL GAS')||c.includes('GAS')&&!c.includes('LIQUID')?'gas':c.includes('CRUDE')?'crude':c.includes('REFINED')||c.includes('PRODUCT')?'refined':c.includes('VOLATILE')||c.includes('HVL')||c.includes('CHEM')||c.includes('LIQUID')?'chem':'other';};
+const PIPE_C={gas:[230,140,30],crude:[120,72,30],refined:[200,40,40],chem:[150,60,170],other:[120,120,130]};
+const PIPE_NAME={gas:'Natural gas',crude:'Crude oil',refined:'Refined products',chem:'Chemicals / HVL',other:'Other or unknown'};
+const KV_CLS=kv=>kv>=345?'345':kv>=230?'230':kv>=100?'138':'69';
+const KV_C={'345':[170,20,40],'230':[220,70,30],'138':[240,140,20],'69':[200,170,60]};
+const KV_NAME={'345':'345 kV and up','230':'230 kV','138':'100 to 161 kV','69':'Under 100 kV'};
 const FLOOD_C={'Floodway':[20,60,170,130],'100-year':[40,110,210,95],'500-year':[120,170,235,55]};
+const ZONE_C={industrial:[123,79,160],commercial:[214,72,48],mixed:[235,140,40],planned:[0,140,140],residential:[240,200,60],ag_open:[110,170,90],other:[150,150,160]};
+const ZONE_NAME={industrial:'Industrial',commercial:'Commercial / office',mixed:'Mixed use',planned:'Planned development',residential:'Residential',ag_open:'Agricultural / open',other:'Other'};
+const CONTAM_C={npl:[180,0,30],state_sf:[230,80,20],brownfield:[130,80,40],vcp:[200,160,0]};
+const CONTAM_NAME={npl:'EPA Superfund (NPL)',state_sf:'TCEQ state Superfund',brownfield:'Brownfield (EPA / TCEQ)',vcp:'TCEQ voluntary cleanup'};
+const EVAC_C={A:[220,50,50],B:[240,140,30],C:[245,200,60]};
+const WET_C={'Emergent':[70,160,140],'Forested / shrub':[40,120,90],'Estuarine':[60,150,190]};
+const USE_C=[[244,211,94],[228,87,46],[123,79,160],[185,215,168],[122,138,153],[79,163,209],[201,183,156]];   // index = tile property t
 const fmtN=n=>n==null?'':Number(n).toLocaleString();
+const fmtK=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
+const GROUPS=[['logistics','Logistics'],['infra','Infrastructure'],['env','Environment'],['planning','Planning and incentives']];
 const IND=[
-  {key:'flood',label:'Flood zones (FEMA)',kind:'fill',sw:'rgba(40,110,210,.45)',tip:p=>`<b>${esc(p.zone)}</b> flood zone`},
-  {key:'rail',label:'Rail lines',kind:'line',sw:'rgb(214,160,0)',color:p=>RAIL_C[p.owner]||[90,90,100],width:p=>2.2,
-    tip:p=>`<b>Rail: ${esc(p.owner||'Unknown owner')}</b>${p.rights?'<br>Trackage rights: '+esc(p.rights):''}${p.SUBDIV?'<br>'+esc(tc(p.SUBDIV)):''}${p.yard?'<br>Yard: '+esc(tc(p.yard)):''}`},
-  {key:'intermodal',label:'Rail intermodal terminals',kind:'point',sw:'rgb(214,160,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
-    tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
-  {key:'pipelines',label:'Pipelines (RRC)',kind:'line',sw:'rgb(230,140,30)',color:p=>PIPE_C(p.commodity),width:p=>p.diameter>=20?2.6:p.diameter>=8?1.7:1.1,
-    tip:p=>`<b>Pipeline: ${esc(tc(p.commodity||'unknown commodity'))}</b><br>${esc(p.operator||'')}${p.diameter?'<br>'+p.diameter+' in. diameter':''}${p.status?' · '+esc(p.status):''}`},
-  {key:'power',label:'Transmission lines',kind:'line',sw:'rgb(200,30,30)',color:p=>KV_C(p.kv||0),width:p=>(p.kv||0)>=345?3:(p.kv||0)>=230?2.3:1.6,
-    tip:p=>`<b>Transmission line${p.kv>0?': '+p.kv+' kV':''}</b><br>${esc(tc(p.owner||''))}`},
-  {key:'substations',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C(p.kv||0),radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',
-    tip:p=>`<b>Substation${p.kv>0?' · '+p.kv+' kV':''}</b><br>${esc(p.name||'')}`},
-  {key:'water_ccn',label:'Water service areas (PUC)',kind:'outline',sw:'rgb(0,140,200)',color:()=>[0,140,200],labelZ:12,
-    tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
-  {key:'sewer_ccn',label:'Sewer service areas (PUC)',kind:'outline',sw:'rgb(120,80,40)',color:()=>[120,80,40],dash:true,labelZ:12,
-    tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
-  {key:'aadt',label:'Traffic counts (TxDOT, zoom in)',kind:'point',sw:'rgb(0,128,128)',color:()=>[0,128,128],radius:p=>Math.min(6,1.5+Math.sqrt((p.aadt||0)/5000)),labelZ:12,minZ:10,
-    text:p=>p.aadt>=1000?Math.round(p.aadt/1000)+'k':String(p.aadt||''),tip:p=>`<b>${fmtN(p.aadt)}</b> vehicles a day<br>TxDOT ${p.year||''} annual average · station ${esc(p.station||'')}`},
-  {key:'ftz',label:'Foreign-Trade Zones',kind:'point',sw:'rgb(27,143,106)',color:()=>[27,143,106],radius:8,labelZ:7,text:p=>'FTZ '+p.zone,
+  // logistics
+  {key:'rail',group:'logistics',label:'Rail lines by owner',kind:'line',style:'rail',sw:'rgb(214,160,0)',color:p=>railC(p.owner),width:()=>2.4,
+    legend:()=>Object.keys(RAIL_C).map(k=>[RAIL_NAME[k],'rail',RAIL_C[k]]),
+    name:p=>`${RAIL_NAME[p.owner]||p.owner||'Unknown'} rail${p.yard?' yard':''}`,
+    tip:p=>`<b>Rail: ${esc(RAIL_NAME[p.owner]||p.owner||'Unknown owner')}</b>${p.rights?'<br>Trackage rights: '+esc(p.rights):''}${p.SUBDIV?'<br>'+esc(tc(p.SUBDIV)):''}${p.yard?'<br>Yard: '+esc(tc(p.yard)):''}`},
+  {key:'rail_served',group:'logistics',label:'Rail-served parcels (100 ft)',kind:'parcels',sw:'rgb(0,30,90)',
+    legend:()=>[['Parcel within 100 ft of track, outlined in the railroad\'s color','outline',[0,30,90]]]},
+  {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
+    legend:()=>[['Intermodal terminal','dot',[150,100,0]]],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
+  {key:'ports',group:'logistics',label:'Ports and airports',kind:'point',sw:'rgb(0,30,90)',on:true,color:p=>p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.major?7:4,
+    labelZ:7,labelMinor:11,text:p=>p.name,legend:()=>[['Port','dot',[0,30,90]],['Public-use airport','dot',[90,100,130]]],name:p=>p.name,
+    tip:p=>`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
+  {key:'ftz',group:'logistics',label:'Foreign-Trade Zones',kind:'point',sw:'rgb(27,143,106)',color:()=>[27,143,106],radius:8,labelZ:7,text:p=>'FTZ '+p.zone,
+    legend:()=>[['FTZ grantee location','dot',[27,143,106]]],name:p=>'FTZ '+p.zone,
     tip:p=>`<b>Foreign-Trade Zone ${esc(String(p.zone))}</b><br>${esc(p.name||'')}<br>${esc(p.location||'')}<br><span style="color:#8A93A8">Grantee location; zone sites are not mapped</span>`},
-  {key:'ports',label:'Ports and airports',kind:'point',sw:'rgb(0,30,90)',on:true,color:p=>p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.major?7:4,
-    labelZ:7,labelMinor:11,text:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
+  {key:'aadt',group:'logistics',label:'Traffic counts (TxDOT, zoom in)',kind:'point',sw:'rgb(0,128,128)',color:()=>[0,128,128],radius:p=>Math.min(6,1.5+Math.sqrt((p.aadt||0)/5000)),labelZ:12,minZ:10,
+    legend:()=>[['Vehicles a day (dot size)','dot',[0,128,128]]],name:p=>fmtN(p.aadt)+' vehicles a day',
+    text:p=>p.aadt>=1000?Math.round(p.aadt/1000)+'k':String(p.aadt||''),tip:p=>`<b>${fmtN(p.aadt)}</b> vehicles a day<br>TxDOT ${p.year||''} annual average · station ${esc(p.station||'')}`},
+  // infrastructure
+  {key:'pipelines',group:'infra',label:'Pipelines (RRC)',kind:'line',style:'dash',sw:'rgb(230,140,30)',color:p=>PIPE_C[PIPE_CLS(p.commodity)],
+    width:p=>p.diameter>=20?2.6:p.diameter>=8?2:1.5,show:(p,dz)=>dz>=11||(p.diameter||0)>=8,
+    legend:()=>Object.keys(PIPE_C).map(k=>[PIPE_NAME[k],'dash',PIPE_C[k]]).concat([['Under 8 in. shown from zoom 12','note']]),
+    name:p=>`${tc(p.operator||'')} ${PIPE_NAME[PIPE_CLS(p.commodity)].toLowerCase()} pipeline`,
+    tip:p=>`<b>Pipeline: ${esc(tc(p.commodity||'unknown commodity'))}</b><br>${esc(p.operator||'')}${p.diameter?'<br>'+p.diameter+' in. diameter':''}${p.status?' · '+esc(p.status):''}`},
+  {key:'power',group:'infra',label:'Transmission lines',kind:'line',style:'dot',sw:'rgb(200,30,30)',color:p=>KV_C[KV_CLS(p.kv||0)],width:p=>(p.kv||0)>=345?3.2:(p.kv||0)>=230?2.8:2.4,
+    show:(p,dz)=>dz>=11||(p.kv||0)>=100,towers:14,
+    legend:()=>Object.keys(KV_C).map(k=>[KV_NAME[k],'dot-line',KV_C[k]]).concat([['Under 100 kV from zoom 12; tower dots from zoom 15','note']]),
+    name:p=>`${p.kv>0?p.kv+' kV':'Transmission'} line`,tip:p=>`<b>Transmission line${p.kv>0?': '+p.kv+' kV':''}</b><br>${esc(tc(p.owner||''))}`},
+  {key:'substations',group:'infra',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C[KV_CLS(p.kv||0)],radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',
+    legend:()=>[['Substation (color = max kV)','dot',[200,30,30]]],name:p=>`Substation${p.kv>0?' '+p.kv+' kV':''}`,
+    tip:p=>`<b>Substation${p.kv>0?' · '+p.kv+' kV':''}</b><br>${esc(p.name||'')}`},
+  {key:'water_ccn',group:'infra',label:'Water service areas (PUC)',kind:'outline',sw:'rgb(0,140,200)',color:()=>[0,140,200],
+    legend:()=>[['Water CCN boundary','line',[0,140,200]]],name:p=>tc(p.name||'')+' water',tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
+  {key:'sewer_ccn',group:'infra',label:'Sewer service areas (PUC)',kind:'outline',sw:'rgb(120,80,40)',color:()=>[120,80,40],dash:true,
+    legend:()=>[['Sewer CCN boundary','dash',[120,80,40]]],name:p=>tc(p.name||'')+' sewer',tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
+  // environment
+  {key:'flood',group:'env',label:'Flood zones (FEMA)',kind:'fill',sw:'rgb(40,110,210)',fill:p=>FLOOD_C[p.zone]||[40,110,210,80],
+    legend:()=>Object.keys(FLOOD_C).map(k=>[k,'fill',FLOOD_C[k]]),name:p=>p.zone+' flood zone',tip:p=>`<b>${esc(p.zone)}</b> flood zone`},
+  {key:'wetlands',group:'env',label:'Wetlands (NWI)',kind:'fill',sw:'rgb(70,160,140)',fill:p=>[...(WET_C[p.type]||[70,160,140]),110],
+    legend:()=>Object.keys(WET_C).map(k=>[k+' wetland','fill',WET_C[k]]),name:p=>p.type+' wetland',
+    tip:p=>`<b>${esc(p.type)} wetland</b><br><span style="color:#8A93A8">USFWS National Wetlands Inventory; a screen, not a delineation</span>`},
+  {key:'evac',group:'env',label:'Hurricane evacuation zones',kind:'fill',sw:'rgb(220,50,50)',fill:p=>[...(EVAC_C[p.zone]||[200,200,200]),45],line:p=>EVAC_C[p.zone]||[200,200,200],
+    legend:()=>Object.keys(EVAC_C).map(k=>['Zone '+k+(k==='A'?' (coast)':''),'fill',EVAC_C[k]]),name:p=>'Evacuation zone '+p.zone,
+    tip:p=>`<b>Hurricane evacuation zone ${esc(p.zone)}</b><br>ZIP ${esc(p.zip||'')} · ${esc(p.county||'')} County<br><span style="color:#8A93A8">H-GAC 2025 ZIP zones</span>`},
+  {key:'contam',group:'env',label:'Superfund and brownfield sites',kind:'point',sw:'rgb(180,0,30)',color:p=>CONTAM_C[p.kind]||[120,120,120],radius:p=>p.kind==='npl'?7:p.kind==='state_sf'?6:4.5,labelZ:13,
+    text:p=>p.kind==='npl'||p.kind==='state_sf'?p.name:'',legend:()=>Object.keys(CONTAM_C).map(k=>[CONTAM_NAME[k],'dot',CONTAM_C[k]]),
+    name:p=>`${CONTAM_NAME[p.kind]}: ${p.name}`,
+    tip:p=>`<b>${esc(p.name||'')}</b><br>${esc(CONTAM_NAME[p.kind]||'')}${p.status?' · '+esc(p.status):''}<br>${esc([p.addr,p.city].filter(Boolean).join(', '))}${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
+  // planning
+  {key:'zoning',group:'planning',label:'Zoning (cities with zoning)',kind:'fill',sw:'rgb(123,79,160)',fill:p=>[...(ZONE_C[p.cat]||ZONE_C.other),95],line:p=>ZONE_C[p.cat]||ZONE_C.other,
+    legend:()=>Object.keys(ZONE_C).map(k=>[ZONE_NAME[k],'fill',ZONE_C[k]]).concat([['Houston, Pasadena and unincorporated areas have no zoning','note']]),
+    name:p=>`${p.city} zoning ${p.code}`,
+    tip:p=>`<b>${esc(p.city)} zoning: ${esc(p.code)}</b>${p.desc&&p.desc!==p.code?'<br>'+esc(tc(p.desc)):''}<br>${esc(ZONE_NAME[p.cat]||'')}<br><span style="color:#8A93A8">Check the city's official map before relying on it</span>`},
+  {key:'opp_zones',group:'planning',label:'Opportunity Zones',kind:'fill',sw:'rgb(30,140,80)',fill:()=>[30,140,80,45],line:()=>[20,110,60],dashLine:true,
+    legend:()=>[['Qualified Opportunity Zone (census tract)','fill',[30,140,80]]],name:()=>'Opportunity Zone',
+    tip:p=>`<b>Qualified Opportunity Zone</b><br>Census tract ${esc(p.tract||'')}`},
 ];
-const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on]));
-async function ensureInd(key){
-  if(indData[key]!==undefined) return;
+const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
+state.focus=true; state.color='rate'; state.railOnly=false;
+const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports');
+async function loadLayerData(key){
+  if(indData[key]!==undefined) return indData[key];
   indData[key]=null;
   try{ indData[key]=EMB?(EMB.layers&&EMB.layers[key])||null:await getJSON(CONFIG.data+'layers/'+key+'.json'); }catch(e){ indData[key]=null; }
-  refresh();
+  if(key==='rail_served') railServedPrep();
+  return indData[key];
 }
+async function ensureInd(key){ if(indData[key]!==undefined) return; await loadLayerData(key); refresh(); renderLegend(); }
+// rail-served parcels: account -> [railroad, feet]; dots at metro zoom, colored outlines at parcel zoom
+let RS=null, RS_PTS=[];
+function railServedPrep(){
+  const d=indData.rail_served; if(!d||!d.a) return; RS=d.a; RS_PTS=[];
+  if(EMB){ const C=EMB.cols; for(const a in RS){ const i=EMB.byAcct.get(a); if(i!=null&&C.x[i]!=null) RS_PTS.push({a,o:RS[a][0],ft:RS[a][1],p:[C.x[i]/1e5,C.y[i]/1e5]}); } }
+  filterVer++;
+}
+// features shown at this zoom (small pipelines and low-voltage lines only when zoomed in); cached per zoom step
+const showCache={};
+function shown(o,d,dz){
+  if(!o.show) return d;
+  const k=o.key+':'+Math.min(12,Math.floor(dz)); if(showCache[k]&&showCache[k].src===d) return showCache[k].fc;
+  const fc={type:'FeatureCollection',features:d.features.filter(f=>o.show(f.properties,dz))}; showCache[k]={src:d,fc}; return fc;
+}
+const towerCache={};
+function towers(o,d){   // line vertices stand in for structures at close zoom
+  if(towerCache[o.key]) return towerCache[o.key];
+  const pts=[]; for(const f of d.features){ const g=f.geometry; if(!g) continue; const parts=g.type==='LineString'?[g.coordinates]:g.type==='MultiLineString'?g.coordinates:[];
+    for(const ln of parts) for(const c of ln) pts.push({p:c,f}); }
+  return towerCache[o.key]=pts;
+}
+// hover: list every feature under the cursor so overlapping lines are not ambiguous
+function indPickIds(){ return IND.filter(o=>state.ind[o.key]).flatMap(o=>['ind-'+o.key+'-f','ind-'+o.key+'-o','ind-'+o.key+'-l','ind-'+o.key+'-p','ind-'+o.key+'-rs']); }
 function indTip(info){
   if(!info.object){tip.style.display='none';return;}
-  const o=IND.find(x=>info.layer.id.startsWith('ind-'+x.key+'-')); if(!o) return;
-  tip.innerHTML=o.tip(info.object.properties||{});
+  let picks=[info];
+  try{ const d=deckgl||overlay; const m=d&&d.pickMultipleObjects?d.pickMultipleObjects({x:info.x,y:info.y,radius:6,depth:8,layerIds:indPickIds()}):null; if(m&&m.length) picks=m; }catch(e){}
+  const seen=new Set(), rows=[];
+  for(const pk of picks){
+    const o=IND.find(x=>pk.layer&&pk.layer.id.startsWith('ind-'+x.key+'-')); if(!o||!pk.object) continue;
+    const p=pk.object.properties||pk.object;
+    const html=o.key==='rail_served'?`<b>Rail-served parcel</b><br>${esc(RAIL_NAME[p.o]||p.o||'Unknown')} track ${p.ft} ft away`:o.tip(p);
+    if(seen.has(html)) continue; seen.add(html); rows.push(html);
+    if(rows.length>=6) break;
+  }
+  if(!rows.length){tip.style.display='none';return;}
+  tip.innerHTML=rows.length===1?rows[0]:`<div style="font-size:10px;color:#8A93A8;margin-bottom:3px">${rows.length} features here</div>`+rows.map(r=>`<div class="tiprow">${r}</div>`).join('');
   tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px';
 }
 function indLayers(dz){
   const L=[];
   for(const o of IND){
     const d=indData[o.key];
-    if(!state.ind[o.key]||!d||!d.features||(o.minZ&&dz<o.minZ)) continue;
-    const id='ind-'+o.key+'-';
-    if(o.kind==='fill') L.push(new deck.GeoJsonLayer({id:id+'f',data:d,filled:true,stroked:false,pickable:true,onHover:indTip,
-      getFillColor:f=>FLOOD_C[f.properties.zone]||[40,110,210,80]}));
+    if(!state.ind[o.key]||!d||(o.minZ&&dz<o.minZ)) continue;
+    const id='ind-'+o.key+'-', op=state.indOp[o.key];
+    if(o.kind==='parcels'){
+      if(dz<PARCEL_TZ&&RS_PTS.length) L.push(new deck.ScatterplotLayer({id:id+'rs',data:RS_PTS,getPosition:d=>d.p,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:d=>[...railC(d.o),230],getLineColor:[255,255,255,230],stroked:true,lineWidthUnits:'pixels',getLineWidth:1,
+        getRadius:dz>=11?4:dz>=9?3:2,radiusUnits:'pixels',updateTriggers:{getRadius:Math.floor(dz)}}));
+      continue;
+    }
+    if(!d.features) continue;
+    if(o.kind==='fill'){
+      L.push(new deck.GeoJsonLayer({id:id+'f',data:d,filled:true,stroked:!!o.line,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:f=>o.fill(f.properties),getLineColor:f=>o.line?[...o.line(f.properties),210]:[0,0,0,0],getLineWidth:o.key==='zoning'&&dz<12?0:1.2,lineWidthUnits:'pixels',
+        updateTriggers:{getLineWidth:dz<12},...(o.dashLine?{getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}:{})}));
+    }
     else if(o.kind==='outline'){
-      L.push(new deck.GeoJsonLayer({id:id+'o',data:d,filled:true,stroked:true,pickable:true,onHover:indTip,getFillColor:[0,0,0,0],
+      L.push(new deck.GeoJsonLayer({id:id+'o',data:d,filled:true,stroked:true,pickable:true,onHover:indTip,getFillColor:[0,0,0,0],opacity:op,
         getLineColor:[...o.color(),200],getLineWidth:1.6,lineWidthUnits:'pixels',...(o.dash?{getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}:{})}));
     }
     else if(o.kind==='line'){
-      L.push(new deck.GeoJsonLayer({id:id+'c',data:d,stroked:true,filled:false,pickable:false,getLineColor:[255,255,255,170],getLineWidth:f=>o.width(f.properties)+2,lineWidthUnits:'pixels'}));
-      L.push(new deck.GeoJsonLayer({id:id+'l',data:d,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],
-        getLineColor:f=>[...o.color(f.properties),230],getLineWidth:f=>o.width(f.properties),lineWidthUnits:'pixels'}));
+      const data=shown(o,d,dz), w=o.width;
+      L.push(new deck.GeoJsonLayer({id:id+'c',data,stroked:true,filled:false,pickable:false,opacity:op,getLineColor:[255,255,255,190],
+        getLineWidth:f=>w(f.properties)+(o.style==='rail'?3.5:2.5),lineWidthUnits:'pixels',capRounded:true,jointRounded:true}));
+      if(o.style==='rail'&&dz>=11) L.push(new deck.GeoJsonLayer({id:id+'t',data,stroked:true,filled:false,pickable:false,opacity:op,   // cross ties
+        getLineColor:f=>[...o.color(f.properties).map(v=>v*0.55),235],getLineWidth:f=>w(f.properties)+5,lineWidthUnits:'pixels',
+        getDashArray:[0.22,1.1],dashJustified:false,extensions:[dashExt]}));
+      const dash=o.style==='dash'?{getDashArray:[3,2],dashJustified:true,extensions:[dashExt]}:o.style==='dot'?{getDashArray:[0.01,1.6],dashJustified:false,capRounded:true,extensions:[dashExt]}:{};
+      L.push(new deck.GeoJsonLayer({id:id+'l',data,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,220],opacity:op,
+        getLineColor:f=>[...o.color(f.properties),240],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',...dash}));
+      if(o.towers&&dz>=o.towers) L.push(new deck.ScatterplotLayer({id:id+'tw',data:towers(o,data),getPosition:t=>t.p,pickable:false,opacity:op,
+        getFillColor:t=>[...o.color(t.f.properties),255],getLineColor:[255,255,255,255],stroked:true,lineWidthUnits:'pixels',getLineWidth:1,getRadius:3,radiusUnits:'pixels'}));
     }
     else if(o.kind==='point'){
       const r=typeof o.radius==='function'?o.radius:()=>o.radius;
       const vis=o.key==='ports'?d.features.filter(f=>f.properties.major||dz>=o.labelMinor):d.features;
-      L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,
-        getFillColor:f=>[...o.color(f.properties),220],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
+      L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
-      if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'t',data:vis,getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),
+      if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:vis.filter(f=>o.text(f.properties)),getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),opacity:op,
         getSize:o.key==='aadt'||o.key==='substations'?10:12,getColor:f=>[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:[0,-14],
         fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
         extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:0}));
     }
   }
   return L;
+}
+// swatches drawn the same way as the map styles
+function swatch(style,c){
+  const col=`rgb(${c[0]},${c[1]},${c[2]})`;
+  if(style==='fill') return `<svg class="sws" width="22" height="12"><rect x="1" y="1" width="20" height="10" rx="2" fill="${col}" fill-opacity=".45" stroke="${col}" stroke-width="1.2"/></svg>`;
+  if(style==='outline') return `<svg class="sws" width="22" height="12"><rect x="2" y="2" width="18" height="8" rx="1" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
+  if(style==='dot') return `<svg class="sws" width="22" height="12"><circle cx="11" cy="6" r="4.5" fill="${col}" stroke="#fff" stroke-width="1.2"/></svg>`;
+  if(style==='rail') return `<svg class="sws" width="22" height="12"><line x1="1" y1="6" x2="21" y2="6" stroke="#fff" stroke-width="6"/>${[4,9,14,19].map(x=>`<line x1="${x}" y1="1.5" x2="${x}" y2="10.5" stroke="rgb(${c.map(v=>Math.round(v*.55))})" stroke-width="1.6"/>`).join('')}<line x1="1" y1="6" x2="21" y2="6" stroke="${col}" stroke-width="2.6"/></svg>`;
+  if(style==='dash') return `<svg class="sws" width="22" height="12"><line x1="1" y1="6" x2="21" y2="6" stroke="${col}" stroke-width="2.4" stroke-dasharray="5 3"/></svg>`;
+  if(style==='dot-line') return `<svg class="sws" width="22" height="12"><line x1="2" y1="6" x2="21" y2="6" stroke="${col}" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.1 4.4"/></svg>`;
+  return `<svg class="sws" width="22" height="12"><line x1="1" y1="6" x2="21" y2="6" stroke="${col}" stroke-width="2.4"/></svg>`;
+}
+function rowSwatch(o){
+  const c=(o.sw.match(/\d+/g)||[0,0,0]).map(Number);
+  return swatch(o.kind==='fill'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
 }
 
 // ---------------------------------------------------------------- drive time (pipeline/build_drive_grid.py)
@@ -588,7 +775,7 @@ async function dtRun(lon,lat,label){
     if(!T){ $('dtMsg').textContent='That point is outside the drive-time area or open water.'; return; }
     DT.origin=[lon,lat]; DT.label=label||''; DT.img=dtImage(G,T);
     $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from ${label||'the marked point'}. Click the map or enter an address to move it.`;
-    $('dtClear').style.display=''; window.__dtMs=Math.round(performance.now()-t0); refresh();
+    $('dtClear').style.display=''; window.__dtMs=Math.round(performance.now()-t0); refresh(); scheduleUrl(); dtLabor(G,T);
   }catch(e){ $('dtMsg').textContent='Drive time unavailable: '+e.message; }
 }
 function dtLayers(){
@@ -607,7 +794,7 @@ $('dtBtn').onclick=()=>{ DT.open=!DT.open; $('dtBar').classList.toggle('open',DT
   $('dtMode').style.display=DT.open?'':'none'; if(!DT.open){ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; refresh(); }
   else { $('dtMsg').textContent=DT_START; dtGrid().catch(e=>{$('dtMsg').textContent='Drive time unavailable: '+e.message;}); } };
 document.querySelectorAll('#dtMode .mt').forEach(b=>b.onclick=()=>{ DT.mode=b.dataset.m; document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x===b)); if(DT.origin) dtRun(DT.origin[0],DT.origin[1],DT.label); });
-$('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtQ').value=''; $('dtClear').style.display='none'; $('dtMsg').textContent=DT_START; refresh(); };
+$('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtLab').classList.remove('on'); scheduleUrl(); $('dtQ').value=''; $('dtClear').style.display='none'; $('dtMsg').textContent=DT_START; refresh(); };
 
 // Drive time from an address: parcel addresses in the loaded counties (offline), then Esri's World Geocoder for
 // anything else (any address, intersection or place; free for lookups that are not stored, no key needed).
@@ -701,7 +888,7 @@ async function ensureBoundary(key){
 }
 function buildLayers(){
   const dz=state.gz-1;
-  const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
+  const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|wetlands|evac|zoning|opp_zones|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
   const L=[parcelLayer(),...under,...dtLayers()];
   for(const o of OVERLAYS){
     const d=boundaryData[o.key];
@@ -765,7 +952,7 @@ function initDeck(){
   const vb=deckBounds;
   deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
     layers:[...baseLayers,...buildLayers()],
-    onViewStateChange:({viewState})=>{ debounceView(()=>viewChanged(viewState.zoom+1,vb(viewState))); }});
+    onViewStateChange:({viewState})=>{ state.view=viewState; debounceView(()=>{ viewChanged(viewState.zoom+1,vb(viewState)); scheduleUrl(); }); }});
   attrEl=document.createElement('div');attrEl.className='attr';attrEl.textContent=ESRI_ATTR[baseType];wrap.appendChild(attrEl);
   viewChanged(iv.zoom+1,vb(iv));
 }
@@ -779,10 +966,11 @@ function initGoogle(){
   gmap.mapTypes.set('cresa',new google.maps.StyledMapType(CRESA_STYLES,{name:'Map'})); gmap.setMapTypeId('cresa');
   gmap.fitBounds({west:BB[0],south:BB[1],east:BB[2],north:BB[3]},0);
   overlay=new deck.GoogleMapsOverlay({interleaved:false,layers:buildLayers(),onClick:mapClick}); overlay.setMap(gmap); window.__gmap=gmap; window.__ovl=overlay;
-  gmap.addListener('idle',()=>{const b=gmap.getBounds(); if(!b)return; const ne=b.getNorthEast(),sw=b.getSouthWest(); viewChanged(gmap.getZoom(),[sw.lng(),sw.lat(),ne.lng(),ne.lat()]);});
+  gmap.addListener('idle',()=>{const b=gmap.getBounds(); if(!b)return; const ne=b.getNorthEast(),sw=b.getSouthWest(); viewChanged(gmap.getZoom(),[sw.lng(),sw.lat(),ne.lng(),ne.lat()]); scheduleUrl();});
   $('mtBar').style.display='flex';
+  if(window.__afterMap){ const f=window.__afterMap; window.__afterMap=null; setTimeout(f,300); }
 }
-window.gm_authFailure=()=>{ initDeck(); };
+window.gm_authFailure=()=>{ initDeck(); if(window.__afterMap){ const f=window.__afterMap; window.__afterMap=null; f(); } };
 function startMap(){
   $('loading').remove();
   // A build without a key (e.g. a copy shared publicly) can take one at open time: page.html?key=YOUR_KEY
@@ -791,13 +979,13 @@ function startMap(){
   if(key&&!key.startsWith('__')){
     window.__initMap=()=>{try{initGoogle();}catch(e){console.error(e);initDeck();}};
     const s=document.createElement('script');s.src='https://maps.googleapis.com/maps/api/js?key='+encodeURIComponent(key)+'&loading=async&callback=__initMap&v=weekly';
-    s.async=true;s.onerror=initDeck;document.head.appendChild(s);
+    s.async=true;s.onerror=()=>window.gm_authFailure();document.head.appendChild(s);
   } else initDeck();
 }
-document.querySelectorAll('#mtBar .mt').forEach(b=>b.onclick=()=>{ baseType=b.dataset.t;
+document.querySelectorAll('#mtBar .mt[data-t]').forEach(b=>b.onclick=()=>{ baseType=b.dataset.t;
   if(gmap) gmap.setMapTypeId(baseType);
   else if(deckgl){ baseLayers=esriBase(baseType); if(attrEl) attrEl.textContent=ESRI_ATTR[baseType]; refresh(); }
-  document.querySelectorAll('#mtBar .mt').forEach(x=>x.classList.toggle('on',x===b)); });
+  document.querySelectorAll('#mtBar .mt[data-t]').forEach(x=>x.classList.toggle('on',x===b)); scheduleUrl(); });
 function flyTo(lon,lat,gz){
   if(gmap){gmap.panTo({lat,lng:lon}); if(gmap.getZoom()<gz)gmap.setZoom(gz);}
   else if(deckgl){deckgl.setProps({initialViewState:{longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20,transitionDuration:700,transitionInterpolator:new deck.FlyToInterpolator()}});}
@@ -806,7 +994,7 @@ function setView(lon,lat,gz){   // exact camera, used by tests
   if(gmap){gmap.setCenter({lat,lng:lon}); gmap.setZoom(gz);}
   else if(deckgl){   // deck.gl does not report a camera set in code through onViewStateChange
     const vs={longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20};
-    deckgl.setProps({initialViewState:vs}); viewChanged(gz,deckBounds(vs));
+    deckgl.setProps({initialViewState:vs}); state.view=vs; viewChanged(gz,deckBounds(vs));
   }
 }
 const parcelMode=()=>Math.round(state.gz-1)>=PARCEL_TZ;
@@ -821,7 +1009,7 @@ function onHover(info){
   if(!info.object){tip.style.display='none';return;}
   const p=info.object.properties||{}, {c,r,where}=describe(p);
   const zone=p.a==null;
-  tip.innerHTML=`<b>${r==null?NA:r.toFixed(4)}</b> <span style="color:#8A93A8">per $100</span>${c&&missOf(c)?' <span style="color:#B54708">(incomplete)</span>':''}<br>${esc(TYPE_LABEL[p.t|0])} · ${esc(where)}${zone?'<br><span style="color:#8A93A8">Click to zoom in to parcels</span>':''}`;
+  tip.innerHTML=`<b>${r==null?NA:r.toFixed(4)}</b> <span style="color:#8A93A8">per $100</span>${c&&missOf(c)?' <span style="color:#B54708">(incomplete)</span>':''}<br>${esc(TYPE_LABEL[p.t|0])} · ${esc(where)}${RS&&RS[p.a]?'<br>Rail-served: '+esc(RAIL_NAME[RS[p.a][0]]||RS[p.a][0]||'track')+' '+RS[p.a][1]+' ft':''}${zone?'<br><span style="color:#8A93A8">Click to zoom in to parcels</span>':''}`;
   tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px';
 }
 function onClick(info){
@@ -925,7 +1113,7 @@ document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
 });
 $('linesChk').onchange=e=>{state.lines=e.target.checked; refresh();};
 $('shadeChk').onchange=e=>{state.shade=e.target.checked;
-  $('legend').classList.toggle('off',!state.shade); rebuildColors(); refresh();};
+  $('legend').classList.toggle('off',!state.shade); rebuildColors(); refresh(); syncPanel();};
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
 function multiSelect(el,placeholder,options,key){
   el.innerHTML=`<button class="ms-btn" aria-haspopup="listbox"><span class="lab">${esc(placeholder)}</span><span class="badge"></span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="ms-pop" role="listbox" aria-multiselectable="true"></div>`;
@@ -970,15 +1158,176 @@ for(const o of OVERLAYS){
   layersEl.appendChild(l);
   if(o.on) ensureBoundary(o.key);
 }
+// layer panel: collapsible groups, a swatch matching each layer's map style, per-layer opacity, presets
 const indEl=$('indLayers');
-for(const o of IND){
-  const l=document.createElement('label'); l.className='chk';
-  const sw=o.kind==='fill'?`<span class="sw fill" style="background:${o.sw}"></span>`:o.kind==='point'?`<span class="sw dot" style="background:${o.sw}"></span>`:`<span class="sw ${o.dash?'dash':''}" style="border-color:${o.sw}"></span>`;
-  l.innerHTML=`<input type="checkbox" ${o.on?'checked':''}><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>${sw}<span>${o.label}</span>`;
-  l.querySelector('input').onchange=e=>{state.ind[o.key]=e.target.checked; if(e.target.checked) ensureInd(o.key); refresh();};
-  indEl.appendChild(l);
-  if(o.on) ensureInd(o.key);
+const CHK='<span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>';
+const CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
+let openGroups; try{ openGroups=new Set(JSON.parse(localStorage.getItem('taxmap.groups')||'["logistics"]')); }catch(e){ openGroups=new Set(['logistics']); }
+const PRESETS=[['Logistics',['rail','rail_served','intermodal','ports','ftz','aadt']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines']],
+  ['Risk',['flood','wetlands','evac','contam']],['Development',['zoning','opp_zones','contam','rail','ports']],['Clear',[]]];
+for(const [gk,gt] of GROUPS){
+  const g=document.createElement('div'); g.className='grp'+(openGroups.has(gk)?' open':''); g.dataset.g=gk;
+  g.innerHTML=`<button class="grp-h" aria-expanded="${openGroups.has(gk)}">${CHEV}<span>${gt}</span><span class="n"></span></button><div class="grp-b"></div>`;
+  g.querySelector('.grp-h').onclick=()=>{ const o=g.classList.toggle('open'); g.querySelector('.grp-h').setAttribute('aria-expanded',o);
+    o?openGroups.add(gk):openGroups.delete(gk); try{localStorage.setItem('taxmap.groups',JSON.stringify([...openGroups]));}catch(e){} };
+  const body=g.querySelector('.grp-b');
+  for(const o of IND.filter(x=>x.group===gk)){
+    const row=document.createElement('div'); row.className='lrow'+(o.on?' on':''); row.dataset.key=o.key;
+    row.innerHTML=`<label class="chk"><input type="checkbox" ${o.on?'checked':''}>${CHK}${rowSwatch(o)}<span>${o.label}</span></label><input type="range" class="lop" min="0.15" max="1" step="0.05" value="1" title="Layer opacity" aria-label="${o.label} opacity">`;
+    row.querySelector('input[type=checkbox]').onchange=e=>setLayer(o.key,e.target.checked);
+    row.querySelector('.lop').oninput=e=>{ state.indOp[o.key]=+e.target.value; refresh(); };
+    body.appendChild(row);
+    if(o.key==='rail_served'){
+      const sub=document.createElement('label'); sub.className='chk sub'; sub.id='railOnlyRow'; sub.style.display='none';
+      sub.innerHTML=`<input type="checkbox" id="railOnly">${CHK}<span>Show only rail-served parcels</span>`;
+      sub.querySelector('input').onchange=e=>{ state.railOnly=e.target.checked; filterVer++; refresh(); scheduleStats(); };
+      body.appendChild(sub);
+    }
+  }
+  indEl.appendChild(g);
 }
+function syncPanel(){
+  for(const row of indEl.querySelectorAll('.lrow')){ const on=!!state.ind[row.dataset.key]; row.classList.toggle('on',on); row.querySelector('input[type=checkbox]').checked=on; }
+  for(const g of indEl.querySelectorAll('.grp')){ const n=IND.filter(o=>o.group===g.dataset.g&&state.ind[o.key]).length; g.querySelector('.n').textContent=n||''; }
+  $('railOnlyRow').style.display=state.ind.rail_served?'':'none';
+  if(!state.ind.rail_served&&state.railOnly){ state.railOnly=false; $('railOnly').checked=false; filterVer++; }
+  $('focusRow').style.display=anyIndOn()&&state.shade?'':'none';
+  for(const b of $('presets').querySelectorAll('button')){ const keys=PRESETS.find(p=>p[0]===b.textContent)[1];
+    b.classList.toggle('on',keys.length>0&&IND.every(o=>!!state.ind[o.key]===keys.includes(o.key))); }
+}
+function setLayer(key,on,quiet){
+  state.ind[key]=on; if(on){ ensureInd(key); const g=IND.find(o=>o.key===key).group; const ge=indEl.querySelector(`.grp[data-g="${g}"]`); if(ge&&!ge.classList.contains('open')) ge.querySelector('.grp-h').click(); }
+  if(key==='rail_served') filterVer++;
+  if(!quiet){ syncPanel(); renderLegend(); refresh(); scheduleUrl(); }
+}
+for(const [name,keys] of PRESETS){
+  const b=document.createElement('button'); b.textContent=name; b.title=name==='Clear'?'Turn off all layers':'Show '+keys.map(k=>IND.find(o=>o.key===k).label.toLowerCase()).join(', ');
+  b.onclick=()=>{ for(const o of IND) setLayer(o.key,keys.includes(o.key),true); syncPanel(); renderLegend(); refresh(); scheduleUrl(); };
+  $('presets').appendChild(b);
+}
+for(const o of IND) if(o.on) ensureInd(o.key);
+// legend: only the layers that are on, drawn in their map styles
+function renderLegend(){
+  const on=IND.filter(o=>state.ind[o.key]);
+  $('layLeg').innerHTML=on.map(o=>`<div class="ll"><div class="lt">${esc(o.label)}</div>${o.legend().map(([t,st,c])=>st==='note'?`<div class="ln">${esc(t)}</div>`:`<div class="le">${swatch(st,c)}<span>${esc(t)}</span></div>`).join('')}</div>`).join('');
+  const use=state.color==='use';
+  $('rateLeg').style.display=use?'none':''; $('useLeg').style.display=use?'':'none';
+  if(use) $('useLeg').innerHTML='<div class="t">Land use (CAD state class)</div>'+TYPE_LABEL.map((l,t)=>`<div class="le"><i style="background:rgb(${USE_C[t]})"></i>${esc(t===6?'Other / agricultural':t===5?'Exempt / public':l)}</div>`).join('')+'<div class="ln" style="font-size:9.5px;color:#8A93A8;margin-top:3px">Shown from zoom 14, where parcels draw</div>';
+  syncPanel();
+}
+document.querySelectorAll('#colorSeg button').forEach(b=>b.onclick=()=>{ state.color=b.dataset.c; document.querySelectorAll('#colorSeg button').forEach(x=>x.classList.toggle('on',x===b));
+  renderLegend(); refresh(); scheduleUrl(); });
+$('focusChk').onchange=e=>{ state.focus=e.target.checked; refresh(); };
+renderLegend();
+// ---------------------------------------------------------------- site checks (drawer), labor shed, shortlist, share link
+const bbC=new WeakMap();
+function fBox(f){ let b=bbC.get(f); if(b) return b; b=[180,90,-180,-90];
+  const walk=a=>{ if(typeof a[0]==='number'){ if(a[0]<b[0])b[0]=a[0]; if(a[1]<b[1])b[1]=a[1]; if(a[0]>b[2])b[2]=a[0]; if(a[1]>b[3])b[3]=a[1]; } else for(const x of a) walk(x); };
+  walk(f.geometry.coordinates); bbC.set(f,b); return b; }
+function inRings(x,y,rings){ let ins=false; for(const r of rings) for(let i=0,j=r.length-1;i<r.length;j=i++){ const xi=r[i][0],yi=r[i][1],xj=r[j][0],yj=r[j][1];
+  if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi) ins=!ins; } return ins; }
+function featAt(fc,x,y){
+  if(!fc||!fc.features) return null;
+  for(const f of fc.features){ const g=f.geometry; if(!g||(g.type!=='Polygon'&&g.type!=='MultiPolygon')) continue; const b=fBox(f);
+    if(x<b[0]||x>b[2]||y<b[1]||y>b[3]) continue;
+    if(g.type==='Polygon'?inRings(x,y,g.coordinates):g.coordinates.some(pg=>inRings(x,y,pg))) return f; }
+  return null;
+}
+const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*k)*69.17, dy=(b[1]-a[1])*69.17; return Math.hypot(dx,dy); };
+async function siteChecks(p){
+  const el=$('siteChk'); if(!el) return;
+  if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
+  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam']; await Promise.all(keys.map(loadLayerData));
+  if(!$('siteChk')||state.sel!==p.acct) return;
+  const x=p.lon,y=p.lat, out=[], D=indData;
+  if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
+  if(D.zoning){ const f=featAt(D.zoning,x,y); out.push(['Zoning',f?`${esc(f.properties.city)} ${esc(f.properties.code)} <span>${esc(ZONE_NAME[f.properties.cat]||'')}</span>`:'<span>None mapped (no zoning, or no city layer)</span>']); }
+  if(D.opp_zones){ const f=featAt(D.opp_zones,x,y); out.push(['Opportunity Zone',f?`Yes <span>tract ${esc(f.properties.tract||'')}</span>`:'<span>No</span>']); }
+  if(D.flood){ const f=featAt(D.flood,x,y); out.push(['Flood zone',f?esc(f.properties.zone):'<span>Outside mapped 100 and 500-year zones</span>']); }
+  if(D.wetlands){ const f=featAt(D.wetlands,x,y); out.push(['Wetlands',f?esc(f.properties.type)+' <span>at the parcel center</span>':'<span>None mapped at the parcel center</span>']); }
+  if(D.evac){ const f=featAt(D.evac,x,y); out.push(['Evacuation zone',f?'Zone '+esc(f.properties.zone):'<span>None</span>']); }
+  if(D.contam&&D.contam.features){ let best=null,bd=9; for(const f of D.contam.features){ const d=miles([x,y],f.geometry.coordinates); if(d<bd){bd=d;best=f;} }
+    out.push(['Nearest cleanup site',best&&bd<=2?`${esc(best.properties.name)} <span>${bd<0.1?'under 0.1':bd.toFixed(1)} mi · ${esc(CONTAM_NAME[best.properties.kind])}</span>`:'<span>None within 2 mi</span>']); }
+  el.innerHTML=out.map(([k,v])=>`<div class="k">${k}</div><div class="v">${v}</div>`).join('')||'<div class="k">Layer data not in this build</div><div></div>';
+  if(state.selRec&&state.selRec.acct===p.acct) state.selRec._checks=Object.fromEntries(out.map(([k,v])=>[k,v.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()]));
+}
+// labor shed: ACS tract workers whose tract center falls inside each drive-time band
+async function dtLabor(G,T){
+  const el=$('dtLab'); const d=await loadLayerData('labor');
+  if(!d||!d.features){ el.classList.remove('on'); return; }
+  const B=[900,1800,2700,3600], s=B.map(()=>({lf:0,emp:0,un:0,n:0}));
+  for(const f of d.features){ const [lon,lat]=f.geometry.coordinates, p=f.properties;
+    const x=Math.floor((lon-G.bbox[0])/G.dx), y=Math.floor((lat-G.bbox[1])/G.dy); if(x<1||y<1||x>=G.nx-1||y>=G.ny-1) continue;
+    let t=Infinity; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const v=T[(y+dy)*G.nx+x+dx]; if(v<t) t=v; }
+    B.forEach((b,i)=>{ if(t<=b){ s[i].lf+=p.lf||0; s[i].emp+=p.emp||0; s[i].un+=p.unemp||0; s[i].n++; } }); }
+  DT.labor=s;
+  el.innerHTML=`<div class="lt">Labor shed</div><table><tr><th>Within</th><th>Labor force</th><th>Employed</th><th>Unemployed</th></tr>`+
+    B.map((b,i)=>`<tr><td>${b/60} min</td><td>${fmtK(s[i].lf)}</td><td>${fmtK(s[i].emp)}</td><td>${fmtK(s[i].un)} <span style="color:#8A93A8">${s[i].lf?(100*s[i].un/s[i].lf).toFixed(1)+'%':''}</span></td></tr>`).join('')+
+    `</table><div class="ln">Residents 16 and over, ACS 5-year estimates by census tract (tract center inside the band). Where people live, not where they work.</div>`;
+  el.classList.add('on');
+}
+// shortlist: sites saved in this browser, exported as CSV
+const SL_KEY='taxmap.shortlist';
+let SL=[]; try{ SL=JSON.parse(localStorage.getItem(SL_KEY)||'[]'); }catch(e){ SL=[]; }
+const slSave=()=>{ try{ localStorage.setItem(SL_KEY,JSON.stringify(SL)); }catch(e){} $('slBtn').textContent=`Shortlist${SL.length?' ('+SL.length+')':''}`; renderShortlist(); };
+const slHas=a=>SL.some(x=>x.acct===a);
+function slToggle(rec){
+  if(slHas(rec.acct)) SL=SL.filter(x=>x.acct!==rec.acct);
+  else{ const c=rec.combo>=0?COMBO[rec.combo]:null, r=c?rateOfC(c):null, co=countyOf(rec.acct,c);
+    SL.push({acct:rec.acct,county:co,id:acctLabel(rec.acct,co),addr:rec.addr||'',city:rec.city||'',owner:rec.owner||'',cls:rec.cls||'',val:rec.val,bld:rec.bld,land:rec.land,
+      rate:r,tax:rec.val!=null&&r!=null?Math.round(rec.val*r/100):null,lon:rec.lon,lat:rec.lat,checks:rec._checks||{},added:new Date().toISOString().slice(0,10)}); }
+  slSave(); const b=$('slAdd'); if(b) b.textContent=slHas(rec.acct)?'On shortlist (remove)':'Add to shortlist';
+}
+function renderShortlist(){
+  const el=$('slPanel'); if(!el) return;
+  el.innerHTML=`<div class="slh"><b>Shortlist</b><span>${SL.length} site${SL.length===1?'':'s'}, saved in this browser</span></div>`+
+    (SL.length?SL.map((x,i)=>`<div class="sli"><button class="slgo" data-i="${i}"><div class="a">${esc(x.addr||x.owner||x.id)}</div><div class="b">${esc(x.county)} · ${esc(x.id)}${x.rate!=null?' · '+x.rate.toFixed(4):''}</div></button><button class="slx" data-i="${i}" aria-label="Remove">×</button></div>`).join('')
+      :'<div class="sle">Open a parcel and choose "Add to shortlist".</div>')+
+    `<div class="slf"><button class="btn primary" id="slCsv" ${SL.length?'':'disabled'}>Export CSV</button><button class="btn outline" id="slClr" ${SL.length?'':'disabled'}>Clear</button></div>`;
+  el.querySelectorAll('.slgo').forEach(b=>b.onclick=()=>{ const x=SL[+b.dataset.i]; el.classList.remove('open'); openAccount(x.acct,{fly:true}); });
+  el.querySelectorAll('.slx').forEach(b=>b.onclick=e=>{ e.stopPropagation(); SL.splice(+b.dataset.i,1); slSave(); });
+  $('slCsv').onclick=slCsv; $('slClr').onclick=()=>{ if(confirm('Remove all sites from the shortlist?')){ SL=[]; slSave(); } };
+}
+function slCsv(){
+  const ck=[...new Set(SL.flatMap(x=>Object.keys(x.checks||{})))];
+  const head=['County','CAD ID','Address','City','Owner','State class','Appraised value','Building SF','Land SF','Rate per $100','Est. annual tax','Latitude','Longitude',...ck,'Added'];
+  const q=v=>{ v=v==null?'':String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+  const rows=SL.map(x=>[x.county,x.id,x.addr,x.city,x.owner,x.cls,x.val,x.bld,x.land,x.rate!=null?x.rate.toFixed(4):'',x.tax,x.lat!=null?x.lat.toFixed(6):'',x.lon!=null?x.lon.toFixed(6):'',...ck.map(k=>(x.checks||{})[k]||''),x.added]);
+  const blob=new Blob(['﻿'+[head,...rows].map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`site-shortlist-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); a.remove();
+}
+$('slBtn').onclick=e=>{ e.stopPropagation(); $('slPanel').classList.toggle('open'); renderShortlist(); };
+document.addEventListener('mousedown',e=>{ if(!e.target.closest('#slPanel')&&!e.target.closest('#slBtn')) $('slPanel').classList.remove('open'); });
+slSave();
+// share link: the view, layers, color mode, selected parcel and drive time live in the URL hash
+let urlT=null; function scheduleUrl(){ clearTimeout(urlT); urlT=setTimeout(writeUrl,400); }
+function curView(){
+  if(gmap){ const c=gmap.getCenter(); return c?[c.lng(),c.lat(),gmap.getZoom()]:null; }
+  const v=state.view; return v?[v.longitude,v.latitude,v.zoom+1]:null;
+}
+function writeUrl(){
+  const v=curView(), h=[];
+  if(v) h.push('v='+v[0].toFixed(5)+','+v[1].toFixed(5)+','+(+v[2]).toFixed(2));
+  const on=IND.filter(o=>state.ind[o.key]).map(o=>o.key); h.push('l='+on.join(','));
+  if(state.color!=='rate') h.push('c='+state.color);
+  if(baseType!=='cresa') h.push('b='+baseType);
+  if(state.sel) h.push('p='+encodeURIComponent(state.sel));
+  if(DT.origin) h.push('d='+DT.origin[0].toFixed(5)+','+DT.origin[1].toFixed(5)+','+DT.mode);
+  try{ history.replaceState(null,'','#'+h.join('&')); }catch(e){}
+}
+async function readUrl(){
+  const h=new URLSearchParams(location.hash.slice(1)); if(![...h.keys()].length) return;
+  if(h.has('l')){ const on=new Set(h.get('l').split(',').filter(Boolean)); for(const o of IND) setLayer(o.key,on.has(o.key),true); syncPanel(); renderLegend(); }
+  if(h.get('c')==='use') document.querySelector('#colorSeg button[data-c="use"]').click();
+  if(h.get('b')) { const b=document.querySelector(`#mtBar .mt[data-t="${h.get('b')}"]`); if(b) b.click(); }
+  if(h.get('v')){ const [lon,lat,z]=h.get('v').split(',').map(Number); if(isFinite(lon)&&isFinite(lat)&&isFinite(z)) setView(lon,lat,z); }
+  if(h.get('p')) openAccount(decodeURIComponent(h.get('p')),{fly:false});
+  if(h.get('d')){ const [lon,lat,m]=h.get('d').split(','); DT.mode=m==='truck'?'truck':'car'; dtOpen();
+    document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x.dataset.m===DT.mode)); dtRun(+lon,+lat); }
+  refresh();
+}
+$('shareBtn').onclick=()=>{ writeUrl(); const u=location.href;
+  (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Link copied. It opens this view in the same viewer folder.')).catch(()=>prompt('Copy this link',u)); };
 $('fClear').onclick=()=>{
   Object.assign(state,{rate:[RMIN,RMAX],types:[],isd:[],city:[],water:[],val:[null,null]}); state.binsOff.clear();
   vLo.value='';vHi.value=''; [...hist.children].forEach(b=>{b.classList.remove('off');b.setAttribute('aria-pressed','true');});
@@ -1086,7 +1435,7 @@ async function openAccount(acct,{fly,full}={}){
   state.selRec=rec; renderDrawer(rec);
   if(fly){ if(rec.lon!=null) flyTo(rec.lon,rec.lat,17); else toast('This account has no parcel shape on the HCAD map'); }
 }
-function select(acct){ state.sel=acct; if(acct==null){state.selRec=null; $('drawerHost').innerHTML='';} refresh(); }
+function select(acct){ state.sel=acct; if(acct==null){state.selRec=null; $('drawerHost').innerHTML=''; scheduleUrl();} refresh(); }
 function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2200);}
 function renderLoading(){ $('drawerHost').innerHTML='<div class="drawer" role="dialog" aria-label="Parcel details"><div class="d-load">Loading parcel</div></div>'; }
 function renderDrawer(p){
@@ -1132,6 +1481,7 @@ function renderDrawer(p){
         ${F('Emergency services',esc(c&&c.esd?tc(c.esd):'None'))}
         ${F('College district',esc(c?tc(c.college):''),true)}
       </div>
+      <div class="sec">Site checks</div><div class="sc" id="siteChk"><div class="k">Checking layers</div><div></div></div>
       <div class="sec">Rate by jurisdiction</div>
       <div class="brk">${rows.map(([code,w])=>{const j=J[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
         <div class="tot"><span>Combined</span><span>${r==null?NA:r.toFixed(4)}</span></div></div>`;
@@ -1157,9 +1507,12 @@ function renderDrawer(p){
     <div class="d-act">
       <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${gm}">Open in Google Maps</a>
       <button class="btn primary" id="copyAcct">Copy ${cad} ${PID_COUNTIES.has(county)?'ID':'account'}</button>
-      ${p.lon!=null?'<button class="btn outline dthere" id="dtHere">Drive time from here</button>':''}
+      ${p.lon!=null?'<button class="btn outline" id="dtHere">Drive time from here</button>':''}
+      <button class="btn outline" id="slAdd">${slHas(p.acct)?'On shortlist (remove)':'Add to shortlist'}</button>
     </div></div>`;
   host.innerHTML=h;
+  siteChecks(p); scheduleUrl();
+  host.querySelector('#slAdd').onclick=()=>slToggle(state.selRec&&state.selRec.acct===p.acct?state.selRec:p);
   host.querySelector('.x').onclick=()=>select(null);
   const dh=host.querySelector('#dtHere'); if(dh) dh.onclick=()=>{ const lbl=p.addr||acctTag(p.acct); $('dtQ').value=lbl; dtGoTo(p.lon,p.lat,lbl); };
   host.querySelector('#copyAcct').onclick=()=>{ const id=acctLabel(p.acct,county); (navigator.clipboard?navigator.clipboard.writeText(id):Promise.reject()).then(()=>toast('Copied account '+id)).catch(()=>toast('Account '+id)); };
@@ -1168,7 +1521,9 @@ function renderDrawer(p){
 // ---------------------------------------------------------------- go
 rebuildColors(); rebuildFilters(); syncRate(); updateStats();
 startMap();
-window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos,dtRun,DT};
+if(deckgl) readUrl(); else window.__afterMap=readUrl;   // Google mode: read the link once the map exists
+window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos,dtRun,DT,setLayer,renderLegend,readUrl,writeUrl,
+  shortlist:()=>SL,indData,layerIds:()=>(deckgl?deckgl.props.layers:[]).map(l=>l.id)};
 })();
 </script>
 </body>
