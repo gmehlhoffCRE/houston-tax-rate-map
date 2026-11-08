@@ -1,6 +1,6 @@
 # Houston Property Tax Rate Map: handoff for the next session
 
-Updated Nov 8, 2026. Read this first, then `README.md` (how to run, every layer and its source) and `HANDOFF.md`
+Updated Nov 8, 2026. Read this first, then `FEATURES.md` (every feature and its keep/review status), `README.md` (how to run, every layer and its source) and `HANDOFF.md`
 (original spec). The previous chat ran out of context; everything it learned is here or in the README.
 
 ## Where the code is
