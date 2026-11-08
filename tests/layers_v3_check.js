@@ -20,7 +20,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  const ind=await p.evaluate(()=>window.__app.state.ind);
  check('Logistics preset turns on its layers only',ind.road_projects&&ind.rail&&ind.rail_served&&ind.intermodal&&ind.ports&&ind.ftz&&ind.aadt&&!ind.pipelines&&!ind.flood,JSON.stringify(ind));
  const leg=await p.$$eval('#layLeg .ll .lt',x=>x.map(e=>e.textContent));
- check('legend lists only the layers that are on',leg.length===7&&leg.includes('Rail lines by owner'),leg.join('|'));
+ check('legend lists only the layers that are on',leg.length===9&&leg.includes('Rail lines by owner'),leg.join('|'));
  check('focus toggle shows when layers are on',await p.isVisible('#focusRow'));
  await p.evaluate(()=>window.__app.setView(-95.13,29.73,11)); await sleep(12000);
  await p.screenshot({path:path.join(shots,'V1-logistics-z11.png')});

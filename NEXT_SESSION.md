@@ -16,7 +16,17 @@ Updated Nov 8, 2026. Read this first, then `FEATURES.md` (every feature and its 
 - Built outputs and raw downloads lived in the old session's scratchpad and are gone. Full rebuild is about
   1 hour (see "Rebuild" below).
 
-## What the user has now (delivered Nov 8)
+## What the user has now (delivered Nov 8, second build)
+
+Rebuilt Nov 8 evening (3,014,856 accounts, same counts and rates as before) with: transload terminals and rail
+parks layer (`data/rail/rail_terminals.csv`, 38 researched sites + 11 US DOT liquid bulk with rail), rail yards
+layer (US DOT, 48 yards), airports split from ports, beaded transmission lines, Tax rate / Land use buttons that
+toggle shading, intermodal fixes (Englewood dropped, Kendleton = CPKC Rosenberg). Same 4 data + 4 tile parts.
+Tests: layers_v3 26/26, site_tools 6/6, dt_address 11/11. Rail list gaps: nothing confirmed in Brazoria or
+Montgomery; Arrow Reload Alvin, Plastic Express rail sites, Savage Galveston, Port Freeport Parcel 14 could not be
+placed. Build scratch lived in /workspace/build (gone next session).
+
+## Earlier build (delivered Nov 8)
 
 Folder build `houston-8county-tax-map.html` + `-data-1..4.txt` + `-tiles-1..4.txt` (about 258 MB, 40 MB parts,
 `.txt` because `.js` downloads were blocked for the user). Opens from a local folder; no Google key yet (Esri
