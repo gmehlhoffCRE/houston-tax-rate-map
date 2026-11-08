@@ -7,7 +7,11 @@ simplified, and written as compact GeoJSON the page draws as toggles.
 
 Layers (key: source)
   rail        US DOT BTS North American Rail Network lines (owner, track rights, Class I / short line)
-  intermodal  US DOT BTS intermodal rail TOFC/COFC terminals (railroad)
+  intermodal  US DOT BTS intermodal rail TOFC/COFC terminals (railroad); Englewood dropped (ramp moved to Settegast),
+              Kendleton renamed CPKC Rosenberg
+  rail_yards  US DOT BTS NTAD Rail Yards (yard track by yard name and owner)
+  rail_terminals  Transload terminals and rail-served parks (data/rail/rail_terminals.csv, Cresa research, high and
+              medium confidence only) plus US DOT BTS liquid bulk terminals with rail (beta layer)
   flood       FEMA flood hazard areas (Esri USA Flood Hazard Reduced Set): 100-year (A, AE, AO, AH, VE) and
               floodway, 500-year (X shaded); simplified to about 15 m
   pipelines   Texas Railroad Commission pipelines (operator, commodity, diameter, status)
@@ -17,7 +21,8 @@ Layers (key: source)
   sewer_ccn   Texas PUC sewer CCN service areas (utility name)
   aadt        TxDOT annual average daily traffic count stations (latest year and count)
   ftz         Foreign-Trade Zone grantee locations (International Trade Administration list; points, not sites)
-  ports       Ports (US DOT BTS, Army Corps list), airports (FAA facilities, public use only) and port terminals
+  airports    Airports (FAA facilities, public use only); separate from ports since Nov 8
+  ports       Ports (US DOT BTS, Army Corps list) and port terminals
               (data/ports/port_terminals.csv: Port Houston public terminals, Port Freeport Velasco, Port of Galveston,
               Texas City; placed at their berths in the Army Corps / US DOT BTS Navigation Facilities (docks) data)
   docks       Ship docks and berths on the Houston Ship Channel and Galveston Bay with maximum draft (Houston Pilots
@@ -66,6 +71,8 @@ SOURCES = {
     "rail": (f"{AGO}/NTAD_North_American_Rail_Network_Lines/FeatureServer/0",
              "RROWNER1,RROWNER2,TRKRGHTS1,TRKRGHTS2,TRKRGHTS3,NET,PASSNGR,SUBDIV,YARDNAME,TRACKS,MILES"),
     "intermodal": (f"{AGO}/NTAD_Intermodal_Freight_Facilities_Rail_TOFC_COFC/FeatureServer/0", "TERMINAL,RAIL_CO,CITY,PORT"),
+    "rail_yards_raw": (f"{AGO}/NTAD_Rail_Yards/FeatureServer/0", "YARDNAME,RROWNER1,RROWNER1_NAME,STCNTYFIPS"),
+    "liquid_bulk_raw": (f"{AGO}/NTAD_Intermodal_Freight_Facilities_Liquid_Bulk/FeatureServer/0", "*"),
     "flood": ("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0",
               "FLD_ZONE,ZONE_SUBTY,SFHA_TF"),
     "pipelines": ("https://gis.rrc.texas.gov/server/rest/services/rrc_public/RRC_Public_Viewer_Srvs/MapServer/13",
@@ -320,6 +327,68 @@ def write(g, path, cols, digits=5):
     return len(fc["features"]), os.path.getsize(path) / 1e6
 
 
+def rail_layers(raw, clip):
+    """Intermodal ramps, rail yards and rail terminals (transload, rail-served parks, liquid bulk with rail)."""
+    out = {}
+    g = load(raw, "intermodal").rename(columns={"TERMINAL": "name", "RAIL_CO": "railroad"})
+    # US DOT list is stale in two places: UP moved Englewood's ramp work to Settegast (2023; TxDOT's 2026 intermodal
+    # layer lists only Settegast), and KCS Kendleton is now CPKC's Rosenberg-area ramp
+    g = g[~g.name.str.contains("Englewood", na=False)].copy()
+    kd = g.name.str.contains("Kendleton", na=False)
+    g.loc[kd, "name"] = "CPKC Rosenberg (Kendleton) Intermodal"; g.loc[kd, "railroad"] = "CPKC"
+    g["name"] = g.name.replace({"Houston, TX - Pearland": "BNSF Houston (Pearland) Intermodal",
+                                "Houston, TX - Settegast (Kirkpatrick, Blvd)": "UP Houston (Settegast) Intermodal"})
+    out["intermodal"] = (g, ["name", "railroad", "CITY"])
+
+    # rail yards (US DOT NTAD): classification, storage, plant and transload yards, drawn as yard track
+    g = load(raw, "rail_yards_raw")
+    g = gpd.GeoDataFrame({"name": g.YARDNAME.fillna("").str.title().str.replace(r"\bUp\b", "UP", regex=True)
+                                   .str.replace("(Bnsf)", "(BNSF)").str.replace("Ids ", "IDS ").str.replace("Exxonmobil", "ExxonMobil"),
+                          "owner": g.RROWNER1.fillna("")}, geometry=g.geometry, crs=4326)
+    g = g.dissolve(by=["name", "owner"], as_index=False)
+    out["rail_yards"] = (simplify(g, 3), ["name", "owner"])
+
+    # rail terminals: Cresa-researched transload terminals and rail-served parks (data/rail/rail_terminals.csv)
+    # plus US DOT liquid bulk terminals that take rail
+    parts = []
+    rp = os.path.join(os.path.dirname(__file__), "..", "data", "rail", "rail_terminals.csv")
+    if os.path.exists(rp):
+        r = pd.read_csv(rp, dtype=str).fillna("")
+        r = r[r.confidence.str.lower().isin(["high", "medium"]) & r.kind.isin(["transload", "park"])]
+        r = r[pd.to_numeric(r.lat, errors="coerce").notna() & pd.to_numeric(r.lon, errors="coerce").notna()]
+        parts.append(gpd.GeoDataFrame({"name": r["name"], "kind": r.kind, "operator": r.operator, "railroads": r.railroads,
+                                       "address": r.address, "city": r.city, "acres": pd.to_numeric(r.acres, errors="coerce"),
+                                       "services": r.services, "source": r.source_url, "src": "Cresa research"},
+                                      geometry=gpd.points_from_xy(r.lon.astype(float), r.lat.astype(float)), crs=4326))
+    lb = load(raw, "liquid_bulk_raw")
+    lb = lb[lb.get("Rail", pd.Series("", index=lb.index)).fillna("") == "Y"].copy()
+    for c in ("Operator_Name", "Physical_Facility_Address", "Source_URL", "Rail_Cars_Capacity"):
+        lb[c] = lb[c].fillna("").astype(str).str.strip() if c in lb else ""
+    prod = {"Crude_Oil": "crude", "Chemical_Products": "chemicals", "Petroleum_Products": "petroleum products"}
+    prod.update({c: "liquefied gases" for c in lb.columns if c.startswith("Liquified_Gas")})
+    def products(row):
+        return ", ".join(dict.fromkeys(v for c, v in prod.items() if c in row and row[c] == "Y"))
+    def lbname(row):
+        s = lambda k: str(row.get(k)).strip() if pd.notna(row.get(k)) else ""
+        op, extra = s("Operator_Name"), s("Additional_Operator_ID_Info") or s("Facility_Name")
+        return (op + (" " + extra if extra and extra.lower() not in op.lower() else "")).strip() or "Liquid bulk terminal"
+    cen = lb.to_crs(2278).geometry.representative_point().to_crs(4326)
+    lbg = gpd.GeoDataFrame({"name": lb.apply(lbname, axis=1), "kind": "liquid", "operator": lb.get("Operator_Name"),
+                            "railroads": "", "address": lb.get("Physical_Facility_Address"), "city": "", "acres": np.nan,
+                            "services": lb.apply(products, axis=1).where(lambda s: s != "", "Liquid bulk").map(lambda s: s[:1].upper() + s[1:])
+                            + lb.get("Rail_Cars_Capacity", pd.Series("", index=lb.index)).fillna("").map(lambda c: f"; {c} railcar spots" if str(c).strip() else ""),
+                            "source": lb.get("Source_URL", pd.Series("", index=lb.index)).fillna("").str.split().str[0], "src": "US DOT liquid bulk terminals (beta)"},
+                           geometry=cen, crs=4326)
+    if parts:   # a researched site within 250 m of a US DOT terminal wins (it has the railroad and services)
+        near = gpd.sjoin_nearest(lbg.to_crs(2278), parts[0].to_crs(2278)[["geometry"]], max_distance=820, how="left")
+        lbg = lbg[~lbg.index.isin(near.index[near.index_right.notna()])]
+    parts.append(lbg)
+    g = gpd.GeoDataFrame(pd.concat(parts, ignore_index=True), crs=4326)
+    g = g[g.within(clip)]
+    out["rail_terminals"] = (g, ["name", "kind", "operator", "railroads", "address", "city", "acres", "services", "source", "src"])
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", default="layers_raw")
@@ -365,8 +434,7 @@ def main():
     g["yard"] = g.YARDNAME.fillna("") if "YARDNAME" in g else ""
     out["rail"] = (simplify(g, 5), ["owner", "rights", "SUBDIV", "yard"])
 
-    g = load(a.raw, "intermodal")
-    out["intermodal"] = (g.rename(columns={"TERMINAL": "name", "RAIL_CO": "railroad"}), ["name", "railroad", "CITY"])
+    out.update(rail_layers(a.raw, clip))
 
     g = load(a.raw, "flood")
     z = g.FLD_ZONE.fillna("")
@@ -448,9 +516,9 @@ def main():
     t = pd.read_csv(tp)
     term = gpd.GeoDataFrame({"name": t.name, "kind": "terminal", "major": t.container.astype(bool), "port": t.port, "cargo": t.cargo,
                              "note": t.note}, geometry=gpd.points_from_xy(t.lon, t.lat), crs=4326)
-    g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]],
-                                    ap_[["name", "kind", "major", "geometry"]], term]), crs=4326)
+    g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]], term]), crs=4326)
     out["ports"] = (g, ["name", "kind", "major", "port", "cargo", "note"])
+    out["airports"] = (gpd.GeoDataFrame(ap_[["name", "kind", "major", "geometry"]], crs=4326), ["name", "kind", "major"])   # own layer since Nov 8
 
     dp = os.path.join(os.path.dirname(__file__), "..", "data", "ports", "houston_pilots_docks_2025-05-20.csv")
     d = pd.read_csv(dp, dtype={"draft": str, "note": str})

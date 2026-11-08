@@ -36,7 +36,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Dynamic legend (only layers that are on) | Nov 8 | Review | |
 | Multi-feature hover tooltip | Nov 8 | Review | |
 | Fade parcel shading to 30% under layers (toggle in legend) | Nov 8 | Review | |
-| Per-network line styles (rail ties, dashed pipelines, dotted power, tower dots), white casings | Nov 8 | Review | |
+| Per-network line styles (rail ties, dashed pipelines, beaded power lines, tower dots), white casings | Nov 8 | Review | Power restyled Nov 8: solid wire + beads, saturated colors (dots were near invisible) |
 | Zoom-dependent detail (small pipelines, low-voltage lines and substations from zoom 12) | Nov 8 | Review | |
 | Cresa map pins for ports, airports, rail terminals | Nov 8 | Review | `web/icons/*.svg`, anchored at the pointer tip |
 
@@ -47,8 +47,11 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Rail lines by owner (`rail`) | Nov 7 | Review | US DOT BTS North American Rail Network |
 | Rail-served parcels, 100 ft (`rail_served`) + "only rail-served" filter | Nov 8 | Review | `build_rail_served.py` |
 | Road projects by timeline (`road_projects`) | Nov 8 | Review | TxDOT DCIS, H-GAC TIP, Houston, Fort Bend, Montgomery bond |
-| Rail intermodal terminals (`intermodal`) | Nov 7 | Review | US DOT BTS |
-| Ports, terminals and airports (`ports`) | Nov 7, terminals Nov 8 | Review | BTS ports, FAA, `data/ports/port_terminals.csv` |
+| Rail intermodal terminals (`intermodal`) | Nov 7 | Review | US DOT BTS; Englewood dropped, Kendleton relabeled CPKC Rosenberg (Nov 8) |
+| Transload terminals and rail parks (`rail_terminals`) | Nov 8 | Review | `data/rail/rail_terminals.csv` (Cresa research) + US DOT liquid bulk with rail; site check: nearest 3 within 10 mi |
+| Rail yards (`rail_yards`) | Nov 8 | Review | US DOT BTS NTAD Rail Yards, band in railroad color |
+| Airports (`airports`) split from Ports | Nov 8 | Review | FAA public use |
+| Ports and port terminals (`ports`) | Nov 7, terminals Nov 8 | Review | BTS ports, `data/ports/port_terminals.csv` |
 | Ship docks and drafts (`docks`) | Nov 8 | Review | Houston Pilots list, `data/ports/houston_pilots_docks_2025-05-20.csv` |
 | Foreign-Trade Zones and subzones (`ftz`) | Nov 7, subzones Nov 8 | Review | ITA grantees; subzones from a third-party ArcGIS list |
 | Traffic counts (`aadt`) | Nov 7 | Review | TxDOT AADT |
