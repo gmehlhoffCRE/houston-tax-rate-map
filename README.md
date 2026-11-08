@@ -269,7 +269,7 @@ Opportunity Zones, cleanup sites, rail, ports) and Clear.
 | | Foreign-Trade Zones | International Trade Administration grantee locations (zone sites are not mapped) |
 | | Traffic counts | TxDOT AADT stations (from Google zoom 11) |
 | Infrastructure | Pipelines | Texas Railroad Commission; dashed, colored by product; under 8 in. only from zoom 12 |
-| | Transmission lines, substations | HIFLD public copies; dotted, colored by voltage class; under 100 kV from zoom 12; tower dots (line vertices) from zoom 15 |
+| | Transmission lines, substations | HIFLD public copies; dotted, colored by voltage class; under 100 kV lines and substations from zoom 12; tower dots (line vertices) from zoom 15 |
 | | Water and sewer service areas | Texas PUC CCN boundaries |
 | Environment | Flood zones | FEMA (Esri USA Flood Hazard Reduced Set): floodway, 100-year, 500-year |
 | | Wetlands | USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub, estuarine; 1 acre and up |
@@ -279,7 +279,7 @@ Opportunity Zones, cleanup sites, rail, ports) and Clear.
 | | Opportunity Zones | HUD Qualified Opportunity Zones (2018 census tracts) |
 
 Styling: rail, pipelines and transmission lines use different line patterns (solid with ties, dashed, dotted)
-so they read apart in grayscale, all on a white casing. With any layer on, parcel shading fades to 40%
+so they read apart in grayscale, all on a white casing. With any layer on, parcel shading fades to 30%
 ("Fade parcel shading under layers" in the legend turns that off). Hovering lists every feature under the
 cursor. The legend shows only the layers that are on, in their map styles.
 

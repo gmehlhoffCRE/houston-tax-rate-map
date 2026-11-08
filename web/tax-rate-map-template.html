@@ -514,7 +514,7 @@ function parcelLayer(){
     extensions:[filterExt],
     getFilterValue:f=>{const p=f.properties,c=p.c==null?-1:p.c; return [rateOfId(c),p.v||0,comboPass(c)&&typeOk[p.t|0]&&(!state.railOnly||!!(RS&&RS[p.a]))?1:0];},
     filterRange:filterRange(),
-    opacity:state.shade?(state.focus&&anyIndOn()?Math.min(state.opacity,0.4):state.opacity):1,
+    opacity:state.shade?(state.focus&&anyIndOn()?Math.min(state.opacity,0.3):state.opacity):1,
     updateTriggers:{getFillColor:[colorVer,state.color,state.shade],getLineColor:[state.sel,state.shade,state.ind.rail_served,filterVer],getLineWidth:[state.sel,state.shade,state.lines,state.ind.rail_served,filterVer],getFilterValue:filterVer},
     renderSubLayers:p=>{
       const zone=p.tile.index.z<PARCEL_TZ;
@@ -577,8 +577,8 @@ const IND=[
     show:(p,dz)=>dz>=11||(p.kv||0)>=100,towers:14,
     legend:()=>Object.keys(KV_C).map(k=>[KV_NAME[k],'dot-line',KV_C[k]]).concat([['Under 100 kV from zoom 12; tower dots from zoom 15','note']]),
     name:p=>`${p.kv>0?p.kv+' kV':'Transmission'} line`,tip:p=>`<b>Transmission line${p.kv>0?': '+p.kv+' kV':''}</b><br>${esc(tc(p.owner||''))}`},
-  {key:'substations',group:'infra',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C[KV_CLS(p.kv||0)],radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',
-    legend:()=>[['Substation (color = max kV)','dot',[200,30,30]]],name:p=>`Substation${p.kv>0?' '+p.kv+' kV':''}`,
+  {key:'substations',group:'infra',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C[KV_CLS(p.kv||0)],radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',show:(p,dz)=>dz>=11||(p.kv||0)>=100,
+    legend:()=>[['Substation (color = max kV)','dot',[200,30,30]],['Under 100 kV from zoom 12','note']],name:p=>`Substation${p.kv>0?' '+p.kv+' kV':''}`,
     tip:p=>`<b>Substation${p.kv>0?' · '+p.kv+' kV':''}</b><br>${esc(p.name||'')}`},
   {key:'water_ccn',group:'infra',label:'Water service areas (PUC)',kind:'outline',sw:'rgb(0,140,200)',color:()=>[0,140,200],
     legend:()=>[['Water CCN boundary','line',[0,140,200]]],name:p=>tc(p.name||'')+' water',tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
@@ -598,7 +598,7 @@ const IND=[
     name:p=>`${CONTAM_NAME[p.kind]}: ${p.name}`,
     tip:p=>`<b>${esc(p.name||'')}</b><br>${esc(CONTAM_NAME[p.kind]||'')}${p.status?' · '+esc(p.status):''}<br>${esc([p.addr,p.city].filter(Boolean).join(', '))}${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
   // planning
-  {key:'zoning',group:'planning',label:'Zoning (cities with zoning)',kind:'fill',sw:'rgb(123,79,160)',fill:p=>[...(ZONE_C[p.cat]||ZONE_C.other),95],line:p=>ZONE_C[p.cat]||ZONE_C.other,
+  {key:'zoning',group:'planning',label:'Zoning (cities with zoning)',kind:'fill',sw:'rgb(123,79,160)',fill:p=>[...(ZONE_C[p.cat]||ZONE_C.other),150],line:p=>ZONE_C[p.cat]||ZONE_C.other,
     legend:()=>Object.keys(ZONE_C).map(k=>[ZONE_NAME[k],'fill',ZONE_C[k]]).concat([['Houston, Pasadena and unincorporated areas have no zoning','note']]),
     name:p=>`${p.city} zoning ${p.code}`,
     tip:p=>`<b>${esc(p.city)} zoning: ${esc(p.code)}</b>${p.desc&&p.desc!==p.code?'<br>'+esc(tc(p.desc)):''}<br>${esc(ZONE_NAME[p.cat]||'')}<br><span style="color:#8A93A8">Check the city's official map before relying on it</span>`},
@@ -693,7 +693,7 @@ function indLayers(dz){
     }
     else if(o.kind==='point'){
       const r=typeof o.radius==='function'?o.radius:()=>o.radius;
-      const vis=o.key==='ports'?d.features.filter(f=>f.properties.major||dz>=o.labelMinor):d.features;
+      const base=o.show?shown(o,d,dz).features:d.features, vis=o.key==='ports'?base.filter(f=>f.properties.major||dz>=o.labelMinor):base;
       L.push(new deck.GeoJsonLayer({id:id+'p',data:{type:'FeatureCollection',features:vis},pointType:'circle',filled:true,stroked:true,pickable:true,onHover:indTip,opacity:op,
         getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
