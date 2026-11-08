@@ -368,7 +368,8 @@ const MAP_ICONS=__ICONS__;   // marker images (web/icons), embedded by inject.py
 // (keeps each icon's own proportions; map pins are anchored at their bottom-center tip)
 const MAP_ICON_PNG={}, MAP_ICON_WH={}; let iconsReady=false;
 Promise.all(Object.entries(MAP_ICONS).map(([k,u])=>new Promise(res=>{ const im=new Image(); im.onload=()=>{ try{ const c=document.createElement('canvas');
-  const w=im.naturalWidth||128, h=im.naturalHeight||128, sc=Math.min(1,96/h); c.width=Math.round(w*sc); c.height=Math.round(h*sc);
+  const w=im.naturalWidth||128, h=im.naturalHeight||128, sc=Math.min(1,Math.ceil(36*Math.max(2,window.devicePixelRatio||1))/h);
+  c.width=Math.round(w*sc); c.height=Math.round(h*sc);   // sharp on high-density screens, proportions kept
   c.getContext('2d').drawImage(im,0,0,c.width,c.height); MAP_ICON_PNG[k]=c.toDataURL('image/png'); MAP_ICON_WH[k]=[c.width,c.height]; }catch(e){} res(); }; im.onerror=()=>res(); im.src=u; })))
   .then(()=>{ iconsReady=Object.keys(MAP_ICON_PNG).length>0; try{ refresh(); }catch(e){} });
 </script>
@@ -1611,7 +1612,7 @@ rebuildColors(); rebuildFilters(); syncRate(); updateStats();
 startMap();
 if(deckgl) readUrl(); else window.__afterMap=readUrl;   // Google mode: read the link once the map exists
 window.__app={state,openAccount,runSearch,flyTo,setView,getAccount,refresh,combos:CB.combos,dtRun,DT,setLayer,renderLegend,readUrl,writeUrl,
-  shortlist:()=>SL,indData,layerIds:()=>(deckgl?deckgl.props.layers:[]).map(l=>l.id)};
+  shortlist:()=>SL,indData,deck:()=>deckgl,layerIds:()=>(deckgl?deckgl.props.layers:[]).map(l=>l.id)};
 })();
 </script>
 </body>
