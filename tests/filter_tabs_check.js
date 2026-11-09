@@ -1,4 +1,4 @@
-// filter panel: Rate | Property | Map | Layers tabs, tab badges, Clear all, saved filter sets
+// filter panel: Rate & Map | Property | Layers tabs, tab badges, Clear all, saved filter sets
 //   node filter_tabs_check.js <page url> <cdn map json> <screenshot dir>
 const { chromium } = require('playwright'); const fs=require('fs'), path=require('path');
 const [url,cdnFile,shots]=process.argv.slice(2); const cdn=JSON.parse(fs.readFileSync(cdnFile,'utf8'));
@@ -13,11 +13,10 @@ const res=[]; const check=(n,ok,d='')=>{res.push(!!ok);console.log(`${ok?'PASS':
  await p.goto(url); await p.waitForFunction(()=>window.__app&&!document.getElementById('loading'),null,{timeout:240000});
  const vis=sel=>p.$eval(sel,e=>!e.closest('[hidden]')&&e.offsetParent!==null);
  const tabs=await p.$$eval('.tabs button',bs=>bs.map(b=>b.textContent.trim()));
- check('four tabs: Rate, Property, Map, Layers',tabs.join('|').replace(/\d/g,'')==='Rate|Property|Map|Layers',tabs.join('|'));
- check('Rate tab shows rate filters only',await vis('#rLo')&&!(await vis('#msType'))&&!(await vis('#shadeChk'))&&!(await vis('#indLayers')));
+ check('three tabs: Rate & Map (first), Property, Layers',tabs.join('|').replace(/\d/g,'')==='Rate & Map|Property|Layers',tabs.join('|'));
+ check('Rate & Map tab: rate filters, shading, counties, boundaries',await vis('#rLo')&&await vis('#shadeChk')&&await vis('#countyBox')&&await vis('#layers')&&!(await vis('#msType'))&&!(await vis('#indLayers')));
  await p.click('.tabs button[data-tab="prop"]'); check('Property tab shows property filters',await vis('#msType')&&await vis('#devChk')&&!(await vis('#rLo')));
- await p.click('.tabs button[data-tab="map"]'); check('Map tab: shading, counties, boundaries; saved row hidden',await vis('#shadeChk')&&await vis('#countyBox')&&!(await vis('#fsSel')));
- await p.click('.tabs button[data-tab="layers"]'); check('Layers tab: presets and groups',await vis('#presets')&&await vis('#indLayers'));
+  await p.click('.tabs button[data-tab="layers"]'); check('Layers tab: presets and groups; saved row hidden',await vis('#presets')&&await vis('#indLayers')&&!(await vis('#fsSel')));
  const lay0=await p.$eval('#tbLayers',e=>e.textContent);
  await p.$eval('#presets button',e=>e.click()); await p.waitForTimeout(500);
  const lay1=await p.$eval('#tbLayers',e=>e.textContent); check('Layers badge counts layers that are on',+lay1>+lay0,lay0+' -> '+lay1);

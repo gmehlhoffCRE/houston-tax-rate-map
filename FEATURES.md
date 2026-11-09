@@ -30,7 +30,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 
 | Feature | Added | Status | Notes |
 |---|---|---|---|
-| Left panel tabs: Rate, Property, Map, Layers, with count badges | Nov 9 | Review | Search stays above the tabs; `tests/filter_tabs_check.js` (15 checks) |
+| Left panel tabs: Rate & Map (primary), Property, Layers, with count badges | Nov 9 | Review | Search stays above the tabs; Rate and Map merged Nov 9; `tests/filter_tabs_check.js` (14 checks) |
 | Clear all (footer) and saved filter sets (browser storage) | Nov 9 | Review | Clear all resets rate and property filters incl. development sites, not layers or counties |
 | Grouped, collapsible layer panel (6 groups) | Nov 8 | Review | |
 | Presets: Logistics, Trucking, Utilities, Risk, Development, Clear | Nov 8 | Review | |
