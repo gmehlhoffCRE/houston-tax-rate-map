@@ -24,7 +24,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Esri tile retry (no blank squares) | Nov 7 | Keep | |
 | Folder build (.txt parts) | Nov 6 | Keep | `inject.py --split --part-ext txt` |
 | Estimated land area from the parcel shape where the CAD lists none, shown with * (drawer, Compare, dev sites, CSV column) | Nov 9 | Review | 152,870 accounts; not for condo units, mobile homes, minerals. Brazoria 26% to 73% with land area, Harris F2 80% to 99% |
-| Land use coloring (Tax rate / Land use switch) | Nov 8 | Review | CAD state class groups, parcel zoom only. Clicking the lit button again turns parcel shading off (same as the Parcel shading checkbox; share link `s=0`) |
+| Land use coloring (Tax rate / Land use switch) | Nov 8 | Review | CAD state class groups, at every zoom (zones carry the type; Nov 9). Clicking the lit button again turns parcel shading off (same as the Parcel shading checkbox; share link `s=0`) |
 
 ## Layer panel and styling
 

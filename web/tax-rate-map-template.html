@@ -585,7 +585,7 @@ function parcelLayer(){
     updateTriggers:{getFillColor:[colorVer,state.color,state.shade],getLineColor:[state.sel,state.shade,state.ind.rail_served,filterVer],getLineWidth:[state.sel,state.shade,state.lines,state.ind.rail_served,filterVer],getFilterValue:filterVer},
     renderSubLayers:p=>{
       const zone=p.tile.index.z<PARCEL_TZ;
-      return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade&&state.color==='rate',highlightedObjectIndex:-1,
+      return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade,highlightedObjectIndex:-1,   // zones carry the type group too, so land use colors work zoomed out
         filterRange:[p.filterRange[0],[-1,1e13],p.filterRange[2]]}:{});
     },
     onViewportLoad:tiles=>{lastTiles=tiles||[]; window.__lastTiles=lastTiles; scheduleStats();},
@@ -1482,7 +1482,7 @@ function renderLegend(){
   $('layLeg').innerHTML=on.map(o=>`<div class="ll"><div class="lt">${esc(o.label)}</div>${o.legend().map(([t,st,c])=>st==='note'?`<div class="ln">${esc(t)}</div>`:`<div class="le">${swatch(st,c)}<span>${esc(t)}</span></div>`).join('')}</div>`).join('');
   const use=state.color==='use';
   $('rateLeg').style.display=use?'none':''; $('useLeg').style.display=use&&state.shade?'':'none';
-  if(use) $('useLeg').innerHTML='<div class="t">Land use (CAD state class)</div>'+TYPE_LABEL.map((l,t)=>`<div class="le"><i style="background:rgb(${USE_C[t]})"></i>${esc(t===6?'Other / agricultural':t===5?'Exempt / public':l)}</div>`).join('')+'<div class="ln" style="font-size:9.5px;color:#8A93A8;margin-top:3px">Shown from zoom 14, where parcels draw</div>';
+  if(use) $('useLeg').innerHTML='<div class="t">Land use (CAD state class)</div>'+TYPE_LABEL.map((l,t)=>`<div class="le"><i style="background:rgb(${USE_C[t]})"></i>${esc(t===6?'Other / agricultural':t===5?'Exempt / public':l)}</div>`).join('')+'<div class="ln" style="font-size:9.5px;color:#8A93A8;margin-top:3px">Zoomed out, nearby parcels of the same use are merged into blocks</div>';
   syncPanel();
 }
 document.querySelectorAll('#colorSeg button').forEach(b=>b.onclick=()=>{

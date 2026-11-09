@@ -302,7 +302,7 @@ so they read apart in grayscale, all on a white casing. With any layer on, parce
 cursor. The legend shows only the layers that are on, in their map styles.
 
 Parcel shading can show the tax rate or land use (CAD state class groups: residential, commercial, industrial,
-vacant, utility, exempt/public, other/agricultural; parcel zoom only). Clicking the lit Tax rate or Land use
+vacant, utility, exempt/public, other/agricultural; at every zoom, zoomed out from the merged zones). Clicking the lit Tax rate or Land use
 button again turns parcel shading off (lot lines stay); clicking either button turns it back on in that mode.
 
 Site checks: the parcel drawer lists rail access (railroad and distance), zoning, Opportunity Zone, flood zone,
