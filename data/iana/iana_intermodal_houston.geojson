@@ -1,0 +1,1655 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2869699,
+     29.7889464
+    ]
+   },
+   "properties": {
+    "iana_code": "7702001",
+    "facility_name": "XPO - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "7707 WALLISVILLE RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77020",
+    "splc": "",
+    "bic_code": "USHOUROEH",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2562015,
+     29.8236934
+    ]
+   },
+   "properties": {
+    "iana_code": "7707801",
+    "facility_name": "SOUTHWEST FREIGHT",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "9005 SPIKEWOOD RD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77078",
+    "splc": "",
+    "bic_code": "USHOUFZLQ",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.293756,
+     29.8037549
+    ]
+   },
+   "properties": {
+    "iana_code": "7700101",
+    "facility_name": "FLEXI - VAN",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "7726 NORTH LOOP EAST , ,",
+    "city": "Houston",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUCBIB",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2765034,
+     29.7454466
+    ]
+   },
+   "properties": {
+    "iana_code": "7700102",
+    "facility_name": "HOUSTON CITY DOCKS 29A/31",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "8402 CLINTON DR",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUTGGN",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.12818940000001,
+     29.8679015
+    ]
+   },
+   "properties": {
+    "iana_code": "7700103",
+    "facility_name": "BLACK ANGUS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1000 OLD BEAUMONT HIGHWAY",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUGCYR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2399233,
+     29.8153659
+    ]
+   },
+   "properties": {
+    "iana_code": "7700104",
+    "facility_name": "CTI",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "5424 OATES RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOURDQG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.24016189999999,
+     29.8153939
+    ]
+   },
+   "properties": {
+    "iana_code": "7700105",
+    "facility_name": "INTEGRATED INDUSTRIES CORP",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "5430 OATES RD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUSWGS",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2890269,
+     29.7844759
+    ]
+   },
+   "properties": {
+    "iana_code": "7700106",
+    "facility_name": "WORLD TRADE DISTRIBUTION, INC.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "2222 N. WAYSIDE",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUAAQU",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2461932,
+     29.7951433
+    ]
+   },
+   "properties": {
+    "iana_code": "7700107",
+    "facility_name": "TCI (TRANSPORTATION CONSULTANTS, INC.) - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "3812\u00c2\u00bd OATES RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUBMNO",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2373515,
+     29.8116368
+    ]
+   },
+   "properties": {
+    "iana_code": "7700108",
+    "facility_name": "UNLIMITED TRUCKING",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "5210 OATES RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77001",
+    "splc": "",
+    "bic_code": "USHOUUTIA",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2713823,
+     29.8001845
+    ]
+   },
+   "properties": {
+    "iana_code": "7701201",
+    "facility_name": "MICHELIN NORTH AMERICA INC. - MTC/HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "8800 CITY PARK LOOP",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77012",
+    "splc": "",
+    "bic_code": "USHOUNTDP",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2535085,
+     29.7943106
+    ]
+   },
+   "properties": {
+    "iana_code": "7701302",
+    "facility_name": "IMC - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "10043 WALLISVILLE RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUNFZR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.23294829999999,
+     29.7971084
+    ]
+   },
+   "properties": {
+    "iana_code": "7701303",
+    "facility_name": "INTERMODAL EQUIPMENT LOGISTICS L.L.C.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "11326 WALLISVILLE RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUVOHE",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2302565,
+     29.8010929
+    ]
+   },
+   "properties": {
+    "iana_code": "7701304",
+    "facility_name": "INTERMODAL REPAIR & MODIFICATIONS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "11643-B WALLISVILLE RD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUIKKR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.23999839999999,
+     29.8139963
+    ]
+   },
+   "properties": {
+    "iana_code": "7701305",
+    "facility_name": "TRANSPORTOR",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "5410 OATES RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUMOPU",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.25399809999999,
+     29.7897815
+    ]
+   },
+   "properties": {
+    "iana_code": "7701306",
+    "facility_name": "WWINNERS CONTAINER SERVICES INC.(W.W. ROWLAND - HOUSTON)",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "10000 WALLISVILLE RD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUVLJR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.23294829999999,
+     29.7971084
+    ]
+   },
+   "properties": {
+    "iana_code": "7701310",
+    "facility_name": "INTERMODAL EQUIPMENT LOGISTICS L.L.C.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "11326 WALLISVILLE RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUVOHE",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.192217,
+     29.7679058
+    ]
+   },
+   "properties": {
+    "iana_code": "7701502",
+    "facility_name": "WALTON BARGE TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "13040 MARKET ST.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77015",
+    "splc": "",
+    "bic_code": "USHOUKEYH",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.3146905,
+     29.7872864
+    ]
+   },
+   "properties": {
+    "iana_code": "7702002",
+    "facility_name": "UP - ENGLEWOOD (WLV)",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "5500 WALLISVILLE RD.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77020",
+    "splc": "684807",
+    "bic_code": "USHOUCSXE",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2915888,
+     29.8203453
+    ]
+   },
+   "properties": {
+    "iana_code": "7702601",
+    "facility_name": "UP SETTEGAST RAMP",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "6800 Kirkpatrick Blvd",
+    "city": "Houston",
+    "state": "TX",
+    "zip": "77028-3940",
+    "splc": "684800",
+    "bic_code": "USHOUULYW",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.266103,
+     29.74989
+    ]
+   },
+   "properties": {
+    "iana_code": "7702901",
+    "facility_name": "ADVANCED CONTAINER CO",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1711 TURNING BASIN DR, BLDG. A",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77029",
+    "splc": "",
+    "bic_code": "USHOUMAII",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.27240719999999,
+     29.7299985
+    ]
+   },
+   "properties": {
+    "iana_code": "7702902",
+    "facility_name": "SHIPPERS STEVEDORING CO.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "111 EAST LOOP NORTH CITY DOCK 29A",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77029",
+    "splc": "",
+    "bic_code": "USHOUJBUP",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2747035,
+     29.7726175
+    ]
+   },
+   "properties": {
+    "iana_code": "7702903",
+    "facility_name": "TRANSMAR",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "8525 MARKET ST.",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77029",
+    "splc": "",
+    "bic_code": "USHOULMCO",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.1211812,
+     29.778301
+    ]
+   },
+   "properties": {
+    "iana_code": "7753003",
+    "facility_name": "CARU WEST GULF CONTAINER",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "15920 E FREEWAY SERVICE RD",
+    "city": "CHANNELVIEW",
+    "state": "TX",
+    "zip": "77530-4312",
+    "splc": "",
+    "bic_code": "USHOUCJZJ",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.29848919999999,
+     29.6355937
+    ]
+   },
+   "properties": {
+    "iana_code": "7706101",
+    "facility_name": "BNSF - PEARLAND (PEA)",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "214 BRISBANE",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77061",
+    "splc": "686212",
+    "bic_code": "USHOUBNFA",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.14403,
+     29.71028
+    ]
+   },
+   "properties": {
+    "iana_code": "7753601",
+    "facility_name": "GULF WINDS INTERNATIONAL - CORPORATE",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "4400 TX-225 #230",
+    "city": "DEER PARK",
+    "state": "TX",
+    "zip": "77536",
+    "splc": "",
+    "bic_code": "USHOUJDKD",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.272407,
+     29.729997
+    ]
+   },
+   "properties": {
+    "iana_code": "7709201",
+    "facility_name": "INTEGRATED MARINE SERVICES",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "111 EAST LOOP NORTH",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77092",
+    "splc": "",
+    "bic_code": "USHOUWMBY",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2879669,
+     29.7466856
+    ]
+   },
+   "properties": {
+    "iana_code": "7726201",
+    "facility_name": "P&O PORTS TEXAS, INC.",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "CITY DOCKS - BERTH 27/28",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77262",
+    "splc": "",
+    "bic_code": "USHOULDJP",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.24479810000001,
+     29.728416
+    ]
+   },
+   "properties": {
+    "iana_code": "7754701",
+    "facility_name": "CONGLOBAL INDUSTRIES - GALENA PARK TX",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "500 MAYO SHELL RD.",
+    "city": "GALENA PARK",
+    "state": "TX",
+    "zip": "77547",
+    "splc": "",
+    "bic_code": "USHOUCCIA",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.27829,
+     29.71396
+    ]
+   },
+   "properties": {
+    "iana_code": "7701203",
+    "facility_name": "EAGLE TRANSPORT SERVICES",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "8201 LA PORTE FWY, #300",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77012",
+    "splc": "",
+    "bic_code": "USHOUGJTR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0103135,
+     29.6733392
+    ]
+   },
+   "properties": {
+    "iana_code": "7755101",
+    "facility_name": "APM HOUSTON",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "919 E. BARBOURS CUT BLVD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77551",
+    "splc": "",
+    "bic_code": "USHOUEVIX",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.01540179999999,
+     29.6750204
+    ]
+   },
+   "properties": {
+    "iana_code": "7755102",
+    "facility_name": "FLEXI VAN",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "500 EAST BARBOURS CUT BLVD",
+    "city": "PO BOX 1729",
+    "state": "TX",
+    "zip": "77551",
+    "splc": "",
+    "bic_code": "USUQFSUVY",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -94.9957402,
+     29.677567
+    ]
+   },
+   "properties": {
+    "iana_code": "7757101",
+    "facility_name": "BARBOURS CUT CONTAINER TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "1515 E. BARBOURS CUT BLVD.",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUWAWL",
+    "smdg_code": "USHOUBCMT",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0054275,
+     29.6730677
+    ]
+   },
+   "properties": {
+    "iana_code": "7757102",
+    "facility_name": "GULF WINDS INTERNATIONAL, INC.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1000 E. BARBOURS CUT BLVD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USLAPTGUG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.00283390000001,
+     29.679895
+    ]
+   },
+   "properties": {
+    "iana_code": "7757103",
+    "facility_name": "BNSF - BARBOURS CUT (BBC )",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "515 E.BARBOURS CUT BLVD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "684815",
+    "bic_code": "USHOUVOJO",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.03422929999999,
+     29.690878
+    ]
+   },
+   "properties": {
+    "iana_code": "7757104",
+    "facility_name": "CORE TRUCKING",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1702 1/2 STRANG RD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USUQFXABN",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.022848,
+     29.679418
+    ]
+   },
+   "properties": {
+    "iana_code": "7757105",
+    "facility_name": "CERES HOUSTON TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "401 NORTH L ST.",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUDQUL",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0253413,
+     29.6743482
+    ]
+   },
+   "properties": {
+    "iana_code": "7757106",
+    "facility_name": "DRAGON PRODUCTS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "816 W Barbours Cut Blvd",
+    "city": "La Porte",
+    "state": "TX",
+    "zip": "77571-3236",
+    "splc": "",
+    "bic_code": "USUQFVFEE",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.01540179999999,
+     29.6750204
+    ]
+   },
+   "properties": {
+    "iana_code": "7757107",
+    "facility_name": "COOPER/PORTS AMERICA (FORMERLY INTEGRATED MARINE SVCS)",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "500 E. BARBOURS CUT BLVD.",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUIMSL",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0194911,
+     29.67743329999999
+    ]
+   },
+   "properties": {
+    "iana_code": "7757108",
+    "facility_name": "J J FLANAGAN",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "918 N BROADWAY",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USUQFRCMD",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -94.9897294,
+     29.6786958
+    ]
+   },
+   "properties": {
+    "iana_code": "7757109",
+    "facility_name": "P&O PORTS BARBOURS CUT",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "2011 E BARBOURS CUT BLVD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUVQLR",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0281691,
+     29.6880313
+    ]
+   },
+   "properties": {
+    "iana_code": "7757110",
+    "facility_name": "REFRIGERATED CONTAINER SVCS.",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1802 HIGHWAY 146N",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUTERX",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0754539,
+     29.7014848
+    ]
+   },
+   "properties": {
+    "iana_code": "7757111",
+    "facility_name": "TANK SERVICES",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "9350 STRANG RD",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USUQFGKVV",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0313413,
+     29.6916283
+    ]
+   },
+   "properties": {
+    "iana_code": "7757112",
+    "facility_name": "ALL COAST- LA PORTE",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "2205 HIGHWAY, 146 NORTH",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USLAPBRGC",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0074795,
+     29.6052802
+    ]
+   },
+   "properties": {
+    "iana_code": "7758601",
+    "facility_name": "BAYPORT TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "12619 PORT RD.",
+    "city": "SEABROOK",
+    "state": "TX",
+    "zip": "77586",
+    "splc": "",
+    "bic_code": "USHOUYOGA",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -97.4701814,
+     27.7884641
+    ]
+   },
+   "properties": {
+    "iana_code": "7835001",
+    "facility_name": "THE MOBILE STORAGE GROUP",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1517 NORTH LEXINGTON BLVD",
+    "city": "CORPUS CHRISTI",
+    "state": "TX",
+    "zip": "78350",
+    "splc": "",
+    "bic_code": "USCRPGPSV",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.00283390000001,
+     29.679895
+    ]
+   },
+   "properties": {
+    "iana_code": "7757113",
+    "facility_name": "UP - BARBOURS CUT TX",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "515 EAST BARBOURS CUT BLVD.",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "684815",
+    "bic_code": "USHOUHXKH",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.10860339999999,
+     29.749815
+    ]
+   },
+   "properties": {
+    "iana_code": "7701503",
+    "facility_name": "JACINTOPORT TERMINAL (JACINTOPORT INTERNATIONAL - HOU-PHA)",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "16398 JACINTOPORT BOULEVARD",
+    "city": "HOUTON",
+    "state": "TX",
+    "zip": "77015",
+    "splc": "",
+    "bic_code": "USHOUEVAR",
+    "smdg_code": "USHOUJPI",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.98196159999999,
+     29.4601948
+    ]
+   },
+   "properties": {
+    "iana_code": "7741701",
+    "facility_name": "KCS - KENDELTON (ROSENBERG)",
+    "facility_type": "RAIL",
+    "facility_type_label": "Rail",
+    "address": "11538 GIN ROAD",
+    "city": "BEASLEY",
+    "state": "TX",
+    "zip": "77417",
+    "splc": "",
+    "bic_code": "USBY4TXTY",
+    "smdg_code": "",
+    "pin_color": "#D62828",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2444105,
+     29.7957082
+    ]
+   },
+   "properties": {
+    "iana_code": "7701307",
+    "facility_name": "TOP LOGISTICS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "3663 OATES ROAD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUPAKR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.10723499999999,
+     29.7460609
+    ]
+   },
+   "properties": {
+    "iana_code": "7701504",
+    "facility_name": "CARE TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "16800 PENINSULA BLVD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77015",
+    "splc": "",
+    "bic_code": "USHOUQRXD",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.23738589999999,
+     29.7321402
+    ]
+   },
+   "properties": {
+    "iana_code": "7754703",
+    "facility_name": "GP TERMINALS",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "1606 CLINTON DRIVE",
+    "city": "GALENA PARK",
+    "state": "TX",
+    "zip": "77547",
+    "splc": "",
+    "bic_code": "USGPKOOTX",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.2370679,
+     29.82061899999999
+    ]
+   },
+   "properties": {
+    "iana_code": "7707802",
+    "facility_name": "EQUIPMENT MANAGEMENT SERVICES",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "11000 BEAUMONT HIGHWAY",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77078",
+    "splc": "",
+    "bic_code": "USLAXEMSA",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0281691,
+     29.6880313
+    ]
+   },
+   "properties": {
+    "iana_code": "7757114",
+    "facility_name": "RCS ( A CONGLOBAL COMPANY) - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1802 TX-146",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUOSZR",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.292593,
+     29.800307
+    ]
+   },
+   "properties": {
+    "iana_code": "7702801",
+    "facility_name": "INTERMODAL SERVICES OF TEXAS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "7501 LIBERTY ROAD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77028",
+    "splc": "",
+    "bic_code": "USHOUMFPL",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.3320693,
+     28.9448795
+    ]
+   },
+   "properties": {
+    "iana_code": "7754101",
+    "facility_name": "FREEPORT TERMINAL",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "801 PORT ROAD",
+    "city": "FREEPORT",
+    "state": "TX",
+    "zip": "77541",
+    "splc": "",
+    "bic_code": "USFPOPFWG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0281691,
+     29.6880313
+    ]
+   },
+   "properties": {
+    "iana_code": "7757115",
+    "facility_name": "CONGLOBAL INDUSTRIES - LA PORTE",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "1802 TX-146",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USUQFZJWE",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0242394,
+     29.6790592
+    ]
+   },
+   "properties": {
+    "iana_code": "7757116",
+    "facility_name": "NATIONAL DRAYAGE SERVICES LA PORTE - XHT",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "300 N AVENUE J",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USHOUIMDG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.08475969999999,
+     29.650262
+    ]
+   },
+   "properties": {
+    "iana_code": "7750701",
+    "facility_name": "STG LOGISTICS",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "4035 UNDERWOOD ROAD",
+    "city": "PASADENA",
+    "state": "TX",
+    "zip": "77507",
+    "splc": "",
+    "bic_code": "USHOUKORW",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.24827189999999,
+     29.7168048
+    ]
+   },
+   "properties": {
+    "iana_code": "7701202",
+    "facility_name": "MANCHESTER TERMINAL",
+    "facility_type": "MARINE",
+    "facility_type_label": "Marine",
+    "address": "10000 MANCHESTER STREET",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77012",
+    "splc": "",
+    "bic_code": "USHOUJLGJ",
+    "smdg_code": "",
+    "pin_color": "#1F3A93",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.11340589999999,
+     29.7665028
+    ]
+   },
+   "properties": {
+    "iana_code": "7753001",
+    "facility_name": "DEPOT CONNECT INT'L (BOASSO GLOBAL) - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "16230 DEZAVALA STREET",
+    "city": "CHANNELVIEW",
+    "state": "TX",
+    "zip": "77530",
+    "splc": "",
+    "bic_code": "USHOUBOAA",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.1106009,
+     29.7663226
+    ]
+   },
+   "properties": {
+    "iana_code": "7753002",
+    "facility_name": "STOLT CONTAINER TERMINAL - HOUSTON",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "16300 DEZAVALA STREET",
+    "city": "CHANNELVIEW",
+    "state": "TX",
+    "zip": "77530",
+    "splc": "",
+    "bic_code": "USHOUOCNG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.38013219999999,
+     28.9861761
+    ]
+   },
+   "properties": {
+    "iana_code": "7754102",
+    "facility_name": "XPO - FREEPORT",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "2301 BRAZOSPORT BOULEVARD, BUILDING B8702",
+    "city": "FREEPORT",
+    "state": "TX",
+    "zip": "77541",
+    "splc": "",
+    "bic_code": "USFPOKHVG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.23294829999999,
+     29.7971084
+    ]
+   },
+   "properties": {
+    "iana_code": "7701308",
+    "facility_name": "INTERMODAL CHASSIS RESOURCES, LLC",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "11326 WALLISVILLE ROAD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUQFIS",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.25399809999999,
+     29.7897815
+    ]
+   },
+   "properties": {
+    "iana_code": "7701309",
+    "facility_name": "TRAC - HOUSTON SERVICE CENTER",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "10000 WALLISVILLE ROAD",
+    "city": "HOUSTON",
+    "state": "TX",
+    "zip": "77013",
+    "splc": "",
+    "bic_code": "USHOUZZNF",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.0193728,
+     29.6657838
+    ]
+   },
+   "properties": {
+    "iana_code": "7757117",
+    "facility_name": "INTEGRATED INDUSTRIES - LA PORTE",
+    "facility_type": "CY/DEPOT",
+    "facility_type_label": "Container Yard / Depot",
+    "address": "910 HWY N",
+    "city": "LA PORTE",
+    "state": "TX",
+    "zip": "77571",
+    "splc": "",
+    "bic_code": "USUQFQWLG",
+    "smdg_code": "",
+    "pin_color": "#F2C230",
+    "in_houston_view": true
+   }
+  }
+ ]
+}

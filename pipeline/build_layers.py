@@ -9,6 +9,8 @@ Layers (key: source)
   rail        US DOT BTS North American Rail Network lines (owner, track rights, Class I / short line)
   intermodal  US DOT BTS intermodal rail TOFC/COFC terminals (railroad); Englewood dropped (ramp moved to Settegast),
               Kendleton renamed CPKC Rosenberg
+  container_yards  IANA Intermodal System container yards and depots (chassis, empty container, drayage), plus
+              two marine terminals not in the ports layer (data/iana/, pulled 2026-11-09)
   rail_yards  US DOT BTS NTAD Rail Yards (yard track by yard name and owner)
   rail_terminals  Transload terminals and rail-served parks (data/rail/rail_terminals.csv, Cresa research, high and
               medium confidence only) plus US DOT BTS liquid bulk terminals with rail (beta layer)
@@ -327,6 +329,40 @@ def write(g, path, cols, digits=5):
     return len(fc["features"]), os.path.getsize(path) / 1e6
 
 
+def container_yards(clip):
+    """IANA Intermodal System container yards and depots, plus marine terminals not already in the ports layer
+    (data/iana/iana_intermodal_houston.geojson, pulled 2026-11-09). Operators sharing one yard become one point.
+    IANA's rail and other marine records duplicate the intermodal and port terminal layers and are left out."""
+    here = os.path.dirname(__file__)
+    p = os.path.join(here, "..", "data", "iana", "iana_intermodal_houston.geojson")
+    if not os.path.exists(p):
+        return {}
+    g = gpd.read_file(p).set_crs(4326, allow_override=True)
+    g = g[g.within(clip)].copy()
+    keep_marine = {"WALTON BARGE TERMINAL", "GP TERMINALS"}   # the other IANA marine records sit at mapped port terminals
+    g = g[(g.facility_type == "CY/DEPOT") | g.facility_name.isin(keep_marine)].copy()
+    g = g[~g.facility_name.str.contains("CORPORATE", na=False)]   # offices, not yards
+    fix = lambda s: (s or "").replace("\u00c2\u00bd", " 1/2").replace("\u00bd", " 1/2").replace(" , ,", "").strip(" ,")
+    def tc(s):
+        s = fix(s).title()
+        for a, b in (("Llc", "LLC"), ("L.L.C.", "LLC"), ("Inc.", "Inc."), ("Xpo", "XPO"), ("Imc", "IMC"), ("Cti", "CTI"), ("Tci", "TCI"),
+                     ("Stg", "STG"), ("Rcs", "RCS"), ("Trac", "TRAC"), ("Ww", "WW"), ("Xht", "XHT"), ("Jj", "JJ"), ("J J", "JJ"),
+                     ("Hou-Pha", "HOU-PHA"), ("Tx", "TX"), ("Mtc", "MTC"), ("Int'L", "Int'l"), ("P&O", "P&O"), ("Gp ", "GP "), (" Hwy N", " Hwy 146 N")):
+            s = s.replace(a, b)
+        return s
+    city = g.city.fillna("").str.strip().str.upper().replace({"HOUTON": "HOUSTON", "PO BOX 1729": "LA PORTE"}).str.title()
+    g = g.assign(name=g.facility_name.map(tc), addr=g.address.map(lambda s: tc(s)), city=city,
+                 kind=np.where(g.facility_type == "CY/DEPOT", "yard", "marine"),
+                 key=g.geometry.x.round(5).astype(str) + "," + g.geometry.y.round(5).astype(str))
+    rows = []
+    for _, grp in g.groupby("key", sort=False):   # same coordinates = same yard with several operators
+        names = list(dict.fromkeys(grp.name))
+        rows.append({"name": names[0], "others": "; ".join(names[1:]), "kind": grp.kind.iloc[0],
+                     "address": grp.addr.iloc[0] + (", " + grp.city.iloc[0] if grp.city.iloc[0] else ""),
+                     "iana": ", ".join(grp.iana_code.astype(str)), "geometry": grp.geometry.iloc[0]})
+    return {"container_yards": (gpd.GeoDataFrame(rows, crs=4326), ["name", "others", "kind", "address", "iana"])}
+
+
 def rail_layers(raw, clip):
     """Intermodal ramps, rail yards and rail terminals (transload, rail-served parks, liquid bulk with rail)."""
     out = {}
@@ -435,6 +471,7 @@ def main():
     out["rail"] = (simplify(g, 5), ["owner", "rights", "SUBDIV", "yard"])
 
     out.update(rail_layers(a.raw, clip))
+    out.update(container_yards(clip))
 
     g = load(a.raw, "flood")
     z = g.FLD_ZONE.fillna("")

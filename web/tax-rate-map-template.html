@@ -666,6 +666,11 @@ const IND=[
     icon:()=>'airport',iconSize:p=>p.major?34:24,color:p=>[90,100,130],radius:p=>p.major?7:4,labelZ:7,labelMinor:11,text:p=>p.name,
     legend:()=>[['Public-use airport','icon:airport'],['Larger icons: commercial and major general aviation airports; smaller ones from zoom 12','note']],name:p=>p.name,
     tip:p=>`<b>${esc(p.name)}</b><br>Public-use airport`},
+  {key:'container_yards',group:'logistics',label:'Container yards and depots (IANA)',kind:'point',sw:'rgb(230,160,0)',color:p=>p.kind==='marine'?[31,58,147]:[230,160,0],
+    radius:p=>p.others?6.5:5,labelZ:12,text:p=>p.name,
+    legend:()=>[['Container yard or depot (chassis, empties, drayage)','dot',[230,160,0]],['Marine terminal not in the ports layer','dot',[31,58,147]],['IANA Intermodal System list, Nov 2026','note']],
+    name:p=>p.name,
+    tip:p=>`<b>${esc(p.name)}</b><br>${p.kind==='marine'?'Marine terminal':'Container yard / depot'}${p.others?'<br>Also here: '+esc(p.others):''}${p.address?'<br>'+esc(p.address):''}<br><span style="color:#8A93A8">IANA code ${esc(p.iana||'')}</span>`},
   {key:'docks',group:'logistics',label:'Ship docks and drafts (zoom in)',kind:'point',sw:'rgb(70,95,120)',color:()=>[70,95,120],radius:2.8,minZ:11,labelZ:14,
     text:p=>p.name,legend:()=>[['Dock or berth (Houston Pilots list)','dot',[70,95,120]],['Max drafts change; check with the terminal and Houston Pilots','note']],name:p=>p.name,
     tip:p=>{ const m=/^(\d+)\/(\d+)$/.exec(p.draft||''); return `<b>${esc(p.name)}</b><br>${m?'Max draft '+(+m[1])+' ft'+(+m[2]?' '+(+m[2])+' in':''):'No draft listed'}${p.note?'<br>'+esc(p.note):''}<br><span style="color:#8A93A8">Houston Pilots dock list, May 20, 2025</span>`; }},
@@ -1418,7 +1423,7 @@ const indEl=$('indLayers');
 const CHK='<span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>';
 const CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
 let openGroups; try{ openGroups=new Set(JSON.parse(localStorage.getItem('taxmap.groups')||'["logistics"]')); }catch(e){ openGroups=new Set(['logistics']); }
-const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','rail_terminals','ports','airports','ftz','aadt']],['Trucking',['bridges','freight','road_projects','ports','intermodal']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines','electric','gas_util']],
+const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','rail_terminals','ports','airports','ftz','aadt']],['Trucking',['bridges','freight','road_projects','ports','intermodal','container_yards']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines','electric','gas_util']],
   ['Risk',['flood','wetlands','evac','contam','watersheds']],['Development',['zoning','opp_zones','tez','contam','rail','road_projects','ports']],['Clear',[]]];
 for(const [gk,gt] of GROUPS){
   const g=document.createElement('div'); g.className='grp'+(openGroups.has(gk)?' open':''); g.dataset.g=gk;
@@ -1515,13 +1520,16 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
   if(D.rail_terminals&&D.rail_terminals.features){
     const nr=D.rail_terminals.features.map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).filter(r=>r[0]<=10).sort((a,b)=>a[0]-b[0]).slice(0,3);
     out.push(['Transload and rail parks',nr.length?nr.map(([dm,q])=>`${esc(q.name)} <span>${dm<0.1?'on site':dm.toFixed(1)+' mi'} · ${esc((RT_NAME[q.kind]||'').replace(' with rail','').toLowerCase())}</span>`).join('<br>'):'<span>None within 10 mi</span>']); }
+  if(D.container_yards&&D.container_yards.features){
+    const ny=D.container_yards.features.filter(f=>f.properties.kind==='yard').map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).sort((a,b)=>a[0]-b[0]).slice(0,2);
+    out.push(['Nearest container yards',ny.length?ny.map(([dm,q])=>`${esc(q.name)} <span>${dm.toFixed(1)} mi</span>`).join('<br>'):'<span>None listed</span>']); }
   if(D.zoning){ const f=featAt(D.zoning,x,y); out.push(['Zoning',f?`${esc(f.properties.city)} ${esc(f.properties.code)} <span>${esc(ZONE_NAME[f.properties.cat]||'')}</span>`:'<span>None mapped (no zoning, or no city layer)</span>']); }
   if(D.opp_zones){ const f=featAt(D.opp_zones,x,y); out.push(['Opportunity Zone',f?`Yes <span>tract ${esc(f.properties.tract||'')}</span>`:'<span>No</span>']); }
   if(D.tez){ const f=featAt(D.tez,x,y); out.push(['Enterprise Zone',f?'Eligible <span>block group</span>':'<span>No</span>']); }
@@ -1665,7 +1673,7 @@ async function openCompare(){
     ['sec','Tax'],
     ['Rate per $100',x=>x.rate!=null?x.rate.toFixed(4):NA],['Est. annual tax',x=>money0(x.tax)],['Tax per bldg SF / yr',x=>x.tax!=null&&x.bld?'$'+(x.tax/x.bld).toFixed(2):NA],
     ['sec','Access'],
-    ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],
+    ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],['Nearest container yards',x=>cell(x,'Nearest container yards')],
     ['Freight network',x=>cell(x,'Highway freight network')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
     ['sec','Labor (30 min by car)'],
     ['Labor force',x=>x._lab?fmtK(x._lab.lf):'…'],['Prod. and warehouse workers',x=>x._lab?fmtK(x._lab.ptm):'…'],['Their median pay',x=>x._lab?(x._lab.ewn?'$'+Math.round(x._lab.ew/x._lab.ewn/1000)+'k':NA):'…'],

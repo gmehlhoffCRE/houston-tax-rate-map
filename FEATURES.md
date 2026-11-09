@@ -52,6 +52,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Road projects by timeline (`road_projects`) | Nov 8 | Review | TxDOT DCIS, H-GAC TIP, Houston, Fort Bend, Montgomery bond |
 | Rail intermodal terminals (`intermodal`) | Nov 7 | Review | US DOT BTS; Englewood dropped, Kendleton relabeled CPKC Rosenberg (Nov 8) |
 | Transload terminals and rail parks (`rail_terminals`) | Nov 8 | Review | `data/rail/rail_terminals.csv` (Cresa research) + US DOT liquid bulk with rail; site check: nearest 3 within 10 mi; same rail pin as intermodal (Nov 9) |
+| Container yards and depots (`container_yards`) | Nov 9 | Review | IANA Intermodal System list (`data/iana/`, user-supplied pull Nov 9): 47 container yards/depots merged to 40 pins + 2 marine terminals; in Trucking preset; site check: 2 nearest |
 | Rail yards (`rail_yards`) | Nov 8 | Review | US DOT BTS NTAD Rail Yards, band in railroad color, rail pin per yard (Nov 9) |
 | Airports (`airports`) split from Ports | Nov 8 | Review | FAA public use |
 | Ports and port terminals (`ports`) | Nov 7, terminals Nov 8 | Review | BTS ports, `data/ports/port_terminals.csv` |
