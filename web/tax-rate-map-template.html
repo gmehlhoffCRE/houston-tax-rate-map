@@ -105,7 +105,20 @@ button{font-family:inherit}
 .dtq input:focus{border-color:var(--navy)}
 .dtq .sres{top:calc(100% + 3px);left:0;right:0;max-height:260px}
 .pinned .chk{padding:4px 0}
-.rail-f{padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3)}
+.rail-f{padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);display:flex;align-items:center;justify-content:space-between;gap:8px}
+/* panel tabs (Rate | Property | Map | Layers) and saved filter sets */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);margin:0 16px;border-bottom:1px solid var(--line)}
+.tabs button{position:relative;height:32px;border:0;background:none;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--ink3);border-bottom:2px solid transparent;margin-bottom:-1px;padding:0 2px;white-space:nowrap}
+.tabs button:hover{color:var(--navy)}
+.tabs button.on{color:var(--navy);border-bottom-color:var(--gold)}
+.tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.tabs .tb{display:inline-block;min-width:15px;margin-left:4px;padding:0 4px;border-radius:8px;background:var(--navy);color:#fff;font-size:9.5px;line-height:15px;font-weight:700;vertical-align:1px}
+.tabs .tb:empty{display:none}
+.saved{display:flex;align-items:center;gap:10px;margin:10px 16px 0}
+.saved select{flex:1;min-width:0;height:28px;border:1px solid var(--line);border-radius:6px;background:var(--bg);font-size:11.5px;color:var(--ink);padding:0 6px}
+.pane .seg{margin:0 0 16px}
+.pane .seg.cm{margin:4px 0 6px}
+.pane.pinned{max-height:none;border-top:0;padding:14px 16px 16px;flex:1 1 auto;min-height:0;overflow-y:auto}
 .rail-f b{color:var(--navy)}
 
 /* map */
@@ -303,18 +316,28 @@ button{font-family:inherit}
         <div class="t">Filters</div>
         <div class="badge" id="fCount" style="display:none"></div>
         <div style="flex:1"></div>
-        <button class="link" id="fClear" style="display:none">Clear</button>
       </div>
       <div class="search">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8A93A8" stroke-width="1.75" stroke-linecap="round"><path d="M11 19a8 8 0 1 1 5.3-2L21 22"/></svg>
         <input id="q" placeholder="Search address, owner, account" aria-label="Search parcels by address, owner or HCAD account" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sres">
         <div class="sres" id="sres" role="listbox"></div>
       </div>
-      <div class="seg" role="group" aria-label="Rate basis">
-        <button class="on" data-m="0">Base rate</button>
-        <button data-m="1">Incl. mgmt districts</button>
+      <div class="tabs" role="tablist" aria-label="Panel sections">
+        <button role="tab" class="on" data-tab="rate" aria-selected="true">Rate<span class="tb" id="tbRate"></span></button>
+        <button role="tab" data-tab="prop" aria-selected="false">Property<span class="tb" id="tbProp"></span></button>
+        <button role="tab" data-tab="map" aria-selected="false">Map<span class="tb" id="tbMap"></span></button>
+        <button role="tab" data-tab="layers" aria-selected="false">Layers<span class="tb" id="tbLayers"></span></button>
       </div>
-      <div class="rail-b">
+      <div class="saved" id="savedRow">
+        <select id="fsSel" aria-label="Saved filter sets"><option value="">Saved filters</option></select>
+        <button class="link" id="fsSave" title="Save the current rate and property filters">Save</button>
+        <button class="link" id="fsDel" title="Delete the selected saved filter set" style="display:none">Delete</button>
+      </div>
+      <div class="rail-b pane" data-pane="rate" role="tabpanel">
+        <div class="seg" role="group" aria-label="Rate basis">
+          <button class="on" data-m="0">Base rate</button>
+          <button data-m="1">Incl. mgmt districts</button>
+        </div>
         <div class="fs">
           <div class="fs-t">Combined rate per $100</div>
           <div class="row2"><input class="tin" id="rLo" inputmode="decimal" aria-label="Minimum rate"><span class="dash">to</span><input class="tin" id="rHi" inputmode="decimal" aria-label="Maximum rate"></div>
@@ -326,6 +349,8 @@ button{font-family:inherit}
           <div class="hticks" id="hticks"></div>
           <div class="hcap" id="hcap"></div>
         </div>
+      </div>
+      <div class="rail-b pane" data-pane="prop" role="tabpanel" hidden>
         <div class="fs"><div class="fs-t">Property type</div><div class="ms" id="msType"></div></div>
         <div class="fs"><div class="fs-t">School district</div><div class="ms" id="msIsd"></div></div>
         <div class="fs"><div class="fs-t">City</div><div class="ms" id="msCity"></div></div>
@@ -340,16 +365,18 @@ button{font-family:inherit}
           <div class="devnote">Vacant and agricultural land, and commercial or industrial parcels with no building, from appraisal records. Gold dots mark them until parcels draw. Acreage with * is estimated from the parcel shape where the appraisal district lists none.</div>
         </div>
       </div>
-      <div class="pinned">
-        <div class="fs-t">Map layers</div>
+      <div class="rail-b pane pinned" data-pane="map" role="tabpanel" hidden>
+        <div class="fs-t">Parcels</div>
         <label class="chk" id="shadeBtn" title="Show or hide parcel colors (Tax rate or Land use)"><input type="checkbox" id="shadeChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw ramp2"></span><span>Parcel shading</span></label>
         <div class="seg cm" id="colorSeg" role="group" aria-label="Parcel color"><button class="on" data-c="rate">Tax rate</button><button data-c="use">Land use</button></div>
         <label class="chk" id="linesBtn" title="Lot lines, from zoom 14 in"><input type="checkbox" id="linesChk" checked><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="sw" style="border-color:#8A93A8;border-top-width:1px"></span><span>Parcel lines</span></label>
         <div id="countyBox"></div>
         <div class="fs-t" style="margin-top:10px">Boundaries</div><div id="layers"></div>
-        <div class="fs-t" style="margin-top:12px">Layers</div><div class="presets" id="presets" role="group" aria-label="Layer presets"></div><div id="indLayers"></div>
       </div>
-      <div class="rail-f" id="mFoot"><b id="mCount">0</b> <span id="mLab">parcels match</span></div>
+      <div class="rail-b pane pinned" data-pane="layers" role="tabpanel" hidden>
+        <div class="fs-t">Presets</div><div class="presets" id="presets" role="group" aria-label="Layer presets"></div><div id="indLayers"></div>
+      </div>
+      <div class="rail-f" id="mFoot"><span><b id="mCount">0</b> <span id="mLab">parcels match</span></span><button class="link" id="fClearAll" style="display:none" title="Reset the rate and property filters (layers and counties stay)">Clear all</button></div>
     </div>
 
     <div class="mapwrap" id="mapwrap">
@@ -1291,9 +1318,26 @@ function applyFilters(){
   rebuildFilters();
   const [vl,vh]=state.val;
   const active=(state.rate[0]>RMIN||state.rate[1]<RMAX?1:0)+(state.binsOff.size?1:0)+(state.types.length?1:0)+(state.isd.length?1:0)+(state.city.length?1:0)+(state.water.length?1:0)+(vl!=null||vh!=null?1:0);
-  $('fCount').textContent=active; $('fCount').style.display=active?'':'none'; $('fClear').style.display=active?'':'none';
-  syncValHint(); refresh(); scheduleStats();
+  $('fCount').textContent=active; $('fCount').style.display=active?'':'none';
+  syncValHint(); syncTabBadges(); refresh(); scheduleStats();
 }
+// ---------------------------------------------------------------- panel tabs, Clear all, saved filter sets
+function syncTabBadges(){
+  const nRate=(state.rate[0]>RMIN||state.rate[1]<RMAX?1:0)+(state.binsOff.size?1:0)+(state.mgmt?1:0);
+  const [vl,vh]=state.val;
+  const nProp=(state.types.length?1:0)+(state.isd.length?1:0)+(state.city.length?1:0)+(state.water.length?1:0)+(vl!=null||vh!=null?1:0)+(state.dev&&state.dev.on?1:0);
+  const nMap=state.countiesOff?state.countiesOff.size:0, nLay=typeof IND!=='undefined'?IND.filter(o=>state.ind&&state.ind[o.key]).length:0;
+  const set=(id,n)=>{ const e=$(id); if(e) e.textContent=n?String(n):''; };
+  set('tbRate',nRate); set('tbProp',nProp); set('tbMap',nMap); set('tbLayers',nLay);
+  const b=$('fClearAll'); if(b) b.style.display=nRate+nProp?'':'none';
+}
+function showTab(k){
+  document.querySelectorAll('.tabs button').forEach(b=>{ const on=b.dataset.tab===k; b.classList.toggle('on',on); b.setAttribute('aria-selected',String(on)); b.tabIndex=on?0:-1; });
+  document.querySelectorAll('.pane').forEach(p=>p.hidden=p.dataset.pane!==k);
+  $('savedRow').style.display=k==='rate'||k==='prop'?'':'none';
+}
+document.querySelectorAll('.tabs button').forEach((b,i,all)=>{ b.onclick=()=>showTab(b.dataset.tab);
+  b.onkeydown=e=>{ if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return; const n=all[(i+(e.key==='ArrowRight'?1:all.length-1))%all.length]; n.focus(); showTab(n.dataset.tab); }; });
 function syncValHint(){ $('vHint').style.display=(state.val[0]!=null||state.val[1]!=null)&&!parcelMode()?'block':'none'; }
 const rA=$('rA'), rB=$('rB'), rLo=$('rLo'), rHi=$('rHi'), rFill=$('rFill');
 function syncRate(){
@@ -1311,8 +1355,8 @@ const vLo=$('vLo'), vHi=$('vHi');
 const pnum=s=>{const n=parseInt(String(s).replace(/[$,\s]/g,''),10);return isNaN(n)?null:n;};
 vLo.onchange=()=>{state.val[0]=pnum(vLo.value); vLo.value=state.val[0]==null?'':state.val[0].toLocaleString(); applyFilters();};
 vHi.onchange=()=>{state.val[1]=pnum(vHi.value); vHi.value=state.val[1]==null?'':state.val[1].toLocaleString(); applyFilters();};
-document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
-  state.mgmt=b.dataset.m==='1'; document.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x===b));
+document.querySelectorAll('.seg button[data-m]').forEach(b=>b.onclick=()=>{   // rate basis only (not the Tax rate / Land use pair)
+  state.mgmt=b.dataset.m==='1'; document.querySelectorAll('.seg button[data-m]').forEach(x=>x.classList.toggle('on',x===b));
   const wasFull=state.rate[1]>=RMAX-1e-9; [RMIN,RMAX]=rateBounds();
   if(wasFull||state.rate[1]>RMAX) state.rate[1]=RMAX; if(state.rate[0]<RMIN) state.rate[0]=RMIN;
   syncRate(); rebuildColors(); applyFilters(); if(state.selRec) renderDrawer(state.selRec);
@@ -1405,6 +1449,7 @@ for(const [gk,gt] of GROUPS){
   indEl.appendChild(g);
 }
 function syncPanel(){
+  if(typeof syncTabBadges==='function') try{ syncTabBadges(); }catch(e){}
   for(const row of indEl.querySelectorAll('.lrow')){ const on=!!state.ind[row.dataset.key]; row.classList.toggle('on',on); row.querySelector('input[type=checkbox]').checked=on; }
   for(const g of indEl.querySelectorAll('.grp')){ const n=IND.filter(o=>o.group===g.dataset.g&&state.ind[o.key]).length; g.querySelector('.n').textContent=n||''; }
   $('railOnlyRow').style.display=state.ind.rail_served?'':'none';
@@ -1653,9 +1698,35 @@ async function openCompare(){
 }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&$('cmp')) $('cmp').classList.remove('open'); });
 // development sites filter
-$('devChk').onchange=e=>{ state.dev.on=e.target.checked; if(state.dev.on&&!DEV) buildDev(); filterVer++; refresh(); scheduleStats(); };
+$('devChk').onchange=e=>{ state.dev.on=e.target.checked; if(state.dev.on&&!DEV) buildDev(); filterVer++; syncTabBadges(); refresh(); scheduleStats(); };
 $('devAc').onchange=e=>{ const v=parseFloat(e.target.value); if(v>0){ state.dev.ac=v; if(state.dev.on||DEV) buildDev(); filterVer++; refresh(); scheduleStats(); } };
-$('fClear').onclick=()=>{
+// filter state as a plain object (saved filter sets) and back
+const FS_KEY='taxmap.filterSets';
+function filterSnapshot(){ return {mgmt:state.mgmt,rate:[...state.rate],bins:[...state.binsOff],types:[...state.types],isd:[...state.isd],city:[...state.city],
+  water:[...state.water],val:[...state.val],dev:{on:!!state.dev.on,ac:state.dev.ac}}; }
+function applySnapshot(s){
+  const mb=document.querySelector(`.pane .seg button[data-m="${s.mgmt?1:0}"]`); if(mb&&!!state.mgmt!==!!s.mgmt) mb.click();
+  Object.assign(state,{rate:[Math.max(RMIN,s.rate[0]),Math.min(RMAX,s.rate[1])],types:[...s.types],isd:[...s.isd],city:[...s.city],water:[...s.water],val:[...s.val]});
+  state.binsOff=new Set(s.bins||[]); [...hist.children].forEach((b,k)=>{ const off=state.binsOff.has(k); b.classList.toggle('off',off); b.setAttribute('aria-pressed',String(!off)); });
+  vLo.value=s.val[0]!=null?s.val[0].toLocaleString():''; vHi.value=s.val[1]!=null?s.val[1].toLocaleString():'';
+  document.querySelectorAll('.ms').forEach(m=>m._render&&m._render());
+  const d=s.dev||{on:false,ac:10}; $('devAc').value=d.ac; state.dev.ac=d.ac; $('devChk').checked=!!d.on; state.dev.on=!!d.on; if(d.on) buildDev(); filterVer++;
+  syncRate(); applyFilters();
+}
+function fsLoad(){ try{ return JSON.parse(localStorage.getItem(FS_KEY)||'[]'); }catch(e){ return []; } }
+function fsStore(L){ try{ localStorage.setItem(FS_KEY,JSON.stringify(L)); }catch(e){} }
+function fsRender(sel){ const L=fsLoad(), s=$('fsSel');
+  s.innerHTML='<option value="">'+(L.length?'Saved filters ('+L.length+')':'Saved filters')+'</option>'+L.map((x,i)=>`<option value="${i}">${esc(x.name)}</option>`).join('');
+  s.value=sel!=null?String(sel):''; $('fsDel').style.display=s.value?'':'none'; }
+$('fsSave').onclick=()=>{ const name=(prompt('Name this filter set (rate and property filters):','')||'').trim(); if(!name) return;
+  const L=fsLoad().filter(x=>x.name!==name); L.push({name,f:filterSnapshot()}); fsStore(L); fsRender(L.length-1); };
+$('fsSel').onchange=e=>{ const L=fsLoad(), x=L[+e.target.value]; $('fsDel').style.display=e.target.value?'':'none'; if(x) applySnapshot(x.f); };
+$('fsDel').onclick=()=>{ const i=+$('fsSel').value, L=fsLoad(); if(!L[i]||!confirm(`Delete the saved filter set "${L[i].name}"?`)) return; L.splice(i,1); fsStore(L); fsRender(); };
+fsRender(); showTab('rate');
+$('fClearAll').onclick=()=>{
+  const mb=document.querySelector('.pane .seg button[data-m="0"]'); if(state.mgmt&&mb) mb.click();
+  if(state.dev.on){ state.dev.on=false; $('devChk').checked=false; filterVer++; }
+  $('fsSel').value=''; $('fsDel').style.display='none';
   Object.assign(state,{rate:[RMIN,RMAX],types:[],isd:[],city:[],water:[],val:[null,null]}); state.binsOff.clear();
   vLo.value='';vHi.value=''; [...hist.children].forEach(b=>{b.classList.remove('off');b.setAttribute('aria-pressed','true');});
   document.querySelectorAll('.ms').forEach(m=>m._render&&m._render()); syncRate(); applyFilters();

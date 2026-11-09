@@ -22,7 +22,9 @@ Rebuilt Nov 8 evening (3,014,856 accounts, same counts and rates as before) with
 parks layer (`data/rail/rail_terminals.csv`, 38 researched sites + 11 US DOT liquid bulk with rail), rail yards
 layer (US DOT, 48 yards), airports split from ports, beaded transmission lines, Tax rate / Land use buttons that
 toggle shading, intermodal fixes (Englewood dropped, Kendleton = CPKC Rosenberg). Same 4 data + 4 tile parts.
-Tests: layers_v3 26/26, site_tools 6/6, dt_address 11/11. Rail list gaps: nothing confirmed in Brazoria or
+Tests: layers_v3 26/26, site_tools 6/6, dt_address 11/11, filter_tabs 15/15 (Nov 9).
+Nov 9: estimated land area (*) from parcel shapes, rail pins on all rail terminals and yards, 4-tab filter panel
+(Rate | Property | Map | Layers), Clear all, saved filter sets. Rail list gaps: nothing confirmed in Brazoria or
 Montgomery; Arrow Reload Alvin, Plastic Express rail sites, Savage Galveston, Port Freeport Parcel 14 could not be
 placed. Build scratch lived in /workspace/build (gone next session).
 
