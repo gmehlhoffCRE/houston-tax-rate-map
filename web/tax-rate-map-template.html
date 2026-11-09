@@ -273,6 +273,12 @@ button{font-family:inherit}
 .dtlab td,.dtlab th{padding:1px 3px;text-align:right}
 .dtlab th{font-weight:600;color:var(--ink3)}
 .dtlab td:first-child,.dtlab th:first-child{text-align:left}
+.occopts{padding:2px 0 6px 26px}
+.occopts select{width:100%;height:26px;border:1px solid var(--line);border-radius:6px;background:var(--bg);font-size:11px;color:var(--ink)}
+.dtlab details{margin-top:6px}
+.dtlab summary{cursor:pointer;font-size:10.5px;font-weight:700;color:var(--navy)}
+.dtlab .og td{font-weight:700;color:var(--ink3);font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;padding-top:4px;text-align:left}
+.dtlab td.ol{text-align:left;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dtlab .ln{font-size:9.5px;color:#8A93A8;margin-top:3px;line-height:1.3}
 .tsep{width:1px;height:18px;background:var(--line);margin:0 3px}
 .slpanel{position:absolute;top:52px;left:12px;z-index:20;width:300px;max-height:60%;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,30,90,.14);padding:10px;display:none}
@@ -600,6 +606,12 @@ const PIPE_C={gas:[230,140,30],crude:[120,72,30],refined:[200,40,40],chem:[150,6
 const RT_C={transload:[200,40,110],park:[40,90,190],liquid:[110,70,170]};   // apart from the railroad colors used for yards
 const RT_NAME={transload:'Transload terminal',park:'Rail-served industrial park',liquid:'Liquid bulk terminal with rail'};
 const hostOf=u=>{ try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return ''; } };
+// detailed occupations where people live (build_occupations.py: ACS PUMS by PUMA, apportioned to tract points)
+let OCC=null; const OCC_C=[[255,244,214],[255,214,140],[247,166,60],[214,104,30],[150,50,20]];
+const occShare=(pu,k)=>{ const P=OCC&&OCC.puma[pu]; return P&&P.emp?P.c[k]/P.emp:0; };
+const occBreaks=k=>{ if(!OCC) return [0,0,0,0]; const v=Object.values(OCC.puma).map(P=>P.emp?1000*P.c[k]/P.emp:0).sort((a,b)=>a-b); const q=f=>v[Math.min(v.length-1,Math.floor(f*v.length))]; return [q(.2),q(.4),q(.6),q(.8)]; };
+const occPay=(k,pu)=>{ const P=pu&&OCC.puma[pu]; return P&&P.w[k]?P.w[k]:OCC.region.wage[k]; };
+const money0k=v=>v?'$'+Math.round(v/1000)+'k':NA;
 const PIPE_NAME={gas:'Natural gas',crude:'Crude oil',refined:'Refined products',chem:'Chemicals / HVL',other:'Other or unknown'};
 const KV_CLS=kv=>kv>=345?'345':kv>=230?'230':kv>=100?'138':'69';
 const KV_C={'345':[165,0,45],'230':[215,45,20],'138':[235,110,0],'69':[185,135,0]};   // saturated so the lines read as strongly as pipelines
@@ -717,6 +729,15 @@ const IND=[
     legend:()=>[['Natural gas distribution territory','dash',[230,120,40]],['HIFLD data from 2017; confirm service with the utility','note']],
     name:p=>coName(p.name)+' gas',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} gas utility${p.holding&&p.holding!==p.name?' · '+esc(coName(p.holding)):''}`},
   // workforce access
+  {key:'pumas',group:'workforce',label:'Workers by occupation (Census areas)',kind:'fill',sw:'rgb(247,166,60)',line:()=>[150,90,40],
+    fill:p=>{ if(!OCC) return [0,0,0,0]; const v=1000*occShare(p.puma,state.occSel), br=occBreaks(state.occSel); let i=0; while(i<4&&v>=br[i]) i++; return [...OCC_C[i],150]; },
+    trig:()=>state.occSel,
+    legend:()=>{ if(!OCC) return [['Loading','note']]; const br=occBreaks(state.occSel), f=v=>v<10?v.toFixed(1):Math.round(v);
+      return [[OCC.occ[state.occSel].label+' per 1,000 employed residents','note']].concat(OCC_C.map((c,i)=>[(i===0?'Under '+f(br[0]):i===4?f(br[3])+' and up':f(br[i-1])+' to '+f(br[i])),'fill',c]))
+        .concat([['Where workers live, not where they work. '+OCC.meta.source+'; areas of about 100,000 people','note']]); },
+    name:p=>OCC&&OCC.puma[p.puma]?OCC.puma[p.puma].name:'Census area',
+    tip:p=>{ const P=OCC&&OCC.puma[p.puma]; if(!P) return 'Census area'; const k=state.occSel;
+      return `<b>${esc(OCC.occ[k].label)}</b><br>${P.c[k].toLocaleString()} residents · ${(1000*P.c[k]/P.emp).toFixed(1)} per 1,000 employed<br>Median full-time pay ${money0k(occPay(k,p.puma))}${P.w[k]?'':' (8-county)'}<br><span style="color:#8A93A8">${esc(P.name)}</span>`; }},
   {key:'transit',group:'workforce',label:'METRO transit (routes, rail, stops)',kind:'transit',sw:'rgb(110,50,150)',
     legend:()=>[['Bus route','line',[110,90,170]],['METRORail line','line',[200,30,45]],['Transit center or park and ride','dot',[110,50,150]],['Bus stop (zoom in)','dot',[150,130,190]],['METRO service area only (Harris County and nearby)','note']],
     name:p=>p.name,
@@ -751,13 +772,14 @@ const IND=[
     tip:p=>`<b>Qualified Opportunity Zone</b><br>Census tract ${esc(p.tract||'')}`},
 ];
 const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
-state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
+state.occSel=0; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
 const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports'&&o.key!=='airports');
 async function loadLayerData(key){
   if(indData[key]!==undefined) return indData[key];
   indData[key]=null;
   try{ indData[key]=EMB?(EMB.layers&&EMB.layers[key])||null:await getJSON(CONFIG.data+'layers/'+key+'.json'); }catch(e){ indData[key]=null; }
   if(key==='rail_served') railServedPrep();
+  if(key==='pumas'||key==='occupations'){ if(!OCC) OCC=EMB?(EMB.layers&&EMB.layers.occupations)||null:await getJSON(CONFIG.data+'layers/occupations.json').catch(()=>null); if(OCC) buildOccPicker(); }
   return indData[key];
 }
 async function ensureInd(key){ if(indData[key]!==undefined) return; await loadLayerData(key); refresh(); renderLegend(); }
@@ -869,7 +891,7 @@ function indLayers(dz){
     if(o.kind==='fill'){
       L.push(new deck.GeoJsonLayer({id:id+'f',data:d,filled:true,stroked:!!o.line,pickable:true,onHover:indTip,opacity:op,
         getFillColor:f=>o.fill(f.properties),getLineColor:f=>o.line?[...o.line(f.properties),210]:[0,0,0,0],getLineWidth:o.key==='zoning'&&dz<12?0:1.2,lineWidthUnits:'pixels',
-        updateTriggers:{getLineWidth:dz<12},...(o.dashLine?{getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}:{})}));
+        updateTriggers:{getLineWidth:dz<12,getFillColor:o.trig?o.trig():0},...(o.dashLine?{getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}:{})}));
     }
     else if(o.kind==='outline'){
       L.push(new deck.GeoJsonLayer({id:id+'o',data:d,filled:true,stroked:true,pickable:true,onHover:indTip,getFillColor:[0,0,0,0],opacity:op,
@@ -1442,6 +1464,7 @@ for(const [gk,gt] of GROUPS){
       sub.querySelectorAll('input').forEach(i=>i.onchange=()=>{ state.proj[i.dataset.k]=i.checked; renderLegend(); refresh(); scheduleUrl(); });
       body.appendChild(sub);
     }
+    if(o.key==='pumas'){ const sub=document.createElement('div'); sub.id='occOpts'; sub.className='occopts'; sub.style.display='none'; body.appendChild(sub); }
     if(o.key==='rail_served'){
       const sub=document.createElement('label'); sub.className='chk sub'; sub.id='railOnlyRow'; sub.style.display='none';
       sub.innerHTML=`<input type="checkbox" id="railOnly">${CHK}<span>Show only rail-served parcels</span>`;
@@ -1451,12 +1474,19 @@ for(const [gk,gt] of GROUPS){
   }
   indEl.appendChild(g);
 }
+function buildOccPicker(){
+  const el=$('occOpts'); if(!el||!OCC||el.dataset.ok) return; el.dataset.ok=1;
+  const groups=[...new Set(OCC.occ.map(o=>o.group))];
+  el.innerHTML=`<select id="occSel" aria-label="Occupation shown on the map">${groups.map(g=>`<optgroup label="${esc(g)}">${OCC.occ.map((o,i)=>o.group===g?`<option value="${i}" ${i===state.occSel?'selected':''}>${esc(o.label)}</option>`:'').join('')}</optgroup>`).join('')}</select>`;
+  $('occSel').onchange=e=>{ state.occSel=+e.target.value; renderLegend(); refresh(); };
+}
 function syncPanel(){
   if(typeof syncTabBadges==='function') try{ syncTabBadges(); }catch(e){}
   for(const row of indEl.querySelectorAll('.lrow')){ const on=!!state.ind[row.dataset.key]; row.classList.toggle('on',on); row.querySelector('input[type=checkbox]').checked=on; }
   for(const g of indEl.querySelectorAll('.grp')){ const n=IND.filter(o=>o.group===g.dataset.g&&state.ind[o.key]).length; g.querySelector('.n').textContent=n||''; }
   $('railOnlyRow').style.display=state.ind.rail_served?'':'none';
   $('projOpts').style.display=state.ind.road_projects?'':'none';
+  if($('occOpts')) $('occOpts').style.display=state.ind.pumas?'':'none';
   if(!state.ind.rail_served&&state.railOnly){ state.railOnly=false; $('railOnly').checked=false; filterVer++; }
   $('focusRow').style.display=anyIndOn()&&state.shade?'':'none';
   for(const b of $('presets').querySelectorAll('button')){ const keys=PRESETS.find(p=>p[0]===b.textContent)[1];
@@ -1585,17 +1615,29 @@ async function dtLabor(G,T){
   const el=$('dtLab'); const d=await loadLayerData('labor');
   if(!d||!d.features){ el.classList.remove('on'); return; }
   const B=[900,1800,2700,3600], s=B.map(()=>({lf:0,un:0,ptm:0,ew:0,ewn:0,rac:0,wac:0,tw:0}));
-  for(const f of d.features){ const [lon,lat]=f.geometry.coordinates, p=f.properties;
+  for(const f of d.features){ const [lon,lat]=f.geometry.coordinates, p=f.properties; f._t=null;
     const x=Math.floor((lon-G.bbox[0])/G.dx), y=Math.floor((lat-G.bbox[1])/G.dy); if(x<1||y<1||x>=G.nx-1||y>=G.ny-1) continue;
     let t=Infinity; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const v=T[(y+dy)*G.nx+x+dx]; if(v<t) t=v; }
+    f._t=t;
     B.forEach((b,i)=>{ if(t<=b){ const q=s[i]; q.lf+=p.lf||0; q.un+=p.unemp||0; q.ptm+=p.ptm||0; if(p.ptm_earn&&p.ptm){ q.ew+=p.ptm_earn*p.ptm; q.ewn+=p.ptm; }
       q.rac+=p.rac_ind||0; q.wac+=p.wac_ind||0; q.tw+=p.wac_tw||0; } }); }
+  // detailed occupations: tract employed residents x their Census area's occupation shares
+  if(!OCC) OCC=EMB?(EMB.layers&&EMB.layers.occupations)||null:await getJSON(CONFIG.data+'layers/occupations.json').catch(()=>null);
+  if(OCC){ const K=OCC.occ.length; B.forEach((b,i)=>{ s[i].occ=new Array(K).fill(0); s[i].pay=new Array(K).fill(0); s[i].payn=new Array(K).fill(0); });
+    for(const f of d.features){ const p=f.properties, pu=OCC.tract_puma[p.tract], P=pu&&OCC.puma[pu]; if(!P||!P.emp||!p.emp) continue;
+      const t=f._t; if(t==null) continue;
+      B.forEach((b,i)=>{ if(t>b) return; const q=s[i]; for(let k=0;k<K;k++){ const n=p.emp*P.c[k]/P.emp; q.occ[k]+=n; if(P.w[k]){ q.pay[k]+=P.w[k]*n; q.payn[k]+=n; } } }); } }
   DT.labor=s; const has=s.some(q=>q.ptm>0), m=d.meta||{};
   const pay=q=>q.ewn?'$'+Math.round(q.ew/q.ewn/1000)+'k':NA;
   el.innerHTML=`<div class="lt">Labor shed</div><table><tr><th>Within</th><th>Labor force</th>${has?'<th>Prod. and warehouse</th><th>Their pay</th><th>Industrial jobs</th>':'<th>Unemployed</th>'}</tr>`+
     B.map((b,i)=>{ const q=s[i]; return `<tr><td>${b/60} min</td><td>${fmtK(q.lf)}</td>`+(has?`<td>${fmtK(q.ptm)}</td><td>${pay(q)}</td><td>${fmtK(q.wac)}</td>`:`<td>${fmtK(q.un)}</td>`)+'</tr>'; }).join('')+
     `</table><div class="ln">${has?`<b>Prod. and warehouse</b>: residents in production, transportation and material moving jobs; <b>their pay</b>: median earnings, tracts weighted by those workers (ACS ${m.acs?m.acs-4+'-'+m.acs:''}). <b>Industrial jobs</b>: manufacturing, wholesale, transportation and warehousing jobs located in the band, the competition for the same workers (LEHD ${m.lodes||''}). `:''}`+
-    `Unemployment in 30 min: ${s[1].lf?(100*s[1].un/s[1].lf).toFixed(1)+'%':NA}. Counts where people live, by census tract center.</div>`;
+    `Unemployment in 30 min: ${s[1].lf?(100*s[1].un/s[1].lf).toFixed(1)+'%':NA}. Counts where people live, by census tract center.</div>`+
+    (OCC&&s[0].occ?`<details id="occDet"${DT.occOpen?' open':''}><summary>Workers by occupation</summary><table><tr><th>Lives within</th>${B.map(b=>`<th>${b/60}m</th>`).join('')}<th title="Median full-time pay of residents in this job within 30 min">Pay</th>${OCC.occ.some(o=>o.bls)?'<th title="Houston metro median hourly wage (BLS OEWS)">Metro $/hr</th>':''}</tr>`+
+      [...new Set(OCC.occ.map(o=>o.group))].map(g=>`<tr class="og"><td colspan="7">${esc(g)}</td></tr>`+OCC.occ.map((o,k)=>o.group!==g?'':
+        `<tr><td class="ol" title="${esc(o.label)}">${esc(o.short||o.label)}</td>${s.map(q=>`<td>${fmtK(q.occ[k])}</td>`).join('')}<td>${money0k(s[1].payn[k]?s[1].pay[k]/s[1].payn[k]:OCC.region.wage[k])}</td>${OCC.occ.some(x=>x.bls)?`<td>${o.bls&&o.bls[1]?'$'+o.bls[1].toFixed(2):NA}</td>`:''}</tr>`).join('')).join('')+
+      `</table><div class="ln">Residents employed in each job (where they live), from ${esc(OCC.meta.source)} for Census areas of about 100,000 people, spread to census tracts by employed residents. Pay: median annual earnings of full-time workers. Estimates; small counts are rough.</div></details>`:'');
+  const od=$('occDet'); if(od) od.ontoggle=()=>{ DT.occOpen=od.open; };
   el.classList.add('on');
 }
 // shortlist: sites saved in this browser, exported as CSV
@@ -1666,6 +1708,7 @@ $('shareBtn').onclick=()=>{ writeUrl(); const u=location.href;
   (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Link copied. It opens this view in the same viewer folder.')).catch(()=>prompt('Copy this link',u)); };
 // compare shortlisted sites side by side; prints to PDF (landscape) for client decks
 async function openCompare(){
+  await loadLayerData('occupations');   // detailed occupation rows need the occupation table
   let el=$('cmp'); if(!el){ el=document.createElement('div'); el.className='cmp'; el.id='cmp'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Compare sites'); document.body.appendChild(el); }   // a direct child of body, so print can show it alone
   const sites=SL.slice(0,6);
   const cell=(x,k)=>{ const v=(x.checks||{})[k]; return v?esc(v):NA; };
@@ -1682,6 +1725,9 @@ async function openCompare(){
     ['sec','Labor (30 min by car)'],
     ['Labor force',x=>x._lab?fmtK(x._lab.lf):'…'],['Prod. and warehouse workers',x=>x._lab?fmtK(x._lab.ptm):'…'],['Their median pay',x=>x._lab?(x._lab.ewn?'$'+Math.round(x._lab.ew/x._lab.ewn/1000)+'k':NA):'…'],
     ['Industrial jobs nearby',x=>x._lab?fmtK(x._lab.wac):'…'],
+    ...(OCC?[['forklift','Forklift operators'],['laborers','Laborers and freight movers'],['trucks','Truck drivers'],['welder','Welders'],['indmech','Industrial mechanics']]
+      .map(([key,lab])=>[OCC.occ.findIndex(o=>o.key===key),lab]).filter(([k])=>k>=0)
+      .map(([k,lab])=>[lab+' (30 min)',x=>x._lab&&x._lab.occ?fmtK(x._lab.occ[k]):'…']):[]),
     ['sec','Site'],
     ['Zoning',x=>cell(x,'Zoning')],['Flood zone',x=>cell(x,'Flood zone')],['Wetlands',x=>cell(x,'Wetlands')],['Evacuation zone',x=>cell(x,'Evacuation zone')],
     ['Opportunity Zone',x=>cell(x,'Opportunity Zone')],['Enterprise Zone',x=>cell(x,'Enterprise Zone')],['Foreign-Trade Zone',x=>cell(x,'Foreign-Trade Zone')],
@@ -1704,7 +1750,8 @@ async function openCompare(){
       if(T&&lab&&lab.features) for(const f of lab.features){ const [lon,lat]=f.geometry.coordinates, p=f.properties;
         const cx=Math.floor((lon-G.bbox[0])/G.dx), cy=Math.floor((lat-G.bbox[1])/G.dy); if(cx<1||cy<1||cx>=G.nx-1||cy>=G.ny-1) continue;
         let t=Infinity; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const v=T[(cy+dy)*G.nx+cx+dx]; if(v<t) t=v; }
-        if(t<=1800){ q.lf+=p.lf||0; q.ptm+=p.ptm||0; if(p.ptm_earn&&p.ptm){q.ew+=p.ptm_earn*p.ptm; q.ewn+=p.ptm;} q.wac+=p.wac_ind||0; } }
+        if(t<=1800){ q.lf+=p.lf||0; q.ptm+=p.ptm||0; if(p.ptm_earn&&p.ptm){q.ew+=p.ptm_earn*p.ptm; q.ewn+=p.ptm;} q.wac+=p.wac_ind||0;
+          const pu=OCC&&OCC.tract_puma[p.tract], P=pu&&OCC.puma[pu]; if(P&&P.emp&&p.emp){ q.occ=q.occ||new Array(OCC.occ.length).fill(0); for(let k=0;k<OCC.occ.length;k++) q.occ[k]+=p.emp*P.c[k]/P.emp; } } }
       x._lab=q; render(); }
   }catch(e){}
 }

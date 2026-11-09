@@ -13,7 +13,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await sleep(3000);
  const groups=await p.$$eval('#indLayers .grp .grp-h',x=>x.map(e=>e.innerText.trim()));
  const rows=await p.$$eval('#indLayers .lrow',x=>x.length), presets=await p.$$eval('#presets button',x=>x.map(e=>e.textContent));
- check('6 layer groups, 30 layers, 6 presets',groups.length===6&&rows===30&&presets.length===6,groups.join('|')+' / '+rows+' / '+presets.join('|'));
+ check('6 layer groups, 31 layers, 6 presets',groups.length===6&&rows===31&&presets.length===6,groups.join('|')+' / '+rows+' / '+presets.join('|'));
  const lay=await p.evaluate(()=>Object.fromEntries(Object.entries(window.__app.indData).map(([k,v])=>[k,v&&v.features?v.features.length:v&&v.a?Object.keys(v.a).length:null])));
  // logistics preset
  await clk('#presets button:has-text("Logistics")'); await sleep(800);

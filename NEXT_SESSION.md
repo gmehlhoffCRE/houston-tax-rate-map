@@ -65,7 +65,9 @@ Features (details and sources in README "Map layers, site checks and drive times
 python pipeline/build_layers.py --raw layers_raw --out layers_out          # about 15 min (wetlands fetch is slow)
 python pipeline/build_drive_grid.py --raw layers_raw --out layers_out      # about 5 min
 python pipeline/build_rail_served.py --parcels out8/parcels.geojsonl --raw layers_raw --out layers_out
-python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers
+python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers (it rewrites labor.json)
+# occupations: PUMS csv_ptx.zip (2024 5-year) + tl_2023_48_puma20 from www2.census.gov, after build_labor
+python pipeline/build_occupations.py --pums psam_p48.csv --puma tl_2023_48_puma20.shp --layers layers_out/web/data/layers
 python pipeline/inject.py --embed out8 --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
   --out dist/houston-8county-tax-map.html
 ```

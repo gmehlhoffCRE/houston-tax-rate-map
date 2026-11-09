@@ -1,0 +1,18 @@
+key,label,short,group,soc
+forklift,Forklift and industrial truck operators,Forklift operators,Warehouse,537051
+laborers,Laborers and freight movers (hand),"Laborers, freight movers",Warehouse,537062
+packers,Packers and packagers (hand),Packers,Warehouse,537064
+stockers,Stockers and order fillers,"Stockers, order fillers",Warehouse,537065
+shipclerk,"Shipping, receiving and inventory clerks",Shipping clerks,Warehouse,435071
+movsup,Supervisors of transportation and material moving,Material moving supervisors,Warehouse,5310
+trucks,Truck drivers (heavy and light),Truck drivers,Transportation,53303
+prodsup,First-line supervisors of production workers,Production supervisors,Production,511011
+assembler,Assemblers and fabricators,Assemblers,Production,512
+machinist,Machinists,Machinists,Production,514041
+welder,"Welders, cutters and solderers",Welders,Production,51412
+chemop,"Chemical plant, refinery and process operators",Process operators (chem.),Production,518090;519010
+inspector,"Inspectors, testers and samplers","Inspectors, testers",Production,519061
+otherprod,Other production workers,Other production,Production,51
+indmech,Industrial machinery mechanics and millwrights,Industrial mechanics,Maintenance,49904
+maint,"Maintenance and repair workers, general",Maintenance workers,Maintenance,499071
+electric,Electricians,Electricians,Maintenance,472111
