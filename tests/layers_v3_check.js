@@ -44,7 +44,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  ids=await p.evaluate(()=>window.__app.layerIds()); check('tower dots at close zoom',ids.includes('ind-power-tw'));
  await p.screenshot({path:path.join(shots,'V3-utilities-z15.png')});
  const terms=await p.evaluate(()=>window.__app.indData.ports.features.filter(f=>f.properties.kind==='terminal').map(f=>f.properties.name));
- check('port terminals in the ports layer',terms.length===12&&terms.includes('Barbours Cut Container Terminal')&&terms.includes('Bayport Container Terminal'),terms.join('|'));
+ check('port terminals in the ports layer',terms.length===14&&terms.includes('Barbours Cut Container Terminal')&&terms.includes('Bayport Container Terminal'),terms.join('|'));
  await p.evaluate(()=>window.__app.setLayer('docks',true)); await sleep(1500);
  const nd=await p.evaluate(()=>{const d=window.__app.indData.docks; return d&&d.features?d.features.length:0;});
  check('ship docks layer loads with drafts',nd>=170&&await p.evaluate(()=>window.__app.indData.docks.features.some(f=>f.properties.name==='Barbours Cut 1'&&f.properties.draft==='45/00')),nd+' docks');
