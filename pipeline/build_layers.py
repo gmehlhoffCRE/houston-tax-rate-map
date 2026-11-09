@@ -9,8 +9,9 @@ Layers (key: source)
   rail        US DOT BTS North American Rail Network lines (owner, track rights, Class I / short line)
   intermodal  US DOT BTS intermodal rail TOFC/COFC terminals (railroad); Englewood dropped (ramp moved to Settegast),
               Kendleton renamed CPKC Rosenberg
-  container_yards  IANA Intermodal System container yards and depots (chassis, empty container, drayage), plus
-              two marine terminals not in the ports layer (data/iana/, pulled 2026-11-09)
+  container_yards  IANA Intermodal System container yards and depots (chassis, empty container, drayage)
+              (data/iana/, pulled 2026-11-09). IANA marine records go to ports: Walton Barge Terminal and GP Terminals
+              as terminal pins, the rest as operators listed on the mapped terminal they work at
   rail_yards  US DOT BTS NTAD Rail Yards (yard track by yard name and owner)
   rail_terminals  Transload terminals and rail-served parks (data/rail/rail_terminals.csv, Cresa research, high and
               medium confidence only) plus US DOT BTS liquid bulk terminals with rail (beta layer)
@@ -330,7 +331,7 @@ def write(g, path, cols, digits=5):
 
 
 def container_yards(clip):
-    """IANA Intermodal System container yards and depots, plus marine terminals not already in the ports layer
+    """IANA Intermodal System container yards and depots
     (data/iana/iana_intermodal_houston.geojson, pulled 2026-11-09). Operators sharing one yard become one point.
     IANA's rail and other marine records duplicate the intermodal and port terminal layers and are left out."""
     here = os.path.dirname(__file__)
@@ -339,8 +340,7 @@ def container_yards(clip):
         return {}
     g = gpd.read_file(p).set_crs(4326, allow_override=True)
     g = g[g.within(clip)].copy()
-    keep_marine = {"WALTON BARGE TERMINAL", "GP TERMINALS"}   # the other IANA marine records sit at mapped port terminals
-    g = g[(g.facility_type == "CY/DEPOT") | g.facility_name.isin(keep_marine)].copy()
+    g = g[g.facility_type == "CY/DEPOT"].copy()   # IANA marine records go to the ports layer (iana_marine)
     g = g[~g.facility_name.str.contains("CORPORATE", na=False)]   # offices, not yards
     fix = lambda s: (s or "").replace("\u00c2\u00bd", " 1/2").replace("\u00bd", " 1/2").replace(" , ,", "").strip(" ,")
     def tc(s):
@@ -361,6 +361,39 @@ def container_yards(clip):
                      "address": grp.addr.iloc[0] + (", " + grp.city.iloc[0] if grp.city.iloc[0] else ""),
                      "iana": ", ".join(grp.iana_code.astype(str)), "geometry": grp.geometry.iloc[0]})
     return {"container_yards": (gpd.GeoDataFrame(rows, crs=4326), ["name", "others", "kind", "address", "iana"])}
+
+
+IANA_NEW_MARINE = {"WALTON BARGE TERMINAL": "Barge terminal", "GP TERMINALS": "Marine terminal"}   # not at a mapped terminal
+
+
+def iana_marine(term):
+    """IANA marine records: two become their own port terminal pins; the rest are operators at terminals already
+    mapped (port_terminals.csv), listed on that terminal (matched by name, else the nearest one)."""
+    p = os.path.join(os.path.dirname(__file__), "..", "data", "iana", "iana_intermodal_houston.geojson")
+    if not os.path.exists(p):
+        return term.assign(operators=""), term.iloc[0:0]
+    m = gpd.read_file(p).set_crs(4326, allow_override=True)
+    m = m[m.facility_type == "MARINE"].copy()
+    tc = lambda s: (s or "").title().replace("P&O", "P&O").replace("Apm", "APM").replace(", Inc.", "").replace("Gp ", "GP ").replace("29A/31", "29A and 31")
+    new = m[m.facility_name.isin(IANA_NEW_MARINE)]
+    new = gpd.GeoDataFrame({"name": new.facility_name.map(tc), "kind": "terminal", "major": False, "port": "",
+                            "cargo": new.facility_name.map(IANA_NEW_MARINE),
+                            "note": new.address.fillna("").str.title() + ", " + new.city.fillna("").str.title() + " (IANA list)"},
+                           geometry=new.geometry, crs=4326)
+    ops = {i: [] for i in term.index}
+    tm = term.to_crs(2278)
+    for _, r in m[~m.facility_name.isin(IANA_NEW_MARINE)].iterrows():
+        nm, hit = tc(r.facility_name), None
+        for i, tn in term.name.items():   # the IANA record for a mapped terminal itself (Barbours Cut, Bayport, Care, Manchester)
+            key = tn.split(" Container")[0].split(" Terminal")[0]
+            if key and nm.lower().startswith(key.lower()):
+                hit = i
+        if hit is not None:
+            continue
+        pt = gpd.GeoSeries([r.geometry], crs=4326).to_crs(2278).iloc[0]
+        ops[tm.distance(pt).idxmin()].append(nm)   # an operator working at the nearest mapped terminal
+    term = term.assign(operators=[", ".join(dict.fromkeys(ops[i])) for i in term.index])
+    return term, new
 
 
 def rail_layers(raw, clip):
@@ -573,8 +606,9 @@ def main():
     t = pd.read_csv(tp)
     term = gpd.GeoDataFrame({"name": t.name, "kind": "terminal", "major": t.container.astype(bool), "port": t.port, "cargo": t.cargo,
                              "note": t.note}, geometry=gpd.points_from_xy(t.lon, t.lat), crs=4326)
-    g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]], term]), crs=4326)
-    out["ports"] = (g, ["name", "kind", "major", "port", "cargo", "note"])
+    term, iana_new = iana_marine(term)
+    g = gpd.GeoDataFrame(pd.concat([ports[["name", "kind", "major", "geometry"]], term, iana_new]), crs=4326)
+    out["ports"] = (g, ["name", "kind", "major", "port", "cargo", "note", "operators"])
     out["airports"] = (gpd.GeoDataFrame(ap_[["name", "kind", "major", "geometry"]], crs=4326), ["name", "kind", "major"])   # own layer since Nov 8
 
     dp = os.path.join(os.path.dirname(__file__), "..", "data", "ports", "houston_pilots_docks_2025-05-20.csv")
