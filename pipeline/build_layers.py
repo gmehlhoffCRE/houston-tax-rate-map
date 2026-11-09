@@ -376,13 +376,33 @@ def rail_layers(raw, clip):
                                 "Houston, TX - Settegast (Kirkpatrick, Blvd)": "UP Houston (Settegast) Intermodal"})
     out["intermodal"] = (g, ["name", "railroad", "CITY"])
 
-    # rail yards (US DOT NTAD): classification, storage, plant and transload yards, drawn as yard track
+    # rail yards (US DOT NTAD): classification, storage, plant and transload yard track, drawn as yard track.
+    # type from the yard name, size from total track miles (a good proxy for how much switching a yard does)
     g = load(raw, "rail_yards_raw")
+    co = {"48201": "Harris", "48157": "Fort Bend", "48339": "Montgomery", "48473": "Waller", "48071": "Chambers",
+          "48039": "Brazoria", "48291": "Liberty", "48167": "Galveston"}
+    g = g[g.STCNTYFIPS.astype(str).isin(co)].copy()   # Sealy (Austin) and Eagle Lake (Colorado) are outside the 8 counties
+    g["county"] = g.STCNTYFIPS.astype(str).map(co)
+    g["mi"] = g.to_crs(2278).length / 5280
     g = gpd.GeoDataFrame({"name": g.YARDNAME.fillna("").str.title().str.replace(r"\bUp\b", "UP", regex=True)
                                    .str.replace("(Bnsf)", "(BNSF)").str.replace("Ids ", "IDS ").str.replace("Exxonmobil", "ExxonMobil"),
-                          "owner": g.RROWNER1.fillna("")}, geometry=g.geometry, crs=4326)
-    g = g.dissolve(by=["name", "owner"], as_index=False)
-    out["rail_yards"] = (simplify(g, 3), ["name", "owner"])
+                          "owner": g.RROWNER1.fillna(""), "county": g.county, "mi": g.mi}, geometry=g.geometry, crs=4326)
+    g = g.dissolve(by=["name", "owner"], as_index=False, aggfunc={"county": "first", "mi": "sum"})
+    def ytype(n):
+        u = n.upper()
+        if "INTERMODAL" in u: return "Intermodal (former or current ramp)"
+        if "STORAGE" in u: return "Railcar storage"
+        if "TRANSLOAD" in u or "AMERI-PORT" in u: return "Transload / rail park"
+        if any(k in u for k in ("SHINTECH", "EXXONMOBIL", "CHEVRON")): return "Plant yard"
+        return "Carload (manifest) yard"
+    note = {("Englewood", "UP"): "UP's main Houston hump yard; builds south and west trains; manifest capacity grew after intermodal moved out (2020)",
+            ("Settegast", "UP"): "UP classification yard; also UP's Houston intermodal ramp",
+            ("North", "PTRA"): "PTRA North Yard: main switching yard for Ship Channel industries"}
+    g["type"] = g.name.map(ytype)
+    g["track_mi"] = g.mi.round(1)
+    g["size"] = np.where(g.mi >= 10, "Major", np.where(g.mi >= 3, "Mid-size", "Small"))
+    g["note"] = [note.get((n, o), "") for n, o in zip(g.name, g.owner)]
+    out["rail_yards"] = (simplify(g, 3), ["name", "owner", "county", "type", "size", "track_mi", "note"])
 
     # rail terminals: Cresa-researched transload terminals and rail-served parks (data/rail/rail_terminals.csv)
     # plus US DOT liquid bulk terminals that take rail

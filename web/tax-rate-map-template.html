@@ -652,10 +652,10 @@ const IND=[
     tip:p=>`<b>${esc(p.name)}</b><br>${esc(RT_NAME[p.kind]||'Rail terminal')}${p.operator&&p.operator!==p.name?' · '+esc(p.operator):''}`+
       `${p.railroads?'<br>Rail: '+esc(p.railroads):''}${p.services?'<br>'+esc(p.services):''}${p.acres?'<br>'+Math.round(p.acres).toLocaleString()+' acres':''}`+
       `${p.address?'<br>'+esc(p.address):''}<br><span style="color:#8A93A8">${esc(p.src||'')}${hostOf(p.source)?' · '+esc(hostOf(p.source)):''}. Verify rail service with the operator</span>`},
-  {key:'rail_yards',group:'logistics',label:'Rail yards',kind:'line',style:'band',sw:'rgb(214,160,0)',color:p=>railC(p.owner),width:()=>9,minZ:9,
-    legend:()=>[['Rail yard','icon:rail'],['Yard track, colored by owning railroad (see Rail lines)','band',[214,160,0]],['Classification, storage, plant and transload yards (US DOT)','note']],
+  {key:'rail_yards',group:'logistics',label:'Rail yards (carload, storage, plant)',kind:'line',style:'band',sw:'rgb(214,160,0)',color:p=>railC(p.owner),width:p=>p.size==='Major'?12:p.size==='Mid-size'?10:8,
+    legend:()=>[['Rail yard (larger pin = more track)','icon:rail'],['Yard track, colored by owning railroad (see Rail lines)','band',[214,160,0]],['Hover for type and size (track miles); band width = size','note'],['US DOT rail yards in the 8 counties','note']],
     pins:'rail',labelZ:12,text:p=>p.name?p.name+' yard':'',
-    name:p=>`${tc(p.name||'')} yard`,tip:p=>`<b>${esc(p.name||'Rail')} yard</b><br>${esc(RAIL_NAME[p.owner]||p.owner||'')}<br><span style="color:#8A93A8">US DOT rail yards</span>`},
+    name:p=>`${tc(p.name||'')} yard`,tip:p=>`<b>${esc(p.name||'Rail')} yard</b><br>${esc(RAIL_NAME[p.owner]||p.owner||'')}${p.type?' · '+esc(p.type):''}${p.track_mi!=null?'<br>'+esc(p.size||'')+', '+p.track_mi+' track miles':''}${p.note?'<br>'+esc(p.note):''}<br><span style="color:#8A93A8">US DOT rail yards${p.county?' · '+esc(p.county)+' County':''}</span>`},
   {key:'ports',group:'logistics',label:'Ports and port terminals',kind:'point',sw:'rgb(0,30,90)',on:true,
     icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?34:24,
     color:p=>p.kind==='terminal'?(p.major?[255,182,0]:[214,150,40]):p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.kind==='terminal'?(p.major?8:5.5):p.major?7:4,
@@ -889,7 +889,8 @@ function indLayers(dz){
         getLineColor:f=>[...o.color(f.properties),130],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',capRounded:true,jointRounded:true}));
         if(o.pins&&iconsReady&&MAP_ICON_PNG[o.pins]){ const pts=linePins(o,data);   // one pin per yard, at its middle vertex
           L.push(new deck.IconLayer({id:id+'pin',data:pts,pickable:true,onHover:indTip,opacity:op,getPosition:d=>d.geometry.coordinates,
-            getIcon:()=>{const [w2,h2]=MAP_ICON_WH[o.pins]; return {id:o.pins,url:MAP_ICON_PNG[o.pins],width:w2,height:h2,anchorX:w2/2,anchorY:h2,mask:false};},getSize:24,sizeUnits:'pixels'}));
+            getIcon:()=>{const [w2,h2]=MAP_ICON_WH[o.pins]; return {id:o.pins,url:MAP_ICON_PNG[o.pins],width:w2,height:h2,anchorX:w2/2,anchorY:h2,mask:false};},
+            getSize:d=>d.properties.size==='Major'?30:d.properties.size==='Mid-size'?26:22,sizeUnits:'pixels'}));   // same rail pin as intermodal and transload, sized by yard size
           if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:pts,getPosition:d=>d.geometry.coordinates,getText:d=>tc(String(o.text(d.properties)||'')),opacity:op,
             getSize:11,getColor:[0,30,90,255],getPixelOffset:[0,-36],fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],
             fontSettings:{sdf:true},characterSet:'auto',extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:0})); }
@@ -1520,13 +1521,19 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
   if(D.rail_terminals&&D.rail_terminals.features){
     const nr=D.rail_terminals.features.map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).filter(r=>r[0]<=10).sort((a,b)=>a[0]-b[0]).slice(0,3);
     out.push(['Transload and rail parks',nr.length?nr.map(([dm,q])=>`${esc(q.name)} <span>${dm<0.1?'on site':dm.toFixed(1)+' mi'} · ${esc((RT_NAME[q.kind]||'').replace(' with rail','').toLowerCase())}</span>`).join('<br>'):'<span>None within 10 mi</span>']); }
+  if(D.rail_yards&&D.rail_yards.features){   // nearest carload yard: distance to its closest track point
+    let best=null; for(const f of D.rail_yards.features){ const q=f.properties; if(q.type!=='Carload (manifest) yard') continue; const gm=f.geometry; if(!gm) continue;
+      const parts=gm.type==='LineString'?[gm.coordinates]:gm.type==='MultiLineString'?gm.coordinates:[]; let dm=Infinity;
+      for(const ln of parts) for(let i=0;i<ln.length;i+=3){ const d=miles([x,y],ln[i]); if(d<dm) dm=d; }
+      if(!best||dm<best[0]) best=[dm,q]; }
+    out.push(['Nearest carload yard',best?`${esc(best[1].name)} yard <span>${best[0].toFixed(1)} mi · ${esc(RAIL_NAME[best[1].owner]||best[1].owner)}, ${esc((best[1].size||'').toLowerCase())}</span>`:'<span>None listed</span>']); }
   if(D.container_yards&&D.container_yards.features){
     const ny=D.container_yards.features.filter(f=>f.properties.kind==='yard').map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).sort((a,b)=>a[0]-b[0]).slice(0,2);
     out.push(['Nearest container yards',ny.length?ny.map(([dm,q])=>`${esc(q.name)} <span>${dm.toFixed(1)} mi</span>`).join('<br>'):'<span>None listed</span>']); }
@@ -1673,7 +1680,7 @@ async function openCompare(){
     ['sec','Tax'],
     ['Rate per $100',x=>x.rate!=null?x.rate.toFixed(4):NA],['Est. annual tax',x=>money0(x.tax)],['Tax per bldg SF / yr',x=>x.tax!=null&&x.bld?'$'+(x.tax/x.bld).toFixed(2):NA],
     ['sec','Access'],
-    ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],['Nearest container yards',x=>cell(x,'Nearest container yards')],
+    ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],['Nearest container yards',x=>cell(x,'Nearest container yards')],['Nearest carload yard',x=>cell(x,'Nearest carload yard')],
     ['Freight network',x=>cell(x,'Highway freight network')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
     ['sec','Labor (30 min by car)'],
     ['Labor force',x=>x._lab?fmtK(x._lab.lf):'…'],['Prod. and warehouse workers',x=>x._lab?fmtK(x._lab.ptm):'…'],['Their median pay',x=>x._lab?(x._lab.ewn?'$'+Math.round(x._lab.ew/x._lab.ewn/1000)+'k':NA):'…'],
