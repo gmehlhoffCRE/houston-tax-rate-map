@@ -1,4 +1,7 @@
-# Houston Property Tax Rate Map (Cresa Houston)
+# Houston Site Selector (Cresa Houston)
+
+Formerly the Houston Property Tax Rate Map (renamed Nov 9, 2026). The repo, template and output file names still use
+`tax-rate-map` so existing folder builds keep working.
 
 Internal map that colors every Harris County parcel by its combined property tax rate, overlays taxing district
 boundaries, and opens a detail card on click. Phase 1 scales the Ship Channel prototype to the full county with
