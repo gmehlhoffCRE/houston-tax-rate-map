@@ -63,6 +63,7 @@ elif a.embed:
     # columnar: one array per field compresses far better than one array per record
     names = ["acct", "owner", "addr", "city", "cls", "val", "bld", "land", "combo", "x", "y"]
     cols = {n: [r[i] for r in records] for i, n in enumerate(names)}
+    cols["lest"] = [1 if len(r) > 11 and r[11] else 0 for r in records]   # land area estimated from the parcel shape
     if len(records) > 400_000:
         print(f"note: {len(records):,} accounts; expect a file over 100 MB that takes several seconds to open.")
     bounds = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f))

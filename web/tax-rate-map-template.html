@@ -337,7 +337,7 @@ button{font-family:inherit}
         <div class="fs"><div class="fs-t">Development sites</div>
           <label class="chk"><input type="checkbox" id="devChk"><span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span>Only undeveloped land of</span></label>
           <div class="row2"><input class="tin" id="devAc" inputmode="decimal" value="10" aria-label="Minimum acres"><span class="dash">acres or more</span></div>
-          <div class="devnote">Vacant and agricultural land, and commercial or industrial parcels with no building, from appraisal records. Gold dots mark them until parcels draw. Montgomery County has no land areas yet.</div>
+          <div class="devnote">Vacant and agricultural land, and commercial or industrial parcels with no building, from appraisal records. Gold dots mark them until parcels draw. Acreage with * is estimated from the parcel shape where the appraisal district lists none.</div>
         </div>
       </div>
       <div class="pinned">
@@ -466,7 +466,7 @@ try{
     [EMB,TILEBUF]=await Promise.all([b64Buf('emb-data').then(gunzipJSON),b64Buf('emb-tiles')]);
     CB=EMB.combos; MAN={a:{base:4,split:[]},s:{base:3,split:[]}};
     const C=EMB.cols; EMB.n=C.acct.length; EMB.byAcct=new Map(); for(let i=0;i<EMB.n;i++) EMB.byAcct.set(C.acct[i],i);
-    EMB.row=i=>[C.acct[i],C.owner[i],C.addr[i],C.city[i],C.cls[i],C.val[i],C.bld[i],C.land[i],C.combo[i],C.x[i],C.y[i]];
+    EMB.row=i=>{ const r=[C.acct[i],C.owner[i],C.addr[i],C.city[i],C.cls[i],C.val[i],C.bld[i],C.land[i],C.combo[i],C.x[i],C.y[i]]; if(C.lest&&C.lest[i]) r.push(1); return r; };   // 12th item: land area is a GIS estimate
     EMB.text=null;   // search text, built on first search
   } else {
     [CB,MAN]=await Promise.all([getJSON(CONFIG.data+'combos.json'),getJSON(CONFIG.shards+'manifest.json')]);
@@ -738,7 +738,7 @@ function buildDev(){
   DEV=new Set(); DEV_PTS=[]; if(!EMB) return;
   const C=EMB.cols, min=state.dev.ac*43560;
   for(let i=0;i<EMB.n;i++){ const land=C.land[i]; if(!(land>=min)||!devClass(C.cls[i],C.bld[i])) continue;
-    DEV.add(C.acct[i]); if(C.x[i]!=null) DEV_PTS.push({a:C.acct[i],ac:land/43560,cls:C.cls[i],c:C.combo[i],p:[C.x[i]/1e5,C.y[i]/1e5]}); }
+    DEV.add(C.acct[i]); if(C.x[i]!=null) DEV_PTS.push({a:C.acct[i],ac:land/43560,est:!!(C.lest&&C.lest[i]),cls:C.cls[i],c:C.combo[i],p:[C.x[i]/1e5,C.y[i]/1e5]}); }
 }
 // rail-served parcels: account -> [railroad, feet]; dots at metro zoom, colored outlines at parcel zoom
 let RS=null, RS_PTS=[];
@@ -1071,7 +1071,7 @@ function buildLayers(){
   if(state.dev.on&&DEV_PTS.length&&dz<PARCEL_TZ) L.push(new deck.ScatterplotLayer({id:'dev-dots',data:DEV_PTS.filter(d=>d.c>=0&&d.c<=MAXID?passArr[d.c]:true),getPosition:d=>d.p,
     pickable:true,getFillColor:[255,182,0,200],getLineColor:[0,30,90,200],stroked:true,lineWidthUnits:'pixels',getLineWidth:0.7,
     getRadius:d=>Math.min(6,(dz>=11?2.2:1.4)+Math.sqrt(d.ac)/8),radiusUnits:'pixels',updateTriggers:{data:filterVer,getRadius:dz>=11},
-    onHover:info=>{ if(!info.object){tip.style.display='none';return;} const d=info.object; tip.innerHTML=`<b>${d.ac.toFixed(1)} acres</b> · ${esc(CLASS_NAME[d.cls]||CLASS_NAME[(d.cls||'')[0]]||d.cls||'')}<br><span style="color:#8A93A8">Click for details</span>`;
+    onHover:info=>{ if(!info.object){tip.style.display='none';return;} const d=info.object; tip.innerHTML=`<b>${d.ac.toFixed(1)}${d.est?'*':''} acres</b> · ${esc(CLASS_NAME[d.cls]||CLASS_NAME[(d.cls||'')[0]]||d.cls||'')}<br><span style="color:#8A93A8">Click for details</span>`;
       tip.style.display='block'; tip.style.left=Math.min(info.x+14,wrap.clientWidth-270)+'px'; tip.style.top=(info.y+14)+'px'; },
     onClick:info=>{ if(info.object){ openAccount(info.object.a,{fly:false}); return true; } }}));
   for(const o of OVERLAYS){
@@ -1533,7 +1533,7 @@ const slHas=a=>SL.some(x=>x.acct===a);
 function slToggle(rec){
   if(slHas(rec.acct)) SL=SL.filter(x=>x.acct!==rec.acct);
   else{ const c=rec.combo>=0?COMBO[rec.combo]:null, r=c?rateOfC(c):null, co=countyOf(rec.acct,c);
-    SL.push({acct:rec.acct,county:co,id:acctLabel(rec.acct,co),addr:rec.addr||'',city:rec.city||'',owner:rec.owner||'',cls:rec.cls||'',val:rec.val,bld:rec.bld,land:rec.land,
+    SL.push({acct:rec.acct,county:co,id:acctLabel(rec.acct,co),addr:rec.addr||'',city:rec.city||'',owner:rec.owner||'',cls:rec.cls||'',val:rec.val,bld:rec.bld,land:rec.land,lest:!!rec.lest,
       rate:r,tax:rec.val!=null&&r!=null?Math.round(rec.val*r/100):null,lon:rec.lon,lat:rec.lat,checks:rec._checks||{},added:new Date().toISOString().slice(0,10)}); }
   slSave(); const b=$('slAdd'); if(b) b.textContent=slHas(rec.acct)?'On shortlist (remove)':'Add to shortlist';
 }
@@ -1549,9 +1549,9 @@ function renderShortlist(){
 }
 function slCsv(){
   const ck=[...new Set(SL.flatMap(x=>Object.keys(x.checks||{})))];
-  const head=['County','CAD ID','Address','City','Owner','State class','Appraised value','Building SF','Land SF','Rate per $100','Est. annual tax','Latitude','Longitude',...ck,'Added'];
+  const head=['County','CAD ID','Address','City','Owner','State class','Appraised value','Building SF','Land SF','Land SF is an estimate','Rate per $100','Est. annual tax','Latitude','Longitude',...ck,'Added'];
   const q=v=>{ v=v==null?'':String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
-  const rows=SL.map(x=>[x.county,x.id,x.addr,x.city,x.owner,x.cls,x.val,x.bld,x.land,x.rate!=null?x.rate.toFixed(4):'',x.tax,x.lat!=null?x.lat.toFixed(6):'',x.lon!=null?x.lon.toFixed(6):'',...ck.map(k=>(x.checks||{})[k]||''),x.added]);
+  const rows=SL.map(x=>[x.county,x.id,x.addr,x.city,x.owner,x.cls,x.val,x.bld,x.land,x.lest?'Yes (parcel shape area)':'',x.rate!=null?x.rate.toFixed(4):'',x.tax,x.lat!=null?x.lat.toFixed(6):'',x.lon!=null?x.lon.toFixed(6):'',...ck.map(k=>(x.checks||{})[k]||''),x.added]);
   const blob=new Blob(['﻿'+[head,...rows].map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`site-shortlist-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); a.remove();
 }
@@ -1600,7 +1600,7 @@ async function openCompare(){
   const rows=[
     ['sec','Property'],
     ['Owner',x=>esc(tc(x.owner))],['County, ID',x=>esc(x.county)+'<br><span class="m">'+esc(x.id)+'</span>'],['Class',x=>esc(CLASS_NAME[x.cls]||CLASS_NAME[(x.cls||'')[0]]||x.cls||NA)],
-    ['Land',x=>x.land?(x.land/43560).toFixed(2)+' ac':NA],['Building',x=>x.bld?x.bld.toLocaleString()+' SF':NA],['Appraised value',x=>money0(x.val)],
+    ['Land',x=>landTxt(x.land,x.lest,'ac')||NA],['Building',x=>x.bld?x.bld.toLocaleString()+' SF':NA],['Appraised value',x=>money0(x.val)],
     ['sec','Tax'],
     ['Rate per $100',x=>x.rate!=null?x.rate.toFixed(4):NA],['Est. annual tax',x=>money0(x.tax)],['Tax per bldg SF / yr',x=>x.tax!=null&&x.bld?'$'+(x.tax/x.bld).toFixed(2):NA],
     ['sec','Access'],
@@ -1666,7 +1666,9 @@ function shard(kind,key){
   if(!shardCache.has(u)) shardCache.set(u,fetch(u).then(r=>r.ok?r.json():{r:[]}).catch(()=>{shardCache.delete(u);return {r:[]};}));
   return shardCache.get(u);
 }
-const recOf=r=>({acct:r[0],owner:r[1],addr:r[2],city:r[3],cls:r[4],val:r[5],bld:r[6],land:r[7],combo:r[8],lon:r[9]==null?null:r[9]/1e5,lat:r[10]==null?null:r[10]/1e5});
+const recOf=r=>({acct:r[0],owner:r[1],addr:r[2],city:r[3],cls:r[4],val:r[5],bld:r[6],land:r[7],combo:r[8],lon:r[9]==null?null:r[9]/1e5,lat:r[10]==null?null:r[10]/1e5,lest:!!r[11]});
+// land area text; an asterisk marks an estimate from the parcel shape (the appraisal district lists no land area)
+const landTxt=(land,est,unit)=>!land?null:(unit==='ac'||land>=43560?(land/43560).toFixed(2)+(unit==='ac'?' ac':' AC'):land.toLocaleString()+' SF')+(est?'*':'');
 async function getAccount(acct){
   if(EMB){ const i=EMB.byAcct.get(acct); return i==null?null:recOf(EMB.row(i)); }
   const s=await shard('a',shardKey('a',acct)); const r=s.r.find(x=>x[0]===acct); return r?recOf(r):null;
@@ -1717,7 +1719,7 @@ async function runSearch(q){
   }
   if(/^\d{4,6}$/.test(digits)) for(const id of [digits,'W'+digits,'C'+digits,'B'+digits,'L'+digits,'G'+digits]){   // short MCAD accounts and property ids of the counties in PID_COUNTIES look like house numbers: offer them too
     const r=await getAccount(id); if(seq!==qSeq) return;
-    if(r&&!list.some(x=>x.acct===r.acct)) list.unshift({acct:r.acct,owner:r.owner,addr:r.addr,full:[r.acct,r.owner,r.addr,r.city,r.cls,r.val,r.bld,r.land,r.combo,r.lon==null?null:Math.round(r.lon*1e5),r.lat==null?null:Math.round(r.lat*1e5)]});
+    if(r&&!list.some(x=>x.acct===r.acct)) list.unshift({acct:r.acct,owner:r.owner,addr:r.addr,full:[r.acct,r.owner,r.addr,r.city,r.cls,r.val,r.bld,r.land,r.combo,r.lon==null?null:Math.round(r.lon*1e5),r.lat==null?null:Math.round(r.lat*1e5),...(r.lest?[1]:[])]});
   }
   results=list.slice(0,30); act=-1;
   if(!results.length){ showMsg(partial?'Keep typing to narrow the search.':'No matches. Try an owner name, street name or 13 digit HCAD account.'); return; }
@@ -1755,7 +1757,6 @@ function renderDrawer(p){
   const tax=p.val!=null&&r!=null?p.val*r/100:null;
   const tg=(()=>{const x=p.cls||''; return !x?6:'ABE'.includes(x[0])?0:x.startsWith('F1')?1:x.startsWith('F2')?2:x[0]==='C'?3:x[0]==='J'?4:x[0]==='X'?5:6;})();
   const clsName=CLASS_NAME[p.cls]||CLASS_NAME[(p.cls||'')[0]]||p.cls||'Unknown';
-  const acres=p.land?(p.land/43560):null;
   const rows=c?c.p.filter(([code])=>{const j=J[code]; return j&&(state.mgmt||j[2]!=='mgmt');}).sort((a,b)=>b[1]-a[1]):[];
   const mx=Math.max(0.0001,...rows.map(x=>x[1]));
   const tz=c&&c.tirz?tc(c.tirz.split(';').map(s=>s.trim()).join(', ')):'';
@@ -1785,7 +1786,7 @@ function renderDrawer(p){
         ${F('Est. monthly tax',money(tax==null?null:tax/12))}
         ${F('Tax / bldg SF / yr',tax!=null&&p.bld?'$'+(tax/p.bld).toFixed(2):NA)}
         ${F('Building area',p.bld?p.bld.toLocaleString()+' SF':NA)}
-        ${F('Land area',acres!=null?(acres>=1?acres.toFixed(2)+' AC':p.land.toLocaleString()+' SF'):NA)}
+        ${F('Land area',landTxt(p.land,p.lest)||NA)}
         ${F('School district',esc(isd))}
         ${F('City',esc(city))}
         ${F('Water district',esc(c?c.waterL.join('; '):''))}
@@ -1797,6 +1798,7 @@ function renderDrawer(p){
       <div class="brk">${rows.map(([code,w])=>{const j=J[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
         <div class="tot"><span>Combined</span><span>${r==null?NA:r.toFixed(4)}</span></div></div>`;
   const notes=[];
+  if(p.lest) notes.push(['gold',`* Land area is an estimate from the parcel shape: ${cad} lists no land area for this account.`]);
   if(!c) notes.push(['gold',`${cad} lists no taxing jurisdictions for this account, so no rate is shown.`]);
   if(c&&c.m>0&&!state.mgmt) notes.push(['gold',`Also in ${esc(tc(c.mg))}, which levies ${c.m.toFixed(4)}. Switch to "Incl. mgmt districts" to add it.`]);
   if(tz) notes.push(['',`Inside TIRZ ${esc(tz)}. A TIRZ redirects tax growth to the zone but adds no rate.`]);

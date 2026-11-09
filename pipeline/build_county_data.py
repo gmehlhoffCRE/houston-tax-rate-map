@@ -143,7 +143,7 @@ def export_parcel_source(a, src, acct_info, fo, points, owners, stats):
         g["acct"] = g[acct_col].astype(str).str.strip()
         g = g[g.acct.str.len() > 0]
         g["geometry"] = g.geometry.simplify(0.5)         # source units are feet; removes digitizing noise
-        area = g.geometry.area.to_numpy()
+        area = (g.geometry if str(g.crs).endswith("2278") else g.geometry.to_crs(2278)).area.to_numpy()   # sq ft
         rp = gpd.GeoSeries(g.geometry.representative_point(), crs=g.crs).to_crs(4326)
         rx, ry = rp.x.to_numpy(), rp.y.to_numpy()
         g = g.to_crs(4326)
@@ -163,8 +163,10 @@ def export_parcel_source(a, src, acct_info, fo, points, owners, stats):
             n_written += 1
             n_norate += combo[i] < 0
             prev = points.get(acct)
-            if prev is None or area[i] > prev[2]:
-                points[acct] = (round(float(rx[i]), 5), round(float(ry[i]), 5), area[i])
+            if prev is None or area[i] > prev[2]:   # point of the largest polygon; 4th item = all polygons' area
+                points[acct] = (round(float(rx[i]), 5), round(float(ry[i]), 5), area[i], (prev[3] if prev else 0) + area[i])
+            else:
+                points[acct] = prev[:3] + (prev[3] + area[i],)
         if "CurrOwner" in g:
             for acct, o in zip(g.acct, g.CurrOwner):
                 if isinstance(o, str) and acct not in owners:
@@ -324,11 +326,20 @@ def main():
     miss = owner == ""
     owner[miss] = [parcel_owner.get(x, "") for x in acct.index[miss]]
     pt = [points.get(x) for x in acct.index]
+    # land area: the appraisal district's figure; when it has none, the parcel shape's GIS area, flagged as an
+    # estimate (the page marks it with an asterisk). Not for condo units (HCAD Z classes), mobile homes on
+    # leased land (M) or minerals (G): their shape area would be someone else's land.
+    land = pd.to_numeric(acct.land_ar.map(to_int), errors="coerce")
+    no_shape = acct.state_class.fillna("").str.strip().str.upper().str.match(r"^(Z|M|G)")
+    gis = pd.Series([p[3] if p else 0 for p in pt], index=acct.index)
+    est = ~(land > 0) & ~no_shape & (gis >= 100)
+    land = land.where(~est, gis.round())
+    log(f"land area: {(land > 0).sum():,} accounts, {est.sum():,} of them estimated from the parcel shape")
     rec = pd.DataFrame({
         "acct": acct.index.to_numpy(), "owner": owner.to_numpy(),
         "addr": acct.site_addr_1.map(clean).to_numpy(), "city": acct.site_addr_2.map(clean).to_numpy(),
         "cls": acct.state_class.map(clean).to_numpy(), "val": acct.val.to_numpy(),
-        "bld": acct.bld_ar.map(to_int).to_numpy(), "land": acct.land_ar.map(to_int).to_numpy(),
+        "bld": acct.bld_ar.map(to_int).to_numpy(), "land": land.to_numpy(), "lest": est.astype(int).to_numpy(),
         "combo": acct.combo_id.to_numpy(),
         "x": [int(round(p[0] * 1e5)) if p else None for p in pt],
         "y": [int(round(p[1] * 1e5)) if p else None for p in pt],
@@ -344,7 +355,7 @@ def main():
 
     def acct_payload(R, i):
         return [R["acct"][i], R["owner"][i], R["addr"][i], R["city"][i], R["cls"][i], R["val"][i],
-                R["bld"][i], R["land"][i], int(R["combo"][i]), R["x"][i], R["y"][i]]
+                R["bld"][i], R["land"][i], int(R["combo"][i]), R["x"][i], R["y"][i]] + ([1] if R["lest"][i] else [])   # 12th item: land is a GIS estimate
 
     def search_payload(R, i):
         return [R["acct"][i], R["owner"][i], R["addr"][i], R["x"][i], R["y"][i]]
