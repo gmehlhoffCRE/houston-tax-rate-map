@@ -23,6 +23,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Basemaps: Map / Satellite / Hybrid (Esri without a key, Google with `?key=`) | Nov 6 | Keep | |
 | Esri tile retry (no blank squares) | Nov 7 | Keep | |
 | Folder build (.txt parts) | Nov 6 | Keep | `inject.py --split --part-ext txt` |
+| Estimated land area from the parcel shape where the CAD lists none, shown with * (drawer, Compare, dev sites, CSV column) | Nov 9 | Review | 152,870 accounts; not for condo units, mobile homes, minerals. Brazoria 26% to 73% with land area, Harris F2 80% to 99% |
 | Land use coloring (Tax rate / Land use switch) | Nov 8 | Review | CAD state class groups, parcel zoom only. Clicking the lit button again turns parcel shading off (same as the Parcel shading checkbox; share link `s=0`) |
 
 ## Layer panel and styling
@@ -48,8 +49,8 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Rail-served parcels, 100 ft (`rail_served`) + "only rail-served" filter | Nov 8 | Review | `build_rail_served.py` |
 | Road projects by timeline (`road_projects`) | Nov 8 | Review | TxDOT DCIS, H-GAC TIP, Houston, Fort Bend, Montgomery bond |
 | Rail intermodal terminals (`intermodal`) | Nov 7 | Review | US DOT BTS; Englewood dropped, Kendleton relabeled CPKC Rosenberg (Nov 8) |
-| Transload terminals and rail parks (`rail_terminals`) | Nov 8 | Review | `data/rail/rail_terminals.csv` (Cresa research) + US DOT liquid bulk with rail; site check: nearest 3 within 10 mi |
-| Rail yards (`rail_yards`) | Nov 8 | Review | US DOT BTS NTAD Rail Yards, band in railroad color |
+| Transload terminals and rail parks (`rail_terminals`) | Nov 8 | Review | `data/rail/rail_terminals.csv` (Cresa research) + US DOT liquid bulk with rail; site check: nearest 3 within 10 mi; same rail pin as intermodal (Nov 9) |
+| Rail yards (`rail_yards`) | Nov 8 | Review | US DOT BTS NTAD Rail Yards, band in railroad color, rail pin per yard (Nov 9) |
 | Airports (`airports`) split from Ports | Nov 8 | Review | FAA public use |
 | Ports and port terminals (`ports`) | Nov 7, terminals Nov 8 | Review | BTS ports, `data/ports/port_terminals.csv` |
 | Ship docks and drafts (`docks`) | Nov 8 | Review | Houston Pilots list, `data/ports/houston_pilots_docks_2025-05-20.csv` |

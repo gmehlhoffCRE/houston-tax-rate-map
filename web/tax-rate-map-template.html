@@ -619,14 +619,15 @@ const IND=[
     icon:()=>'rail',iconSize:()=>30,show:(p,dz)=>dz>=11||!/Container Terminal|Jacintoport/.test(p.name||''),   // dockside ramps sit next to the port pins
     legend:()=>[['Intermodal rail terminal','icon:rail'],['Dockside ramps at the container terminals from zoom 12','note']],name:p=>p.name,tip:p=>`<b>${esc(p.name)}</b><br>Intermodal rail terminal · ${esc(p.railroad||'')}`},
   {key:'rail_terminals',group:'logistics',label:'Transload terminals and rail parks',kind:'point',sw:'rgb(200,40,110)',color:p=>RT_C[p.kind]||RT_C.transload,
-    radius:p=>p.kind==='park'?8:5.5,labelZ:11,text:p=>p.name,
-    legend:()=>Object.keys(RT_C).map(k=>[RT_NAME[k],'dot',RT_C[k]]).concat([['Researched from operator and directory listings; verify rail service with the operator','note']]),
+    radius:p=>p.kind==='park'?8:5.5,labelZ:11,text:p=>p.name,icon:()=>'rail',iconSize:p=>p.kind==='park'?30:26,   // same rail pin as the intermodal terminals
+    legend:()=>[['Transload terminal, rail-served park or liquid bulk terminal with rail','icon:rail'],['Hover a pin for the type. Researched from operator and directory listings; verify rail service with the operator','note']],
     name:p=>p.name,
     tip:p=>`<b>${esc(p.name)}</b><br>${esc(RT_NAME[p.kind]||'Rail terminal')}${p.operator&&p.operator!==p.name?' · '+esc(p.operator):''}`+
       `${p.railroads?'<br>Rail: '+esc(p.railroads):''}${p.services?'<br>'+esc(p.services):''}${p.acres?'<br>'+Math.round(p.acres).toLocaleString()+' acres':''}`+
       `${p.address?'<br>'+esc(p.address):''}<br><span style="color:#8A93A8">${esc(p.src||'')}${hostOf(p.source)?' · '+esc(hostOf(p.source)):''}. Verify rail service with the operator</span>`},
   {key:'rail_yards',group:'logistics',label:'Rail yards',kind:'line',style:'band',sw:'rgb(214,160,0)',color:p=>railC(p.owner),width:()=>9,minZ:9,
-    legend:()=>[['Yard track, colored by owning railroad (see Rail lines)','band',[214,160,0]],['Classification, storage, plant and transload yards (US DOT)','note']],
+    legend:()=>[['Rail yard','icon:rail'],['Yard track, colored by owning railroad (see Rail lines)','band',[214,160,0]],['Classification, storage, plant and transload yards (US DOT)','note']],
+    pins:'rail',labelZ:12,text:p=>p.name?p.name+' yard':'',
     name:p=>`${tc(p.name||'')} yard`,tip:p=>`<b>${esc(p.name||'Rail')} yard</b><br>${esc(RAIL_NAME[p.owner]||p.owner||'')}<br><span style="color:#8A93A8">US DOT rail yards</span>`},
   {key:'ports',group:'logistics',label:'Ports and port terminals',kind:'point',sw:'rgb(0,30,90)',on:true,
     icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?34:24,
@@ -751,6 +752,14 @@ function railServedPrep(){
 }
 // features shown at this zoom (small pipelines and low-voltage lines only when zoomed in); cached per zoom step
 const showCache={};
+const pinCache=new WeakMap();
+function linePins(o,d){   // a point per line feature (the middle vertex of its longest part), for pins on line layers
+  if(pinCache.has(d)) return pinCache.get(d);
+  const out=[]; for(const f of (d.features||[])){ const g=f.geometry; if(!g) continue;
+    const parts=g.type==='LineString'?[g.coordinates]:g.type==='MultiLineString'?g.coordinates:[]; if(!parts.length) continue;
+    const ln=parts.reduce((a,b)=>b.length>a.length?b:a); out.push({type:'Feature',properties:f.properties,geometry:{type:'Point',coordinates:ln[ln.length>>1]}}); }
+  pinCache.set(d,out); return out;
+}
 function shown(o,d,dz){
   if(!o.show) return d;
   const k=o.key+':'+Math.min(12,Math.floor(dz)); if(showCache[k]&&showCache[k].src===d) return showCache[k].fc;
@@ -845,7 +854,14 @@ function indLayers(dz){
         getLineColor:f=>[...o.color(f.properties).map(v=>v*0.55),235],getLineWidth:f=>w(f.properties)+5,lineWidthUnits:'pixels',
         getDashArray:[0.22,1.1],dashJustified:false,extensions:[dashExt]}));
       if(o.style==='band'){ L.push(new deck.GeoJsonLayer({id:id+'l',data,stroked:true,filled:false,pickable:true,onHover:indTip,autoHighlight:true,highlightColor:[0,30,90,140],opacity:op,
-        getLineColor:f=>[...o.color(f.properties),130],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',capRounded:true,jointRounded:true})); continue; }
+        getLineColor:f=>[...o.color(f.properties),130],getLineWidth:f=>w(f.properties),lineWidthUnits:'pixels',capRounded:true,jointRounded:true}));
+        if(o.pins&&iconsReady&&MAP_ICON_PNG[o.pins]){ const pts=linePins(o,data);   // one pin per yard, at its middle vertex
+          L.push(new deck.IconLayer({id:id+'pin',data:pts,pickable:true,onHover:indTip,opacity:op,getPosition:d=>d.geometry.coordinates,
+            getIcon:()=>{const [w2,h2]=MAP_ICON_WH[o.pins]; return {id:o.pins,url:MAP_ICON_PNG[o.pins],width:w2,height:h2,anchorX:w2/2,anchorY:h2,mask:false};},getSize:24,sizeUnits:'pixels'}));
+          if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:pts,getPosition:d=>d.geometry.coordinates,getText:d=>tc(String(o.text(d.properties)||'')),opacity:op,
+            getSize:11,getColor:[0,30,90,255],getPixelOffset:[0,-36],fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],
+            fontSettings:{sdf:true},characterSet:'auto',extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:0})); }
+        continue; }
       if(o.style==='freight'){ L.push(new deck.GeoJsonLayer({id:id+'l',data,stroked:true,filled:false,pickable:true,onHover:indTip,opacity:op,
         getLineColor:[0,110,120,95],getLineWidth:7,lineWidthUnits:'pixels',capRounded:true,jointRounded:true})); continue; }
       const dash=o.style==='dash'?{getDashArray:[3,2],dashJustified:true,extensions:[dashExt]}:{};
@@ -872,7 +888,7 @@ function indLayers(dz){
         getFillColor:f=>[...o.color(f.properties),225],getLineColor:[255,255,255,240],getLineWidth:1.5,lineWidthUnits:'pixels',
         getPointRadius:f=>r(f.properties),pointRadiusUnits:'pixels'}));
       if(o.text&&dz>=o.labelZ) L.push(new deck.TextLayer({id:id+'x',data:vis.filter(f=>o.text(f.properties)),getPosition:f=>f.geometry.coordinates,getText:f=>tc(String(o.text(f.properties)||'')),opacity:op,
-        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>(o.key==='ports'&&f.properties.kind==='terminal')||o.key==='intermodal'?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-42]:[0,-14],
+        getSize:o.key==='aadt'||o.key==='substations'||o.key==='docks'?10:12,getColor:f=>(o.key==='ports'&&f.properties.kind==='terminal')||(o.key==='intermodal'||o.key==='rail_terminals'||o.key==='rail_yards')?[0,30,90,255]:[...o.color(f.properties).slice(0,3),255],updateTriggers:{getText:dz},getPixelOffset:o.icon?[0,-42]:[0,-14],
         fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',outlineWidth:3,outlineColor:[255,255,255,235],fontSettings:{sdf:true},characterSet:'auto',
         extensions:[collideExt],collisionGroup:'labels',getCollisionPriority:o.key==='ports'?4:o.key==='airports'?3:0}));
     }
