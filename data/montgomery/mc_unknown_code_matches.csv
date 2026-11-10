@@ -1,0 +1,79 @@
+code,parcels,tceq_district,share_of_parcels_inside,rate_list_entity,rate_2025,rate_2026,note,confidence
+M13,4533,Montgomery County MUD 113,99%,Montgomery County MUD 113,0.55,,,high
+MH17,4013,Southeast Regional Management District,96%,South East Regional Management District,1.23,,,high
+M29,2804,Montgomery County MUD 119,99%,Montgomery County MUD 119,0.84,0.84,,high
+M38,2062,Montgomery County MUD 138,98%,Montgomery County MUD 138,0.88,,,high
+RW1,2055,,,,,,,low
+MCD1,1877,Conroe MMD 1,100%,Conroe Municipal Management District 1,0.855,,,high
+MWC,1875,Montgomery County WCID 1,97%,Montgomery County WCID 1,0.7449,,,high
+M11,1835,Montgomery County MUD 111,99%,Montgomery County MUD 111,1.35,,,high
+M28A,1812,Montgomery County MUD 128A,99%,Montgomery County MUD 128A,1.03,,,high
+M12,1633,Montgomery County MUD 115,52%,Montgomery County MUD 115,0.91,0.91,,medium
+MWC4,1623,Audubon WCID,99%,Audubon WCID,0.3,0.3,,high
+MC1,1549,Conroe MUD 1,90%,Conroe MUD 1,0.6,,,high
+M14,1497,Montgomery County MUD 112,100%,Montgomery County MUD 112,0.65,0.65,,high
+M32,1296,Montgomery County MUD 132,59%,Montgomery County MUD 132,0.7,,,medium
+M21,1289,Montgomery County MUD 121,97%,Montgomery County MUD 121,0.765,,,high
+M05,1184,Montgomery County MUD 105,97%,Montgomery County MUD 105,0.89,,,high
+MWT,1100,Wood Trace MUD 1,95%,Wood Trace MUD 1,1.0,,,high
+MLC,1095,Lake Conroe Hills MUD,99%,Lake Conroe Hills MUD,0.429,0.429,,high
+M37,1071,Montgomery County MUD 137,100%,Montgomery County MUD 137,1.12,,,high
+MV1,1063,Valley Ranch MUD 1,88%,Valley Ranch MUD 1,1.0,,,medium
+MU2,1020,Montgomery County Utility District 2,100%,Montgomery County UD 2,0.445,0.445,,high
+M26,916,Montgomery County MUD 126,99%,Montgomery County MUD 126,0.85,,,high
+M52A,897,Montgomery County MUD 152A,96%,Montgomery County MUD 152A,1.1,,,high
+M131,892,Audubon MUD 1,98%,Audubon MUD 1,1.15,1.15,,high
+M86,871,Harris-Montgomery Counties MUD 386,97%,Harris-Montgomery County MUD 386,0.43,,,high
+RW1A,870,Montgomery County MUD 176,46%,,,,split between MUD 176 (46%) and 172; MUD 176 already has code M176,low
+MWR,848,Woodridge MUD,97%,Woodridge MUD,1.17,,,high
+MKM,830,Kings Manor MUD,100%,Kings Manor MUD,0.53,,,high
+MMW2,753,Colton MUD 2,98%,Colton MUD 2,1.5,,,high
+V138,726,Montgomery County MUD 138,95%,,,,"always together with M38 (MUD 138), so a separate unit inside MUD 138 (defined area or zone?), not on the rate list",low
+MDP,602,Decker Prairie MUD,100%,Decker Prairie MUD,1.5,,,high
+M27,595,Montgomery County MUD 127,99%,Montgomery County MUD 127,1.35,1.35,,high
+M146D,561,Montgomery-Grimes Counties MUD 146D,99%,Montgomery - Grimes County MUD 146D,1.5,,,high
+CCV,548,Cleveland MUD 1,92%,"Cleveland, City of",0.63,0.75,"overlaps MCL (Cleveland MUD 1) on 507 of 548 parcels, so a separate unit; Cleveland area; city boundary not in TCEQ data",medium
+MGO,542,Grand Oaks MUD,99%,Grand Oaks MUD,0.8,0.8,,high
+M54A,532,Audubon MUD 3,99%,Audubon MUD 3,1.15,1.15,,high
+M178,524,Montgomery County MUD 178,99%,,,,Montgomery County MUD 178 is not on the tax office rate list (other collector?),low
+MCL,507,Cleveland MUD 1,99%,Cleveland MUD 1,0.75,,,high
+T07,446,Southeast Regional Management District,99%,South East Regional Management District Defined Area 1,0.25,,"T codes are defined areas (T01, T03, T04, T06, T08 already confirmed); all T07 parcels are also in MH17 (SE Regional MD)",high
+MAR,404,Airport Road MUD,99%,Airport Road MUD,1.35,,,high
+ME13A,349,East Montgomery County MUD 13A,100%,,,,East Montgomery County MUD 13A is not on the tax office rate list (other collector?),low
+M41,342,Montgomery County MUD 141,97%,Montgomery County MUD 141,1.22,,,high
+M202A,296,Montgomery County MUD 202A,100%,Montgomery County MUD 202A,1.01,,,high
+M238,284,Montgomery County MUD 238,99%,,,,Montgomery County MUD 238 is not on the tax office rate list (other collector?),low
+MCC,261,Clovercreek MUD,97%,Clover Creek MUD,0.99,0.37,,high
+RDT,254,,,,,,,low
+MB1,226,Blaketree MUD 1 of Montgomery County,100%,Blaketree MUD 1,0.95,,,high
+M146B,198,Montgomery-Grimes Counties MUD 146B,100%,Montgomery - Grimes County MUD 146B,1.5,,,high
+M224,175,Montgomery County MUD 224,100%,,,,Montgomery County MUD 224 is not on the tax office rate list (other collector?),low
+M130,171,Audubon WCID,100%,,,,"97% inside Audubon Management District, which is not on the tax office list; always with MWC4 (Audubon WCID)",low
+RCH,168,,,,,,,low
+MCD2,114,,,,,,,low
+CWO,102,,,,,,,low
+M52B,66,Montgomery County MUD 152B,97%,Montgomery County MUD 152B,1.1,1.1,,high
+MVR1,61,New Caney MUD,98%,,,,"98% inside New Caney MUD, but New Caney MUD already has code MNC; likely a defined area of New Caney MUD not on the list",low
+RCP,51,,,,,,,low
+MMW3,36,Magnolia Woods MUD 3,58%,,,,Magnolia Woods MUD 3 is not on the tax office rate list (other collector?),low
+M28B,12,Montgomery County MUD 128B,83%,Montgomery County MUD 128B,0 (no tax levied),,,medium
+M193,11,Montgomery County MUD 193,91%,,,,Montgomery County MUD 193 is not on the tax office rate list (other collector?),low
+M213,9,Montgomery County MUD 213,44%,,,,Montgomery County MUD 213 is not on the tax office rate list (other collector?),low
+M54B,9,Audubon MUD 4,100%,Audubon MUD 4,0 (no tax levied),,,high
+MVR2,9,Valley Ranch Medical Center MD,89%,Valley Ranch Medical Center Management District,0.5,,,medium
+M146C,8,Magnolia Woods MUD 3,62%,,,,Magnolia Woods MUD 3 is not on the tax office rate list (other collector?),low
+M194,8,Montgomery County MUD 162,62%,,,,"62% inside MUD 162, which already has code M162; 8 parcels",low
+M23,8,Montgomery County MUD 123,62%,Montgomery County MUD 123,0 (no tax levied),,,medium
+T02,8,Porter MUD,100%,Porter MUD - Valley Ranch Defined Area,0 (no tax levied),,"T code (defined area) inside Porter MUD, Valley Ranch area; 8 parcels",medium
+M177,7,Montgomery County MUD 177,86%,,,,Montgomery County MUD 177 is not on the tax office rate list (other collector?),low
+M202B,7,Montgomery County MUD 202B,100%,Montgomery County MUD 202B,0 (no tax levied),,,high
+M252,7,Montgomery County MUD 252,86%,,,,Montgomery County MUD 252 is not on the tax office rate list (other collector?),low
+M52C,7,Montgomery County MUD 152C,57%,Montgomery County MUD 152C,0 (no tax levied),,,medium
+MMW1,7,Magnolia Woods MUD 3,57%,,,,Magnolia Woods MUD 3 is not on the tax office rate list (other collector?),low
+M181,6,Montgomery County MUD 181,83%,,,,Montgomery County MUD 181 is not on the tax office rate list (other collector?),low
+MFF1,5,Firefly MUD 3,80%,,,,Firefly MUD 3 is not on the tax office rate list (other collector?),low
+M038,3,Montgomery County MUD 38,100%,,,,Montgomery County MUD 38 is not on the tax office rate list (other collector?),low
+M215,3,Montgomery County MUD 215,100%,,,,Montgomery County MUD 215 is not on the tax office rate list (other collector?),low
+MPC1A,3,Plum Creek FWSD 1,100%,,,,Plum Creek FWSD 1 is not on the tax office rate list (other collector?),low
+T10,3,Montgomery County MUD 39,100%,,,,T code (defined area) inside MUD 39; MUD 39 already has code M39; no matching defined area on the list,low
+2015,2,Montgomery County MUD 153,50%,,,,2 parcels; unclear,low
