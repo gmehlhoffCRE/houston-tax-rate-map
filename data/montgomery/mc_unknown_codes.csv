@@ -1,0 +1,79 @@
+code,parcels,site_cities,center_lat_lon,other_districts_on_these_parcels,state_class_mix,pattern_note
+M13,4533,"Montgomery, Montomery","30.2796, -95.5572",Montgomery County ESD 3 (100%),"A:86%, C:9%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MH17,4013,"Magnolia, Conroe","30.2245, -95.5566",Montgomery County ESD 10 (73%),"A:64%, C:21%",Unknown prefix
+M29,2804,Spring,"30.0952, -95.3725",Montgomery County ESD 8 (100%),"A:93%, C:5%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M38,2062,"Conroe, Montgomery","30.3296, -95.5393","Conroe, City of (100%)","A:68%, O:25%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+RW1,2055,"Willis, Wilis","30.4251, -95.4945",Willis ISD (100%),"O:37%, A:33%",Unknown prefix
+MCD1,1877,Conroe,"30.2728, -95.4718","Conroe, City of (100%)","A:74%, C:16%",Unknown prefix
+MWC,1875,"Spring, The Woodlands","30.1354, -95.4918",Conroe ISD (100%),"A:65%, C:33%",Unknown prefix
+M11,1835,Conroe,"30.2055, -95.3362",Montgomery County ESD 9 (100%),"A:75%, O:18%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M28A,1812,"Willis, Wills","30.4027, -95.5060",Willis ISD (100%),"A:75%, C:13%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M12,1633,"Spring, Conroe","30.1472, -95.3847",Montgomery County ESD 8 (100%),"A:94%, C:6%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MWC4,1623,Magnolia,"30.2177, -95.7147",Montgomery County ESD 10 (100%),"A:48%, C:39%",Unknown prefix
+MC1,1549,"Conroe, Porter","30.2933, -95.4077","Conroe, City of (100%)","A:76%, O:15%",Unknown prefix
+M14,1497,Conroe,"30.2419, -95.4932",Montgomery County ESD 4 (100%),"A:93%, C:6%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M32,1296,Conroe,"30.3389, -95.5057","Conroe, City of (100%)","A:84%, O:9%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M21,1289,"Montgomery, Montogmery","30.2894, -95.5609",Montgomery County ESD 3 (100%),"A:87%, C:10%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M05,1184,Spring,"30.1083, -95.3546",Montgomery County ESD 8 (100%),"A:91%, C:6%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MWT,1100,"Pinehurst, Pinecrest","30.1518, -95.6779",Montgomery County ESD 10 (100%),"A:89%, C:9%",Unknown prefix
+MLC,1095,"Willis, Willlis","30.4225, -95.5560",Montgomery County ESD 1 (100%),"A:86%, C:12%",Unknown prefix
+M37,1071,Magnolia,"30.1564, -95.5849",Montgomery County ESD 10 (100%),"A:90%, C:7%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MV1,1063,"Porter, New Caney","30.1206, -95.2433",Montgomery County ESD 6 (100%),"A:94%, C:5%",Unknown prefix
+MU2,1020,Willis,"30.4080, -95.5697",Montgomery County ESD 1 (100%),"A:89%, C:11%",Unknown prefix
+M26,916,Conroe,"30.3748, -95.5381","Conroe, City of (100%)","A:94%, C:5%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M52A,897,"Spring, Conroe","30.1218, -95.3498",Montgomery County ESD 8 (100%),"A:41%, C:39%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M131,892,Magnolia,"30.2213, -95.7127",Montgomery County ESD 10 (100%),"A:77%, O:11%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M86,871,"Magnolia, Spring","30.1763, -95.5920","Woodlands Township, The (100%)","A:92%, C:8%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+RW1A,870,"Willis, Wilis","30.4219, -95.4896",Montgomery County ESD 1 (100%),"A:42%, O:25%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+MWR,848,Porter,"30.0750, -95.2270",Montgomery County ESD 6 (100%),"A:84%, C:14%",Unknown prefix
+MKM,830,"Kingwood, Humble","30.0582, -95.2363",Montgomery County ESD 6 (100%),"A:95%, C:5%",Unknown prefix
+MMW2,753,"Montgomery, Mnotgomery","30.2448, -95.7803",Montgomery County ESD 10 (100%),"C:42%, O:31%",Unknown prefix
+V138,726,"Montgomery, Mongomery","30.3718, -95.6461","Conroe, City of (100%); Montgomery ISD (100%)","A:58%, O:35%",Unknown prefix
+MDP,602,Magnolia,"30.1173, -95.6728",Montgomery County ESD 10 (100%),"A:86%, O:8%",Unknown prefix
+M27,595,Spring,"30.1368, -95.3774",Montgomery County ESD 8 (100%),"A:93%, C:5%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M146D,561,"Montgomery, Montgoemry","30.2869, -95.7858",Montgomery County ESD 10 (100%),"C:43%, A:29%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+CCV,548,Cleveland,"30.2947, -95.1685",Montgomery County ESD 7 (100%),"A:45%, O:42%",Unknown prefix
+MGO,542,Magnolia,"30.1866, -95.7469",Montgomery County ESD 10 (100%),"A:94%, C:5%",Unknown prefix
+M54A,532,Magnolia,"30.2077, -95.7195",Montgomery County ESD 10 (100%),"C:98%, D:2%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M178,524,Willis,"30.3990, -95.4797","Conroe, City of (100%)","A:47%, C:33%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MCL,507,Cleveland,"30.2925, -95.1685",Montgomery County ESD 7 (100%),"A:48%, O:46%",Unknown prefix
+T07,446,Magnolia,"30.1524, -95.6141",Montgomery County ESD 10 (100%),"A:92%, C:4%",T + number: possibly a TIRZ or other zone (would carry no rate)
+MAR,404,Conroe,"30.3693, -95.4097",Montgomery County ESD 1 (100%),"O:61%, A:31%",Unknown prefix
+ME13A,349,,"30.2237, -95.2314",Montgomery County ESD 7 (100%),"C:99%, E:1%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M41,342,"Magnolia, Conroe","30.2145, -95.5915",Montgomery County ESD 10 (100%),"A:93%, C:6%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M202A,296,Conroe,"30.3725, -95.4415","Conroe, City of (100%)","O:83%, C:10%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M238,284,"Willis, Conroe","30.4244, -95.3601",Montgomery County ESD 1 (100%),"C:100%, E:0%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MCC,261,"Magnolia, Hockley","30.1707, -95.7561",Montgomery County ESD 10 (100%),"A:90%, C:8%",Unknown prefix
+RDT,254,"Conroe, Conore","30.3131, -95.4650","Conroe, City of (100%)","F:45%, A:39%",Unknown prefix
+MB1,226,"Montgomery, Montgomery,","30.3110, -95.7883",Montgomery County ESD 2 (65%),"C:34%, A:33%",Unknown prefix
+M146B,198,Montgomery,"30.2985, -95.7753",Montgomery County ESD 10 (100%),"C:83%, A:16%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M224,175,"Montgomery, Montgoemry","30.4084, -95.6792","Montgomery, City of (100%); Montgomery County ESD 2 (100%)","O:65%, A:25%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M130,171,Magnolia,"30.2314, -95.7116",Montgomery County ESD 10 (100%),"A:56%, O:35%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+RCH,168,"Kingwood, Porter","30.0638, -95.2414",New Caney ISD (100%),"F:42%, C:37%",Unknown prefix
+MCD2,114,Willis,"30.3917, -95.4433","Conroe, City of (100%)","O:49%, A:43%",Unknown prefix
+CWO,102,Conroe,"30.2171, -95.4142",Conroe ISD (100%),"A:75%, C:25%",Unknown prefix
+M52B,66,Spring,"30.1201, -95.3420",Montgomery County ESD 8 (100%),"C:91%, E:9%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+MVR1,61,New Caney,"30.1323, -95.2362",Montgomery County ESD 6 (100%),"F:67%, C:28%",Unknown prefix
+RCP,51,Conroe,"30.3510, -95.4481","Conroe, City of (100%)","F:65%, C:25%",Unknown prefix
+MMW3,36,Montgomery,"30.2562, -95.7744",Montgomery County ESD 10 (100%),"D:44%, C:33%",Unknown prefix
+M28B,12,,"30.3937, -95.5118","Conroe, City of (100%)","C:58%, D:33%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M193,11,Conroe,"30.2137, -95.3512",Montgomery County ESD 9 (100%),"C:64%, F:27%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M54B,9,,"30.2002, -95.6973",Montgomery County ESD 10 (100%),"C:56%, D:44%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+MVR2,9,,"30.1141, -95.2384",Montgomery County ESD 6 (100%),C:100%,Unknown prefix
+M213,9,Montgomery,"30.4299, -95.6559",Montgomery County ESD 2 (100%); Montgomery ISD (100%),"C:56%, E:33%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M194,8,,"30.2238, -95.3783",Montgomery County ESD 9 (100%),"C:62%, D:38%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+T02,8,,"30.1152, -95.2375",Montgomery County ESD 6 (100%),C:100%,T + number: possibly a TIRZ or other zone (would carry no rate)
+M23,8,Montgomery,"30.2656, -95.6393",Montgomery County ESD 3 (100%); Montgomery ISD (75%),"C:75%, D:12%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M146C,8,,"30.2819, -95.7796",Montgomery County ESD 10 (100%),"C:62%, F:25%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M177,7,,"30.4062, -95.4810","Conroe, City of (100%)","E:43%, C:43%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M52C,7,,"30.1228, -95.3469",Montgomery County ESD 8 (100%),"C:71%, E:29%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M252,7,,"30.1517, -95.1524",Montgomery County ESD 7 (100%),"C:71%, D:29%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MMW1,7,Montgomery,"30.2658, -95.7746",Montgomery County ESD 10 (100%),"C:71%, D:29%",Unknown prefix
+M202B,7,,"30.3692, -95.4277","Conroe, City of (100%); Montgomery County ESD 1 (100%)","C:86%, E:14%",Lettered suffix: likely a defined area or section of a district (not in the tax office rate list)
+M181,6,Willis,"30.4520, -95.5255",Montgomery County ESD 1 (100%),"D:67%, E:33%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+MFF1,5,,"30.2675, -95.2427",Montgomery County ESD 7 (100%),"C:80%, D:20%",Unknown prefix
+T10,3,Magnolia,"30.2083, -95.5649",Montgomery County ESD 10 (100%),"F:33%, E:33%",T + number: possibly a TIRZ or other zone (would carry no rate)
+MPC1A,3,,"30.1640, -95.1023",Montgomery County ESD 7 (100%),"E:33%, C:33%",Unknown prefix
+M215,3,Montgomery,"30.3786, -95.7188","Montgomery, City of (100%); Montgomery County ESD 2 (100%)","E:67%, C:33%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+M038,3,,"30.4474, -95.4092",Montgomery County ESD 1 (100%),"D:67%, C:33%","M + number: elsewhere this pattern is Montgomery County MUD n, but no MUD with this number is on the tax office list"
+2015,2,,"30.1904, -95.4557",Montgomery County ESD 3 (50%); Montgomery County MUD 153 (50%),"C:50%, E:50%",Unknown prefix
