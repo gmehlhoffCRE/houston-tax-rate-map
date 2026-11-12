@@ -68,6 +68,7 @@ python pipeline/build_rail_served.py --parcels out8/parcels.geojsonl --raw layer
 python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers (it rewrites labor.json)
 # occupations: PUMS csv_ptx.zip (2024 5-year) + tl_2023_48_puma20 from www2.census.gov, after build_labor
 python pipeline/build_occupations.py --pums psam_p48.csv --puma tl_2023_48_puma20.shp --layers layers_out/web/data/layers
+python pipeline/build_boundaries.py --gis gis --raw layers_raw --out out8   # after build_county_data.py: full 8-county boundary outlines
 python pipeline/inject.py --embed out8 --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
   --out dist/houston-8county-tax-map.html
 ```

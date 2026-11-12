@@ -19,7 +19,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Filters: rate range and histogram, property type, ISD, city, water district, appraised value, counties | Oct-Nov 2026 | Core | |
 | Search (address, owner, account) | Oct 2026 | Core | |
 | Parcel drawer: rate breakdown, est. tax, tax per SF | Oct 2026 | Core | |
-| Boundary overlays: city, school, industrial/improvement districts, water, ESD, TIRZ | Oct 2026 | Core | |
+| Boundary overlays: city, school, industrial/improvement districts, water, ESD, TIRZ | Oct 2026; regional Nov 12 | Core | Complete outlines for all 8 counties (`build_boundaries.py`: TEA, TxDOT, TCEQ, HCAD, FBCAD, Montgomery) |
 | Basemaps: Map / Satellite / Hybrid (Esri without a key, Google with `?key=`) | Nov 6 | Keep | |
 | Esri tile retry (no blank squares) | Nov 7 | Keep | |
 | Folder build (.txt parts) | Nov 6 | Keep | `inject.py --split --part-ext txt` |

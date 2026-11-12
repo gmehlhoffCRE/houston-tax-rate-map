@@ -360,9 +360,16 @@ python pipeline/build_layers.py --raw layers_raw --out layers_out       # about 
 python pipeline/build_drive_grid.py --raw layers_raw --out layers_out   # about 5 min to fetch 200k road segments
 python pipeline/build_rail_served.py --parcels out/parcels.geojsonl --raw layers_raw --out layers_out   # about 3 min
 python pipeline/build_labor.py --layers layers_out/web/data/layers --raw layers_raw   # after build_layers.py; about 3 min
+python pipeline/build_boundaries.py --gis gis --raw layers_raw --out out   # after build_county_data.py; replaces its Harris-only boundary lines
 python pipeline/inject.py --embed out --layers layers_out/web/data/layers --split --chunk-mb 40 --part-ext txt \
   --out houston-8county-tax-map.html
 ```
+
+Boundary overlays (city, school, water, ESD, industrial/improvement, TIRZ) come from `build_boundaries.py`:
+TEA 2025-26 school districts, TxDOT city limits, TCEQ water districts (active MUD, WCID, FWSD, SUD, LID, WID),
+ESDs from HCAD, FBCAD and Montgomery County, HCAD special districts plus TCEQ management districts outside
+Harris, and TIRZ from HCAD and FBCAD. Every district touching the 8 counties is drawn as a complete outline.
+(`build_county_data.py` alone writes HCAD lines cut at the Harris County line.)
 
 Hosted builds serve the same files at `<data>/layers/<key>.json`. Hosts: services.arcgis.com,
 services1/2/3/5/6/8.arcgis.com, gis.rrc.texas.gov, gisweb.tceq.texas.gov, interactivemaps.sugarlandtx.gov.
