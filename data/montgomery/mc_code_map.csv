@@ -1,40 +1,69 @@
 code,entity,kind,basis,confirmed,parcels
+M13,Montgomery County MUD 113,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 113,location,4525
+MH17,South East Regional Management District,rate,TCEQ boundary match (Nov 12): 96% of parcels inside Southeast Regional Management District,location,4004
+M29,Montgomery County MUD 119,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 119,location,2802
+M38,Montgomery County MUD 138,rate,TCEQ boundary match (Nov 12): 98% of parcels inside Montgomery County MUD 138,location,2059
+MWC,Montgomery County WCID 1,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Montgomery County WCID 1,location,1873
+MCD1,Conroe Municipal Management District 1,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Conroe MMD 1,location,1871
+M11,Montgomery County MUD 111,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 111,location,1828
+M28A,Montgomery County MUD 128A,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 128A,location,1801
+MWC4,Audubon WCID,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Audubon WCID,location,1611
+MC1,Conroe MUD 1,rate,TCEQ boundary match (Nov 12): 90% of parcels inside Conroe MUD 1,location,1549
+M14,Montgomery County MUD 112,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery County MUD 112,location,1496
+M21,Montgomery County MUD 121,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Montgomery County MUD 121,location,1289
+M05,Montgomery County MUD 105,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Montgomery County MUD 105,location,1184
+MWT,Wood Trace MUD 1,rate,TCEQ boundary match (Nov 12): 95% of parcels inside Wood Trace MUD 1,location,1100
+MLC,Lake Conroe Hills MUD,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Lake Conroe Hills MUD,location,1094
+M37,Montgomery County MUD 137,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery County MUD 137,location,1067
+MU2,Montgomery County UD 2,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery County Utility District 2,location,1020
+M26,Montgomery County MUD 126,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 126,location,916
+M52A,Montgomery County MUD 152A,rate,TCEQ boundary match (Nov 12): 96% of parcels inside Montgomery County MUD 152A,location,894
+M131,Audubon MUD 1,rate,TCEQ boundary match (Nov 12): 98% of parcels inside Audubon MUD 1,location,887
+M86,Harris-Montgomery County MUD 386,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Harris-Montgomery Counties MUD 386,location,871
+MWR,Woodridge MUD,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Woodridge MUD,location,848
+MKM,Kings Manor MUD,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Kings Manor MUD,location,830
+MMW2,Colton MUD 2,rate,TCEQ boundary match (Nov 12): 98% of parcels inside Colton MUD 2,location,744
+MDP,Decker Prairie MUD,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Decker Prairie MUD,location,601
+M27,Montgomery County MUD 127,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery County MUD 127,location,595
+M146D,Montgomery - Grimes County MUD 146D,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Montgomery-Grimes Counties MUD 146D,location,560
+MGO,Grand Oaks MUD,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Grand Oaks MUD,location,542
+M54A,Audubon MUD 3,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Audubon MUD 3,location,528
+MCL,Cleveland MUD 1,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Cleveland MUD 1,location,507
+T07,South East Regional Management District Defined Area 1,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Southeast Regional Management District,location,443
+MAR,Airport Road MUD,rate,TCEQ boundary match (Nov 12): 99% of parcels inside Airport Road MUD,location,400
+M41,Montgomery County MUD 141,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Montgomery County MUD 141,location,342
+M202A,Montgomery County MUD 202A,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery County MUD 202A,location,296
+MCC,Clover Creek MUD,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Clovercreek MUD,location,261
+MB1,Blaketree MUD 1,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Blaketree MUD 1 of Montgomery County,location,224
+M146B,Montgomery - Grimes County MUD 146B,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery-Grimes Counties MUD 146B,location,198
+M52B,Montgomery County MUD 152B,rate,TCEQ boundary match (Nov 12): 97% of parcels inside Montgomery County MUD 152B,location,66
+M54B,Audubon MUD 4,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Audubon MUD 4,location,9
+M202B,Montgomery County MUD 202B,rate,TCEQ boundary match (Nov 12): 100% of parcels inside Montgomery County MUD 202B,location,7
 ZAMD,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,9039
 M46,Montgomery County MUD 46,rate,suggested: M + number = MUD number,no,8111
 M47,Montgomery County MUD 47,rate,suggested: M + number = MUD number,no,7466
 STO,Tomball ISD,rate,suggested: S + ISD initials (SCO = Conroe ISD),no,5678
-M13,,unknown,,no,4525
 M60,Montgomery County MUD 60,rate,suggested: M + number = MUD number,no,4430
-MH17,,unknown,,no,4004
 MSC,Spring Creek UD,rate,suggested: name initials and location,no,3916
 M07,Montgomery County MUD 7,rate,suggested: M + number = MUD number,no,3151
 M18,Montgomery County MUD 18,rate,suggested: M + number = MUD number,no,2948
 M67,Montgomery County MUD 67,rate,suggested: M + number = MUD number,no,2848
-M29,,unknown,,no,2802
 ZE13,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,2738
 MW1,Woodlands MUD 1,rate,suggested: name initials and location,no,2558
 RZ3,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,2141
 RZ3A,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,2141
 M108,Montgomery County MUD 108,rate,suggested: M + number = MUD number,no,2107
-M38,,unknown,,no,2059
 RW1,,unknown,,no,2047
 M95,Montgomery County MUD 95,rate,suggested: M + number = MUD number,no,2034
 M139,Montgomery County MUD 139,rate,suggested: M + number = MUD number,no,1902
 M92,Montgomery County MUD 92,rate,suggested: M + number = MUD number,no,1897
-MWC,,unknown,,no,1873
-MCD1,,unknown,,no,1871
 ZCD1,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,1871
-M11,,unknown,,no,1828
 M36,Montgomery County MUD 36,rate,suggested: M + number = MUD number,no,1823
-M28A,,unknown,,no,1801
 M94,Montgomery County MUD 94,rate,suggested: M + number = MUD number,no,1770
 M06,Montgomery County MUD 6,rate,suggested: M + number = MUD number,no,1727
 M12,,unknown,,no,1632
 M140,Montgomery County MUD 140,rate,suggested: M + number = MUD number,no,1620
-MWC4,,unknown,,no,1611
-MC1,,unknown,,no,1549
 ME12,East Montgomery County MUD 12,rate,suggested: ME + number = East Montgomery County MUD,no,1519
-M14,,unknown,,no,1496
 M99,Montgomery County MUD 99,rate,suggested: M + number = MUD number,no,1487
 M39,Montgomery County MUD 39,rate,suggested: M + number = MUD number,no,1476
 ME7,East Montgomery County MUD 7,rate,suggested: ME + number = East Montgomery County MUD,no,1408
@@ -42,20 +71,14 @@ ME3,East Montgomery County MUD 3,rate,suggested: ME + number = East Montgomery C
 ME6,East Montgomery County MUD 6,rate,suggested: ME + number = East Montgomery County MUD,no,1384
 M191,Montgomery County MUD 191,rate,suggested: M + number = MUD number,no,1311
 M32,,unknown,,no,1295
-M21,,unknown,,no,1289
-M05,,unknown,,no,1184
 ZGP,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,1178
 M164,Montgomery County MUD 164,rate,suggested: M + number = MUD number,no,1176
 M88,Montgomery County MUD 88,rate,suggested: M + number = MUD number,no,1127
 ME5,East Montgomery County MUD 5,rate,suggested: ME + number = East Montgomery County MUD,no,1119
 ZVRT,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,1115
-MWT,,unknown,,no,1100
-MLC,,unknown,,no,1094
-M37,,unknown,,no,1067
 MV1,,unknown,,no,1060
 M165,Montgomery County MUD 165,rate,suggested: M + number = MUD number,no,1037
 ME4,East Montgomery County MUD 4,rate,suggested: ME + number = East Montgomery County MUD,no,1029
-MU2,,unknown,,no,1020
 M24,Montgomery County MUD 24,rate,suggested: M + number = MUD number,no,1007
 ZTR,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,997
 M84,Montgomery County MUD 84,rate,suggested: M + number = MUD number,no,990
@@ -64,68 +87,50 @@ M144,Montgomery County MUD 144,rate,suggested: M + number = MUD number,no,975
 MWC205,Montgomery County WCID 205,rate,suggested: name initials and location,no,963
 M98,Montgomery County MUD 98,rate,suggested: M + number = MUD number,no,953
 M90,Montgomery County MUD 90,rate,suggested: M + number = MUD number,no,940
-M26,,unknown,,no,916
 M180,Montgomery County MUD 180,rate,suggested: M + number = MUD number,no,912
 Z180,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,912
-M52A,,unknown,,no,894
-M131,,unknown,,no,887
 M145,Montgomery County MUD 145,rate,suggested: M + number = MUD number,no,882
 M185,Montgomery County MUD 185,rate,suggested: M + number = MUD number,no,878
-M86,,unknown,,no,871
 RW1A,,unknown,,no,869
 ZMS,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,853
 M199,Montgomery County MUD 199,rate,suggested: M + number = MUD number,no,850
-MWR,,unknown,,no,848
-MKM,,unknown,,no,830
 M100,Montgomery County MUD 100,rate,suggested: M + number = MUD number,no,817
 ME14,East Montgomery County MUD 14,rate,suggested: ME + number = East Montgomery County MUD,no,786
 M83,Montgomery County MUD 83,rate,suggested: M + number = MUD number,no,780
 M16,Montgomery County MUD 16,rate,suggested: M + number = MUD number,no,779
 M174,Montgomery County MUD 174,rate,suggested: M + number = MUD number,no,779
 M162,Montgomery County MUD 162,rate,suggested: M + number = MUD number,no,762
-MMW2,,unknown,,no,744
 V138,,unknown,,no,725
 M42,Montgomery County MUD 42,rate,suggested: M + number = MUD number,no,705
 M166,Montgomery County MUD 166,rate,suggested: M + number = MUD number,no,693
 M142,Montgomery County MUD 142,rate,suggested: M + number = MUD number,no,672
 M218,Montgomery County MUD 218,rate,suggested: M + number = MUD number,no,661
-MDP,,unknown,,no,601
-M27,,unknown,,no,595
 M110,Montgomery County MUD 110,rate,suggested: M + number = MUD number,no,569
 M206,Montgomery County MUD 206,rate,suggested: M + number = MUD number,no,561
-M146D,,unknown,,no,560
 RZ01,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,559
 CCV,,unknown,,no,548
-MGO,,unknown,,no,542
 MR3,Roman Forest PUD 3,rate,suggested: MR + number = Roman Forest PUD (MR4 is PUD 4),no,539
 M176,Montgomery County MUD 176,rate,suggested: M + number = MUD number,no,533
-M54A,,unknown,,no,528
 M178,,unknown,,no,524
 M158,Montgomery County MUD 158,rate,suggested: M + number = MUD number,no,519
-MCL,,unknown,,no,507
 RZ5,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,507
 M149,Montgomery County MUD 149,rate,suggested: M + number = MUD number,no,493
 nan,,unknown,,no,463
 ME13,East Montgomery County MUD 13,rate,suggested: ME + number = East Montgomery County MUD,no,451
-T07,,unknown,,no,443
 RZ4,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,413
 M129,Montgomery County MUD 129,rate,suggested: M + number = MUD number,no,408
 M56,Montgomery County MUD 56,rate,suggested: M + number = MUD number,no,402
 M172,Montgomery County MUD 172,rate,suggested: M + number = MUD number,no,402
-MAR,,unknown,,no,400
 M147,Montgomery County MUD 147,rate,suggested: M + number = MUD number,no,398
 M197,Montgomery County MUD 197,rate,suggested: M + number = MUD number,no,374
 M148,Montgomery County MUD 148,rate,suggested: M + number = MUD number,no,350
 ME13A,,unknown,,no,348
-M41,,unknown,,no,342
 MWM,Woodlands Metro Center MUD,rate,suggested: name initials and location,no,339
 CHO,"Houston, City of",rate,suggested: name initials and location,no,325
 PMP,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,324
 RZ2,,no_rate,"zone (TIRZ / reinvestment / foreign trade): no rate, unconfirmed",no,301
-M202A,,unknown,,no,296
 M238,,unknown,,no,284
 M196,Montgomery County MUD 196,rate,suggested: M + number = MUD number,no,267
-MCC,,unknown,,no,261
 RDT,,unknown,,no,251
 PWF,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,249
 PMR,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,238
@@ -133,8 +138,6 @@ PCM,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",
 PWM,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,229
 M211,Montgomery County MUD 211,rate,suggested: M + number = MUD number,no,227
 M19,Montgomery County MUD 19,rate,suggested: M + number = MUD number,no,226
-MB1,,unknown,,no,224
-M146B,,unknown,,no,198
 M212,Montgomery County MUD 212,rate,suggested: M + number = MUD number,no,196
 M125,Montgomery County MUD 125,rate,suggested: M + number = MUD number,no,196
 PMD,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,192
@@ -160,7 +163,6 @@ PWO,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",
 PTL,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,80
 SCL,Cleveland ISD,rate,suggested: S + ISD initials (SCO = Conroe ISD),no,76
 PSL,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,74
-M52B,,unknown,,no,66
 MVR1,,unknown,,no,61
 RCP,,unknown,,no,51
 PLC,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,44
@@ -177,7 +179,6 @@ M173,Montgomery County MUD 173,rate,suggested: M + number = MUD number,no,10
 PSM,,no_rate,"public improvement district: assessment, not a rate, unconfirmed",no,10
 M186,Montgomery County MUD 186,rate,suggested: M + number = MUD number,no,10
 M189,Montgomery County MUD 189,rate,suggested: M + number = MUD number,no,10
-M54B,,unknown,,no,9
 MVR2,,unknown,,no,9
 M213,,unknown,,no,9
 M183,Montgomery County MUD 183,rate,suggested: M + number = MUD number,no,8
@@ -187,7 +188,6 @@ M151,Montgomery County MUD 151,rate,suggested: M + number = MUD number,no,8
 M252,,unknown,,no,7
 M23,,unknown,,no,7
 M155,Montgomery County MUD 155,rate,suggested: M + number = MUD number,no,7
-M202B,,unknown,,no,7
 M52C,,unknown,,no,7
 M146C,,unknown,,no,7
 MMW1,,unknown,,no,7

@@ -1,279 +1,279 @@
 tax_dist,name,tp_cd,category,bucket,accounts,rate_prior,rate_current,rate_used,missing_rate
+MC-ZAMD,Zone ZAMD,,TIRZ,excluded,9039,0.0,,0.0,False
+MC-M46,Montgomery County MUD 46,,Water District (MUD/WCID/UD),base,8111,0.174633,,0.174633,False
+MC-M47,Montgomery County MUD 47,,Water District (MUD/WCID/UD),base,7466,0.160684,,0.160684,False
+MC-STO,Tomball ISD,,ISD,base,5678,1.0629,,1.0629,False
+MC-M13,Montgomery County MUD 113,,Water District (MUD/WCID/UD),base,4525,0.55,,0.55,False
+MC-M60,Montgomery County MUD 60,,Water District (MUD/WCID/UD),base,4430,0.124965,,0.124965,False
+MC-MH17,South East Regional Management District,,Management District,mgmt,4004,1.23,,1.23,False
+MC-MSC,Spring Creek UD,,Water District (MUD/WCID/UD),base,3916,0.88,,0.88,False
+MC-M07,Montgomery County MUD 7,,Water District (MUD/WCID/UD),base,3151,0.106585,,0.106585,False
+MC-M18,Montgomery County MUD 18,,Water District (MUD/WCID/UD),base,2948,0.17,,0.17,False
+MC-M67,Montgomery County MUD 67,,Water District (MUD/WCID/UD),base,2848,0.135,,0.135,False
+MC-M29,Montgomery County MUD 119,,Water District (MUD/WCID/UD),base,2802,0.84,,0.84,False
+MC-ZE13,Zone ZE13,,TIRZ,excluded,2738,0.0,,0.0,False
+MC-MW1,Woodlands MUD 1,,Water District (MUD/WCID/UD),base,2558,0.067,,0.067,False
+MC-RZ3,Zone RZ3,,TIRZ,excluded,2141,0.0,,0.0,False
+MC-RZ3A,Zone RZ3A,,TIRZ,excluded,2141,0.0,,0.0,False
+MC-M108,Montgomery County MUD 108,,Water District (MUD/WCID/UD),base,2107,1.01,,1.01,False
+MC-M38,Montgomery County MUD 138,,Water District (MUD/WCID/UD),base,2059,0.88,,0.88,False
+MC-RW1,Unit RW1 (not yet matched),,Other,base,2047,0.0,,0.0,True
+MC-M95,Montgomery County MUD 95,,Water District (MUD/WCID/UD),base,2034,0.95,,0.95,False
+MC-M139,Montgomery County MUD 139,,Water District (MUD/WCID/UD),base,1902,1.05,,1.05,False
+MC-M92,Montgomery County MUD 92,,Water District (MUD/WCID/UD),base,1897,0.58,,0.58,False
+MC-MWC,Montgomery County WCID 1,,Water District (MUD/WCID/UD),base,1873,0.7449,,0.7449,False
+MC-MCD1,Conroe Municipal Management District 1,,Management District,mgmt,1871,0.855,,0.855,False
+MC-ZCD1,Zone ZCD1,,TIRZ,excluded,1871,0.0,,0.0,False
+MC-M11,Montgomery County MUD 111,,Water District (MUD/WCID/UD),base,1828,1.35,,1.35,False
+MC-M36,Montgomery County MUD 36,,Water District (MUD/WCID/UD),base,1823,0.0424,,0.0424,False
+MC-M28A,Montgomery County MUD 128A,,Water District (MUD/WCID/UD),base,1801,1.03,,1.03,False
+MC-M94,Montgomery County MUD 94,,Water District (MUD/WCID/UD),base,1770,0.66,,0.66,False
+MC-M06,Montgomery County MUD 6,,Water District (MUD/WCID/UD),base,1727,0.067108,,0.067108,False
+MC-M12,Unit M12 (not yet matched),,Other,base,1632,0.0,,0.0,True
+MC-M140,Montgomery County MUD 140,,Water District (MUD/WCID/UD),base,1620,1.38,,1.38,False
+MC-MWC4,Audubon WCID,,Water District (MUD/WCID/UD),base,1611,0.3,,0.3,False
+MC-MC1,Conroe MUD 1,,Water District (MUD/WCID/UD),base,1549,0.6,,0.6,False
+MC-ME12,East Montgomery County MUD 12,,Water District (MUD/WCID/UD),base,1519,1.3,,1.3,False
+MC-M14,Montgomery County MUD 112,,Water District (MUD/WCID/UD),base,1496,0.65,,0.65,False
+MC-M99,Montgomery County MUD 99,,Water District (MUD/WCID/UD),base,1487,1.015,,1.015,False
+MC-M39,Montgomery County MUD 39,,Water District (MUD/WCID/UD),base,1476,0.24,,0.24,False
+MC-ME7,East Montgomery County MUD 7,,Water District (MUD/WCID/UD),base,1408,1.3,,1.3,False
+MC-ME3,East Montgomery County MUD 3,,Water District (MUD/WCID/UD),base,1389,0.81,,0.81,False
+MC-ME6,East Montgomery County MUD 6,,Water District (MUD/WCID/UD),base,1384,1.17,,1.17,False
+MC-M191,Montgomery County MUD 191,,Water District (MUD/WCID/UD),base,1311,1.35,,1.35,False
+MC-M32,Unit M32 (not yet matched),,Other,base,1295,0.0,,0.0,True
+MC-M21,Montgomery County MUD 121,,Water District (MUD/WCID/UD),base,1289,0.765,,0.765,False
+MC-M05,Montgomery County MUD 105,,Water District (MUD/WCID/UD),base,1184,0.89,,0.89,False
+MC-ZGP,Zone ZGP,,TIRZ,excluded,1178,0.0,,0.0,False
+MC-M164,Montgomery County MUD 164,,Water District (MUD/WCID/UD),base,1176,1.35,,1.35,False
+MC-M88,Montgomery County MUD 88,,Water District (MUD/WCID/UD),base,1127,1.0,,1.0,False
+MC-ME5,East Montgomery County MUD 5,,Water District (MUD/WCID/UD),base,1119,1.3,,1.3,False
+MC-ZVRT,Zone ZVRT,,TIRZ,excluded,1115,0.0,,0.0,False
+MC-MWT,Wood Trace MUD 1,,Water District (MUD/WCID/UD),base,1100,1.0,,1.0,False
+MC-MLC,Lake Conroe Hills MUD,,Water District (MUD/WCID/UD),base,1094,0.429,,0.429,False
+MC-M37,Montgomery County MUD 137,,Water District (MUD/WCID/UD),base,1067,1.12,,1.12,False
+MC-MV1,Unit MV1 (not yet matched),,Other,base,1060,0.0,,0.0,True
+MC-M165,Montgomery County MUD 165,,Water District (MUD/WCID/UD),base,1037,1.35,,1.35,False
+MC-ME4,East Montgomery County MUD 4,,Water District (MUD/WCID/UD),base,1029,1.25,,1.25,False
+MC-MU2,Montgomery County UD 2,,Water District (MUD/WCID/UD),base,1020,0.445,,0.445,False
+MC-M24,Montgomery County MUD 24,,Water District (MUD/WCID/UD),base,1007,1.12,,1.12,False
+MC-ZTR,Zone ZTR,,TIRZ,excluded,997,0.0,,0.0,False
+MC-M84,Montgomery County MUD 84,,Water District (MUD/WCID/UD),base,990,0.804,,0.804,False
+MC-M96,Montgomery County MUD 96,,Water District (MUD/WCID/UD),base,984,1.3,,1.3,False
+MC-M144,Montgomery County MUD 144,,Water District (MUD/WCID/UD),base,975,1.5,,1.5,False
+MC-MWC205,Montgomery County WCID 205,,Water District (MUD/WCID/UD),base,963,0.35,,0.35,False
+MC-M98,Montgomery County MUD 98,,Water District (MUD/WCID/UD),base,953,0.82,,0.82,False
+MC-M90,Montgomery County MUD 90,,Water District (MUD/WCID/UD),base,940,0.55,,0.55,False
+MC-M26,Montgomery County MUD 126,,Water District (MUD/WCID/UD),base,916,0.85,,0.85,False
+MC-M180,Montgomery County MUD 180,,Water District (MUD/WCID/UD),base,912,1.25,,1.25,False
+MC-Z180,Zone Z180,,TIRZ,excluded,912,0.0,,0.0,False
+MC-M52A,Montgomery County MUD 152A,,Water District (MUD/WCID/UD),base,894,1.1,,1.1,False
+MC-M131,Audubon MUD 1,,Water District (MUD/WCID/UD),base,887,1.15,,1.15,False
+MC-M145,Montgomery County MUD 145,,Water District (MUD/WCID/UD),base,882,1.25,,1.25,False
+MC-M185,Montgomery County MUD 185,,Water District (MUD/WCID/UD),base,878,1.5,,1.5,False
+MC-M86,Harris-Montgomery County MUD 386,,Water District (MUD/WCID/UD),base,871,0.43,,0.43,False
+MC-RW1A,Unit RW1A (not yet matched),,Other,base,869,0.0,,0.0,True
+MC-ZMS,Zone ZMS,,TIRZ,excluded,853,0.0,,0.0,False
+MC-M199,Montgomery County MUD 199,,Water District (MUD/WCID/UD),base,850,1.5,,1.5,False
+MC-MWR,Woodridge MUD,,Water District (MUD/WCID/UD),base,848,1.17,,1.17,False
+MC-MKM,Kings Manor MUD,,Water District (MUD/WCID/UD),base,830,0.53,,0.53,False
+MC-M100,Montgomery County MUD 100,,Water District (MUD/WCID/UD),base,817,1.35,,1.35,False
+MC-ME14,East Montgomery County MUD 14,,Water District (MUD/WCID/UD),base,786,1.5,,1.5,False
+MC-M83,Montgomery County MUD 83,,Water District (MUD/WCID/UD),base,780,0.587,,0.587,False
+MC-M16,Montgomery County MUD 16,,Water District (MUD/WCID/UD),base,779,0.924,,0.924,False
+MC-M174,Montgomery County MUD 174,,Water District (MUD/WCID/UD),base,779,1.35,,1.35,False
+MC-M162,Montgomery County MUD 162,,Water District (MUD/WCID/UD),base,762,1.35,,1.35,False
+MC-MMW2,Colton MUD 2,,Water District (MUD/WCID/UD),base,744,1.5,,1.5,False
+MC-V138,Unit V138 (not yet matched),,Other,base,725,0.0,,0.0,True
+MC-M42,Montgomery County MUD 42,,Water District (MUD/WCID/UD),base,705,0.9,,0.9,False
+MC-M166,Montgomery County MUD 166,,Water District (MUD/WCID/UD),base,693,1.41,,1.41,False
+MC-M142,Montgomery County MUD 142,,Water District (MUD/WCID/UD),base,672,1.0,,1.0,False
+MC-M218,Montgomery County MUD 218,,Water District (MUD/WCID/UD),base,661,1.5,,1.5,False
+MC-MDP,Decker Prairie MUD,,Water District (MUD/WCID/UD),base,601,1.5,,1.5,False
+MC-M27,Montgomery County MUD 127,,Water District (MUD/WCID/UD),base,595,1.35,,1.35,False
+MC-M110,Montgomery County MUD 110,,Water District (MUD/WCID/UD),base,569,1.35,,1.35,False
+MC-M206,Montgomery County MUD 206,,Water District (MUD/WCID/UD),base,561,1.1,,1.1,False
+MC-M146D,Montgomery - Grimes County MUD 146D,,Water District (MUD/WCID/UD),base,560,1.5,,1.5,False
+MC-RZ01,Zone RZ01,,TIRZ,excluded,559,0.0,,0.0,False
+MC-CCV,Unit CCV (not yet matched),,Other,base,548,0.0,,0.0,True
+MC-MGO,Grand Oaks MUD,,Water District (MUD/WCID/UD),base,542,0.8,,0.8,False
+MC-MR3,Roman Forest PUD 3,,Water District (MUD/WCID/UD),base,539,0.7037,,0.7037,False
+MC-M176,Montgomery County MUD 176,,Water District (MUD/WCID/UD),base,533,1.15,,1.15,False
+MC-M54A,Audubon MUD 3,,Water District (MUD/WCID/UD),base,528,1.15,,1.15,False
+MC-M178,Unit M178 (not yet matched),,Other,base,524,0.0,,0.0,True
+MC-M158,Montgomery County MUD 158,,Water District (MUD/WCID/UD),base,519,1.35,,1.35,False
+MC-MCL,Cleveland MUD 1,,Water District (MUD/WCID/UD),base,507,0.75,,0.75,False
+MC-RZ5,Zone RZ5,,TIRZ,excluded,507,0.0,,0.0,False
+MC-M149,Montgomery County MUD 149,,Water District (MUD/WCID/UD),base,493,0.9,,0.9,False
+MC-nan,Unit nan (not yet matched),,Other,base,463,0.0,,0.0,True
+MC-ME13,East Montgomery County MUD 13,,Water District (MUD/WCID/UD),base,451,1.5,,1.5,False
+MC-T07,South East Regional Management District Defined Area 1,,Management District,mgmt,443,0.25,,0.25,False
+MC-RZ4,Zone RZ4,,TIRZ,excluded,413,0.0,,0.0,False
+MC-M129,Montgomery County MUD 129,,Water District (MUD/WCID/UD),base,408,0.1,,0.1,False
+MC-M56,Montgomery County MUD 56,,Water District (MUD/WCID/UD),base,402,0.575,,0.575,False
+MC-M172,Montgomery County MUD 172,,Water District (MUD/WCID/UD),base,402,1.45,,1.45,False
+MC-MAR,Airport Road MUD,,Water District (MUD/WCID/UD),base,400,1.35,,1.35,False
+MC-M147,Montgomery County MUD 147,,Water District (MUD/WCID/UD),base,398,0.9,,0.9,False
+MC-M197,Montgomery County MUD 197,,Water District (MUD/WCID/UD),base,374,0.0,,0.0,False
+MC-M148,Montgomery County MUD 148,,Water District (MUD/WCID/UD),base,350,0.9,,0.9,False
+MC-ME13A,Unit ME13A (not yet matched),,Other,base,348,0.0,,0.0,True
+MC-M41,Montgomery County MUD 141,,Water District (MUD/WCID/UD),base,342,1.22,,1.22,False
+MC-MWM,Woodlands Metro Center MUD,,Water District (MUD/WCID/UD),base,339,0.085,,0.085,False
 MC-CHO,"Houston, City of",,City,base,325,0.51919,,0.51919,False
+MC-PMP,Improvement district PMP,,Public Improvement District,excluded,324,0.0,,0.0,False
+MC-RZ2,Zone RZ2,,TIRZ,excluded,301,0.0,,0.0,False
+MC-M202A,Montgomery County MUD 202A,,Water District (MUD/WCID/UD),base,296,1.01,,1.01,False
+MC-M238,Unit M238 (not yet matched),,Other,base,284,0.0,,0.0,True
+MC-M196,Montgomery County MUD 196,,Water District (MUD/WCID/UD),base,267,0.5,,0.5,False
+MC-MCC,Clover Creek MUD,,Water District (MUD/WCID/UD),base,261,0.99,,0.99,False
+MC-RDT,Unit RDT (not yet matched),,Other,base,251,0.0,,0.0,True
+MC-PWF,Improvement district PWF,,Public Improvement District,excluded,249,0.0,,0.0,False
+MC-PMR,Improvement district PMR,,Public Improvement District,excluded,238,0.0,,0.0,False
+MC-PCM,Improvement district PCM,,Public Improvement District,excluded,230,0.0,,0.0,False
+MC-PWM,Improvement district PWM,,Public Improvement District,excluded,229,0.0,,0.0,False
+MC-M211,Montgomery County MUD 211,,Water District (MUD/WCID/UD),base,227,1.25,,1.25,False
+MC-M19,Montgomery County MUD 19,,Water District (MUD/WCID/UD),base,226,0.13552,,0.13552,False
+MC-MB1,Blaketree MUD 1,,Water District (MUD/WCID/UD),base,224,0.95,,0.95,False
+MC-M146B,Montgomery - Grimes County MUD 146B,,Water District (MUD/WCID/UD),base,198,1.5,,1.5,False
+MC-M212,Montgomery County MUD 212,,Water District (MUD/WCID/UD),base,196,1.5,,1.5,False
+MC-M125,Montgomery County MUD 125,,Water District (MUD/WCID/UD),base,196,1.15,,1.15,False
+MC-PMD,Improvement district PMD,,Public Improvement District,excluded,192,0.0,,0.0,False
+MC-M159,Montgomery County MUD 159,,Water District (MUD/WCID/UD),base,191,1.5,,1.5,False
+MC-M219,Montgomery County MUD 219,,Water District (MUD/WCID/UD),base,186,1.5,,1.5,False
+MC-M136,Montgomery County MUD 136,,Water District (MUD/WCID/UD),base,185,1.3,,1.3,False
+MC-M150,Montgomery County MUD 150,,Water District (MUD/WCID/UD),base,181,1.35,,1.35,False
+MC-M224,Unit M224 (not yet matched),,Other,base,174,0.0,,0.0,True
+MC-RCH,Unit RCH (not yet matched),,Other,base,168,0.0,,0.0,True
+MC-M130,Unit M130 (not yet matched),,Other,base,168,0.0,,0.0,True
+MC-RZ4A,Zone RZ4A,,TIRZ,excluded,146,0.0,,0.0,False
+MC-PCC,Improvement district PCC,,Public Improvement District,excluded,122,0.0,,0.0,False
+MC-PTC1,Improvement district PTC1,,Public Improvement District,excluded,120,0.0,,0.0,False
+MC-PTC4,Improvement district PTC4,,Public Improvement District,excluded,114,0.0,,0.0,False
+MC-MCD2,Unit MCD2 (not yet matched),,Other,base,114,0.0,,0.0,True
+MC-PSP,Improvement district PSP,,Public Improvement District,excluded,113,0.0,,0.0,False
+MC-PWW,Improvement district PWW,,Public Improvement District,excluded,110,0.0,,0.0,False
+MC-PTC2,Improvement district PTC2,,Public Improvement District,excluded,108,0.0,,0.0,False
+MC-CWO,Unit CWO (not yet matched),,Other,base,102,0.0,,0.0,True
+MC-RZ1,Zone RZ1,,TIRZ,excluded,97,0.0,,0.0,False
+MC-M201,Montgomery County MUD 201,,Water District (MUD/WCID/UD),base,92,0.0,,0.0,False
+MC-PWO,Improvement district PWO,,Public Improvement District,excluded,83,0.0,,0.0,False
+MC-PTL,Improvement district PTL,,Public Improvement District,excluded,80,0.0,,0.0,False
+MC-SCL,Cleveland ISD,,ISD,base,76,1.0241,,1.0241,False
+MC-PSL,Improvement district PSL,,Public Improvement District,excluded,74,0.0,,0.0,False
+MC-M52B,Montgomery County MUD 152B,,Water District (MUD/WCID/UD),base,66,1.1,,1.1,False
+MC-MVR1,Unit MVR1 (not yet matched),,Other,base,61,0.0,,0.0,True
+MC-RCP,Unit RCP (not yet matched),,Other,base,51,0.0,,0.0,True
+MC-PLC,Improvement district PLC,,Public Improvement District,excluded,44,0.0,,0.0,False
+MC-ZMT,Zone ZMT,,TIRZ,excluded,36,0.0,,0.0,False
+MC-FTZ,Zone FTZ,,TIRZ,excluded,35,0.0,,0.0,False
+MC-MMW3,Unit MMW3 (not yet matched),,Other,base,28,0.0,,0.0,True
+MC-M209,Montgomery County MUD 209,,Water District (MUD/WCID/UD),base,27,1.25,,1.25,False
+MC-M28B,Unit M28B (not yet matched),,Other,base,12,0.0,,0.0,True
+MC-RZD,Zone RZD,,TIRZ,excluded,11,0.0,,0.0,False
+MC-M116,Montgomery County MUD 116,,Water District (MUD/WCID/UD),base,11,0.0,,0.0,False
+MC-M193,Unit M193 (not yet matched),,Other,base,11,0.0,,0.0,True
+MC-M163,Montgomery County MUD 163,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
+MC-M173,Montgomery County MUD 173,,Water District (MUD/WCID/UD),base,10,1.35,,1.35,False
+MC-PSM,Improvement district PSM,,Public Improvement District,excluded,10,0.0,,0.0,False
+MC-M186,Montgomery County MUD 186,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
+MC-M189,Montgomery County MUD 189,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
+MC-M54B,Audubon MUD 4,,Water District (MUD/WCID/UD),base,9,0.0,,0.0,False
+MC-MVR2,Unit MVR2 (not yet matched),,Other,base,9,0.0,,0.0,True
+MC-M213,Unit M213 (not yet matched),,Other,base,9,0.0,,0.0,True
+MC-M183,Montgomery County MUD 183,,Water District (MUD/WCID/UD),base,8,1.1,,1.1,False
+MC-M194,Unit M194 (not yet matched),,Other,base,8,0.0,,0.0,True
+MC-T02,Unit T02 (not yet matched),,Other,base,8,0.0,,0.0,True
+MC-M151,Montgomery County MUD 151,,Water District (MUD/WCID/UD),base,8,1.35,,1.35,False
+MC-M252,Unit M252 (not yet matched),,Other,base,7,0.0,,0.0,True
+MC-M23,Unit M23 (not yet matched),,Other,base,7,0.0,,0.0,True
+MC-M155,Montgomery County MUD 155,,Water District (MUD/WCID/UD),base,7,1.0,,1.0,False
+MC-M202B,Montgomery County MUD 202B,,Water District (MUD/WCID/UD),base,7,0.0,,0.0,False
+MC-M52C,Unit M52C (not yet matched),,Other,base,7,0.0,,0.0,True
+MC-M146C,Unit M146C (not yet matched),,Other,base,7,0.0,,0.0,True
+MC-MMW1,Unit MMW1 (not yet matched),,Other,base,7,0.0,,0.0,True
+MC-M181,Unit M181 (not yet matched),,Other,base,6,0.0,,0.0,True
+MC-M101,Montgomery County MUD 101,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,False
+MC-M177,Unit M177 (not yet matched),,Other,base,6,0.0,,0.0,True
+MC-M220,Montgomery County MUD 220,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,True
+MC-M187,Montgomery County MUD 187,,Water District (MUD/WCID/UD),base,5,0.0,,0.0,False
+MC-MFF1,Unit MFF1 (not yet matched),,Other,base,5,0.0,,0.0,True
+MC-PM1,Improvement district PM1,,Public Improvement District,excluded,4,0.0,,0.0,False
+MC-M192,Montgomery County MUD 192,,Water District (MUD/WCID/UD),base,4,0.0,,0.0,False
+MC-T10,Unit T10 (not yet matched),,Other,base,3,0.0,,0.0,True
+MC-M215,Unit M215 (not yet matched),,Other,base,3,0.0,,0.0,True
+MC-M038,Unit M038 (not yet matched),,Other,base,3,0.0,,0.0,True
+MC-MPC1A,Unit MPC1A (not yet matched),,Other,base,3,0.0,,0.0,True
+MC-M170,Montgomery County MUD 170,,Water District (MUD/WCID/UD),base,2,0.0,,0.0,False
+MC-2015,Unit 2015 (not yet matched),,Other,base,2,0.0,,0.0,True
+MC-SHU,Humble ISD,,ISD,base,1,1.1052,,1.1052,False
+MC-M188,Montgomery County MUD 188,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
+MC-M171,Montgomery County MUD 171,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
+MC-M190,Montgomery County MUD 190,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
 MC-GMO,Montgomery County,,County / Countywide,base,328689,0.377,,0.377,False
 MC-HM1,Montgomery County Hospital District,,County / Countywide,base,328689,0.0473,,0.0473,False
 MC-JNH,Lone Star College System,,College District,base,294880,0.106,,0.106,False
-MC-RCH,Unit RCH (not yet matched),,Other,base,168,0.0,,0.0,True
-MC-SNC,New Caney ISD,,ISD,base,40361,1.2552,,1.2552,False
-MC-F06,Montgomery County ESD 6,,ESD,base,23992,0.1,,0.1,False
-MC-M98,Montgomery County MUD 98,,Water District (MUD/WCID/UD),base,953,0.82,,0.82,False
-MC-MKM,Unit MKM (not yet matched),,Other,base,830,0.0,,0.0,True
-MC-MWR,Unit MWR (not yet matched),,Other,base,848,0.0,,0.0,True
-MC-MPM,Porter MUD,,Water District (MUD/WCID/UD),base,4006,0.4577,,0.4577,False
-MC-M83,Montgomery County MUD 83,,Water District (MUD/WCID/UD),base,780,0.587,,0.587,False
-MC-F08,Montgomery County ESD 8,,ESD,base,30435,0.0937,,0.0937,False
 MC-SCO,Conroe ISD,,ISD,base,152586,0.9496,,0.9496,False
-MC-SHU,Humble ISD,,ISD,base,1,1.1052,,1.1052,False
 MC-F10,Montgomery County ESD 10,,ESD,base,50890,0.0922,,0.0922,False
 MC-SMA,Magnolia ISD,,ISD,base,45727,0.9583,,0.9583,False
-MC-M84,Montgomery County MUD 84,,Water District (MUD/WCID/UD),base,990,0.804,,0.804,False
-MC-T03,Porter MUD - Hendricks Defined Area,,Water District (MUD/WCID/UD),base,684,1.0,,1.0,False
-MC-STO,Tomball ISD,,ISD,base,5678,1.0629,,1.0629,False
-MC-nan,Unit nan (not yet matched),,Other,base,463,0.0,,0.0,True
-MC-MSC,Spring Creek UD,,Water District (MUD/WCID/UD),base,3916,0.88,,0.88,False
-MC-CWT,"Woodlands Township, The",,City,base,34911,0.1714,,0.1714,False
-MC-M46,Montgomery County MUD 46,,Water District (MUD/WCID/UD),base,8111,0.174633,,0.174633,False
-MC-M94,Montgomery County MUD 94,,Water District (MUD/WCID/UD),base,1770,0.66,,0.66,False
-MC-M159,Montgomery County MUD 159,,Water District (MUD/WCID/UD),base,191,1.5,,1.5,False
-MC-MW1,Woodlands MUD 1,,Water District (MUD/WCID/UD),base,2558,0.067,,0.067,False
-MC-MNC,New Caney MUD,,Water District (MUD/WCID/UD),base,4838,0.425,,0.425,False
-MC-MH17,Unit MH17 (not yet matched),,Other,base,4004,0.0,,0.0,True
-MC-F14,Montgomery County ESD 14,,ESD,base,1946,0.1,,0.1,False
-MC-MWC,Unit MWC (not yet matched),,Other,base,1873,0.0,,0.0,True
-MC-MSM,Southern Montgomery County MUD,,Water District (MUD/WCID/UD),base,1918,0.1167,,0.1167,False
-MC-M89,Montgomery County MUD 89,,Water District (MUD/WCID/UD),base,1683,0.555,,0.555,False
-MC-F07,Montgomery County ESD 7,,ESD,base,34039,0.1,,0.1,False
-MC-DD6,Montgomery County DD 6,,Drainage District,base,4208,0.113,,0.113,False
-MC-M19,Montgomery County MUD 19,,Water District (MUD/WCID/UD),base,226,0.13552,,0.13552,False
-MC-MRR,Rayford Road MUD,,Water District (MUD/WCID/UD),base,3791,0.414,,0.414,False
-MC-M56,Montgomery County MUD 56,,Water District (MUD/WCID/UD),base,402,0.575,,0.575,False
-MC-M06,Montgomery County MUD 6,,Water District (MUD/WCID/UD),base,1727,0.067108,,0.067108,False
-MC-MDP,Unit MDP (not yet matched),,Other,base,601,0.0,,0.0,True
-MC-M36,Montgomery County MUD 36,,Water District (MUD/WCID/UD),base,1823,0.0424,,0.0424,False
-MC-M88,Montgomery County MUD 88,,Water District (MUD/WCID/UD),base,1127,1.0,,1.0,False
-MC-D10,Montgomery County DD 10,,Drainage District,base,2420,0.265,,0.265,False
-MC-COR,"Oak Ridge North, City of",,City,base,1359,0.4268,,0.4268,False
-MC-M07,Montgomery County MUD 7,,Water District (MUD/WCID/UD),base,3151,0.106585,,0.106585,False
-MC-RZ4,Zone RZ4,,TIRZ,excluded,413,0.0,,0.0,False
-MC-RZ4A,Zone RZ4A,,TIRZ,excluded,146,0.0,,0.0,False
-MC-MWT,Unit MWT (not yet matched),,Other,base,1100,0.0,,0.0,True
-MC-M60,Montgomery County MUD 60,,Water District (MUD/WCID/UD),base,4430,0.124965,,0.124965,False
-MC-T06,New Caney MUD - Hendricks Defined Area,,Water District (MUD/WCID/UD),base,14,0.5,,0.5,False
-MC-RU1,"Woodlands Road Utility District 1, The",,Water District (MUD/WCID/UD),base,457,0.05,,0.05,False
-MC-F09,Montgomery County ESD 9,,ESD,base,16840,0.1,,0.1,False
-MC-MWM,Woodlands Metro Center MUD,,Water District (MUD/WCID/UD),base,339,0.085,,0.085,False
-MC-F04,Montgomery County ESD 4,,ESD,base,13079,0.0977,,0.0977,False
-MC-ZAMD,Zone ZAMD,,TIRZ,excluded,9039,0.0,,0.0,False
-MC-M252,Unit M252 (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-M47,Montgomery County MUD 47,,Water District (MUD/WCID/UD),base,7466,0.160684,,0.160684,False
-MC-MCW,Chateau Woods MUD,,Water District (MUD/WCID/UD),base,954,0.2766,,0.2766,False
-MC-CSH,"Shenandoah, City of",,City,base,1595,0.1821,,0.1821,False
-MC-ME3,East Montgomery County MUD 3,,Water District (MUD/WCID/UD),base,1389,0.81,,0.81,False
-MC-CRF,"Roman Forest, City of",,City,base,1689,0.5475,,0.5475,False
-MC-MRC,Roman Forest Consolidated MUD,,Water District (MUD/WCID/UD),base,999,0.23,,0.23,False
-MC-MR4,Roman Forest PUD 4,,Water District (MUD/WCID/UD),base,558,1.0785,,1.0785,False
 MC-F01,Montgomery County ESD 1,,ESD,base,43131,0.1,,0.1,False
-MC-CWV,"Woodbranch Village, City of",,City,base,857,0.2363,,0.2363,False
-MC-M136,Montgomery County MUD 136,,Water District (MUD/WCID/UD),base,185,1.3,,1.3,False
-MC-SSP,Splendora ISD,,ISD,base,15760,1.2547,,1.2547,False
-MC-MR3,Roman Forest PUD 3,,Water District (MUD/WCID/UD),base,539,0.7037,,0.7037,False
-MC-CMA,"Magnolia, City of",,City,base,3425,0.2277,,0.2277,False
-MC-M67,Montgomery County MUD 67,,Water District (MUD/WCID/UD),base,2848,0.135,,0.135,False
-MC-M197,Montgomery County MUD 197,,Water District (MUD/WCID/UD),base,374,0.0,,0.0,False
 MC-CCO,"Conroe, City of",,City,base,41869,0.4272,,0.4272,False
-MC-MWC4,Unit MWC4 (not yet matched),,Other,base,1611,0.0,,0.0,True
-MC-M158,Montgomery County MUD 158,,Water District (MUD/WCID/UD),base,519,1.35,,1.35,False
-MC-M54B,Unit M54B (not yet matched),,Other,base,9,0.0,,0.0,True
-MC-M95,Montgomery County MUD 95,,Water District (MUD/WCID/UD),base,2034,0.95,,0.95,False
-MC-M39,Montgomery County MUD 39,,Water District (MUD/WCID/UD),base,1476,0.24,,0.24,False
-MC-M15,Montgomery County MUD 15,,Water District (MUD/WCID/UD),base,2445,0.62,,0.62,False
-MC-M16,Montgomery County MUD 16,,Water District (MUD/WCID/UD),base,779,0.924,,0.924,False
-MC-ME4,East Montgomery County MUD 4,,Water District (MUD/WCID/UD),base,1029,1.25,,1.25,False
-MC-CSP,"Splendora, City of",,City,base,1173,0.4178,,0.4178,False
-MC-PMP,Improvement district PMP,,Public Improvement District,excluded,324,0.0,,0.0,False
-MC-CWO,Unit CWO (not yet matched),,Other,base,102,0.0,,0.0,True
-MC-MLR,Lazy River ID,,Water District (MUD/WCID/UD),base,357,0.1454,,0.1454,False
-MC-M163,Montgomery County MUD 163,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
-MC-M14,Unit M14 (not yet matched),,Other,base,1496,0.0,,0.0,True
-MC-MRP,River Plantation MUD,,Water District (MUD/WCID/UD),base,1175,0.658,,0.658,False
-MC-M164,Montgomery County MUD 164,,Water District (MUD/WCID/UD),base,1176,1.35,,1.35,False
-MC-ZGP,Zone ZGP,,TIRZ,excluded,1178,0.0,,0.0,False
-MC-MEP,East Plantation UD,,Water District (MUD/WCID/UD),base,674,0.444,,0.444,False
-MC-F03,Montgomery County ESD 3,,ESD,base,13703,0.1,,0.1,False
-MC-SMO,Montgomery ISD,,ISD,base,33367,1.0912,,1.0912,False
-MC-F02,Montgomery County ESD 2,,ESD,base,21379,0.1,,0.1,False
-MC-M173,Montgomery County MUD 173,,Water District (MUD/WCID/UD),base,10,1.35,,1.35,False
-MC-MMW3,Unit MMW3 (not yet matched),,Other,base,28,0.0,,0.0,True
-MC-M13,Unit M13 (not yet matched),,Other,base,4525,0.0,,0.0,True
-MC-RZ3,Zone RZ3,,TIRZ,excluded,2141,0.0,,0.0,False
-MC-RZ3A,Zone RZ3A,,TIRZ,excluded,2141,0.0,,0.0,False
-MC-M90,Montgomery County MUD 90,,Water District (MUD/WCID/UD),base,940,0.55,,0.55,False
-MC-ZMT,Zone ZMT,,TIRZ,excluded,36,0.0,,0.0,False
-MC-MC1,Unit MC1 (not yet matched),,Other,base,1549,0.0,,0.0,True
-MC-CCV,Unit CCV (not yet matched),,Other,base,548,0.0,,0.0,True
-MC-MCL,Unit MCL (not yet matched),,Other,base,507,0.0,,0.0,True
-MC-RZ5,Zone RZ5,,TIRZ,excluded,507,0.0,,0.0,False
-MC-RDT,Unit RDT (not yet matched),,Other,base,251,0.0,,0.0,True
-MC-RZ2,Zone RZ2,,TIRZ,excluded,301,0.0,,0.0,False
-MC-SCL,Cleveland ISD,,ISD,base,76,1.0241,,1.0241,False
-MC-M178,Unit M178 (not yet matched),,Other,base,524,0.0,,0.0,True
-MC-M42,Montgomery County MUD 42,,Water District (MUD/WCID/UD),base,705,0.9,,0.9,False
+MC-SNC,New Caney ISD,,ISD,base,40361,1.2552,,1.2552,False
+MC-CWT,"Woodlands Township, The",,City,base,34911,0.1714,,0.1714,False
 MC-SWI,Willis ISD,,ISD,base,34785,1.0349,,1.0349,False
-MC-MU4,Montgomery County UD 4,,Water District (MUD/WCID/UD),base,1894,0.15,,0.15,False
-MC-FTZ,Zone FTZ,,TIRZ,excluded,35,0.0,,0.0,False
-MC-RCP,Unit RCP (not yet matched),,Other,base,51,0.0,,0.0,True
-MC-MU3,Montgomery County UD 3,,Water District (MUD/WCID/UD),base,957,0.1451,,0.1451,False
-MC-PWO,Improvement district PWO,,Public Improvement District,excluded,83,0.0,,0.0,False
-MC-MSL,Stanley Lake MUD,,Water District (MUD/WCID/UD),base,1908,0.3975,,0.3975,False
-MC-CPV,"Panorama Village, City of",,City,base,1311,0.537,,0.537,False
-MC-M212,Montgomery County MUD 212,,Water District (MUD/WCID/UD),base,196,1.5,,1.5,False
-MC-CMO,"Montgomery, City of",,City,base,1818,0.4,,0.4,False
-MC-PTL,Improvement district PTL,,Public Improvement District,excluded,80,0.0,,0.0,False
-MC-M08,Montgomery County MUD 8,,Water District (MUD/WCID/UD),base,2051,0.288,,0.288,False
-MC-MFH,Far Hills UD,,Water District (MUD/WCID/UD),base,1044,0.61,,0.61,False
-MC-MU2,Unit MU2 (not yet matched),,Other,base,1020,0.0,,0.0,True
-MC-M18,Montgomery County MUD 18,,Water District (MUD/WCID/UD),base,2948,0.17,,0.17,False
+MC-F07,Montgomery County ESD 7,,ESD,base,34039,0.1,,0.1,False
+MC-SMO,Montgomery ISD,,ISD,base,33367,1.0912,,1.0912,False
+MC-F08,Montgomery County ESD 8,,ESD,base,30435,0.0937,,0.0937,False
+MC-F06,Montgomery County ESD 6,,ESD,base,23992,0.1,,0.1,False
+MC-F02,Montgomery County ESD 2,,ESD,base,21379,0.1,,0.1,False
+MC-F09,Montgomery County ESD 9,,ESD,base,16840,0.1,,0.1,False
+MC-SSP,Splendora ISD,,ISD,base,15760,1.2547,,1.2547,False
+MC-F03,Montgomery County ESD 3,,ESD,base,13703,0.1,,0.1,False
+MC-F04,Montgomery County ESD 4,,ESD,base,13079,0.0977,,0.0977,False
+MC-MNC,New Caney MUD,,Water District (MUD/WCID/UD),base,4838,0.425,,0.425,False
+MC-DD6,Montgomery County DD 6,,Drainage District,base,4208,0.113,,0.113,False
+MC-MPM,Porter MUD,,Water District (MUD/WCID/UD),base,4006,0.4577,,0.4577,False
+MC-MRR,Rayford Road MUD,,Water District (MUD/WCID/UD),base,3791,0.414,,0.414,False
 MC-CWI,"Willis, City of",,City,base,3599,0.5518,,0.5518,False
-MC-MPA,Point Aquarius MUD,,Water District (MUD/WCID/UD),base,1199,0.51,,0.51,False
-MC-MLC,Unit MLC (not yet matched),,Other,base,1094,0.0,,0.0,True
-MC-MTN,Texas National MUD,,Water District (MUD/WCID/UD),base,1005,1.0261,,1.0261,False
-MC-RW1,Unit RW1 (not yet matched),,Other,base,2047,0.0,,0.0,True
-MC-RW1A,Unit RW1A (not yet matched),,Other,base,869,0.0,,0.0,True
-MC-MCP,Corinthian Point MUD 2,,Water District (MUD/WCID/UD),base,392,0.5288,,0.5288,False
-MC-M92,Montgomery County MUD 92,,Water District (MUD/WCID/UD),base,1897,0.58,,0.58,False
-MC-M86,Unit M86 (not yet matched),,Other,base,871,0.0,,0.0,True
-MC-PSP,Improvement district PSP,,Public Improvement District,excluded,113,0.0,,0.0,False
-MC-SRI,Richards ISD,,ISD,base,394,0.8015,,0.8015,False
-MC-M28B,Unit M28B (not yet matched),,Other,base,12,0.0,,0.0,True
-MC-MV1,Unit MV1 (not yet matched),,Other,base,1060,0.0,,0.0,True
-MC-ZVRT,Zone ZVRT,,TIRZ,excluded,1115,0.0,,0.0,False
-MC-M12,Unit M12 (not yet matched),,Other,base,1632,0.0,,0.0,True
-MC-M196,Montgomery County MUD 196,,Water District (MUD/WCID/UD),base,267,0.5,,0.5,False
-MC-M32,Unit M32 (not yet matched),,Other,base,1295,0.0,,0.0,True
-MC-MU7,Montgomery County MUD 107,,Water District (MUD/WCID/UD),base,965,0.51,,0.51,False
-MC-MFW,Montgomery County FWSD 6,,Water District (MUD/WCID/UD),base,198,0.5985,,0.5985,False
-MC-M108,Montgomery County MUD 108,,Water District (MUD/WCID/UD),base,2107,1.01,,1.01,False
-MC-M100,Montgomery County MUD 100,,Water District (MUD/WCID/UD),base,817,1.35,,1.35,False
-MC-M181,Unit M181 (not yet matched),,Other,base,6,0.0,,0.0,True
-MC-M170,Montgomery County MUD 170,,Water District (MUD/WCID/UD),base,2,0.0,,0.0,False
-MC-M183,Montgomery County MUD 183,,Water District (MUD/WCID/UD),base,8,1.1,,1.1,False
-MC-M129,Montgomery County MUD 129,,Water District (MUD/WCID/UD),base,408,0.1,,0.1,False
-MC-M28A,Unit M28A (not yet matched),,Other,base,1801,0.0,,0.0,True
-MC-T01,Porter MUD - Auburn Trails Defined Area I,,Water District (MUD/WCID/UD),base,330,0.5389,,0.5389,False
-MC-M211,Montgomery County MUD 211,,Water District (MUD/WCID/UD),base,227,1.25,,1.25,False
-MC-CST,"Stagecoach, City of",,City,base,371,0.3492,,0.3492,False
-MC-M206,Montgomery County MUD 206,,Water District (MUD/WCID/UD),base,561,1.1,,1.1,False
-MC-RZ1,Zone RZ1,,TIRZ,excluded,97,0.0,,0.0,False
-MC-RZD,Zone RZD,,TIRZ,excluded,11,0.0,,0.0,False
-MC-MGO,Unit MGO (not yet matched),,Other,base,542,0.0,,0.0,True
-MC-M174,Montgomery County MUD 174,,Water District (MUD/WCID/UD),base,779,1.35,,1.35,False
-MC-PCC,Improvement district PCC,,Public Improvement District,excluded,122,0.0,,0.0,False
-MC-M162,Montgomery County MUD 162,,Water District (MUD/WCID/UD),base,762,1.35,,1.35,False
-MC-M194,Unit M194 (not yet matched),,Other,base,8,0.0,,0.0,True
-MC-M24,Montgomery County MUD 24,,Water District (MUD/WCID/UD),base,1007,1.12,,1.12,False
-MC-M116,Montgomery County MUD 116,,Water District (MUD/WCID/UD),base,11,0.0,,0.0,False
-MC-M29,Unit M29 (not yet matched),,Other,base,2802,0.0,,0.0,True
-MC-ME6,East Montgomery County MUD 6,,Water District (MUD/WCID/UD),base,1384,1.17,,1.17,False
-MC-PWM,Improvement district PWM,,Public Improvement District,excluded,229,0.0,,0.0,False
-MC-PLC,Improvement district PLC,,Public Improvement District,excluded,44,0.0,,0.0,False
-MC-M37,Unit M37 (not yet matched),,Other,base,1067,0.0,,0.0,True
-MC-T04,Porter MUD - Auburn Trails Defined Area II,,Water District (MUD/WCID/UD),base,229,0.5255,,0.5255,False
-MC-ZTR,Zone ZTR,,TIRZ,excluded,997,0.0,,0.0,False
-MC-PWW,Improvement district PWW,,Public Improvement District,excluded,110,0.0,,0.0,False
-MC-MVR2,Unit MVR2 (not yet matched),,Other,base,9,0.0,,0.0,True
-MC-T02,Unit T02 (not yet matched),,Other,base,8,0.0,,0.0,True
-MC-M213,Unit M213 (not yet matched),,Other,base,9,0.0,,0.0,True
-MC-M142,Montgomery County MUD 142,,Water District (MUD/WCID/UD),base,672,1.0,,1.0,False
-MC-M139,Montgomery County MUD 139,,Water District (MUD/WCID/UD),base,1902,1.05,,1.05,False
-MC-M52A,Unit M52A (not yet matched),,Other,base,894,0.0,,0.0,True
-MC-M52B,Unit M52B (not yet matched),,Other,base,66,0.0,,0.0,True
-MC-MWC205,Montgomery County WCID 205,,Water District (MUD/WCID/UD),base,963,0.35,,0.35,False
-MC-PSL,Improvement district PSL,,Public Improvement District,excluded,74,0.0,,0.0,False
-MC-MB1,Unit MB1 (not yet matched),,Other,base,224,0.0,,0.0,True
-MC-PM1,Improvement district PM1,,Public Improvement District,excluded,4,0.0,,0.0,False
-MC-M153,Montgomery County MUD 153,,Water District (MUD/WCID/UD),base,44,1.45,,1.45,False
-MC-M41,Unit M41 (not yet matched),,Other,base,342,0.0,,0.0,True
-MC-M96,Montgomery County MUD 96,,Water District (MUD/WCID/UD),base,984,1.3,,1.3,False
-MC-M05,Unit M05 (not yet matched),,Other,base,1184,0.0,,0.0,True
-MC-M27,Unit M27 (not yet matched),,Other,base,595,0.0,,0.0,True
-MC-M125,Montgomery County MUD 125,,Water District (MUD/WCID/UD),base,196,1.15,,1.15,False
-MC-M38,Unit M38 (not yet matched),,Other,base,2059,0.0,,0.0,True
-MC-MCD1,Unit MCD1 (not yet matched),,Other,base,1871,0.0,,0.0,True
-MC-ZCD1,Zone ZCD1,,TIRZ,excluded,1871,0.0,,0.0,False
-MC-V138,Unit V138 (not yet matched),,Other,base,725,0.0,,0.0,True
-MC-PWF,Improvement district PWF,,Public Improvement District,excluded,249,0.0,,0.0,False
-MC-M23,Unit M23 (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-M99,Montgomery County MUD 99,,Water District (MUD/WCID/UD),base,1487,1.015,,1.015,False
-MC-MVR1,Unit MVR1 (not yet matched),,Other,base,61,0.0,,0.0,True
-MC-M148,Montgomery County MUD 148,,Water District (MUD/WCID/UD),base,350,0.9,,0.9,False
-MC-PTC1,Improvement district PTC1,,Public Improvement District,excluded,120,0.0,,0.0,False
-MC-PTC4,Improvement district PTC4,,Public Improvement District,excluded,114,0.0,,0.0,False
-MC-PTC2,Improvement district PTC2,,Public Improvement District,excluded,108,0.0,,0.0,False
-MC-MCC,Unit MCC (not yet matched),,Other,base,261,0.0,,0.0,True
-MC-M201,Montgomery County MUD 201,,Water District (MUD/WCID/UD),base,92,0.0,,0.0,False
-MC-PSM,Improvement district PSM,,Public Improvement District,excluded,10,0.0,,0.0,False
-MC-M160,Montgomery County MUD 160,,Water District (MUD/WCID/UD),base,120,0.7,,0.7,False
-MC-CPT,"Patton Village, City of",,City,base,1047,0.3139,,0.3139,False
-MC-M180,Montgomery County MUD 180,,Water District (MUD/WCID/UD),base,912,1.25,,1.25,False
-MC-Z180,Zone Z180,,TIRZ,excluded,912,0.0,,0.0,False
-MC-ZMS,Zone ZMS,,TIRZ,excluded,853,0.0,,0.0,False
-MC-M131,Unit M131 (not yet matched),,Other,base,887,0.0,,0.0,True
-MC-MCD2,Unit MCD2 (not yet matched),,Other,base,114,0.0,,0.0,True
-MC-M165,Montgomery County MUD 165,,Water District (MUD/WCID/UD),base,1037,1.35,,1.35,False
-MC-M176,Montgomery County MUD 176,,Water District (MUD/WCID/UD),base,533,1.15,,1.15,False
-MC-T08,Porter MUD - Montgomery Crossing Defined Area,,Water District (MUD/WCID/UD),base,6,0.7,,0.7,False
-MC-M26,Unit M26 (not yet matched),,Other,base,916,0.0,,0.0,True
+MC-CMA,"Magnolia, City of",,City,base,3425,0.2277,,0.2277,False
+MC-M15,Montgomery County MUD 15,,Water District (MUD/WCID/UD),base,2445,0.62,,0.62,False
+MC-D10,Montgomery County DD 10,,Drainage District,base,2420,0.265,,0.265,False
 MC-M09,Montgomery County MUD 9,,Water District (MUD/WCID/UD),base,2317,0.37,,0.37,False
-MC-M11,Unit M11 (not yet matched),,Other,base,1828,0.0,,0.0,True
-MC-M101,Montgomery County MUD 101,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,False
-MC-ME12,East Montgomery County MUD 12,,Water District (MUD/WCID/UD),base,1519,1.3,,1.3,False
-MC-ZE13,Zone ZE13,,TIRZ,excluded,2738,0.0,,0.0,False
-MC-M151,Montgomery County MUD 151,,Water District (MUD/WCID/UD),base,8,1.35,,1.35,False
-MC-PMR,Improvement district PMR,,Public Improvement District,excluded,238,0.0,,0.0,False
-MC-M155,Montgomery County MUD 155,,Water District (MUD/WCID/UD),base,7,1.0,,1.0,False
-MC-ME7,East Montgomery County MUD 7,,Water District (MUD/WCID/UD),base,1408,1.3,,1.3,False
-MC-ME14,East Montgomery County MUD 14,,Water District (MUD/WCID/UD),base,786,1.5,,1.5,False
-MC-M21,Unit M21 (not yet matched),,Other,base,1289,0.0,,0.0,True
-MC-M166,Montgomery County MUD 166,,Water District (MUD/WCID/UD),base,693,1.41,,1.41,False
+MC-M08,Montgomery County MUD 8,,Water District (MUD/WCID/UD),base,2051,0.288,,0.288,False
+MC-F14,Montgomery County ESD 14,,ESD,base,1946,0.1,,0.1,False
+MC-MSM,Southern Montgomery County MUD,,Water District (MUD/WCID/UD),base,1918,0.1167,,0.1167,False
+MC-MSL,Stanley Lake MUD,,Water District (MUD/WCID/UD),base,1908,0.3975,,0.3975,False
+MC-MU4,Montgomery County UD 4,,Water District (MUD/WCID/UD),base,1894,0.15,,0.15,False
+MC-CMO,"Montgomery, City of",,City,base,1818,0.4,,0.4,False
+MC-CRF,"Roman Forest, City of",,City,base,1689,0.5475,,0.5475,False
+MC-M89,Montgomery County MUD 89,,Water District (MUD/WCID/UD),base,1683,0.555,,0.555,False
+MC-CSH,"Shenandoah, City of",,City,base,1595,0.1821,,0.1821,False
+MC-COR,"Oak Ridge North, City of",,City,base,1359,0.4268,,0.4268,False
+MC-CPV,"Panorama Village, City of",,City,base,1311,0.537,,0.537,False
+MC-MPA,Point Aquarius MUD,,Water District (MUD/WCID/UD),base,1199,0.51,,0.51,False
+MC-MRP,River Plantation MUD,,Water District (MUD/WCID/UD),base,1175,0.658,,0.658,False
+MC-CSP,"Splendora, City of",,City,base,1173,0.4178,,0.4178,False
+MC-CPT,"Patton Village, City of",,City,base,1047,0.3139,,0.3139,False
+MC-MFH,Far Hills UD,,Water District (MUD/WCID/UD),base,1044,0.61,,0.61,False
+MC-MTN,Texas National MUD,,Water District (MUD/WCID/UD),base,1005,1.0261,,1.0261,False
+MC-MRC,Roman Forest Consolidated MUD,,Water District (MUD/WCID/UD),base,999,0.23,,0.23,False
+MC-MU7,Montgomery County MUD 107,,Water District (MUD/WCID/UD),base,965,0.51,,0.51,False
+MC-MU3,Montgomery County UD 3,,Water District (MUD/WCID/UD),base,957,0.1451,,0.1451,False
+MC-MCW,Chateau Woods MUD,,Water District (MUD/WCID/UD),base,954,0.2766,,0.2766,False
+MC-CWV,"Woodbranch Village, City of",,City,base,857,0.2363,,0.2363,False
+MC-T03,Porter MUD - Hendricks Defined Area,,Water District (MUD/WCID/UD),base,684,1.0,,1.0,False
+MC-MEP,East Plantation UD,,Water District (MUD/WCID/UD),base,674,0.444,,0.444,False
+MC-MR4,Roman Forest PUD 4,,Water District (MUD/WCID/UD),base,558,1.0785,,1.0785,False
+MC-RU1,"Woodlands Road Utility District 1, The",,Water District (MUD/WCID/UD),base,457,0.05,,0.05,False
+MC-SRI,Richards ISD,,ISD,base,394,0.8015,,0.8015,False
+MC-MCP,Corinthian Point MUD 2,,Water District (MUD/WCID/UD),base,392,0.5288,,0.5288,False
+MC-CST,"Stagecoach, City of",,City,base,371,0.3492,,0.3492,False
+MC-MLR,Lazy River ID,,Water District (MUD/WCID/UD),base,357,0.1454,,0.1454,False
+MC-T01,Porter MUD - Auburn Trails Defined Area I,,Water District (MUD/WCID/UD),base,330,0.5389,,0.5389,False
+MC-T04,Porter MUD - Auburn Trails Defined Area II,,Water District (MUD/WCID/UD),base,229,0.5255,,0.5255,False
+MC-MFW,Montgomery County FWSD 6,,Water District (MUD/WCID/UD),base,198,0.5985,,0.5985,False
 MC-MME,Magnolia East MUD,,Water District (MUD/WCID/UD),base,145,0.5775,,0.5775,False
-MC-T07,Unit T07 (not yet matched),,Other,base,443,0.0,,0.0,True
-MC-M185,Montgomery County MUD 185,,Water District (MUD/WCID/UD),base,878,1.5,,1.5,False
-MC-M147,Montgomery County MUD 147,,Water District (MUD/WCID/UD),base,398,0.9,,0.9,False
-MC-M144,Montgomery County MUD 144,,Water District (MUD/WCID/UD),base,975,1.5,,1.5,False
-MC-ME13A,Unit ME13A (not yet matched),,Other,base,348,0.0,,0.0,True
-MC-M191,Montgomery County MUD 191,,Water District (MUD/WCID/UD),base,1311,1.35,,1.35,False
-MC-M145,Montgomery County MUD 145,,Water District (MUD/WCID/UD),base,882,1.25,,1.25,False
-MC-MMW2,Unit MMW2 (not yet matched),,Other,base,744,0.0,,0.0,True
-MC-T10,Unit T10 (not yet matched),,Other,base,3,0.0,,0.0,True
-MC-M140,Montgomery County MUD 140,,Water District (MUD/WCID/UD),base,1620,1.38,,1.38,False
-MC-M110,Montgomery County MUD 110,,Water District (MUD/WCID/UD),base,569,1.35,,1.35,False
-MC-M149,Montgomery County MUD 149,,Water District (MUD/WCID/UD),base,493,0.9,,0.9,False
-MC-M202B,Unit M202B (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-M187,Montgomery County MUD 187,,Water District (MUD/WCID/UD),base,5,0.0,,0.0,False
-MC-M219,Montgomery County MUD 219,,Water District (MUD/WCID/UD),base,186,1.5,,1.5,False
-MC-M209,Montgomery County MUD 209,,Water District (MUD/WCID/UD),base,27,1.25,,1.25,False
-MC-M52C,Unit M52C (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-ME13,East Montgomery County MUD 13,,Water District (MUD/WCID/UD),base,451,1.5,,1.5,False
-MC-M202A,Unit M202A (not yet matched),,Other,base,296,0.0,,0.0,True
-MC-M188,Montgomery County MUD 188,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
-MC-M199,Montgomery County MUD 199,,Water District (MUD/WCID/UD),base,850,1.5,,1.5,False
-MC-M193,Unit M193 (not yet matched),,Other,base,11,0.0,,0.0,True
-MC-M171,Montgomery County MUD 171,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
-MC-M150,Montgomery County MUD 150,,Water District (MUD/WCID/UD),base,181,1.35,,1.35,False
-MC-M146B,Unit M146B (not yet matched),,Other,base,198,0.0,,0.0,True
-MC-M172,Montgomery County MUD 172,,Water District (MUD/WCID/UD),base,402,1.45,,1.45,False
-MC-M130,Unit M130 (not yet matched),,Other,base,168,0.0,,0.0,True
-MC-MAR,Unit MAR (not yet matched),,Other,base,400,0.0,,0.0,True
-MC-M54A,Unit M54A (not yet matched),,Other,base,528,0.0,,0.0,True
-MC-2015,Unit 2015 (not yet matched),,Other,base,2,0.0,,0.0,True
-MC-M146D,Unit M146D (not yet matched),,Other,base,560,0.0,,0.0,True
-MC-M146C,Unit M146C (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-M186,Montgomery County MUD 186,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
-MC-ME5,East Montgomery County MUD 5,,Water District (MUD/WCID/UD),base,1119,1.3,,1.3,False
-MC-PMD,Improvement district PMD,,Public Improvement District,excluded,192,0.0,,0.0,False
-MC-M224,Unit M224 (not yet matched),,Other,base,174,0.0,,0.0,True
-MC-RZ01,Zone RZ01,,TIRZ,excluded,559,0.0,,0.0,False
-MC-M192,Montgomery County MUD 192,,Water District (MUD/WCID/UD),base,4,0.0,,0.0,False
-MC-M177,Unit M177 (not yet matched),,Other,base,6,0.0,,0.0,True
-MC-M220,Montgomery County MUD 220,,Water District (MUD/WCID/UD),base,6,0.0,,0.0,True
-MC-M238,Unit M238 (not yet matched),,Other,base,284,0.0,,0.0,True
-MC-M215,Unit M215 (not yet matched),,Other,base,3,0.0,,0.0,True
-MC-PCM,Improvement district PCM,,Public Improvement District,excluded,230,0.0,,0.0,False
-MC-M190,Montgomery County MUD 190,,Water District (MUD/WCID/UD),base,1,0.0,,0.0,False
-MC-MFF1,Unit MFF1 (not yet matched),,Other,base,5,0.0,,0.0,True
+MC-M160,Montgomery County MUD 160,,Water District (MUD/WCID/UD),base,120,0.7,,0.7,False
+MC-M153,Montgomery County MUD 153,,Water District (MUD/WCID/UD),base,44,1.45,,1.45,False
+MC-T06,New Caney MUD - Hendricks Defined Area,,Water District (MUD/WCID/UD),base,14,0.5,,0.5,False
+MC-T08,Porter MUD - Montgomery Crossing Defined Area,,Water District (MUD/WCID/UD),base,6,0.7,,0.7,False
 MC-T09,Stanley Lake MUD Defined Area,,Water District (MUD/WCID/UD),base,3,1.0875,,1.0875,False
-MC-M038,Unit M038 (not yet matched),,Other,base,3,0.0,,0.0,True
-MC-M189,Montgomery County MUD 189,,Water District (MUD/WCID/UD),base,10,0.0,,0.0,False
-MC-MPC1A,Unit MPC1A (not yet matched),,Other,base,3,0.0,,0.0,True
-MC-MMW1,Unit MMW1 (not yet matched),,Other,base,7,0.0,,0.0,True
-MC-M218,Montgomery County MUD 218,,Water District (MUD/WCID/UD),base,661,1.5,,1.5,False

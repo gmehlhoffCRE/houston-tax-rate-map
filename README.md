@@ -98,7 +98,9 @@ entity name through `data/montgomery/mc_code_map.csv`:
 - 68 codes from the tax office's 2026 rate list (`mc_tax_office_codes_2026.csv`), marked confirmed
 - codes suggested by pattern (M + number = Montgomery County MUD n, ME n = East Montgomery County MUD n, ...)
 - zones (Z, RZ, ZE, FTZ) and P codes (improvement districts) carry no rate
-- about 79 codes still unknown: their parcels (about 15%) show "rate incomplete"
+- 40 more codes matched by location (Nov 12): most of each code's parcels (90%+) fall inside one TCEQ district
+  boundary whose name is on the tax office list (`mc_unknown_code_matches.csv`, `confirmed = location` in the code map)
+- 39 codes still unknown (about 3% of accounts show "rate incomplete"); `mc_unknown_codes.csv` lists them for MCAD
 
 When MCAD sends its code list, edit `mc_code_map.csv` (entity = exact workbook name, confirmed = yes) and rerun:
 
