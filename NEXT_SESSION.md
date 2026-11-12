@@ -28,6 +28,9 @@ Nov 9: estimated land area (*) from parcel shapes, rail pins on all rail termina
 Montgomery; Arrow Reload Alvin, Plastic Express rail sites, Savage Galveston, Port Freeport Parcel 14 could not be
 placed. Build scratch lived in /workspace/build (gone next session).
 
+Nov 12 build: Montgomery 40 location-matched codes applied (rate incomplete 15% to 3% of accounts), full 8-county
+boundary outlines (build_boundaries.py). Tests 26/26, 14/14, 6/6, 8/8 (labor_occ), 11/11.
+
 ## Earlier build (delivered Nov 8)
 
 Folder build `houston-8county-tax-map.html` + `-data-1..4.txt` + `-tiles-1..4.txt` (about 258 MB, 40 MB parts,
