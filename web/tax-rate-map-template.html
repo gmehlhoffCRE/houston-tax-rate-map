@@ -300,12 +300,72 @@ button{font-family:inherit}
 .sc .k{color:var(--ink3);font-size:11px}
 .sc .v{color:var(--ink);font-weight:600}
 .sc .v span{font-weight:400;color:var(--ink3)}
+.splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .45s ease}
+.splash.fade{opacity:0;pointer-events:none}
+.splash.drawing{pointer-events:none}
+.splash .sp{width:min(380px,calc(100vw - 32px));text-align:left}
+.splash .sp-mark{margin-bottom:22px}
+.splash .sp-t{font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-.2px}
+.splash .sp-s{font-size:12px;color:var(--ink3);margin-top:4px}
+.splash .sp-bar{height:4px;background:var(--line);border-radius:2px;margin:22px 0 14px;overflow:hidden}
+.splash .sp-bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:2px;transition:width .35s ease}
+.splash ol{list-style:none;margin:0;padding:0;font-size:12px;color:var(--ink3)}
+.splash li{display:flex;align-items:center;gap:9px;padding:3px 0}
+.splash li .d{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.splash li.on{color:var(--navy);font-weight:600}
+.splash li.on .d{border-color:var(--gold);border-top-color:transparent;animation:spspin .8s linear infinite}
+.splash li.done{color:var(--ink2)}
+.splash li.done .d{border-color:var(--navy);background:var(--navy)}
+.splash li.done .d::after{content:"";width:5px;height:3px;border:solid #fff;border-width:0 0 1.5px 1.5px;transform:rotate(-45deg) translate(0,-1px)}
+.splash li .n{margin-left:auto;font-weight:500;color:var(--ink3);font-variant-numeric:tabular-nums}
+.splash .sp-err{display:none;margin-top:14px;padding:10px 12px;border-radius:6px;background:#FDF2F2;color:#9B1C1C;font-size:12px;line-height:1.45}
+.splash.err .sp-err{display:block}
+.splash.err .sp-bar i{background:#C93B3B}
+@keyframes spspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.splash li.on .d{animation:none}}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink3);z-index:3;background:#fff}
 .zoomhint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-size:11px;color:var(--ink2);box-shadow:var(--shadow1);pointer-events:none;white-space:nowrap}
 .d-load{padding:30px 18px;font-size:12px;color:var(--ink3)}
 </style>
 </head>
 <body>
+<div class="splash" id="splash" role="status" aria-live="polite">
+  <div class="sp">
+    <div class="sp-mark">__MARK__</div>
+    <div class="sp-t">Houston Site Selector</div>
+    <div class="sp-s">Tax rates, parcels and site data for 8 Houston-area counties</div>
+    <div class="sp-bar"><i id="spBar"></i></div>
+    <ol id="spSteps">
+      <li data-k="files" class="on"><span class="d"></span><span>Reading data files</span><span class="n" id="spFiles"></span></li>
+      <li data-k="unpack"><span class="d"></span><span>Unpacking parcels and rates</span></li>
+      <li data-k="build"><span class="d"></span><span>Building search, filters and layers</span></li>
+      <li data-k="map"><span class="d"></span><span>Drawing the map</span></li>
+    </ol>
+    <div class="sp-err" id="spErr"></div>
+  </div>
+</div>
+<script>
+// loading screen: data files report in as they load (inject.py tags call __partLoaded), then the app moves the steps on
+(function(){
+  var order=['files','unpack','build','map'], span={files:[0,70],unpack:[70,84],build:[84,94],map:[94,100]}, got=0, cur='files';
+  function el(id){ return document.getElementById(id); }
+  function bar(p){ var b=el('spBar'); if(b) b.style.width=Math.max(2,Math.min(100,p))+'%'; }
+  function step(k){ var i=order.indexOf(k); if(i<0) return; cur=k;
+    document.querySelectorAll('#spSteps li').forEach(function(li){ var j=order.indexOf(li.dataset.k); li.className=j<i?'done':j===i?'on':''; });
+    bar(span[k][0]); if(k==='map'){ var s=el('splash'); if(s) s.classList.add('drawing'); } }
+  function files(){ var n=window.__nParts||0, f=el('spFiles'); if(f&&n) f.textContent=got+' of '+n; bar(n?span.files[0]+(span.files[1]-span.files[0])*got/n:10); }
+  window.__partLoaded=function(){ got++; files(); };
+  window.__splash={
+    step:step,
+    done:function(){ var s=el('splash'); if(!s||s.dataset.gone) return; s.dataset.gone=1;
+      document.querySelectorAll('#spSteps li').forEach(function(li){ li.className='done'; }); bar(100);
+      setTimeout(function(){ s.classList.add('fade'); setTimeout(function(){ s.remove(); },500); },250); },
+    error:function(msg){ var s=el('splash'); if(!s) return; s.classList.add('err'); s.classList.remove('drawing'); var e=el('spErr'); if(e) e.textContent=msg;
+      document.querySelectorAll('#spSteps li.on').forEach(function(li){ li.className=''; }); }
+  };
+  files();
+})();
+</script>
 <div class="app">
   <div class="topbar">
     __MARK__
@@ -491,6 +551,7 @@ async function b64Buf(id){
   return (await fetch('data:application/octet-stream;base64,'+t)).arrayBuffer();
 }
 async function gunzipJSON(buf){ const st=new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip')); return JSON.parse(await new Response(st).text()); }
+window.__splash&&__splash.step('unpack');
 try{
   if(CONFIG.embed){
     [EMB,TILEBUF]=await Promise.all([b64Buf('emb-data').then(gunzipJSON),b64Buf('emb-tiles')]);
@@ -502,7 +563,8 @@ try{
     [CB,MAN]=await Promise.all([getJSON(CONFIG.data+'combos.json'),getJSON(CONFIG.shards+'manifest.json')]);
   }
 }
-catch(e){ $('loading').textContent='Could not load rate data ('+e.message+').'; return; }
+catch(e){ $('loading').textContent='Could not load rate data ('+e.message+').'; window.__splash&&__splash.error('Could not load the map data: '+e.message+'.'); return; }
+window.__splash&&__splash.step('build');
 const META=CB.meta, J=CB.jur;
 const MAXID=Math.max(0,...CB.combos.map(c=>c.id));
 const COMBO=new Array(MAXID+1);
@@ -591,7 +653,7 @@ function parcelLayer(){
       return new deck.GeoJsonLayer(p,zone?{stroked:false,visible:state.shade,highlightedObjectIndex:-1,   // zones carry the type group too, so land use colors work zoomed out
         filterRange:[p.filterRange[0],[-1,1e13],p.filterRange[2]]}:{});
     },
-    onViewportLoad:tiles=>{lastTiles=tiles||[]; window.__lastTiles=lastTiles; scheduleStats();},
+    onViewportLoad:tiles=>{lastTiles=tiles||[]; window.__lastTiles=lastTiles; scheduleStats(); window.__splash&&__splash.done();},
     onHover,onClick
   });
 }
@@ -1225,6 +1287,7 @@ function initGoogle(){
 window.gm_authFailure=()=>{ initDeck(); if(window.__afterMap){ const f=window.__afterMap; window.__afterMap=null; f(); } };
 function startMap(){
   $('loading').remove();
+  window.__splash&&__splash.step('map'); setTimeout(()=>window.__splash&&__splash.done(),12000);   // fallback if no tiles report in
   // A build without a key (e.g. a copy shared publicly) can take one at open time: page.html?key=YOUR_KEY
   let key=CONFIG.gkey;
   if(!key||key.startsWith('__')){ try{ key=new URLSearchParams(location.search).get('key')||''; }catch(e){ key=''; } }

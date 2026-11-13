@@ -50,7 +50,8 @@ if a.page_only:
     nd, nt = (int(x) for x in a.page_only.split(","))
     stem = os.path.splitext(os.path.basename(a.out))[0]
     names = [f"{stem}-{k}-{i}.{a.part_ext}" for k, n in (("data", nd), ("tiles", nt)) for i in range(1, n + 1)]
-    embed = "\n".join(f'<script src="{n}" onload="this.dataset.ok=1"></script>' for n in names)
+    embed = f"<script>window.__nParts={len(names)}</script>\n" + "\n".join(
+        f'<script src="{n}" onload="this.dataset.ok=1;window.__partLoaded&&__partLoaded()"></script>' for n in names)
     cfg.update({"parts": names, "embed": True, "tiles": "", "shards": "", "data": ""})
     print(f"page only, referencing existing parts: {', '.join(names)}")
 elif a.embed:
@@ -86,10 +87,10 @@ elif a.embed:
                 name = f"{stem}-{kind}-{i // CH + 1}.{a.part_ext}"
                 with open(os.path.join(outdir, name), "w") as f:
                     f.write(f'(window.__emb=window.__emb||{{data:[],tiles:[]}}).{kind}.push("{b64[i:i + CH]}");\n')
-                tags.append(f'<script src="{name}" onload="this.dataset.ok=1"></script>')
+                tags.append(f'<script src="{name}" onload="this.dataset.ok=1;window.__partLoaded&&__partLoaded()"></script>')
                 print(f"wrote {name} ({os.path.getsize(os.path.join(outdir, name)) / 1e6:.1f} MB)")
-        embed = "\n".join(tags)
-        cfg["parts"] = [t.split('"')[1] for t in tags]   # lets the page name any file that failed to load
+        embed = f"<script>window.__nParts={len(tags)}</script>\n" + "\n".join(tags)   # loading screen counts the parts
+        cfg["parts"] = [t.split('"')[1] for t in tags if t.startswith('<script src=')]   # lets the page name any file that failed to load
     else:
         embed = (f'<script id="emb-data" type="application/octet-stream">{data_b64}</script>\n'
                  f'<script id="emb-tiles" type="application/octet-stream">{tiles_b64}</script>')
