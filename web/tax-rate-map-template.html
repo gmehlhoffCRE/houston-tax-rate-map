@@ -129,6 +129,15 @@ button{font-family:inherit}
 .mt:hover{background:var(--bg)}
 .mt.on{border-color:var(--gold);background:var(--goldSoft);color:var(--navy)}
 .legend{position:absolute;left:12px;bottom:12px;z-index:10;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow1);padding:9px 11px}
+.legend .lg-h{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;background:none;padding:0 0 6px;margin:0;cursor:pointer;font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.9px}
+.legend .lg-h svg{transition:transform .15s;color:var(--ink3)}
+.legend .lg-h:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:3px}
+.legend .lg-body{max-height:calc(100vh - 260px);overflow-y:auto;overflow-x:hidden}
+.legend.collapsed{padding:6px 10px}
+.legend.collapsed .lg-h{padding:0}
+.legend.collapsed .lg-h svg{transform:rotate(180deg)}
+.legend.collapsed .lg-body{display:none}
+@media print{.legend.collapsed .lg-body{display:block}}
 .legend .t{font-size:9.5px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
 .legend .ramp{display:flex}
 .legend .ramp div{width:30px;height:9px}
@@ -465,12 +474,15 @@ button{font-family:inherit}
         </div>
       </div>
       <div class="legend" id="legend">
+        <button class="lg-h" id="legToggle" aria-expanded="true" aria-controls="legBody" title="Hide the key"><span>Key</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="lg-body" id="legBody">
         <div id="layLeg"></div>
         <div id="rateLeg"><div class="t" id="legT">Combined rate per $100</div><div class="ramp" id="ramp"></div><div class="lab" id="rampLab"></div>
         <div class="nr"><i></i>Rate incomplete or not found</div></div>
         <div id="useLeg" class="uleg" style="display:none"></div>
         <label class="op">Opacity<input type="range" id="opac" min="0.2" max="1" step="0.05" value="0.85" aria-label="Shading opacity"></label>
         <label class="fo" id="focusRow" style="display:none"><input type="checkbox" id="focusChk" checked>Fade parcel shading under layers</label>
+        </div>
       </div>
       <div class="zoomhint" id="zoomHint" style="display:none">Zoom in to see individual parcels</div>
       <div id="tip"></div>
@@ -1457,6 +1469,10 @@ function setShade(on){ state.shade=on; $('shadeChk').checked=on;
 function syncColorSeg(){ document.querySelectorAll('#colorSeg button').forEach(x=>{ const lit=state.shade&&x.dataset.c===state.color;
   x.classList.toggle('on',lit); x.setAttribute('aria-pressed',lit); x.title=lit?'Click again to turn parcel shading off':'Color parcels by '+x.textContent.toLowerCase(); }); }
 $('shadeChk').onchange=e=>setShade(e.target.checked);
+// collapsible key, remembered in this browser
+(()=>{ const L=$('legend'), b=$('legToggle'); let c=false; try{ c=localStorage.getItem('taxmap.legend')==='collapsed'; }catch(e){}
+  const set=v=>{ L.classList.toggle('collapsed',v); b.setAttribute('aria-expanded',String(!v)); b.title=v?'Show the key':'Hide the key'; try{ localStorage.setItem('taxmap.legend',v?'collapsed':'open'); }catch(e){} };
+  set(c); b.onclick=()=>set(!L.classList.contains('collapsed')); })();
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
 function multiSelect(el,placeholder,options,key){
   el.innerHTML=`<button class="ms-btn" aria-haspopup="listbox"><span class="lab">${esc(placeholder)}</span><span class="badge"></span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="ms-pop" role="listbox" aria-multiselectable="true"></div>`;

@@ -36,7 +36,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 | Presets: Logistics, Trucking, Utilities, Risk, Development, Clear | Nov 8 | Review | |
 | Per-layer opacity sliders | Nov 8 | Review | |
 | Swatches drawn in each layer's map style | Nov 8 | Review | |
-| Dynamic legend (only layers that are on) | Nov 8 | Review | |
+| Dynamic legend (only layers that are on), collapsible to a "Key" tab (remembered in the browser) | Nov 8, collapse Nov 13 | Review | |
 | Multi-feature hover tooltip | Nov 8 | Review | |
 | Fade parcel shading to 30% under layers (toggle in legend) | Nov 8 | Review | |
 | Per-network line styles (rail ties, dashed pipelines, beaded power lines, tower dots), white casings | Nov 8 | Review | Power restyled Nov 8: solid wire + beads, saturated colors (dots were near invisible) |
