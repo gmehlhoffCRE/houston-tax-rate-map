@@ -30,6 +30,9 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 
 | Feature | Added | Status | Notes |
 |---|---|---|---|
+| Refined shell: full-bleed map, flush panel, tools top-left, basemap + zoom/reset bottom-right, Geist/Inter type, sentence-case labels, themed selection/scrollbars | Nov 15 | Review | Phones: map full screen, panel as a bottom sheet, key collapsed |
+| Calm first load: only tax-rate shading on (all layers and boundary outlines off) | Nov 15 | Review | |
+| Power lines in a violet family, pipelines warm and dashed (chemicals teal) | Nov 15 | Review | So the two networks never share a hue |
 | Left panel tabs: Rate & Map (primary), Property, Layers, with count badges | Nov 9 | Review | Search stays above the tabs; Rate and Map merged Nov 9; `tests/filter_tabs_check.js` (14 checks) |
 | Clear all (footer) and saved filter sets (browser storage) | Nov 9 | Review | Clear all resets rate and property filters incl. development sites, not layers or counties |
 | Grouped, collapsible layer panel (6 groups) | Nov 8 | Review | |

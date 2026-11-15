@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Cresa Houston Site Selector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Built by pipeline/inject.py from web/tax-rate-map-template.html. Placeholders: __MARK__, __CONFIG__, and the map icons -->
 <style>
 :root{
   --navy:#001E5A; --navyLight:#0A2D6E; --gold:#FFB600; --goldSoft:#FFE9B0;
   --blueSoft:#E8EFF8; --blueSofter:#F4F7FC;
-  --ink:#0E1220; --ink2:#2B3350; --ink3:#5A6580; --ink4:#8A93A8;
+  --ink:#0E1220; --ink2:#2B3350; --ink3:#56617C; --ink4:#68728A;
   --line:#E4E8F0; --lineSoft:#EEF1F6; --bg:#F6F7FB; --ok:#1B8F6A; --warn:#B54708;
   --shadow1:0 1px 2px rgba(0,30,90,0.05), 0 1px 3px rgba(0,30,90,0.04);
   --shadow3:0 10px 40px rgba(0,30,90,0.18);
@@ -335,6 +337,124 @@ button{font-family:inherit}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink3);z-index:3;background:#fff}
 .zoomhint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-size:11px;color:var(--ink2);box-shadow:var(--shadow1);pointer-events:none;white-space:nowrap}
 .d-load{padding:30px 18px;font-size:12px;color:var(--ink3)}
+/* ---------------------------------------------------------------- refined shell (Nov 15)
+   full-bleed map, one floating-control language, sentence-case labels, Inter with even-width numbers */
+:root{--r:10px;--r-sm:7px;--shadow2:0 1px 2px rgba(0,30,90,.06),0 6px 20px rgba(0,30,90,.10);--edge:rgba(0,30,90,.09);--railW:332px}
+body{font-family:'Geist','Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#fff;font-feature-settings:'ss01'}
+.status,.hticks,.ms-opt .n,.kpis .v,.f .v,.dtlab table,.legend .lab,.cmp table,#mCount,.chk,.tabs .tb{font-variant-numeric:tabular-nums}
+::selection{background:var(--goldSoft);color:var(--navy)}
+input,select,textarea{caret-color:var(--navy);font-family:inherit}
+*{scrollbar-width:thin;scrollbar-color:#CDD4E2 transparent}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#CDD4E2;border-radius:9px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#AEB8CC;background-clip:padding-box}
+::-webkit-scrollbar-track{background:transparent}
+a{text-underline-offset:2px}
+
+.topbar{height:56px;padding:0 20px;box-shadow:none}
+.title{font-size:15px;font-weight:600;letter-spacing:-.2px}
+.status{font-size:11.5px;font-weight:500;border-radius:999px;padding:5px 12px;border-color:var(--line);color:var(--ink2)}
+
+.main{padding:0;gap:0}
+.rail{width:var(--railW);border:0;border-right:1px solid var(--line);border-radius:0;position:relative;z-index:12}
+.rail-h{display:none}
+.sheet-h{display:none}
+.search{margin:14px 16px 10px;height:40px;border-radius:9px;background:var(--bg);border-color:transparent;transition:border-color .15s,background .15s,box-shadow .15s}
+.search input{font-size:13.5px}
+.search:focus-within{border-color:var(--navy);background:#fff;box-shadow:0 0 0 3px var(--blueSoft)}
+.tabs{margin:0 16px}
+.tabs button{height:38px;font-size:13px;font-weight:600;color:var(--ink3)}
+.tabs button.on{color:var(--navy)}
+.saved{margin:12px 16px 0}
+.saved select{height:32px;border-radius:8px;font-size:12.5px;border-color:var(--line);background:#fff}
+.rail-b,.pane.pinned{padding:16px}
+.rail-f{padding:11px 16px;font-size:12px}
+
+/* labels: quiet sentence case instead of tracked capitals */
+.fs-t,.legend .t,.ll .lt,.dtlab .lt,.legend .op,.grp-h,.sec,.f .k,.kpis .k,.cmp th,.cmp .sec td,.cmp .sec th,.dtlab .og td{text-transform:none;letter-spacing:0}
+.fs-t{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:9px}
+.fs{margin-bottom:22px}
+.grp-h{font-size:13px;font-weight:600;color:var(--ink);padding:11px 0}
+.chk{font-size:12.5px;color:var(--ink2)}
+.chk .box,.ms-opt .box{border-radius:4px;border-color:#C5CDDC}
+.presets button{height:28px;padding:0 11px;border-radius:999px;font-size:12px}
+.seg{border-radius:8px}
+.seg button{height:30px;border-radius:6px;font-size:12px}
+.tin,.ms-btn{height:36px;border-radius:8px;font-size:12.5px}
+.hticks,.hcap{font-size:10.5px}
+
+/* map: edge to edge */
+.mapwrap{border:0;border-radius:0;box-shadow:none}
+.toolbar,.dtbar,.legend,.slpanel,.zoombar,#tip,.zoomhint{border:1px solid var(--edge);box-shadow:var(--shadow2)}
+.toolbar,.dtbar,.legend,.slpanel,.zoombar{border-radius:var(--r)}
+.dtbar{top:14px;left:14px;padding:4px}
+.dtbar .row{gap:2px}
+.slpanel{top:64px;left:14px}
+.mt{height:32px;padding:0 12px;border-radius:var(--r-sm);font-size:12.5px;font-weight:600;color:var(--ink2);gap:7px}
+.mt svg{color:var(--ink3);flex-shrink:0}
+.mt:hover{background:var(--bg);color:var(--navy)}
+.mt:hover svg{color:var(--navy)}
+.mt.on{border-color:transparent;background:var(--navy);color:#fff}
+.mt.on svg{color:#fff}
+#mtBar{top:auto;left:auto;right:64px;bottom:28px;padding:4px}
+#mtBar .mt{height:30px;padding:0 11px;font-size:12px}
+.zoombar{position:absolute;right:14px;bottom:28px;z-index:10;background:#fff;display:flex;flex-direction:column;padding:4px;gap:2px}
+.zoombar button{width:32px;height:32px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s}
+.zoombar button:hover{background:var(--bg);color:var(--navy)}
+.zoombar button:active{background:var(--blueSoft)}
+.zoombar button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.legend{left:14px;bottom:28px;padding:10px 12px;max-width:264px}
+.legend .lg-h{font-size:12.5px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+.legend .t,.ll .lt{font-size:11.5px;font-weight:600;color:var(--ink)}
+.ll .le,.uleg .le{font-size:11.5px}
+.legend .lab,.legend .nr,.ll .ln{font-size:10.5px}
+.legend .op{font-size:11.5px;font-weight:500;color:var(--ink3)}
+#tip{border-radius:9px;font-size:12px;padding:9px 11px}
+.zoomhint{bottom:28px;font-size:12px;padding:6px 14px;border-radius:999px}
+.attr{border-radius:4px 0 0 0}
+
+/* drawer */
+.drawer{top:14px;right:14px;bottom:14px;border-radius:14px;border:1px solid var(--edge)}
+.d-title{font-size:20px;font-weight:700;letter-spacing:-.4px}
+.d-sub{font-size:12.5px}
+.kpis{border-radius:10px;border-color:transparent}
+.kpis .k{font-size:11px;font-weight:500;color:var(--ink3)}
+.kpis .v{font-size:22px}
+.f .k{font-size:11.5px;font-weight:500;color:var(--ink3)}
+.f .v{font-size:13.5px}
+.sec{font-size:13px;font-weight:600;color:var(--ink);margin:22px 0 8px}
+.btn{height:38px;border-radius:9px;font-size:13px}
+.cmp th{font-size:11.5px}
+
+.hticks,.hcap,.legend .lab,.legend .nr,.ll .ln,.dtbar .bands span,.dtbar .note,.dtlab .ln,.devnote,.smsg,.sr .b{font-size:11px}
+.dtlab table{font-size:11px}
+.ll .ln,.dtbar .note,.dtlab .ln{color:var(--ink3)}
+@media (max-width:820px){
+  body{overflow:hidden}
+  .app{height:100vh;height:100dvh;min-height:0}
+  .topbar{height:52px;padding:0 14px;gap:12px}
+  .topbar .vrule{display:none}
+  .title{font-size:14px}
+  .main{position:relative;flex-direction:column;padding:0}
+  .mapwrap{position:absolute;inset:0;height:auto;flex:none}
+  .rail{position:absolute;left:0;right:0;bottom:0;width:100%;height:calc(100% - 24px);max-height:none;border:0;border-radius:16px 16px 0 0;
+    box-shadow:0 -8px 28px rgba(0,30,90,.18);z-index:30;transform:translateY(calc(100% - 136px));transition:transform .28s cubic-bezier(.22,.9,.24,1)}
+  .rail.sheet-open{transform:none}
+  .rail.sheet-open~.mapwrap .dtbar,.rail.sheet-open~.mapwrap .slpanel{visibility:hidden}
+  .sheet-h{display:flex;justify-content:center;align-items:center;width:100%;height:22px;border:0;background:none;padding:0;cursor:pointer;flex-shrink:0}
+  .sheet-h span{width:38px;height:4px;border-radius:2px;background:#CDD4E2}
+  .search{margin:2px 14px 8px}
+  .tabs{margin:0 14px}
+  .dtbar{top:10px;left:10px;max-width:calc(100% - 20px)}
+  .dtbar.open{width:calc(100vw - 20px)}
+  .slpanel{top:58px;left:10px;width:calc(100% - 20px)}
+  .legend{left:10px;bottom:148px;max-width:calc(100% - 80px)}
+  .zoombar{right:10px;bottom:148px}
+  #mtBar{right:56px;bottom:148px}
+  .zoomhint{display:none!important}
+  .drawer{top:0;right:0;bottom:0;left:0;width:auto;max-width:none;border-radius:0;z-index:40;border:0}
+}
+@media (prefers-reduced-motion:reduce){.rail{transition:none}}
 </style>
 </head>
 <body>
@@ -385,7 +505,8 @@ button{font-family:inherit}
   </div>
 
   <div class="main">
-    <div class="rail">
+    <div class="rail" id="rail">
+      <button class="sheet-h" id="sheetH" aria-label="Expand the panel" aria-expanded="false"><span></span></button>
       <div class="rail-h">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#001E5A" stroke-width="1.75" stroke-linecap="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
         <div class="t">Filters</div>
@@ -458,11 +579,15 @@ button{font-family:inherit}
           <button class="mt on" data-t="cresa">Map</button>
           <button class="mt" data-t="satellite">Satellite</button>
           <button class="mt" data-t="hybrid">Hybrid</button>
-          <span class="tsep"></span><button class="mt" id="slBtn" title="Sites you saved">Shortlist</button><button class="mt" id="shareBtn" title="Copy a link to this view">Share</button>
+      </div>
+      <div class="zoombar" id="zoomBar" role="group" aria-label="Map view">
+        <button id="zIn" aria-label="Zoom in" title="Zoom in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button id="zOut" aria-label="Zoom out" title="Zoom out"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+        <button id="zHome" aria-label="Show the whole region" title="Show the whole region"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
       </div>
       <div class="slpanel" id="slPanel"></div>
       <div class="dtbar" id="dtBar">
-        <div class="row"><button class="mt" id="dtBtn" title="Estimate how far a car or truck can drive in 15 to 60 minutes">Drive time</button>
+        <div class="row"><button class="mt" id="dtBtn" title="Estimate how far a car or truck can drive in 15 to 60 minutes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Drive time</button><button class="mt" id="slBtn" title="Sites you saved"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span id="slLab">Shortlist</span></button><button class="mt" id="shareBtn" title="Copy a link to this view"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Share</button><span class="tsep" id="dtSep" style="display:none"></span>
           <span id="dtMode" style="display:none"><button class="mt on" data-m="car">Car</button><button class="mt" data-m="truck">Truck</button></span>
           <button class="mt" id="dtClear" style="display:none">Clear</button></div>
         <div class="body">
@@ -525,9 +650,9 @@ const STOP=new Set('llc inc ltd lp llp co corp company the of and etal et al est
 const CRESA_STYLES=[{elementType:"geometry",stylers:[{color:"#F1F4F9"}]},{elementType:"labels.text.fill",stylers:[{color:"#5A6580"}]},{elementType:"labels.text.stroke",stylers:[{color:"#FFFFFF"},{weight:3}]},{elementType:"labels.icon",stylers:[{visibility:"off"}]},{featureType:"poi",elementType:"labels",stylers:[{visibility:"off"}]},{featureType:"poi.business",stylers:[{visibility:"off"}]},{featureType:"transit",stylers:[{visibility:"off"}]},{featureType:"poi.park",elementType:"geometry",stylers:[{color:"#DCE6DC"}]},{featureType:"administrative",elementType:"geometry.stroke",stylers:[{color:"#BAC3D2"},{weight:0.7}]},{featureType:"administrative.locality",elementType:"labels.text.fill",stylers:[{color:"#1E2A47"}]},{featureType:"administrative.locality",elementType:"labels.text.stroke",stylers:[{color:"#FFFFFF"},{weight:3.5}]},{featureType:"administrative.neighborhood",elementType:"labels.text.fill",stylers:[{color:"#8A93A8"}]},{featureType:"landscape.natural",elementType:"geometry",stylers:[{color:"#E9EDF5"}]},{featureType:"landscape.man_made",elementType:"geometry",stylers:[{color:"#F1F4F9"}]},{featureType:"road",elementType:"labels.icon",stylers:[{visibility:"off"}]},{featureType:"road.local",elementType:"geometry.fill",stylers:[{color:"#FFFFFF"}]},{featureType:"road.local",elementType:"geometry.stroke",stylers:[{color:"#E4E8F1"},{weight:0.35}]},{featureType:"road.local",elementType:"labels.text.fill",stylers:[{color:"#8A93A8"}]},{featureType:"road.arterial",elementType:"geometry.fill",stylers:[{color:"#EDF0F7"}]},{featureType:"road.arterial",elementType:"labels.text.fill",stylers:[{color:"#6B7488"}]},{featureType:"road.highway",elementType:"geometry.fill",stylers:[{color:"#DEE3EF"}]},{featureType:"road.highway",elementType:"geometry.stroke",stylers:[{color:"#93A0BE"},{weight:0.4}]},{featureType:"road.highway.controlled_access",elementType:"geometry.fill",stylers:[{color:"#D2DAE8"}]},{featureType:"road.highway.controlled_access",elementType:"geometry.stroke",stylers:[{color:"#8492B2"},{weight:0.5}]},{featureType:"road.highway",elementType:"labels.text.fill",stylers:[{color:"#5A6A92"}]},{featureType:"water",elementType:"geometry.fill",stylers:[{color:"#C6D8EC"}]},{featureType:"water",elementType:"labels.text.fill",stylers:[{color:"#3A5488"}]},{featureType:"water",elementType:"labels.text.stroke",stylers:[{color:"#C6D8EC"},{weight:2}]}];
 // labelZ is deck zoom (Google zoom minus 1) at which labels appear
 const OVERLAYS=[
-  {key:'city',label:'City limits',color:[0,30,90],width:2.5,on:true,labelZ:9},
-  {key:'isd',label:'School districts',color:[196,30,58],width:3,on:true,labelZ:9},
-  {key:'special',label:'Industrial and improvement districts',color:[110,60,150],width:2,on:true,dash:true,labelZ:11},
+  {key:'city',label:'City limits',color:[0,30,90],width:2.5,on:false,labelZ:9},
+  {key:'isd',label:'School districts',color:[196,30,58],width:3,on:false,labelZ:9},
+  {key:'special',label:'Industrial and improvement districts',color:[110,60,150],width:2,on:false,dash:true,labelZ:11},
   {key:'water',label:'Water districts',color:[0,140,170],width:2,on:false,labelZ:12},
   {key:'esd',label:'Emergency service districts',color:[150,90,30],width:2,on:false,labelZ:10},
   {key:'tirz',label:'TIRZ',color:[27,143,106],width:2,on:false,dash:true,labelZ:11}
@@ -676,7 +801,7 @@ const RAIL_C={UP:[214,160,0],BNSF:[230,110,30],PTRA:[0,128,140],CPKC:[180,40,60]
 const RAIL_NAME={UP:'Union Pacific',BNSF:'BNSF',PTRA:'Port Terminal RR',CPKC:'CPKC (KCS)',TCT:'Texas City Terminal',GVSR:'Galveston Railroad',PVTX:'Point Comfort & Northern / PVTX'};
 const railC=o=>RAIL_C[o]||[90,90,100];
 const PIPE_CLS=c=>{c=(c||'').toUpperCase(); return c.includes('NATURAL GAS')||c.includes('GAS')&&!c.includes('LIQUID')?'gas':c.includes('CRUDE')?'crude':c.includes('REFINED')||c.includes('PRODUCT')?'refined':c.includes('VOLATILE')||c.includes('HVL')||c.includes('CHEM')||c.includes('LIQUID')?'chem':'other';};
-const PIPE_C={gas:[230,140,30],crude:[120,72,30],refined:[200,40,40],chem:[150,60,170],other:[120,120,130]};
+const PIPE_C={gas:[230,140,30],crude:[120,72,30],refined:[200,40,40],chem:[0,128,118],other:[120,120,130]};
 const RT_C={transload:[200,40,110],park:[40,90,190],liquid:[110,70,170]};   // apart from the railroad colors used for yards
 const RT_NAME={transload:'Transload terminal',park:'Rail-served industrial park',liquid:'Liquid bulk terminal with rail'};
 const hostOf=u=>{ try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return ''; } };
@@ -703,7 +828,7 @@ function utilStats(p){
 }
 const PIPE_NAME={gas:'Natural gas',crude:'Crude oil',refined:'Refined products',chem:'Chemicals / HVL',other:'Other or unknown'};
 const KV_CLS=kv=>kv>=345?'345':kv>=230?'230':kv>=100?'138':'69';
-const KV_C={'345':[165,0,45],'230':[215,45,20],'138':[235,110,0],'69':[185,135,0]};   // saturated so the lines read as strongly as pipelines
+const KV_C={'345':[52,20,120],'230':[94,53,177],'138':[134,94,214],'69':[170,140,226]};   // violet family: never shares a hue with the warm, dashed pipelines   // saturated so the lines read as strongly as pipelines
 const KV_NAME={'345':'345 kV and up','230':'230 kV','138':'100 to 161 kV','69':'Under 100 kV'};
 const FLOOD_C={'Floodway':[20,60,170,130],'100-year':[40,110,210,95],'500-year':[120,170,235,55]};
 const ZONE_C={industrial:[123,79,160],commercial:[214,72,48],mixed:[235,140,40],planned:[0,140,140],residential:[240,200,60],ag_open:[110,170,90],other:[150,150,160]};
@@ -754,13 +879,13 @@ const IND=[
     legend:()=>[['Rail yard (larger pin = more track)','icon:rail'],['Yard track, colored by owning railroad (see Rail lines)','band',[214,160,0]],['Hover for type and size (track miles); band width = size','note'],['US DOT rail yards in the 8 counties','note']],
     pins:'rail',labelZ:12,text:p=>p.name?p.name+' yard':'',
     name:p=>`${tc(p.name||'')} yard`,tip:p=>`<b>${esc(p.name||'Rail')} yard</b><br>${esc(RAIL_NAME[p.owner]||p.owner||'')}${p.type?' · '+esc(p.type):''}${p.track_mi!=null?'<br>'+esc(p.size||'')+', '+p.track_mi+' track miles':''}${p.note?'<br>'+esc(p.note):''}<br><span style="color:#8A93A8">US DOT rail yards${p.county?' · '+esc(p.county)+' County':''}</span>`},
-  {key:'ports',group:'logistics',label:'Ports and port terminals',kind:'point',sw:'rgb(0,30,90)',on:true,
+  {key:'ports',group:'logistics',label:'Ports and port terminals',kind:'point',sw:'rgb(0,30,90)',
     icon:p=>p.kind==='airport'?'airport':'port',iconSize:p=>p.major?34:24,
     color:p=>p.kind==='terminal'?(p.major?[255,182,0]:[214,150,40]):p.kind==='port'?[0,30,90]:[90,100,130],radius:p=>p.kind==='terminal'?(p.major?8:5.5):p.major?7:4,
     labelZ:7,labelMinor:11,text:p=>p.name,
     legend:()=>[['Port or port terminal','icon:port'],['Larger icons: major ports and container terminals','note']],name:p=>p.name,
     tip:p=>p.kind==='terminal'?`<b>${esc(p.name)}</b><br>${p.port?esc(p.port)+' terminal · ':''}${esc(p.cargo||'')}${p.note?'<br>'+esc(p.note):''}${p.operators?'<br>Operators here: '+esc(p.operators):''}`:`<b>${esc(p.name)}</b><br>${p.kind==='port'?'Port':'Public-use airport'}`},
-  {key:'airports',group:'logistics',label:'Airports (public use)',kind:'point',sw:'rgb(90,100,130)',on:true,
+  {key:'airports',group:'logistics',label:'Airports (public use)',kind:'point',sw:'rgb(90,100,130)',
     icon:()=>'airport',iconSize:p=>p.major?34:24,color:p=>[90,100,130],radius:p=>p.major?7:4,labelZ:7,labelMinor:11,text:p=>p.name,
     legend:()=>[['Public-use airport','icon:airport'],['Larger icons: commercial and major general aviation airports; smaller ones from zoom 12','note']],name:p=>p.name,
     tip:p=>`<b>${esc(p.name)}</b><br>Public-use airport`},
@@ -805,7 +930,7 @@ const IND=[
     legend:()=>Object.keys(KV_C).map(k=>[KV_NAME[k],'dot-line',KV_C[k]]).concat([['Under 100 kV from zoom 12; tower dots from zoom 15','note']]),
     name:p=>`${p.kv>0?p.kv+' kV':'Transmission'} line`,tip:p=>`<b>Transmission line${p.kv>0?': '+p.kv+' kV':''}</b><br>${esc(tc(p.owner||''))}`},
   {key:'substations',group:'infra',label:'Substations',kind:'point',sw:'rgb(200,30,30)',color:p=>KV_C[KV_CLS(p.kv||0)],radius:4,labelZ:12,text:p=>p.kv>0?p.kv+' kV':'',show:(p,dz)=>dz>=11||(p.kv||0)>=100,
-    legend:()=>[['Substation (color = max kV)','dot',[200,30,30]],['Under 100 kV from zoom 12','note']],name:p=>`Substation${p.kv>0?' '+p.kv+' kV':''}`,
+    legend:()=>[['Substation (color = max kV)','dot',[94,53,177]],['Under 100 kV from zoom 12','note']],name:p=>`Substation${p.kv>0?' '+p.kv+' kV':''}`,
     tip:p=>`<b>Substation${p.kv>0?' · '+p.kv+' kV':''}</b><br>${esc(p.name||'')}`},
   {key:'water_ccn',group:'infra',label:'Water service areas (PUC)',kind:'outline',sw:'rgb(0,140,200)',color:()=>[0,140,200],
     legend:()=>[['Water CCN boundary','line',[0,140,200]]],name:p=>tc(p.name||'')+' water',tip:p=>`<b>Water provider</b><br>${esc(tc(p.name||''))}`},
@@ -1288,7 +1413,7 @@ function initDeck(){
   if(gmap){mapEl.innerHTML='';overlay&&overlay.setMap(null);overlay=null;gmap=null;}
   $('mtBar').style.display='flex';
   const f=new deck.WebMercatorViewport({width:mapEl.clientWidth,height:mapEl.clientHeight}).fitBounds([[BB[0],BB[1]],[BB[2],BB[3]]],{padding:10});
-  const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20};
+  const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20}; homeVS=iv;
   baseLayers=esriBase(baseType);
   const vb=deckBounds;
   deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
@@ -1331,6 +1456,18 @@ document.querySelectorAll('#mtBar .mt[data-t]').forEach(b=>b.onclick=()=>{ baseT
 function flyTo(lon,lat,gz){
   if(gmap){gmap.panTo({lat,lng:lon}); if(gmap.getZoom()<gz)gmap.setZoom(gz);}
   else if(deckgl){deckgl.setProps({initialViewState:{longitude:lon,latitude:lat,zoom:gz-1,minZoom:7.5,maxZoom:20,transitionDuration:700,transitionInterpolator:new deck.FlyToInterpolator()}});}
+}
+let homeVS=null;
+function zoomBy(d){
+  if(gmap){ gmap.setZoom((gmap.getZoom()||10)+d); return; }
+  if(!deckgl) return; const v=state.view||homeVS; if(!v) return;
+  const vs={longitude:v.longitude,latitude:v.latitude,zoom:Math.max(7.5,Math.min(20,v.zoom+d)),minZoom:7.5,maxZoom:20,transitionDuration:220};
+  deckgl.setProps({initialViewState:vs}); state.view=vs; viewChanged(vs.zoom+1,deckBounds(vs)); scheduleUrl();
+}
+function goHome(){
+  if(gmap){ gmap.fitBounds({west:BB[0],south:BB[1],east:BB[2],north:BB[3]},0); return; }
+  if(!deckgl||!homeVS) return; const vs={...homeVS,transitionDuration:350};
+  deckgl.setProps({initialViewState:vs}); state.view=vs; viewChanged(vs.zoom+1,deckBounds(vs)); scheduleUrl();
 }
 function setView(lon,lat,gz){   // exact camera, used by tests
   if(gmap){gmap.setCenter({lat,lng:lon}); gmap.setZoom(gz);}
@@ -1485,9 +1622,18 @@ function syncColorSeg(){ document.querySelectorAll('#colorSeg button').forEach(x
   x.classList.toggle('on',lit); x.setAttribute('aria-pressed',lit); x.title=lit?'Click again to turn parcel shading off':'Color parcels by '+x.textContent.toLowerCase(); }); }
 $('shadeChk').onchange=e=>setShade(e.target.checked);
 // collapsible key, remembered in this browser
-(()=>{ const L=$('legend'), b=$('legToggle'); let c=false; try{ c=localStorage.getItem('taxmap.legend')==='collapsed'; }catch(e){}
+(()=>{ const L=$('legend'), b=$('legToggle'); let c=null; try{ c=localStorage.getItem('taxmap.legend'); }catch(e){}
+  c=c?c==='collapsed':window.matchMedia('(max-width:820px)').matches;
   const set=v=>{ L.classList.toggle('collapsed',v); b.setAttribute('aria-expanded',String(!v)); b.title=v?'Show the key':'Hide the key'; try{ localStorage.setItem('taxmap.legend',v?'collapsed':'open'); }catch(e){} };
   set(c); b.onclick=()=>set(!L.classList.contains('collapsed')); })();
+$('zIn').onclick=()=>zoomBy(1); $('zOut').onclick=()=>zoomBy(-1); $('zHome').onclick=goHome;
+// phones: the panel is a bottom sheet over a full-screen map; search and tabs stay visible when it is down
+(()=>{ const R=$('rail'), H=$('sheetH'), mq=window.matchMedia('(max-width:820px)');
+  const set=o=>{ R.classList.toggle('sheet-open',o); H.setAttribute('aria-expanded',String(o)); H.setAttribute('aria-label',o?'Collapse the panel':'Expand the panel'); };
+  H.onclick=()=>set(!R.classList.contains('sheet-open'));
+  $('q').addEventListener('focus',()=>{ if(mq.matches) set(true); });
+  document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{ if(mq.matches) set(true); }));
+})();
 $('opac').oninput=e=>{state.opacity=+e.target.value; refresh();};
 function multiSelect(el,placeholder,options,key){
   el.innerHTML=`<button class="ms-btn" aria-haspopup="listbox"><span class="lab">${esc(placeholder)}</span><span class="badge"></span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="ms-pop" role="listbox" aria-multiselectable="true"></div>`;
@@ -1737,7 +1883,7 @@ async function dtLabor(G,T){
 // shortlist: sites saved in this browser, exported as CSV
 const SL_KEY='taxmap.shortlist';
 let SL=[]; try{ SL=JSON.parse(localStorage.getItem(SL_KEY)||'[]'); }catch(e){ SL=[]; }
-const slSave=()=>{ try{ localStorage.setItem(SL_KEY,JSON.stringify(SL)); }catch(e){} $('slBtn').textContent=`Shortlist${SL.length?' ('+SL.length+')':''}`; renderShortlist(); };
+const slSave=()=>{ try{ localStorage.setItem(SL_KEY,JSON.stringify(SL)); }catch(e){} $('slLab').textContent=`Shortlist${SL.length?' ('+SL.length+')':''}`; renderShortlist(); };
 const slHas=a=>SL.some(x=>x.acct===a);
 function slToggle(rec){
   if(slHas(rec.acct)) SL=SL.filter(x=>x.acct!==rec.acct);
@@ -1886,7 +2032,7 @@ $('fClearAll').onclick=()=>{
 };
 // counties can carry different rate years (Fort Bend uses FBCAD's newest posted sheet)
 const YEARS=META.taxYears||{Harris:META.taxYear}, MIXED=new Set(Object.values(YEARS)).size>1;
-$('statusTxt').textContent=(MIXED?Object.entries(YEARS).sort((a,b)=>(a[0]==='Harris'?-1:b[0]==='Harris'?1:a[0].localeCompare(b[0]))).map(([co,y])=>`${co.toUpperCase()} ${y}`).join(' · ')+' RATES':`${META.taxYear} RATES`)+` · ${META.valueYear} VALUES · ${META.accounts.toLocaleString()} ACCOUNTS`;
+$('statusTxt').textContent=(MIXED?Object.entries(YEARS).sort((a,b)=>(a[0]==='Harris'?-1:b[0]==='Harris'?1:a[0].localeCompare(b[0]))).map(([co,y])=>`${co} ${y}`).join(' · ')+' rates':`${META.taxYear} rates`)+` · ${META.valueYear} values · ${META.accounts.toLocaleString()} accounts`;
 $('legT').textContent=MIXED?'Combined rate per $100':`${META.taxYear} combined rate per $100`;
 // account formats: HCAD 13 digits, FBCAD R + digits, MCAD up to 7 digits, Waller W + WCAD property id,
 // Chambers C + Chambers CAD property id, Brazoria B + BCAD property id, Liberty L + LCAD property id,
