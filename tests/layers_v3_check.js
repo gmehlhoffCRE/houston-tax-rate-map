@@ -87,6 +87,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.evaluate(()=>window.__app.setLayer('rail_served',true)); await sleep(1500);
  const rs=await p.evaluate(()=>{const RSd=window.__app.indData.rail_served.a; for(const a in RSd){ if(/^\d{13}$/.test(a)&&RSd[a][0]==='UP') return a; }});
  await p.evaluate(a=>window.__app.openAccount(a,{fly:true}),rs);
+ await p.waitForSelector('.dtabs button[data-dt="site"]',{timeout:60000}); await p.$eval('.dtabs button[data-dt="site"]',e=>e.click());   // site checks live in their own drawer tab
  await p.waitForFunction(()=>{const e=document.getElementById('siteChk'); return e&&/Rail/.test(e.innerText);},null,{timeout:60000}).catch(()=>{});
  const sc=await p.evaluate(()=>{const e=document.getElementById('siteChk'); return e?e.innerText.replace(/\n/g,' | '):'';});
  check('site checks list rail, zoning, OZ, flood, wetlands, evacuation, cleanup',/Rail \| Union Pacific/.test(sc)&&/Zoning/.test(sc)&&/Opportunity Zone/.test(sc)&&/Flood zone/.test(sc)&&/Evacuation/.test(sc)&&/cleanup/.test(sc)&&/Road projects within 1 mi/.test(sc)&&/Truck time to container terminals \| Barbours Cut \d+ min/.test(sc.replace(/\n/g,' '))&&/Truck restrictions within 2 mi/.test(sc)&&/Highway freight network/.test(sc)&&/Transit \(METRO\)/.test(sc)&&/Electric utility \| CenterPoint/.test(sc)&&/Enterprise Zone/.test(sc)&&/Foreign-Trade Zone/.test(sc)&&/Watershed/.test(sc),sc);

@@ -180,7 +180,7 @@ button{font-family:inherit}
 .brk .r .w{font-size:12px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
 .brk .r .m{grid-column:1/-1;height:5px;background:var(--blueSofter);border-radius:3px;overflow:hidden}
 .brk .r .m i{display:block;height:100%;background:var(--navy);border-radius:3px}
-.brk .r.mg .m i{background:var(--gold)}
+.brk .r .tagm{display:inline-block;margin-left:6px;padding:0 6px;border-radius:999px;background:var(--goldSoft);color:var(--ink2);font-size:10.5px;font-weight:600;line-height:17px;vertical-align:1px}
 .brk .tot{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:4px;padding-top:7px;font-size:12px;font-weight:700;color:var(--navy)}
 .note{padding:10px 12px;background:var(--blueSofter);border:1px solid var(--line);border-radius:6px;font-size:12px;line-height:1.5;color:var(--ink2);margin-top:8px}
 .note.gold{background:#FFF8E6;border-color:var(--goldSoft)}
@@ -429,6 +429,17 @@ a{text-underline-offset:2px}
 .hticks,.hcap,.legend .lab,.legend .nr,.ll .ln,.dtbar .bands span,.dtbar .note,.dtlab .ln,.devnote,.smsg,.sr .b{font-size:11px}
 .dtlab table{font-size:11px}
 .ll .ln,.dtbar .note,.dtlab .ln{color:var(--ink3)}
+.dtabs{display:grid;grid-template-columns:repeat(3,1fr);margin:16px 0 4px;border-bottom:1px solid var(--line);position:sticky;top:-16px;background:#fff;z-index:2}
+.dtabs button{height:38px;border:0;background:none;cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--ink3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s}
+.dtabs button:hover{color:var(--navy)}
+.dtabs button.on{color:var(--navy);border-bottom-color:var(--gold)}
+.dtabs button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.dpane{display:none;padding-top:6px}
+.dpane.on{display:block}
+.dpane .sec.first{margin-top:10px}
+.dpane .sc{margin-top:8px;gap:9px 14px}
+.dpane .sc .k{font-size:12px}
+.dpane .sc .v{font-size:12.5px;line-height:1.4}
 @media (max-width:820px){
   body{overflow:hidden}
   .app{height:100vh;height:100dvh;min-height:0}
@@ -2163,6 +2174,10 @@ function renderDrawer(p){
         <div><div class="k">Est. annual tax</div><div class="v">${tax==null?NA:short$(tax)}</div></div><div class="sep"></div>
         <div><div class="k">Tax / SF / mo</div><div class="v">${tax!=null&&p.bld?'$'+(tax/p.bld/12).toFixed(2):NA}</div></div>
       </div>
+      <div class="dtabs" role="tablist" aria-label="Parcel details">
+        <button role="tab" data-dt="prop">Property</button><button role="tab" data-dt="tax">Taxes</button><button role="tab" data-dt="site">Site checks</button>
+      </div>
+      <div class="dpane" data-dp="prop" role="tabpanel">
       <div class="grid">
         ${F('Owner',esc(tc(p.owner)),true)}
         ${F(cad+(PID_COUNTIES.has(county)?' property ID':' account'),esc(acctLabel(p.acct,county)))}
@@ -2179,12 +2194,14 @@ function renderDrawer(p){
         ${F('Emergency services',esc(c&&c.esd?tc(c.esd):'None'))}
         ${F('College district',esc(c?tc(c.college):''),true)}
       </div>
-      <div class="sec">Site checks</div><div class="sc" id="siteChk"><div class="k">Checking layers</div><div></div></div>
-      <div class="sec">Rate by jurisdiction</div>
-      <div class="brk">${rows.map(([code,w])=>{const j=J[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
+      ${p.lest?`<div class="note gold">* Land area is an estimate from the parcel shape: ${cad} lists no land area for this account.</div>`:''}
+      </div>
+      <div class="dpane" data-dp="site" role="tabpanel"><div class="sc" id="siteChk"><div class="k">Checking layers</div><div></div></div></div>
+      <div class="dpane" data-dp="tax" role="tabpanel">
+      <div class="sec first">Rate by jurisdiction</div>
+      <div class="brk">${rows.map(([code,w])=>{const j=J[code]||[code,'',''];return `<div class="r ${j[2]==='mgmt'?'mg':''}"><span class="n" title="${esc(j[1])}">${esc(tc(j[0]))}${j[2]==='mgmt'?'<span class="tagm">Management district</span>':''}</span><span class="w">${w.toFixed(4)}</span><span class="m"><i style="width:${(w/mx*100).toFixed(1)}%"></i></span></div>`;}).join('')}
         <div class="tot"><span>Combined</span><span>${r==null?NA:r.toFixed(4)}</span></div></div>`;
   const notes=[];
-  if(p.lest) notes.push(['gold',`* Land area is an estimate from the parcel shape: ${cad} lists no land area for this account.`]);
   if(!c) notes.push(['gold',`${cad} lists no taxing jurisdictions for this account, so no rate is shown.`]);
   if(c&&c.m>0&&!state.mgmt) notes.push(['gold',`Also in ${esc(tc(c.mg))}, which levies ${c.m.toFixed(4)}. Switch to "Incl. mgmt districts" to add it.`]);
   if(tz) notes.push(['',`Inside TIRZ ${esc(tz)}. A TIRZ redirects tax growth to the zone but adds no rate.`]);
@@ -2203,6 +2220,7 @@ function renderDrawer(p){
   const gm=p.lon!=null?`${p.lat.toFixed(6)},${p.lon.toFixed(6)}`:encodeURIComponent((p.addr||'')+' '+(p.city||'')+' TX');
   h+=`<div class="sec">Notes</div>${notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}
     </div>
+    </div>
     <div class="d-act">
       <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${gm}">Open in Google Maps</a>
       <button class="btn primary" id="copyAcct">Copy ${cad} ${PID_COUNTIES.has(county)?'ID':'account'}</button>
@@ -2210,6 +2228,12 @@ function renderDrawer(p){
       <button class="btn outline" id="slAdd">${slHas(p.acct)?'On shortlist (remove)':'Add to shortlist'}</button>
     </div></div>`;
   host.innerHTML=h;
+  // tabs: remember the last one used across parcels; site checks still run in the background (shortlist and Compare use them)
+  const showDT=k=>{ state.dTab=k; host.querySelectorAll('.dtabs button').forEach(b=>{ const on=b.dataset.dt===k; b.classList.toggle('on',on); b.setAttribute('aria-selected',String(on)); b.tabIndex=on?0:-1; });
+    host.querySelectorAll('.dpane').forEach(x=>x.classList.toggle('on',x.dataset.dp===k)); const db=host.querySelector('.d-body'); if(db) db.scrollTop=0; };
+  host.querySelectorAll('.dtabs button').forEach((b,i,all)=>{ b.onclick=()=>showDT(b.dataset.dt);
+    b.onkeydown=e=>{ if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return; const n=all[(i+(e.key==='ArrowRight'?1:all.length-1))%all.length]; n.focus(); showDT(n.dataset.dt); }; });
+  showDT(state.dTab||'prop');
   siteChecks(p); scheduleUrl();
   host.querySelector('#slAdd').onclick=()=>slToggle(state.selRec&&state.selRec.acct===p.acct?state.selRec:p);
   host.querySelector('.x').onclick=()=>select(null);

@@ -23,6 +23,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  const accts=['0011860000010','0480680000038'];
  for(const a of accts){
    await p.evaluate(a=>window.__app.openAccount(a,{fly:false}),a);
+   await p.waitForSelector('.dtabs button[data-dt="site"]',{timeout:60000}); await p.$eval('.dtabs button[data-dt="site"]',e=>e.click());   // site checks live in their own drawer tab
    await p.waitForFunction(()=>{const e=document.getElementById('siteChk'); return e&&/Freeway access/.test(e.innerText)&&/Road projects/.test(e.innerText);},null,{timeout:60000}).catch(()=>{});
    const sc=await p.evaluate(()=>document.getElementById('siteChk').innerText.replace(/\n/g,' | '));
    if(a===accts[0]) check('site check: freeway access minutes',/Freeway access \(truck\) \| \d+ min/.test(sc),sc.match(/Freeway[^|]*\|[^|]*/));
