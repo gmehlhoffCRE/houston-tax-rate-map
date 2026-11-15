@@ -1,0 +1,10 @@
+eia_id,puct_name,year,counties_served,counties_in_region,region_counties,eia_name,ownership,ba,service,customers,res_customers,com_customers,ind_customers,sales_mwh,ind_sales_mwh,revenue_k,summer_peak_mw,winter_peak_mw
+8901,"CenterPoint Energy Houston Electric, LLC",2025,12,8,"Brazoria, Chambers, Fort Bend, Galveston, Harris, Liberty, Montgomery, Waller",CenterPoint Energy,Investor Owned,ERCO,delivery,2858029.0,2529039.0,326934.0,2055.0,111053577.0,47345506.0,3480743.0,20632.0,16236.0
+55937,"Entergy Texas, Inc.",2025,27,6,"Chambers, Galveston, Harris, Liberty, Montgomery, Waller",Entergy Texas Inc.,Investor Owned,MISO,bundled,531824.0,469094.0,56739.0,5991.0,22023350.0,9756202.0,2039699.1,4117.0,3747.0
+40051,Texas-New Mexico Power Company,2025,42,2,"Brazoria, Galveston",Texas-New Mexico Power Co,Investor Owned,ERCO,delivery,281982.0,237930.0,43970.0,82.0,19160260.0,6030528.0,486626.0,3829.0,3158.0
+16613,"Sam Houston Electric Cooperative, Inc.",2025,10,2,"Liberty, Montgomery",Sam Houston Electric Coop Inc,Cooperative,MISO,bundled,95874.0,88424.0,7247.0,203.0,2051125.0,615553.0,260928.0,445.0,587.0
+16638,"San Bernard Electric Cooperative, Inc.",2025,8,3,"Harris, Montgomery, Waller","San Bernard Electric Coop, Inc",Cooperative,ERCO,bundled,33684.0,32557.0,1121.0,6.0,825055.0,219378.0,101908.1,178.0,227.5
+12452,Mid-South Electric Cooperative Association,2025,6,2,"Montgomery, Waller",Mid-South Electric Coop Assn,Cooperative,ERCO,bundled,42522.0,37251.0,5249.0,22.0,1099919.0,357201.0,148977.1,225.0,244.0
+9590,"Jackson Electric Cooperative, Inc.",2025,6,1,Brazoria,"Jackson Electric Coop, Inc - (TX)",Cooperative,ERCO,bundled,17459.0,15670.0,1725.0,64.0,1103160.0,879480.0,89615.0,119.0,121.0
+8435,Hempstead Electric Department,2025,1,1,Waller,City of Hempstead - (TX),Municipal,ERCO,bundled (short form),2729.0,,,,52846.0,,6525.4,,
+10982,Liberty Municipal Electric System,2025,1,1,Liberty,City of Liberty - (TX),Municipal,MISO,bundled (short form),3729.0,,,,119221.0,,11817.7,,

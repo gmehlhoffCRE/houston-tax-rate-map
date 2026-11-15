@@ -686,6 +686,21 @@ const occShare=(pu,k)=>{ const P=OCC&&OCC.puma[pu]; return P&&P.emp?P.c[k]/P.emp
 const occBreaks=k=>{ if(!OCC) return [0,0,0,0]; const v=Object.values(OCC.puma).map(P=>P.emp?1000*P.c[k]/P.emp:0).sort((a,b)=>a-b); const q=f=>v[Math.min(v.length-1,Math.floor(f*v.length))]; return [q(.2),q(.4),q(.6),q(.8)]; };
 const occPay=(k,pu)=>{ const P=pu&&OCC.puma[pu]; return P&&P.w[k]?P.w[k]:OCC.region.wage[k]; };
 const money0k=v=>v?'$'+Math.round(v/1000)+'k':NA;
+// EIA-861 utility figures on the electric service areas (build_utility_stats.py): utility-wide, all counties served
+const uN=v=>v==null?NA:Math.round(v).toLocaleString();
+const uE=mwh=>mwh==null?NA:mwh>=1e6?(mwh/1e6).toFixed(1)+' TWh':Math.round(mwh/1000).toLocaleString()+' GWh';
+const uRev=k=>k==null?NA:k>=1e6?'$'+(k/1e6).toFixed(2)+'B':'$'+Math.round(k/1000).toLocaleString()+'M';
+function utilStats(p){
+  if(p.customers==null) return '';
+  const wires=p.service==='delivery', mix=p.res_customers!=null;
+  return '<div style="margin-top:4px;padding-top:4px;border-top:1px solid #E3E8F0">'+
+    '<b>'+uN(p.customers)+'</b> customers'+(mix?' <span style="color:#8A93A8">('+uN(p.res_customers)+' res, '+uN(p.com_customers)+' com, '+uN(p.ind_customers)+' ind)</span>':'')+'<br>'+
+    (p.summer_peak_mw!=null?'Summer peak <b>'+uN(p.summer_peak_mw)+' MW</b>'+(p.winter_peak_mw!=null?', winter '+uN(p.winter_peak_mw)+' MW':'')+'<br>':'')+
+    (wires?'Energy delivered':'Retail sales')+' <b>'+uE(p.sales_mwh)+'</b>'+(p.ind_sales_mwh?', industrial '+uE(p.ind_sales_mwh):'')+'<br>'+
+    (wires?'Delivery revenue ':'Retail revenue ')+uRev(p.revenue_k)+'<br>'+
+    '<span style="color:#8A93A8">EIA-861 '+p.eia_year+', whole utility: '+p.counties_served+' Texas '+(p.counties_served===1?'county':'counties')+', '+p.counties_in_region+' in the 8-county area'+
+    (wires?'. Wires company: energy it delivers for all retail providers':'')+'</span></div>';
+}
 const PIPE_NAME={gas:'Natural gas',crude:'Crude oil',refined:'Refined products',chem:'Chemicals / HVL',other:'Other or unknown'};
 const KV_CLS=kv=>kv>=345?'345':kv>=230?'230':kv>=100?'138':'69';
 const KV_C={'345':[165,0,45],'230':[215,45,20],'138':[235,110,0],'69':[185,135,0]};   // saturated so the lines read as strongly as pipelines
@@ -797,8 +812,8 @@ const IND=[
   {key:'sewer_ccn',group:'infra',label:'Sewer service areas (PUC)',kind:'outline',sw:'rgb(120,80,40)',color:()=>[120,80,40],dash:true,
     legend:()=>[['Sewer CCN boundary','dash',[120,80,40]]],name:p=>tc(p.name||'')+' sewer',tip:p=>`<b>Sewer provider</b><br>${esc(tc(p.name||''))}`},
   {key:'electric',group:'infra',label:'Electric service areas (PUCT)',kind:'outline',sw:'rgb(220,150,0)',color:p=>p.kind==='Investor-owned'?[220,150,0]:p.kind==='Municipal'?[150,90,0]:[200,110,60],lw:2,
-    legend:()=>[['Investor-owned utility (CenterPoint, Entergy, TNMP...)','line',[220,150,0]],['Electric cooperative','line',[200,110,60]],['Municipal utility','line',[150,90,0]],['PUCT map, marked unofficial. Inside ERCOT the investor-owned area is wires only; retail is competitive','note']],
-    name:p=>coName(p.name)+' electric',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} electric utility${p.CCN_NO?' · CCN '+esc(p.CCN_NO):''}`},
+    legend:()=>[['Investor-owned utility (CenterPoint, Entergy, TNMP...)','line',[220,150,0]],['Electric cooperative','line',[200,110,60]],['Municipal utility','line',[150,90,0]],['PUCT map, marked unofficial. Inside ERCOT the investor-owned area is wires only; retail is competitive','note'],['Hover for customers, summer peak and sales (EIA-861; utility-wide, not just the 8 counties)','note']],
+    name:p=>coName(p.name)+' electric',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} electric utility${p.CCN_NO?' · CCN '+esc(p.CCN_NO):''}`+utilStats(p)},
   {key:'gas_util',group:'infra',label:'Gas utility service areas',kind:'outline',sw:'rgb(230,120,40)',color:()=>[230,120,40],dash:true,
     legend:()=>[['Natural gas distribution territory','dash',[230,120,40]],['HIFLD data from 2017; confirm service with the utility','note']],
     name:p=>coName(p.name)+' gas',tip:p=>`<b>${esc(coName(p.name))}</b><br>${esc(p.kind)} gas utility${p.holding&&p.holding!==p.name?' · '+esc(coName(p.holding)):''}`},
