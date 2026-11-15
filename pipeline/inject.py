@@ -70,7 +70,8 @@ elif a.embed:
     bounds = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f))
               for f in glob.glob(os.path.join(o, "web", "data", "boundaries", "*.json"))}
     ldir = a.layers or os.path.join(o, "web", "data", "layers")
-    layers = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f)) for f in glob.glob(os.path.join(ldir, "*.json"))}
+    layers = {os.path.splitext(os.path.basename(f))[0]: json.load(open(f)) for f in glob.glob(os.path.join(ldir, "*.json"))
+              if os.path.splitext(os.path.basename(f))[0] not in ("highways", "places")}   # those go in the page
     bundle = {"combos": json.load(open(os.path.join(o, "web", "data", "combos.json"))),
               "boundaries": bounds, "layers": layers, "cols": cols}
     data_b64 = base64.b64encode(gzip.compress(json.dumps(bundle, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode(), 9)).decode()
@@ -97,6 +98,19 @@ elif a.embed:
     cfg.update({"embed": True, "tiles": "", "shards": "", "data": ""})
     print(f"embedded {len(records):,} account records, {len(bounds)} boundary layers, {len(layers)} industrial layers, "
           f"{len(tiles_b64) * 3 // 4 / 1e6:.1f} MB of tiles")
+# map labels (highways, places) go in the page itself so they never depend on which data files a viewer has
+REF_KEYS = ("highways", "places")
+ref = {}
+rdir = a.layers or (os.path.join(a.embed, "web", "data", "layers") if a.embed else None)
+for k in REF_KEYS:
+    f = os.path.join(rdir, k + ".json") if rdir else None
+    if f and os.path.exists(f):
+        ref[k] = json.load(open(f))
+if ref:
+    embed = "<script>window.__ref=" + json.dumps(ref, separators=(",", ":")) + "</script>\n" + embed
+    print(f"map labels in the page: {', '.join(ref)}")
+else:
+    print("note: no highways.json / places.json found (pass --layers); the page will have no map labels")
 icons = {}   # map markers: web/icons/<name>.png (e.g. exported from the Cresa Icon Library) wins over <name>.svg
 for name in ("airport", "port", "rail"):
     png, svg = os.path.join(web, "icons", name + ".png"), os.path.join(web, "icons", name + ".svg")

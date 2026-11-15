@@ -1401,7 +1401,7 @@ const REF={hwy:null,hwyLab:[],places:[],on:true};
 try{ REF.on=localStorage.getItem('taxmap.labels')!=='off'; }catch(e){}
 async function loadRef(){
   try{
-    const get=k=>EMB?(EMB.layers&&EMB.layers[k]):getJSON(CONFIG.data+'layers/'+k+'.json');
+    const get=k=>(window.__ref&&window.__ref[k])||(EMB?(EMB.layers&&EMB.layers[k]):getJSON(CONFIG.data+'layers/'+k+'.json'));   // labels ship inside the page
     const [h,pl]=await Promise.all([get('highways'),get('places')]);
     if(h){ REF.hwy=h.f.map(([r,c])=>({r,k:h.k[r],path:Array.from({length:c.length/2},(_,i)=>[c[2*i],c[2*i+1]])}));
       // label candidates every ~3 km along each line; which ones show is decided per zoom by refDeclutter
