@@ -615,7 +615,7 @@ a{text-underline-offset:2px}
           <div class="msg" id="dtMsg">Enter an address or click the map to set a starting point.</div>
           <div class="bands"><span><i style="background:rgba(0,30,90,.55)"></i>15</span><span><i style="background:rgba(70,110,200,.45)"></i>30</span><span><i style="background:rgba(255,182,0,.45)"></i>45</span><span><i style="background:rgba(255,226,154,.6)"></i>60 min</span></div>
           <div class="dtlab" id="dtLab"></div>
-          <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere; water crossed only on roads and bridges. Use for radius screening, not routing.</div>
+          <div class="note">Estimate from TxDOT road classes and speed limits at free-flow speeds: no live traffic, signals approximated, freeways joinable anywhere; water crossed only on roads and bridges; land with no mapped road (parks, airports, plants) is shaded from its nearest road at on-site speed. Use for radius screening, not routing.</div>
         </div>
       </div>
       <div class="legend" id="legend">
@@ -882,8 +882,9 @@ const IND=[
     legend:()=>Object.keys(PROJ_C).filter(k=>state.proj[k]).map(k=>[PROJ_NAME[k],k==='later'?'dash':'line',PROJ_C[k]]).concat([['Line weight = estimated cost. Dates are agency estimates and often slip.','note']]),
     name:p=>`${p.name} project`,
     tip:p=>`<b>${esc(p.name||'Road project')}</b> <span style="color:#8A93A8">· ${esc(p.src||'')}</span><br>${esc(p.work||'')}${p.limits&&p.limits!==p.name?'<br>'+esc(tc(p.limits)):''}`+
-      `<br><span style="color:rgb(${PROJ_C[p.stage]})">&#9632;</span> ${esc(PROJ_NAME[p.stage]||'')}${p.phase?' · '+esc(p.phase):''}`+
-      `${p.date||p.cost?'<br>'+[esc(p.date||''),p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · '):''}${p.freight?'<br><b>Freight network project</b>':''}`+
+      `<br><span style="color:rgb(${PROJ_C[p.stage]})">&#9632;</span> ${esc(PROJ_NAME[p.stage]||'')}`+
+      `${p.phase?'<br><span style="color:#8A93A8">TxDOT phase:</span> '+esc(p.phase):''}`+
+      `${projDate(p.date)}${p.cost?'<br><span style="color:#8A93A8">Estimated cost:</span> '+money$(p.cost):''}${p.freight?'<br><b>Freight network project</b>':''}`+
       `${p.id?'<br><span style="color:#8A93A8">'+esc(p.id)+'</span>':''}`},
   {key:'intermodal',group:'logistics',label:'Rail intermodal terminals',kind:'point',sw:'rgb(150,100,0)',color:()=>[150,100,0],radius:7,labelZ:9,text:p=>p.name,
     icon:()=>'rail',iconSize:()=>30,show:(p,dz)=>dz>=11||!/Container Terminal|Jacintoport/.test(p.name||''),   // dockside ramps sit next to the port pins
@@ -1239,6 +1240,26 @@ function dtSolve(G,lon,lat,mode,tmax){
   }
   return T;
 }
+// TxDOT "let" = the date the construction contract is bid and awarded
+function projDate(s){
+  if(!s) return '';
+  const L='<br><span style="color:#8A93A8">', m=/^(est\. )?let (\w{3}) (\d{4})$/.exec(s);
+  if(!m) return L+'Date:</span> '+esc(s);
+  if(!m[1]) return L+'Contract awarded:</span> '+m[2]+' '+m[3];
+  const d=new Date(m[2]+' 1, '+m[3]), now=new Date(), past=d<new Date(now.getFullYear(),now.getMonth(),1);
+  return L+'Target bid date:</span> '+m[2]+' '+m[3]+(past?' <span style="color:#8A93A8">(date has passed; TxDOT has not posted an update)</span>':'');
+}
+function dtFill(G,T,mode){
+  const {nx,ny}=G, sp=G[mode], D=Float64Array.from(T), c1=G.cell_m/(25/3.6), c2=c1*Math.SQRT2;   // 25 km/h on site drives
+  const fwd=[[-1,0,c1],[0,-1,c1],[-1,-1,c2],[1,-1,c2]], bwd=[[1,0,c1],[0,1,c1],[1,1,c2],[-1,1,c2]];
+  for(let r=0;r<2;r++){
+    for(let y=0;y<ny;y++) for(let x=0;x<nx;x++){ const i=y*nx+x; if(!sp[i]||sp[i]>8) continue;
+      for(const [dx,dy,c] of fwd){ const xx=x+dx,yy=y+dy; if(xx<0||yy<0||xx>=nx||yy>=ny) continue; const v=D[yy*nx+xx]+c; if(v<D[i]) D[i]=v; } }
+    for(let y=ny-1;y>=0;y--) for(let x=nx-1;x>=0;x--){ const i=y*nx+x; if(!sp[i]||sp[i]>8) continue;
+      for(const [dx,dy,c] of bwd){ const xx=x+dx,yy=y+dy; if(xx<0||yy<0||xx>=nx||yy>=ny) continue; const v=D[yy*nx+xx]+c; if(v<D[i]) D[i]=v; } }
+  }
+  return D;
+}
 function dtImage(G,T){
   const cv=document.createElement('canvas'); cv.width=G.nx; cv.height=G.ny;
   const ctx=cv.getContext('2d'), im=ctx.createImageData(G.nx,G.ny), px=im.data;
@@ -1251,7 +1272,7 @@ async function dtRun(lon,lat,label){
   $('dtMsg').textContent='Calculating...';
   try{
     const G=await dtGrid(); await new Promise(r=>setTimeout(r,20));
-    const t0=performance.now(), T=dtSolve(G,lon,lat,DT.mode);
+    const t0=performance.now(), T0=dtSolve(G,lon,lat,DT.mode), T=T0&&dtFill(G,T0,DT.mode);
     if(!T){ $('dtMsg').textContent='That point is outside the drive-time area or open water.'; return; }
     DT.origin=[lon,lat]; DT.label=label||''; DT.img=dtImage(G,T);
     $('dtMsg').textContent=`${DT.mode==='truck'?'Truck':'Car'} drive time from ${label||'the marked point'}. Click the map or enter an address to move it.`;
