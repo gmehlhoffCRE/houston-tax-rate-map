@@ -110,6 +110,8 @@ def main():
     # unless a road runs through them (bridges, causeways, the Galveston seawall)
     water = gpd.read_file(os.path.join(a.raw, "water.geojson"))
     water = water[pd.to_numeric(water.get("SQKM"), errors="coerce").fillna(1) >= 0.05]   # skip ponds
+    # "Inundation Area" = flood-control pools that are dry most of the time (Addicks, Barker): drivable land
+    water = water[water.get("FTYPE", pd.Series("", index=water.index)).fillna("") != "Inundation Area"]
     land = gpd.read_file(os.path.join(a.raw, "land.geojson"))
     wu = shapely.make_valid(water.geometry.union_all()); lu = shapely.make_valid(land.geometry.union_all())
     shapely.prepare(wu); shapely.prepare(lu)
