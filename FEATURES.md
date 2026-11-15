@@ -32,6 +32,7 @@ nothing else uses it, its output from `pipeline/build_layers.py`.
 |---|---|---|---|
 | Refined shell: full-bleed map, flush panel, tools top-left, basemap + zoom/reset bottom-right, Geist/Inter type, sentence-case labels, themed selection/scrollbars | Nov 15 | Review | Phones: map full screen, panel as a bottom sheet, key collapsed |
 | Calm first load: only tax-rate shading on (all layers and boundary outlines off) | Nov 15 | Review | |
+| Map controls: basemap top-left, Drive time / Shortlist / Share top-right (shift left of an open drawer); drive time panel collapses and keeps the drive time on the map | Nov 15 | Review | Collapsed: map clicks select parcels |
 | Parcel drawer tabs: Property, Taxes, Site checks (last tab remembered); rate bars all navy, management districts labeled | Nov 15 | Review | Site checks still run in the background for shortlist and Compare |
 | Power lines in a violet family, pipelines warm and dashed (chemicals teal) | Nov 15 | Review | So the two networks never share a hue |
 | Left panel tabs: Rate & Map (primary), Property, Layers, with count badges | Nov 9 | Review | Search stays above the tabs; Rate and Map merged Nov 9; `tests/filter_tabs_check.js` (14 checks) |

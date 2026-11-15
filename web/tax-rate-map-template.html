@@ -387,16 +387,24 @@ a{text-underline-offset:2px}
 .mapwrap{border:0;border-radius:0;box-shadow:none}
 .toolbar,.dtbar,.legend,.slpanel,.zoombar,#tip,.zoomhint{border:1px solid var(--edge);box-shadow:var(--shadow2)}
 .toolbar,.dtbar,.legend,.slpanel,.zoombar{border-radius:var(--r)}
-.dtbar{top:14px;left:14px;padding:4px}
+.dtbar{top:14px;left:auto;right:14px;padding:4px}
+.dtbar .row{justify-content:flex-end}
+.dtbar.open.min .body{display:none}
+.dtbar.open.min{width:auto}
+.dtmin{width:32px;padding:0;justify-content:center}
+.dtmin svg{transition:transform .2s}
+.dtbar.min .dtmin svg{transform:rotate(180deg)}
+.mapwrap:has(.drawer) .dtbar,.mapwrap:has(.drawer) .slpanel{right:436px}
+.mapwrap:has(.drawer) .zoombar{right:436px}
 .dtbar .row{gap:2px}
-.slpanel{top:64px;left:14px}
+.slpanel{top:64px;left:auto;right:14px}
 .mt{height:32px;padding:0 12px;border-radius:var(--r-sm);font-size:12.5px;font-weight:600;color:var(--ink2);gap:7px}
 .mt svg{color:var(--ink3);flex-shrink:0}
 .mt:hover{background:var(--bg);color:var(--navy)}
 .mt:hover svg{color:var(--navy)}
 .mt.on{border-color:transparent;background:var(--navy);color:#fff}
 .mt.on svg{color:#fff}
-#mtBar{top:auto;left:auto;right:64px;bottom:28px;padding:4px}
+#mtBar{top:14px;left:14px;right:auto;bottom:auto;padding:4px}
 #mtBar .mt{height:30px;padding:0 11px;font-size:12px}
 .zoombar{position:absolute;right:14px;bottom:28px;z-index:10;background:#fff;display:flex;flex-direction:column;padding:4px;gap:2px}
 .zoombar button{width:32px;height:32px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s}
@@ -456,12 +464,12 @@ a{text-underline-offset:2px}
   .sheet-h span{width:38px;height:4px;border-radius:2px;background:#CDD4E2}
   .search{margin:2px 14px 8px}
   .tabs{margin:0 14px}
-  .dtbar{top:10px;left:10px;max-width:calc(100% - 20px)}
+  .dtbar{top:10px;right:10px;left:auto;max-width:calc(100% - 20px)}
+  #mtBar{top:58px;left:10px}
   .dtbar.open{width:calc(100vw - 20px)}
-  .slpanel{top:58px;left:10px;width:calc(100% - 20px)}
+  .slpanel{top:106px;left:10px;right:10px;width:auto}
   .legend{left:10px;bottom:148px;max-width:calc(100% - 80px)}
   .zoombar{right:10px;bottom:148px}
-  #mtBar{right:56px;bottom:148px}
   .zoomhint{display:none!important}
   .drawer{top:0;right:0;bottom:0;left:0;width:auto;max-width:none;border-radius:0;z-index:40;border:0}
 }
@@ -600,7 +608,8 @@ a{text-underline-offset:2px}
       <div class="dtbar" id="dtBar">
         <div class="row"><button class="mt" id="dtBtn" title="Estimate how far a car or truck can drive in 15 to 60 minutes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Drive time</button><button class="mt" id="slBtn" title="Sites you saved"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span id="slLab">Shortlist</span></button><button class="mt" id="shareBtn" title="Copy a link to this view"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Share</button><span class="tsep" id="dtSep" style="display:none"></span>
           <span id="dtMode" style="display:none"><button class="mt on" data-m="car">Car</button><button class="mt" data-m="truck">Truck</button></span>
-          <button class="mt" id="dtClear" style="display:none">Clear</button></div>
+          <button class="mt" id="dtClear" style="display:none">Clear</button>
+          <button class="mt dtmin" id="dtMin" style="display:none" aria-expanded="true" title="Collapse the drive time panel (the drive time stays on the map)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></button></div>
         <div class="body">
           <div class="dtq"><input id="dtQ" placeholder="Enter an address or place" aria-label="Drive time from an address" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="dtRes"><div class="sres" id="dtRes" role="listbox"></div></div>
           <div class="msg" id="dtMsg">Enter an address or click the map to set a starting point.</div>
@@ -1257,12 +1266,16 @@ function dtLayers(){
       stroked:true,getLineColor:[0,30,90,255],getLineWidth:2.5,lineWidthUnits:'pixels'})];
 }
 function mapClick(info){
-  if(DT.open&&info&&info.coordinate){ dtCloseRes(); dtRun(info.coordinate[0],info.coordinate[1]); return true; }
+  if(DT.open&&!DT.min&&info&&info.coordinate){ dtCloseRes(); dtRun(info.coordinate[0],info.coordinate[1]); return true; }   // collapsed: clicks select parcels again
   return false;
 }
 function dtOpen(){ if(!DT.open) $('dtBtn').onclick(); }
-$('dtBtn').onclick=()=>{ DT.open=!DT.open; $('dtBar').classList.toggle('open',DT.open); $('dtBtn').classList.toggle('on',DT.open);
-  $('dtMode').style.display=DT.open?'':'none'; if(!DT.open){ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; refresh(); }
+function dtSetMin(m){ DT.min=m; $('dtBar').classList.toggle('min',m); const b=$('dtMin'); b.setAttribute('aria-expanded',String(!m));
+  b.title=m?'Expand the drive time panel':'Collapse the drive time panel (the drive time stays on the map)'; }
+$('dtMin').onclick=()=>dtSetMin(!DT.min);
+$('dtBtn').onclick=()=>{ if(DT.open&&DT.min){ dtSetMin(false); return; }   // collapsed: the button reopens the panel instead of clearing it
+  DT.open=!DT.open; $('dtBar').classList.toggle('open',DT.open); $('dtBtn').classList.toggle('on',DT.open); dtSetMin(false);
+  $('dtMode').style.display=DT.open?'':'none'; $('dtMin').style.display=DT.open?'':'none'; if(!DT.open){ DT.img=null; DT.origin=null; $('dtClear').style.display='none'; refresh(); }
   else { $('dtMsg').textContent=DT_START; dtGrid().catch(e=>{$('dtMsg').textContent='Drive time unavailable: '+e.message;}); } };
 document.querySelectorAll('#dtMode .mt').forEach(b=>b.onclick=()=>{ DT.mode=b.dataset.m; document.querySelectorAll('#dtMode .mt').forEach(x=>x.classList.toggle('on',x===b)); if(DT.origin) dtRun(DT.origin[0],DT.origin[1],DT.label); });
 $('dtClear').onclick=()=>{ DT.img=null; DT.origin=null; $('dtLab').classList.remove('on'); scheduleUrl(); $('dtQ').value=''; $('dtClear').style.display='none'; $('dtMsg').textContent=DT_START; refresh(); };
@@ -1427,7 +1440,7 @@ function initDeck(){
   const iv={longitude:f.longitude,latitude:f.latitude,zoom:f.zoom,minZoom:7.5,maxZoom:20}; homeVS=iv;
   baseLayers=esriBase(baseType);
   const vb=deckBounds;
-  deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
+  deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open&&!DT.min?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
     layers:[...baseLayers,...buildLayers()],
     onViewStateChange:({viewState})=>{ state.view=viewState; debounceView(()=>{ viewChanged(viewState.zoom+1,vb(viewState)); scheduleUrl(); }); }});
   attrEl=document.createElement('div');attrEl.className='attr';attrEl.textContent=ESRI_ATTR[baseType];wrap.appendChild(attrEl);
