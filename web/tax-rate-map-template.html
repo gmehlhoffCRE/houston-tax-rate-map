@@ -406,6 +406,7 @@ a{text-underline-offset:2px}
 .mt.on svg{color:#fff}
 #mtBar{top:14px;left:14px;right:auto;bottom:auto;padding:4px}
 #mtBar .mt{height:30px;padding:0 11px;font-size:12px}
+.mtsep{width:1px;height:18px;background:var(--line);margin:0 3px}
 .zoombar{position:absolute;right:14px;bottom:28px;z-index:10;background:#fff;display:flex;flex-direction:column;padding:4px;gap:2px}
 .zoombar button{width:32px;height:32px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s}
 .zoombar button:hover{background:var(--bg);color:var(--navy)}
@@ -598,6 +599,8 @@ a{text-underline-offset:2px}
           <button class="mt on" data-t="cresa">Map</button>
           <button class="mt" data-t="satellite">Satellite</button>
           <button class="mt" data-t="hybrid">Hybrid</button>
+          <span class="mtsep" aria-hidden="true"></span>
+          <button class="mt on" id="lblBtn" aria-pressed="true" title="Show or hide city names and highways">Labels</button>
       </div>
       <div class="zoombar" id="zoomBar" role="group" aria-label="Map view">
         <button id="zIn" aria-label="Zoom in" title="Zoom in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -1391,10 +1394,83 @@ async function ensureBoundary(key){
   try{ boundaryData[key]=EMB?(EMB.boundaries[key]||{type:'FeatureCollection',features:[]}):await getJSON(CONFIG.data+'boundaries/'+key+'.json'); }catch(e){ boundaryData[key]={type:'FeatureCollection',features:[]}; }
   refresh();
 }
+// ---------------------------------------------------------------- reference: highways and place names
+// TxDOT route lines and labels (build_highways.py), Census places ranked by population (build_places.py).
+// Esri street names take over at parcel zoom; in Hybrid, Esri's own labels replace ours.
+const REF={hwy:null,hwyLab:[],places:[],on:true};
+try{ REF.on=localStorage.getItem('taxmap.labels')!=='off'; }catch(e){}
+async function loadRef(){
+  try{
+    const get=k=>EMB?(EMB.layers&&EMB.layers[k]):getJSON(CONFIG.data+'layers/'+k+'.json');
+    const [h,pl]=await Promise.all([get('highways'),get('places')]);
+    if(h){ REF.hwy=h.f.map(([r,c])=>({r,k:h.k[r],path:Array.from({length:c.length/2},(_,i)=>[c[2*i],c[2*i+1]])}));
+      // label candidates every ~3 km along each line; which ones show is decided per zoom by refDeclutter
+      const lab=[];
+      for(const f of REF.hwy){ const name=h.r[f.r]; if(!name) continue; let acc=0.015;
+        for(let i=1;i<f.path.length;i++){ const a=f.path[i-1],b=f.path[i], d=Math.hypot(b[0]-a[0],b[1]-a[1]); acc+=d;
+          if(acc>=0.03){ acc=0; lab.push({t:name,k:f.k,p:[(a[0]+b[0])/2,(a[1]+b[1])/2]}); } } }
+      // spread the candidates so the first ones accepted are spaced along each route, not bunched at one end
+      lab.forEach((d,i)=>d.o=((i*2654435761)>>>0)/4294967296);
+      REF.hwyLab=lab; }
+    if(pl) REF.places=pl.n.map((n,i)=>({n,p:pl.p[i],c:pl.c[i]}));
+    REF.dc=null; refresh();
+  }catch(e){ console.warn('reference labels unavailable',e); }
+}
+const placeMinZ=p=>p>=40000?0:p>=10000?9:p>=2500?10:11;   // deck zoom; the 8-county view opens near 8
+function hwyLayers(dz){
+  if(!REF.on||!REF.hwy||baseType==='hybrid') return [];
+  const data=dz<9?REF.hwy.filter(f=>f.k===1):REF.hwy, w=f=>(f.k===1?(dz<10?1.6:dz<12?2.4:3.2):(dz<12?1.2:2));
+  return [new deck.PathLayer({id:'ref-hwy-case',data,getPath:f=>f.path,getWidth:f=>w(f)+2,widthUnits:'pixels',getColor:[60,72,100,150],
+      capRounded:true,jointRounded:true,pickable:false,updateTriggers:{getWidth:Math.round(dz*2)}}),
+    new deck.PathLayer({id:'ref-hwy',data,getPath:f=>f.path,getWidth:w,widthUnits:'pixels',getColor:f=>f.k===1?[255,255,255,250]:[248,246,240,235],
+      capRounded:true,jointRounded:true,pickable:false,updateTriggers:{getWidth:Math.round(dz*2)}})];
+}
+// greedy label placement in screen space at the current zoom: big places first, then freeways, then highways;
+// a label is dropped if its box overlaps one already placed, and a route repeats at most every ~180 px
+function refDeclutter(dz){
+  const k=`${Math.floor(dz)}|${baseType}`; if(REF.dc&&REF.dc.k===k) return REF.dc;
+  const dpp=360/(256*2**dz), ky=Math.cos(29.8*Math.PI/180), boxes=[], seen={}, places=[], hwy=[];
+  const fits=(x,y,w,h)=>{ for(const b of boxes) if(Math.abs(b[0]-x)*2<b[2]+w&&Math.abs(b[1]-y)*2<b[3]+h) return false; return true; };
+  const pl=REF.places.filter(d=>dz>=placeMinZ(d.p));
+  for(const d of pl){ const sz=d.p>=1000000?17:d.p>=100000?14:d.p>=25000?12.5:11.5, w=(d.n.length*sz*0.62+10)*dpp, h=(sz+8)*dpp*ky;
+    if(fits(d.c[0],d.c[1],w,h)){ boxes.push([d.c[0],d.c[1],w,h]); places.push(d); } }
+  const cand=REF.hwyLab.filter(d=>d.k===1||dz>=9).sort((a,b)=>a.k-b.k||a.o-b.o), gap=180*dpp;
+  for(const d of cand){ const w=(d.t.length*7+14)*dpp, h=20*dpp*ky, x=d.p[0], y=d.p[1];
+    const s=seen[d.t]||(seen[d.t]=[]); if(s.some(q=>Math.hypot(q[0]-x,(q[1]-y)/ky)<gap)) continue;
+    if(fits(x,y,w,h)){ boxes.push([x,y,w,h]); s.push([x,y]); hwy.push(d); } }
+  return REF.dc={k,places,hwy};
+}
+function refLayers(){
+  if(!REF.on) return [];
+  const dz=state.gz-1, L=[], street=dz>=13;
+  if(deckgl&&(baseType==='hybrid'||(street&&baseType==='cresa'))) L.push(...esriBase(baseType,ESRI_REF));
+  if(baseType==='hybrid') return L;
+  const dc=street?null:refDeclutter(dz);
+  if(REF.hwyLab.length&&!street){
+    const data=dc.hwy;
+    L.push(new deck.TextLayer({id:'ref-hwy-lab',data,getPosition:d=>d.p,getText:d=>d.t,getSize:11,sizeUnits:'pixels',
+      fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',characterSet:'auto',
+      getColor:d=>d.k===1?[255,255,255,255]:[0,30,90,255],background:true,backgroundPadding:[5,2,5,2],
+      getBackgroundColor:d=>d.k===1?[0,30,90,235]:[255,255,255,240],getBorderColor:[0,30,90,200],getBorderWidth:d=>d.k===1?0:1,
+      updateTriggers:{getText:dz>=9}}));
+  }
+  if(REF.places.length&&!street){
+    const data=dc.places;
+    L.push(new deck.TextLayer({id:'ref-places',data,getPosition:d=>d.c,getText:d=>d.n,
+      getSize:d=>d.p>=1000000?17:d.p>=100000?14:d.p>=25000?12.5:11.5,sizeUnits:'pixels',
+      fontFamily:'Arial, Helvetica, sans-serif',fontWeight:'bold',characterSet:'auto',fontSettings:{sdf:true},
+      getColor:d=>d.p>=25000?[14,18,32,255]:[43,51,80,255],outlineWidth:4,outlineColor:[255,255,255,240],
+      updateTriggers:{getSize:0}}));
+  }
+  return L;
+}
+$('lblBtn').onclick=()=>{ REF.on=!REF.on; const b=$('lblBtn'); b.classList.toggle('on',REF.on); b.setAttribute('aria-pressed',String(REF.on));
+  try{ localStorage.setItem('taxmap.labels',REF.on?'on':'off'); }catch(e){} refresh(); };
+if(!REF.on){ $('lblBtn').classList.remove('on'); $('lblBtn').setAttribute('aria-pressed','false'); }
 function buildLayers(){
   const dz=state.gz-1;
   const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|wetlands|evac|zoning|opp_zones|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
-  const L=[parcelLayer(),...under,...dtLayers()];
+  const L=[parcelLayer(),...under,...dtLayers(),...hwyLayers(dz)];
   if(state.dev.on&&DEV_PTS.length&&dz<PARCEL_TZ) L.push(new deck.ScatterplotLayer({id:'dev-dots',data:DEV_PTS.filter(d=>d.c>=0&&d.c<=MAXID?passArr[d.c]:true),getPosition:d=>d.p,
     pickable:true,getFillColor:[255,182,0,200],getLineColor:[0,30,90,200],stroked:true,lineWidthUnits:'pixels',getLineWidth:0.7,
     getRadius:d=>Math.min(6,(dz>=11?2.2:1.4)+Math.sqrt(d.ac)/8),radiusUnits:'pixels',updateTriggers:{data:filterVer,getRadius:dz>=11},
@@ -1423,12 +1499,15 @@ let overlay=null, deckgl=null, gmap=null, baseLayers=[], baseType='cresa', attrE
 // Esri basemaps for the no-key (deck.gl) mode, matching the Google Map / Satellite / Hybrid buttons
 const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/';
 const ESRI_BASE={cresa:[['Canvas/World_Light_Gray_Base',16]],satellite:[['World_Imagery',19]],
-  hybrid:[['World_Imagery',19],['Reference/World_Transportation',19],['Reference/World_Boundaries_and_Places',19]]};
+  hybrid:[['World_Imagery',19]]};
+// reference labels drawn above all data layers so they stay readable over the shading
+const ESRI_REF={cresa:[['Canvas/World_Light_Gray_Reference',16]],satellite:[],
+  hybrid:[['Reference/World_Transportation',19],['Reference/World_Boundaries_and_Places',19]]};
 const ESRI_ATTR={cresa:'Basemap: Esri, HERE, Garmin, OpenStreetMap contributors',
   satellite:'Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
   hybrid:'Imagery: Esri, Maxar, Earthstar Geographics; labels: Esri, HERE, Garmin, OpenStreetMap contributors'};
-function esriBase(t){
-  return ESRI_BASE[t].map(([svc,mz])=>new deck.TileLayer({id:'base-'+svc,data:ESRI+svc+'/MapServer/tile/{z}/{y}/{x}',maxZoom:mz,tileSize:256,
+function esriBase(t,set){
+  return (set||ESRI_BASE)[t].map(([svc,mz])=>new deck.TileLayer({id:'base-'+svc,data:ESRI+svc+'/MapServer/tile/{z}/{y}/{x}',maxZoom:mz,tileSize:256,
     maxRequests:8,getTileData:esriTile,
     renderSubLayers:p=>{if(!p.data)return null;const b=p.tile.boundingBox;return new deck.BitmapLayer(p,{data:null,image:p.data,bounds:[b[0][0],b[0][1],b[1][0],b[1][1]]});}}));
 }
@@ -1444,7 +1523,7 @@ async function esriTile({url,signal}){
   return null;
 }
 const BB=META.bbox;
-function refresh(){const l=buildLayers(); if(overlay)overlay.setProps({layers:l}); if(deckgl)deckgl.setProps({layers:[...baseLayers,...l]});}
+function refresh(){const l=[...buildLayers(),...refLayers()]; if(overlay)overlay.setProps({layers:l}); if(deckgl)deckgl.setProps({layers:[...baseLayers,...l]});}
 function viewChanged(gz,bounds){
   const prev=state.gz-1;
   state.gz=gz; state.bounds=bounds;
@@ -1462,10 +1541,11 @@ function initDeck(){
   baseLayers=esriBase(baseType);
   const vb=deckBounds;
   deckgl=new deck.Deck({parent:mapEl,initialViewState:iv,controller:true,getCursor:({isHovering})=>DT.open&&!DT.min?'crosshair':isHovering?'pointer':'grab',onClick:mapClick,
-    layers:[...baseLayers,...buildLayers()],
+    layers:[...baseLayers,...buildLayers(),...refLayers()],
     onViewStateChange:({viewState})=>{ state.view=viewState; debounceView(()=>{ viewChanged(viewState.zoom+1,vb(viewState)); scheduleUrl(); }); }});
   attrEl=document.createElement('div');attrEl.className='attr';attrEl.textContent=ESRI_ATTR[baseType];wrap.appendChild(attrEl);
   viewChanged(iv.zoom+1,vb(iv));
+  loadRef();
 }
 const deckBounds=vs=>new deck.WebMercatorViewport({...vs,width:mapEl.clientWidth,height:mapEl.clientHeight}).getBounds();
 let vt=null; const debounceView=fn=>{clearTimeout(vt);vt=setTimeout(fn,120);};
