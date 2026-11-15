@@ -11,9 +11,9 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  await p.goto(url,{waitUntil:'load'}); await p.waitForFunction(()=>window.__app&&!document.getElementById('loading'),null,{timeout:240000});
  await sleep(6000);
  let ids=await p.evaluate(()=>window.__app.layerIds());
- check('home view: highway lines, route labels and place names',['ref-hwy','ref-hwy-lab','ref-places'].every(i=>ids.includes(i)),ids.filter(i=>/^ref/.test(i)).join(','));
+ check('home view: highway lines, route labels and place names',['ref-hwy','ref-hwy-shield','ref-places'].every(i=>ids.includes(i)),ids.filter(i=>/^ref/.test(i)).join(','));
  const ord=ids.indexOf('ref-places')>ids.indexOf('parcels')||!ids.includes('parcels');
- check('labels drawn above the rate shading',ord&&ids.indexOf('ref-hwy-lab')>ids.findIndex(i=>/zones|parcel/.test(i)),ids.slice(0,6).join(','));
+ check('labels drawn above the rate shading',ord&&ids.indexOf('ref-hwy-shield')>ids.findIndex(i=>/zones|parcel/.test(i)),ids.slice(0,6).join(','));
  await p.screenshot({path:path.join(shots,'L1-home.png')});
  await p.evaluate(()=>window.__app.setView(-95.45,29.80,10)); await sleep(5000);
  await p.screenshot({path:path.join(shots,'L2-z10.png')});
