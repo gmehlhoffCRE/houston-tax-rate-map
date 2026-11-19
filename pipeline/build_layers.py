@@ -33,7 +33,7 @@ Layers (key: source)
   zoning      City zoning districts where the city publishes a GIS layer (Houston, Pasadena and the counties have
               no zoning). Each district gets a category (industrial, commercial, mixed use, residential, planned,
               agricultural / open, other) from its code and description; the city's own code is kept
-  opp_zones   Qualified Opportunity Zones (HUD, census tracts designated in 2018)
+  opp_zones   raw download of the 2018 Opportunity Zones; the layers are written by build_opp_zones.py
   contam      Contaminated and cleanup sites: EPA Superfund NPL, EPA brownfields (ACRES via FRS), TCEQ state
               Superfund, TCEQ brownfield site assessments, TCEQ Voluntary Cleanup Program
   wetlands    USFWS National Wetlands Inventory (Esri copy): emergent, forested/shrub and estuarine wetlands;
@@ -637,10 +637,7 @@ def main():
         g = gpd.GeoDataFrame(pd.concat(zs), crs=4326)
         out["zoning"] = (simplify(g.explode(index_parts=False), 4), ["city", "code", "desc", "cat"])
 
-    g = load(a.raw, "opp_zones")
-    tract = next((c for c in g.columns if c.upper() in ("GEOID10", "GEOID", "TRACT", "TRACTCE10", "GEOID_1")), None)
-    g["tract"] = g[tract].astype(str) if tract else ""
-    out["opp_zones"] = (simplify(g, 10), ["tract"])
+    # opp_zones.json (OZ 2.0) and opp_zones_v1.json (2018 zones) come from build_opp_zones.py
 
     rows = []
     g = load(a.raw, "npl"); g["kind"] = "npl"; g["name"] = g.Site_Name.str.title(); g["id"] = g.Site_EPA_ID
