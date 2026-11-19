@@ -9,9 +9,9 @@ the registry is a good early signal of new buildings.
 
 Steps:
   1. List every project registered in the 8 counties since --since (TABS project search, 100 per request).
-  2. Fetch the details page for candidates: new construction or additions of $1M+, or any project whose name looks
-     industrial (warehouse, distribution, manufacturing...) at $250k+ (renovations at $5M+). Pages are cached in
-     --raw, so reruns only fetch new projects. Requests are paced (0.35 s apart).
+  2. Fetch the details page for candidates: any project whose name looks industrial (warehouse, distribution,
+     manufacturing...) at $250k+, and other new construction or additions at $5M+. Pages are cached in --raw, so
+     reruns only fetch new projects. Requests are paced (1.5 s apart; TDLR resets faster clients).
   3. Classify: industrial (warehouse, distribution, logistics, manufacturing, plant, cold storage, data center, flex,
      industrial park...) or other commercial; self storage is its own class.
   4. Locate: the project address is matched to an appraisal account address in the same city (the map's parcel
@@ -121,8 +121,8 @@ def main():
         cost, w = r.get("EstimatedCost") or 0, r.get("TypeOfWork")
         name = f"{r.get('ProjectName') or ''} {r.get('FacilityName') or ''}"
         ind = bool(IND.search(name)) and not NOT_IND.search(name)
-        return (w in (9001, 9003) and cost >= 1_000_000) or (ind and ((w in (9001, 9003) and cost >= 250_000) or cost >= 5_000_000))
-    cands = [r for r in rows if cand(r)]
+        return (ind and cost >= 250_000) or (w in (9001, 9003) and cost >= 5_000_000)
+    cands = sorted((r for r in rows if cand(r)), key=lambda r: not IND.search(f"{r.get('ProjectName')} {r.get('FacilityName')}"))   # industrial first
     print(f"{len(rows):,} projects; {len(cands):,} candidates for details", flush=True)
 
     # address index from the parcel records
