@@ -841,6 +841,10 @@ function jobBreaks(k){ if(JOB_BR[k]) return JOB_BR[k]; const d=indData.tracts; i
 const GROW_C=[[120,150,170],[240,236,246],[208,190,230],[164,124,206],[120,66,172],[72,18,130]];
 const GROW_LAB=['Lost population','0 to 10%','10 to 25%','25 to 50%','50 to 100%','More than doubled'];
 function growClass(p){ if(p.p10<100) return p.p20>500?5:1; const g=(p.p20-p.p10)/p.p10; return g<0?0:g<.1?1:g<.25?2:g<.5?3:g<1?4:5; }
+// congestion (TxDOT top 100) and hazmat routes
+const hrs=v=>v>=1e6?(v/1e6).toFixed(1)+'M':Math.round(v/1000).toLocaleString()+'k';
+const CG_C={a:[150,0,25],b:[215,40,30],c:[245,135,40]}, cgCls=r=>r<=25?'a':r<=50?'b':'c';
+const HZ_C={through:[0,140,70],prohib:[160,0,160],hurr:[235,110,215]}, HZ_NAME={through:'Through route',prohib:'Prohibited',hurr:'Prohibited in hurricane warnings'};
 // development projects (TDLR TABS)
 const DP_C={building:[214,90,20],planned:[0,110,190],done:[120,128,145]}, DP_NAME={building:'Under construction',planned:'Planned',done:'Completed'};
 const dpDate=s=>s?new Date(s+'T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'}):'n/a';
@@ -955,6 +959,21 @@ const IND=[
       p.kind==='closed'?'<b>Closed</b>':'', p.posted?`<b>Load posted</b>${p.limit_k?' · '+p.limit_k+',000 lb':''}${p.limit_k>=80?' (limits overweight permit loads only)':''}`:'',
       p.poor?`Poor condition (lowest rating ${p.rating} of 9)`:'', p.damage?'Over-height load damage on record':''].filter(Boolean).join('<br>')+
       `<br><span style="color:#8A93A8">TxDOT bridge ${esc(p.BRDG_ID||'')}${p.YR_BLT?' · built '+esc(p.YR_BLT):''}</span>`},
+  {key:'congestion',group:'trucking',label:'Most congested roads (TxDOT top 100)',kind:'line',sw:'rgb(200,20,30)',color:p=>CG_C[cgCls(p.rank)],
+    width:p=>p.rank<=25?7:p.rank<=50?6:5,
+    legend:()=>[['Top 25 in Texas','line',CG_C.a],['26 to 50','line',CG_C.b],['51 to 100','line',CG_C.c],['TxDOT and Texas A&M Transportation Institute ranking of the most congested road segments statewide','note']],
+    name:p=>`${p.name} (#${p.rank} most congested)`,
+    tip:p=>`<b>${esc(p.name)}</b><br>#${p.rank} most congested in Texas${p.trank?` · #${p.trank} for trucks`:''}`+
+      `<br>Peak trips take ${p.tci}x as long as free flow<br>${hrs(p.dmi)} hours of delay per mile a year`+
+      `${p.tdly?`<br>Trucks: ${hrs(p.tdly)} hours of delay, ${money$(p.tcost)} a year`:''}`+
+      `<br><span style="color:#8A93A8">${p.mi} mi segment · total congestion cost ${money$(p.cost)} a year · ${p.yr} ranking</span>`},
+  {key:'hazmat',group:'trucking',label:'Hazmat truck routes (TxDOT)',kind:'line',sw:'rgb(0,140,70)',color:p=>HZ_C[p.k]||HZ_C.through,
+    width:p=>p.k==='through'?4:5,
+    legend:()=>[['Designated hazmat through route','line',HZ_C.through],['Hazmat prohibited','line',HZ_C.prohib],['Prohibited during a hurricane warning','line',HZ_C.hurr],
+      ['Routes cities have designated or restricted (49 CFR 397). Where none are designated, carriers follow federal routing rules','note']],
+    name:p=>`${p.desc} (hazmat ${HZ_NAME[p.k].toLowerCase()})`,
+    tip:p=>`<b>${esc(p.desc)}</b><br><span style="color:rgb(${HZ_C[p.k]})">&#9632;</span> Hazmat ${HZ_NAME[p.k].toLowerCase()}`+
+      `<br><span style="color:#8A93A8">${esc(p.city)}${p.ord?' · '+esc(p.ord):''}${p.date?' · adopted '+p.date.slice(0,4):''}</span>`},
   {key:'freight',group:'trucking',label:'Highway freight network (TxDOT)',kind:'line',style:'freight',sw:'rgb(0,110,120)',color:()=>[0,110,120],width:()=>5,
     legend:()=>[['Texas Highway Freight Network','line',[0,110,120]]],name:p=>(p.name||'Freight route')+' (freight network)',
     tip:p=>`<b>${esc(p.name||'Freight route')}</b><br>Texas Highway Freight Network`},
@@ -1899,7 +1918,7 @@ const indEl=$('indLayers');
 const CHK='<span class="box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span>';
 const CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
 let openGroups; try{ openGroups=new Set(JSON.parse(localStorage.getItem('taxmap.groups')||'["logistics"]')); }catch(e){ openGroups=new Set(['logistics']); }
-const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','rail_terminals','ports','airports','ftz','aadt']],['Trucking',['bridges','freight','road_projects','ports','intermodal','container_yards']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines','electric','gas_util']],
+const PRESETS=[['Logistics',['rail','rail_served','road_projects','intermodal','rail_terminals','ports','airports','ftz','aadt']],['Trucking',['bridges','freight','hazmat','congestion','road_projects','ports','intermodal','container_yards']],['Utilities',['water_ccn','sewer_ccn','power','substations','pipelines','electric','gas_util']],
   ['Risk',['flood','wetlands','evac','contam','watersheds']],['Development',['zoning','opp_zones','tez','contam','rail','road_projects','ports']],['Clear',[]]];
 for(const [gk,gt] of GROUPS){
   const g=document.createElement('div'); g.className='grp'+(openGroups.has(gk)?' open':''); g.dataset.g=gk;
@@ -2016,7 +2035,7 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','opp_zones_v1','tracts','dev_projects','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','opp_zones_v1','tracts','dev_projects','flood','wetlands','evac','contam','road_projects','bridges','freight','congestion','hazmat','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
@@ -2073,6 +2092,13 @@ async function siteChecks(p){
     out.push(['Truck restrictions within 2 mi',near.length?near.slice(0,2).map(([dm,q])=>`${esc(q.name)}${q.over?' / '+esc(tc(q.over)):''} <span>${q.kind==='low'?ftIn(q.clr)+' clearance':esc(BR_NAME[brKind(q)])}, ${dm<0.1?'adjacent':dm.toFixed(1)+' mi'}</span>`).join('<br>')+(near.length>2?` <span>+${near.length-2} more</span>`:''):'<span>No low, load-posted (under 80,000 lb), closed or poor bridges within 2 mi</span>']); }
   if(D.freight&&D.freight.features){ let best=Infinity,nm=''; for(const f of D.freight.features){ const b=fBox(f); if(x<b[0]-0.15||x>b[2]+0.15||y<b[1]-0.15||y>b[3]+0.15) continue; const dm=geomMiles([x,y],f.geometry); if(dm<best){best=dm;nm=f.properties.name;} }
     out.push(['Highway freight network',best<=10?`${esc(nm||'Freight route')} <span>${best<0.1?'adjacent':best.toFixed(1)+' mi'}</span>`:'<span>Over 10 mi</span>']); }
+  const lineNear=(fs,lim,test)=>{ const r=[]; for(const f of fs){ if(test&&!test(f.properties)) continue; const b=fBox(f); if(x<b[0]-lim/50||x>b[2]+lim/50||y<b[1]-lim/60||y>b[3]+lim/60) continue; const dm=geomMiles([x,y],f.geometry); if(dm<=lim) r.push([dm,f.properties]); } return r.sort((a,b)=>a[0]-b[0]); };
+  const dmi=dm=>dm<0.1?'adjacent':dm.toFixed(1)+' mi';
+  if(D.congestion&&D.congestion.features){ const near=lineNear(D.congestion.features,5), seen=new Set(), top=near.filter(q=>!seen.has(q[1].name)&&seen.add(q[1].name)).slice(0,2);
+    out.push(['Most congested roads within 5 mi',top.length?top.map(([dm,q])=>`#${q.rank} ${esc(q.name)} <span>${dmi(dm)}${q.trank?' · #'+q.trank+' for trucks':''}</span>`).join('<br>'):'<span>None of the TxDOT top 100</span>']); }
+  if(D.hazmat&&D.hazmat.features){ const th=lineNear(D.hazmat.features,10,p=>p.k==='through'), pr=lineNear(D.hazmat.features,3,p=>p.k!=='through');
+    out.push(['Hazmat routes',(th.length?`Through route: ${esc(th[0][1].desc.replace(/\s*\(.*$|,.*$|\s+from\s.*$/i,''))} <span>${dmi(th[0][0])}</span>`:'<span>No designated through route within 10 mi; federal routing rules apply</span>')+
+      (pr.length?`<br>Restricted: ${esc(pr[0][1].desc.replace(/\s*\(.*$|,.*$|\s+from\s.*$/i,''))} <span>${HZ_NAME[pr[0][1].k].toLowerCase()}, ${dmi(pr[0][0])}</span>`:'')]); }
   if(D.transit&&D.transit.features){ let bs=Infinity,hub=null,hd=Infinity; for(const f of D.transit.features){ const k=f.properties.kind; if(k==='stop'){ const dm=miles([x,y],f.geometry.coordinates); if(dm<bs) bs=dm; }
       else if(k==='tc'||k==='pnr'){ const dm=miles([x,y],f.geometry.coordinates); if(dm<hd){hd=dm;hub=f.properties;} } }
     out.push(['Transit (METRO)',bs<=5?`Bus stop <span>${bs<0.1?'adjacent':bs.toFixed(1)+' mi'}</span>${hub&&hd<=5?`<br>${esc(hub.name)} ${hub.kind==='tc'?'Transit Center':'Park and Ride'} <span>${hd.toFixed(1)} mi</span>`:''}`:'<span>No METRO service within 5 mi</span>']); }
@@ -2206,7 +2232,7 @@ async function openCompare(){
     ['Rate per $100',x=>x.rate!=null?x.rate.toFixed(4):NA],['Est. annual tax',x=>money0(x.tax)],['Tax per bldg SF / yr',x=>x.tax!=null&&x.bld?'$'+(x.tax/x.bld).toFixed(2):NA],
     ['sec','Access'],
     ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],['Nearest container yards',x=>cell(x,'Nearest container yards')],['Nearest carload yard',x=>cell(x,'Nearest carload yard')],
-    ['Freight network',x=>cell(x,'Highway freight network')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
+    ['Freight network',x=>cell(x,'Highway freight network')],['Congested roads',x=>cell(x,'Most congested roads within 5 mi')],['Hazmat routes',x=>cell(x,'Hazmat routes')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
     ['sec','Labor (30 min by car)'],
     ['Labor force',x=>x._lab?fmtK(x._lab.lf):'…'],['Prod. and warehouse workers',x=>x._lab?fmtK(x._lab.ptm):'…'],['Their median pay',x=>x._lab?(x._lab.ewn?'$'+Math.round(x._lab.ew/x._lab.ewn/1000)+'k':NA):'…'],
     ['Industrial jobs nearby',x=>x._lab?fmtK(x._lab.wac):'…'],
