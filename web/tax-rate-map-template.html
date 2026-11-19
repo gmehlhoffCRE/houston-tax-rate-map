@@ -2032,7 +2032,7 @@ function syncPanel(){
   for(const b of $('presets').querySelectorAll('button')){ const keys=PRESETS.find(p=>p[0]===b.textContent)[1];
     b.classList.toggle('on',keys.length>0&&IND.every(o=>!!state.ind[o.key]===keys.includes(o.key))); }
 }
-function setLayer(key,on,quiet){
+function setLayer(key,on,quiet){ tip.style.display='none';   // a hover card from a layer being switched off would linger
   state.ind[key]=on; if(on){ ensureInd(key); const g=IND.find(o=>o.key===key).group; const ge=indEl.querySelector(`.grp[data-g="${g}"]`); if(ge&&!ge.classList.contains('open')) ge.querySelector('.grp-h').click(); }
   if(key==='rail_served') filterVer++;
   if(!quiet){ syncPanel(); renderLegend(); refresh(); scheduleUrl(); }

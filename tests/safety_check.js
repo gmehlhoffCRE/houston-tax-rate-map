@@ -49,6 +49,14 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms)); const res=[]; const check=(n,o
  check('site check: fire station with drive time',/Nearest fire station\n.*(Station|FD).* mi · about \d+ min drive/.test(sc),line('Nearest fire station'));
  check('site check: business crime within 1 mi',/Business crime within 1 mi\n[\d,]+ incidents a year/.test(sc),line('Business crime within 1 mi'));
  check('site check: industrial jobs within 5 mi',/Industrial jobs within 5 mi\n[\d,]+ manufacturing/.test(sc),line('Industrial jobs within 5 mi'));
+ // ETJ: a Katy-area parcel point check via the layer itself
+ await p.click('button[data-tab="layers"]').catch(()=>{}); await sleep(300);
+ check('ETJ row turns on',await row('City ETJs'));
+ await p.evaluate(()=>window.__app.setView(-95.60,29.85,9.5)); await sleep(4000);
+ const etj=await p.evaluate(()=>{ const d=window.__app.indData.etj; return d&&d.features?d.features.map(f=>f.properties.city):[]; });
+ check('ETJs loaded for major cities',['Houston','Katy','Baytown','League City','Conroe','Pearland','Tomball'].every(c=>etj.includes(c)),etj.length+' cities');
+ ids=await p.evaluate(()=>window.__app.layerIds()); check('ETJ outlines drawn',ids.some(i=>/^ind-etj-/.test(i)));
+ await p.screenshot({path:path.join(shots,'S4-etj.png')});
  check('no script errors',errs.length===0,errs.join(' | '));
  console.log(`${res.filter(Boolean).length}/${res.length} passed`); await b.close();
 })();
