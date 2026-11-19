@@ -841,6 +841,21 @@ function jobBreaks(k){ if(JOB_BR[k]) return JOB_BR[k]; const d=indData.tracts; i
 const GROW_C=[[120,150,170],[240,236,246],[208,190,230],[164,124,206],[120,66,172],[72,18,130]];
 const GROW_LAB=['Lost population','0 to 10%','10 to 25%','25 to 50%','50 to 100%','More than doubled'];
 function growClass(p){ if(p.p10<100) return p.p20>500?5:1; const g=(p.p20-p.p10)/p.p10; return g<0?0:g<.1?1:g<.25?2:g<.5?3:g<1?4:5; }
+// jobs at workplaces (LEHD LODES, by tract)
+const WJ_NAME={wi:'Industrial (manufacturing, warehousing, wholesale)',wm:'Manufacturing',wt:'Transportation and warehousing',ww:'Wholesale trade',wc:'Construction',wo:'Oil, gas and mining',w:'All jobs'};
+const WJ_BR={};
+function wjBreaks(k){ if(WJ_BR[k]) return WJ_BR[k]; const d=indData.tracts; if(!d) return [1,2,3,4];   // job centers: cutoffs from tracts that have jobs
+  const v=d.features.map(f=>f.properties[k]||0).filter(x=>x>0).sort((a,b)=>a-b), q=x=>v[Math.min(v.length-1,Math.floor(x*v.length))];
+  const r=x=>x<100?Math.max(1,Math.round(x/10)*10):x<1000?Math.round(x/50)*50:Math.round(x/500)*500;
+  return WJ_BR[k]=[r(q(.4)),r(q(.7)),r(q(.9)),r(q(.97))]; }
+const WJ_C=[[235,244,247],[178,218,228],[100,172,198],[35,118,163],[10,62,112]];
+// crime grid (Houston PD) and fire stations
+const CR_C=[[254,232,200],[253,187,132],[239,101,72],[204,24,30],[120,0,20]], CR_LAB=['Under half the Houston average','Half to 1x','1x to 2x','2x to 4x','Over 4x the Houston average'];
+const crN=v=>v<10?v.toFixed(1):Math.round(v).toLocaleString(), crCls=m=>m<.5?0:m<1?1:m<2?2:m<4?3:4;
+function crFeats(d){ if(d._f&&d._k===state.crimeSel) return d._f; const k=state.crimeSel==='a'?3:2, avg=d.dens[state.crimeSel]/16;   // per 1/4-mile cell
+  d._f=d.cells.filter(c=>c[k]>0).map(c=>{ const x=d.x0+c[0]*d.dx, y=d.y0+c[1]*d.dy;
+    return {type:'Feature',geometry:{type:'Polygon',coordinates:[[[x,y],[x+d.dx,y],[x+d.dx,y+d.dy],[x,y+d.dy],[x,y]]]},properties:{b:c[2],a:c[3],m:c[k]/avg}}; });
+  d._k=state.crimeSel; return d._f; }
 // congestion (TxDOT top 100) and hazmat routes
 const hrs=v=>v>=1e6?(v/1e6).toFixed(1)+'M':Math.round(v/1000).toLocaleString()+'k';
 const CG_C={a:[150,0,25],b:[215,40,30],c:[245,135,40]}, cgCls=r=>r<=25?'a':r<=50?'b':'c';
@@ -959,6 +974,13 @@ const IND=[
       p.kind==='closed'?'<b>Closed</b>':'', p.posted?`<b>Load posted</b>${p.limit_k?' · '+p.limit_k+',000 lb':''}${p.limit_k>=80?' (limits overweight permit loads only)':''}`:'',
       p.poor?`Poor condition (lowest rating ${p.rating} of 9)`:'', p.damage?'Over-height load damage on record':''].filter(Boolean).join('<br>')+
       `<br><span style="color:#8A93A8">TxDOT bridge ${esc(p.BRDG_ID||'')}${p.YR_BLT?' · built '+esc(p.YR_BLT):''}</span>`},
+  {key:'crime',group:'env',label:'Business crime (Houston PD)',kind:'grid',sw:'rgb(204,24,30)',
+    legend:d=>[[state.crimeSel==='a'?'All reported crime, by 1/4-mile square':'Business property crime, by 1/4-mile square','note'],...CR_C.map((c,i)=>[CR_LAB[i],'fill',c]),
+      ['Houston PD reports '+(d&&d.years?d.years[0]+' to '+d.years[d.years.length-1]:'')+', yearly average. City of Houston only (dashed line); other police agencies do not publish incident locations','note'],
+      ...(state.crimeSel==='b'?[['Business crime: burglary, theft, vehicle and parts theft, vandalism, robbery, arson and trespass at commercial, industrial, office, parking, construction, storage and freight sites','note']]:[])],
+    name:()=>'Crime',
+    tip:p=>`<b>${state.crimeSel==='a'?'All crime':'Business property crime'}</b><br>${crN(state.crimeSel==='a'?p.a:p.b)} incidents a year in this 1/4-mile square`+
+      `<br>${p.m>=1?p.m.toFixed(1)+'x':'Below'} the Houston average${state.crimeSel==='b'?`<br><span style="color:#8A93A8">${crN(p.a)} incidents a year of all types</span>`:''}`},
   {key:'congestion',group:'trucking',label:'Most congested roads (TxDOT top 100)',kind:'line',sw:'rgb(200,20,30)',color:p=>CG_C[cgCls(p.rank)],
     width:p=>p.rank<=25?7:p.rank<=50?6:5,
     legend:()=>[['Top 25 in Texas','line',CG_C.a],['26 to 50','line',CG_C.b],['51 to 100','line',CG_C.c],['TxDOT and Texas A&M Transportation Institute ranking of the most congested road segments statewide','note']],
@@ -978,6 +1000,12 @@ const IND=[
     legend:()=>[['Texas Highway Freight Network','line',[0,110,120]]],name:p=>(p.name||'Freight route')+' (freight network)',
     tip:p=>`<b>${esc(p.name||'Freight route')}</b><br>Texas Highway Freight Network`},
   // infrastructure
+  {key:'fire',group:'infra',label:'Fire stations',kind:'point',sw:'rgb(200,30,30)',color:p=>p.s==='hfd'?[200,30,30]:[230,90,40],radius:p=>p.l?6:5,
+    labelZ:13,text:p=>p.n.replace(/ Fire Department| Volunteer Fire Department/,' FD').replace(/^Houston FD Station /,'HFD '),
+    legend:()=>[['Houston Fire Department','dot',[200,30,30]],['Other city, ESD and volunteer departments','dot',[230,90,40]],
+      ['City of Houston list; others from the federal HIFLD inventory (2020-2022). Insurers rate sites more than 5 road miles from a station less favorably','note']],
+    name:p=>p.n,
+    tip:p=>`<b>${esc(p.n)}</b><br>${esc(p.a||'')}${p.c?', '+esc(p.c):''}${p.l?'<br>Ladder truck':''}`},
   {key:'pipelines',group:'infra',label:'Pipelines (RRC)',kind:'line',style:'dash',sw:'rgb(230,140,30)',color:p=>PIPE_C[PIPE_CLS(p.commodity)],
     width:p=>p.diameter>=20?2.6:p.diameter>=8?2:1.5,show:(p,dz)=>dz>=11||(p.diameter||0)>=8,
     legend:()=>Object.keys(PIPE_C).map(k=>[PIPE_NAME[k],'dash',PIPE_C[k]]).concat([['Under 8 in. shown from zoom 12','note']]),
@@ -1018,6 +1046,16 @@ const IND=[
         .concat([['Where workers live, not where they work. ACS 2019-2023; tracts of about 4,500 people','note']]); },
     name:()=>'Census tract',
     tip:p=>`<b>${(p[state.jobSel]||0).toLocaleString()} ${esc(JOB_NAME[state.jobSel].toLowerCase())} workers</b><br>${p.emp?Math.round(100*(p[state.jobSel]||0)/p.emp):0}% of ${p.emp.toLocaleString()} employed residents<br><span style="color:#8A93A8">Census tract ${esc(p.t)} · ACS 2019-2023</span>`},
+  {key:'wjobs',src:'tracts',group:'workforce',label:'Jobs by industry (where people work)',kind:'fill',sw:'rgb(35,118,163)',line:()=>[70,110,140],
+    fill:p=>{ const br=wjBreaks(state.wjSel), v=p[state.wjSel]||0; let i=0; while(i<4&&v>=br[i]) i++; return [...WJ_C[i],235]; },
+    trig:()=>state.wjSel,
+    legend:()=>{ const br=wjBreaks(state.wjSel), f=v=>Math.round(v).toLocaleString();
+      return [[WJ_NAME[state.wjSel]+': jobs located in each census tract','note']].concat(WJ_C.map((c,i)=>[(i===0?'Under '+f(br[0]):i===4?f(br[3])+' and up':f(br[i-1])+' to '+f(br[i])),'fill',c]))
+        .concat([['Where employers are, so where competing employers hire. Census LEHD 2024','note']]); },
+    name:()=>'Census tract',
+    tip:p=>{ const v=p[state.wjSel]||0, g=p.wi19>=50?(p.wi-p.wi19)/p.wi19*100:null;
+      return `<b>${v.toLocaleString()} ${state.wjSel==='w'?'jobs':esc(WJ_NAME[state.wjSel].toLowerCase())+' jobs'}</b> located here<br>${p.w?Math.round(100*v/p.w):0}% of ${(p.w||0).toLocaleString()} jobs in the tract`+
+        `<br>Industrial jobs ${(p.wi||0).toLocaleString()}${g==null?'':` · ${g>0?'+':''}${g.toFixed(Math.abs(g)<10?1:0)}% since 2019`}<br><span style="color:#8A93A8">Census tract ${esc(p.t)} · LEHD 2024</span>`; }},
   {key:'pop_growth',src:'tracts',group:'workforce',label:'Population growth (census tracts)',kind:'fill',sw:'rgb(118,64,170)',line:()=>[110,90,140],
     fill:p=>[...GROW_C[growClass(p)],245],
     legend:()=>[['Population change 2010 to 2020 census','note'],...GROW_LAB.map((l,i)=>[l,'fill',GROW_C[i]]),['Hover a tract for the 2019-2023 estimate and county growth since 2020','note']],
@@ -1066,6 +1104,9 @@ const IND=[
       `<br>${[p.sqft?p.sqft.toLocaleString()+' sq ft':'',p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · ')}`+
       `<br><span style="color:#8A93A8">Est. start</span> ${dpDate(p.start)} <span style="color:#8A93A8">· finish</span> ${dpDate(p.end)}`+
       ''},
+  {key:'etj',group:'planning',label:'City ETJs (extraterritorial jurisdiction)',kind:'outline',sw:'rgb(90,90,160)',color:()=>[90,90,160],dash:true,
+    legend:()=>[['City ETJ boundary','dash',[90,90,160]],['Outside city limits: no city property tax, but city platting and subdivision rules apply. Since 2023 owners can petition to leave an ETJ','note']],
+    name:p=>tc(p.city||'')+' ETJ',tip:p=>`<b>${esc(tc(p.city||''))} ETJ</b><br>Extraterritorial jurisdiction<br><span style="color:#8A93A8">No city tax; city plat rules apply · H-GAC</span>`},
   {key:'opp_zones',group:'planning',label:'Opportunity Zones 2.0',kind:'fill',sw:'rgb(30,140,80)',
     fill:p=>p.rural?[0,120,110,60]:[30,140,80,50],line:p=>p.rural?[0,100,95]:[20,110,60],
     legend:()=>[['Opportunity Zone 2.0, Jan 1, 2027 to Dec 31, 2036','fill',[30,140,80]],['Rural Opportunity Zone (larger rural fund benefit)','fill',[0,120,110]]],
@@ -1076,7 +1117,7 @@ const IND=[
     tip:p=>`<b>Opportunity Zone 1.0 (2018)</b><br>Designation ends Dec 31, 2026; investments already made keep their benefits<br><span style="color:#8A93A8">2010 census tract ${esc(p.tract||'')}</span>`},
 ];
 const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
-state.occSel=0; state.jobSel='matl'; state.dp={building:true,planned:true,done:true,storage:false}; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
+state.occSel=0; state.jobSel='matl'; state.wjSel='wi'; state.crimeSel='b'; state.dp={building:true,planned:true,done:true,storage:false}; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
 const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports'&&o.key!=='airports');
 async function loadLayerData(key){
   const src=(IND.find(o=>o.key===key)||{}).src;
@@ -1159,6 +1200,12 @@ function indLayers(dz){
         getRadius:dz>=11?3:dz>=9?2.2:1.6,radiusUnits:'pixels',updateTriggers:{getRadius:Math.floor(dz)}}));
       continue;
     }
+    if(o.kind==='grid'){
+      L.push(new deck.GeoJsonLayer({id:id+'f',data:crFeats(d),filled:true,stroked:false,pickable:true,onHover:indTip,opacity:op,
+        getFillColor:f=>[...CR_C[crCls(f.properties.m)],dz>=13?150:205],updateTriggers:{getFillColor:[state.crimeSel,dz>=13]}}));
+      if(d.limit&&dz>=11) L.push(new deck.GeoJsonLayer({id:id+'lim',data:{type:'Feature',geometry:d.limit,properties:{}},filled:false,stroked:true,pickable:false,opacity:op,
+        getLineColor:[120,0,20,200],getLineWidth:1.6,lineWidthUnits:'pixels',getDashArray:[4,3],dashJustified:true,extensions:[dashExt]}));
+      continue; }
     if(!d.features) continue;
     if(o.kind==='transit'){
       const T=d.features, routes=T.filter(f=>f.properties.kind==='route'), rail=T.filter(f=>f.properties.kind==='rail'),
@@ -1270,7 +1317,7 @@ function rowSwatch(o){
   const c=(o.sw.match(/\d+/g)||[0,0,0]).map(Number);
   if(o.kind==='proj') return swatch('line',c);
   if(o.icon&&MAP_ICONS[o.icon({})]) return swatch('icon:'+o.icon({}));
-  return swatch(o.kind==='fill'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='band'?'band':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
+  return swatch(o.kind==='fill'||o.kind==='grid'?'fill':o.kind==='point'?'dot':o.kind==='parcels'?'outline':o.kind==='outline'?(o.dash?'dash':'line'):o.style==='rail'?'rail':o.style==='band'?'band':o.style==='dash'?'dash':o.style==='dot'?'dot-line':'line',c);
 }
 
 // ---------------------------------------------------------------- drive time (pipeline/build_drive_grid.py)
@@ -1579,7 +1626,7 @@ $('lblBtn').onclick=()=>{ REF.on=!REF.on; const b=$('lblBtn'); b.classList.toggl
 if(!REF.on){ $('lblBtn').classList.remove('on'); $('lblBtn').setAttribute('aria-pressed','false'); }
 function buildLayers(){
   const dz=state.gz-1;
-  const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|wetlands|evac|zoning|opp_zones|opp_zones_v1|water_ccn|sewer_ccn)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
+  const I=indLayers(dz), under=I.filter(l=>/^ind-(flood|wetlands|evac|zoning|opp_zones|opp_zones_v1|water_ccn|sewer_ccn|crime|etj|wjobs)-/.test(l.id)), over=I.filter(l=>!under.includes(l));
   const L=[parcelLayer(),...under,...dtLayers(),...hwyLayers(dz)];
   if(state.dev.on&&DEV_PTS.length&&dz<PARCEL_TZ) L.push(new deck.ScatterplotLayer({id:'dev-dots',data:DEV_PTS.filter(d=>d.c>=0&&d.c<=MAXID?passArr[d.c]:true),getPosition:d=>d.p,
     pickable:true,getFillColor:[255,182,0,200],getLineColor:[0,30,90,200],stroked:true,lineWidthUnits:'pixels',getLineWidth:0.7,
@@ -1950,6 +1997,10 @@ for(const [gk,gt] of GROUPS){
     if(o.key==='jobs_tract'){ const sub=document.createElement('div'); sub.id='jobOpts'; sub.className='occopts'; sub.style.display='none';
       sub.innerHTML=`<select id="jobSel" aria-label="Job group shown on the map">${Object.entries(JOB_NAME).map(([k,l])=>`<option value="${k}" ${k===state.jobSel?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
       body.appendChild(sub); sub.querySelector('select').onchange=e=>{ state.jobSel=e.target.value; renderLegend(); refresh(); scheduleUrl(); }; }
+    if(o.key==='wjobs'||o.key==='crime'){ const sub=document.createElement('div'); sub.id=o.key+'Opts'; sub.className='occopts'; sub.style.display='none';
+      const opts=o.key==='wjobs'?WJ_NAME:{b:'Business property crime',a:'All reported crime'}, sk=o.key==='wjobs'?'wjSel':'crimeSel';
+      sub.innerHTML=`<select aria-label="${o.key==='wjobs'?'Industry shown on the map':'Crime type shown on the map'}">${Object.entries(opts).map(([k,l])=>`<option value="${k}" ${k===state[sk]?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
+      body.appendChild(sub); sub.querySelector('select').onchange=e=>{ state[sk]=e.target.value; renderLegend(); refresh(); scheduleUrl(); }; }
     if(o.key==='rail_served'){
       const sub=document.createElement('label'); sub.className='chk sub'; sub.id='railOnlyRow'; sub.style.display='none';
       sub.innerHTML=`<input type="checkbox" id="railOnly">${CHK}<span>Show only rail-served parcels</span>`;
@@ -1974,6 +2025,8 @@ function syncPanel(){
   if($('dpOpts')) $('dpOpts').style.display=state.ind.dev_projects?'':'none';
   if($('occOpts')) $('occOpts').style.display=state.ind.pumas?'':'none';
   if($('jobOpts')) $('jobOpts').style.display=state.ind.jobs_tract?'':'none';
+  if($('wjobsOpts')) $('wjobsOpts').style.display=state.ind.wjobs?'':'none';
+  if($('crimeOpts')) $('crimeOpts').style.display=state.ind.crime?'':'none';
   if(!state.ind.rail_served&&state.railOnly){ state.railOnly=false; $('railOnly').checked=false; filterVer++; }
   $('focusRow').style.display=anyIndOn()&&state.shade?'':'none';
   for(const b of $('presets').querySelectorAll('button')){ const keys=PRESETS.find(p=>p[0]===b.textContent)[1];
@@ -1993,7 +2046,7 @@ for(const o of IND) if(o.on) ensureInd(o.key);
 // legend: only the layers that are on, drawn in their map styles
 function renderLegend(){
   const on=IND.filter(o=>state.ind[o.key]);
-  $('layLeg').innerHTML=on.map(o=>`<div class="ll"><div class="lt">${esc(o.label)}</div>${o.legend().map(([t,st,c])=>st==='note'?`<div class="ln">${esc(t)}</div>`:`<div class="le">${swatch(st,c)}<span>${esc(t)}</span></div>`).join('')}</div>`).join('');
+  $('layLeg').innerHTML=on.map(o=>`<div class="ll"><div class="lt">${esc(o.label)}</div>${o.legend(indData[o.key]).map(([t,st,c])=>st==='note'?`<div class="ln">${esc(t)}</div>`:`<div class="le">${swatch(st,c)}<span>${esc(t)}</span></div>`).join('')}</div>`).join('');
   const use=state.color==='use';
   $('rateLeg').style.display=use?'none':''; $('useLeg').style.display=use&&state.shade?'':'none';
   if(use) $('useLeg').innerHTML='<div class="t">Land use (CAD state class)</div>'+TYPE_LABEL.map((l,t)=>`<div class="le"><i style="background:rgb(${USE_C[t]})"></i>${esc(t===6?'Other / agricultural':t===5?'Exempt / public':l)}</div>`).join('')+'<div class="ln" style="font-size:9.5px;color:#8A93A8;margin-top:3px">Zoomed out, nearby parcels of the same use are merged into blocks</div>';
@@ -2035,7 +2088,7 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','opp_zones_v1','tracts','dev_projects','flood','wetlands','evac','contam','road_projects','bridges','freight','congestion','hazmat','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','etj','fire','crime','opp_zones','opp_zones_v1','tracts','dev_projects','flood','wetlands','evac','contam','road_projects','bridges','freight','congestion','hazmat','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
@@ -2052,12 +2105,25 @@ async function siteChecks(p){
     const ny=D.container_yards.features.filter(f=>f.properties.kind==='yard').map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).sort((a,b)=>a[0]-b[0]).slice(0,2);
     out.push(['Nearest container yards',ny.length?ny.map(([dm,q])=>`${esc(q.name)} <span>${dm.toFixed(1)} mi</span>`).join('<br>'):'<span>None listed</span>']); }
   if(D.zoning){ const f=featAt(D.zoning,x,y); out.push(['Zoning',f?`${esc(f.properties.city)} ${esc(f.properties.code)} <span>${esc(ZONE_NAME[f.properties.cat]||'')}</span>`:'<span>None mapped (no zoning, or no city layer)</span>']); }
+  if(D.etj&&D.etj.features){ const f=featAt(D.etj,x,y); out.push(['City ETJ',f?`${esc(tc(f.properties.city||''))} ETJ <span>No city tax; city platting rules apply</span>`:'<span>Not in a city ETJ (inside city limits or open county)</span>']); }
   if(D.opp_zones){ const f=featAt(D.opp_zones,x,y), v1=D.opp_zones_v1&&featAt(D.opp_zones_v1,x,y);
     out.push(['Opportunity Zone 2.0',(f?`Yes${f.properties.rural?', rural':''} <span>from Jan 1, 2027 · tract ${esc(f.properties.tract||'')}</span>`:'<span>No</span>')+
       (v1?`<br><span>In a 2018 zone (OZ 1.0) until Dec 31, 2026</span>`:'')]); }
   if(D.dev_projects&&D.dev_projects.features){ const near=D.dev_projects.features.filter(f=>f.properties.kind==='ind'&&f.properties.stage!=='done').map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).filter(q=>q[0]<=3).sort((a,b)=>a[0]-b[0]);
     const sf=near.reduce((s,q)=>s+(q[1].sqft||0),0);
     out.push(['Industrial projects within 3 mi',near.length?`${near.length} planned or under construction${sf?' · '+Math.round(sf/1000).toLocaleString()+'k sq ft':''}<span>Nearest: ${esc(near[0][1].name)}, ${near[0][0].toFixed(1)} mi</span>`:'<span>None registered with TDLR since 2025</span>']); }
+  if(D.tracts&&D.tracts.features){ let wi=0, w19=0;
+    for(const f of D.tracts.features){ const p=f.properties;
+      if(!f._c){ const r=f.geometry.type==='Polygon'?f.geometry.coordinates[0]:f.geometry.coordinates[0][0]; let sx=0,sy=0; for(const c of r){ sx+=c[0]; sy+=c[1]; } f._c=[sx/r.length,sy/r.length]; }
+      if(Math.abs(f._c[0]-x)>0.1||Math.abs(f._c[1]-y)>0.09) continue; if(miles([x,y],f._c)<=5){ wi+=p.wi||0; w19+=p.wi19||0; } }
+    const g=w19?(wi-w19)/w19*100:null;
+    out.push(['Industrial jobs within 5 mi',`${wi.toLocaleString()} <span>manufacturing, warehousing and wholesale (LEHD 2024)${g==null?'':`, ${g>0?'+':''}${g.toFixed(Math.abs(g)<10?1:0)}% since 2019`}</span>`]); }
+  if(D.crime&&D.crime.cells){ const C=D.crime, inH=C.limit&&featAt({features:[{geometry:C.limit,properties:{}}]},x,y);
+    if(!inH) out.push(['Business crime within 1 mi','<span>No incident data: outside Houston PD\'s area</span>']);
+    else { let b=0,a=0; const ci=(x-C.x0)/C.dx, cj=(y-C.y0)/C.dy, ri=Math.ceil(1/(C.dx*69.17*Math.cos(29.8*Math.PI/180))), rj=Math.ceil(1/(C.dy*69.05));
+      for(const c of C.cells){ if(Math.abs(c[0]+.5-ci)>ri||Math.abs(c[1]+.5-cj)>rj) continue; if(miles([x,y],[C.x0+(c[0]+.5)*C.dx,C.y0+(c[1]+.5)*C.dy])<=1){ b+=c[2]; a+=c[3]; } }
+      const m=b/(C.dens.b*Math.PI);
+      out.push(['Business crime within 1 mi',`${Math.round(b).toLocaleString()} incidents a year <span>${m>=1.05?m.toFixed(1)+'x the':m<=0.95?(m*100).toFixed(0)+'% of the':'about the'} Houston average · ${Math.round(a).toLocaleString()} of all types</span>`]); } }
   if(D.tracts){ const f=featAt(D.tracts,x,y); if(f){ const p=f.properties, g=p.p10>=100?(p.p20-p.p10)/p.p10*100:null, s=v=>(v>0?'+':'')+v.toFixed(Math.abs(v)<10?1:0)+'%';
     out.push(['Population growth',`${g==null?'New area since 2010':s(g)+' in the tract, 2010 to 2020'}<span>${p.co_g!=null?'County '+s(p.co_g)+' 2020 to 2024 · ':''}${p.p23.toLocaleString()} people (2019-2023)</span>`]); } }
   if(D.tez){ const f=featAt(D.tez,x,y); out.push(['Enterprise Zone',f?'Eligible <span>block group</span>':'<span>No</span>']); }
@@ -2076,6 +2142,15 @@ async function siteChecks(p){
     if(Tf){ let best=Infinity; const sp=G.car; for(let i=0;i<Tf.length;i++){ if(sp[i]>=78&&Tf[i]<best) best=Tf[i]; }
       out.push(['Freeway access (truck)',best<=1800?`${Math.max(1,Math.round(best/60))} min <span>to the nearest freeway or tollway</span>`:'<span>Over 30 min</span>']); }
   }catch(e){}
+  try{ if(D.fire&&D.fire.features){
+    const near=D.fire.features.map(f=>[miles([x,y],f.geometry.coordinates),f]).filter(q=>q[0]<=10).sort((a,b)=>a[0]-b[0]).slice(0,8);
+    if(!near.length) out.push(['Nearest fire station','<span>None within 10 mi</span>']);
+    else { const G=await dtGrid(), Tc=dtSolve(G,x,y,'car',1800); let best=null;
+      for(const [dm,f] of near){ let t=Infinity; if(Tc){ const cx=Math.floor((f.geometry.coordinates[0]-G.bbox[0])/G.dx), cy=Math.floor((f.geometry.coordinates[1]-G.bbox[1])/G.dy);
+          for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const xx=cx+dx, yy=cy+dy; if(xx<0||yy<0||xx>=G.nx||yy>=G.ny) continue; const v=Tc[yy*G.nx+xx]; if(v<t) t=v; } }
+        if(!best||t<best[0]||(t===best[0]&&dm<best[1])) best=[t,dm,f.properties]; }
+      const [t,dm,p]=best, far=dm>5;
+      out.push(['Nearest fire station',`${esc(p.n)} <span>${dm.toFixed(1)} mi${t<=1800?' · about '+Math.max(1,Math.round(t/60))+' min drive':''}${far?' · over 5 mi: insurers usually rate the site less favorably':''}</span>`]); } } }catch(e){}
   try{
     const G=await dtGrid(), ports=await loadLayerData('ports');
     const cts=ports&&ports.features?ports.features.filter(f=>f.properties.kind==='terminal'&&f.properties.major):[];
@@ -2232,7 +2307,7 @@ async function openCompare(){
     ['Rate per $100',x=>x.rate!=null?x.rate.toFixed(4):NA],['Est. annual tax',x=>money0(x.tax)],['Tax per bldg SF / yr',x=>x.tax!=null&&x.bld?'$'+(x.tax/x.bld).toFixed(2):NA],
     ['sec','Access'],
     ['Freeway access',x=>cell(x,'Freeway access (truck)')],['Container terminals',x=>cell(x,'Truck time to container terminals')],['Rail',x=>cell(x,'Rail')],['Transload and rail parks',x=>cell(x,'Transload and rail parks')],['Nearest container yards',x=>cell(x,'Nearest container yards')],['Nearest carload yard',x=>cell(x,'Nearest carload yard')],
-    ['Freight network',x=>cell(x,'Highway freight network')],['Congested roads',x=>cell(x,'Most congested roads within 5 mi')],['Hazmat routes',x=>cell(x,'Hazmat routes')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
+    ['Freight network',x=>cell(x,'Highway freight network')],['Congested roads',x=>cell(x,'Most congested roads within 5 mi')],['Hazmat routes',x=>cell(x,'Hazmat routes')],['Fire station',x=>cell(x,'Nearest fire station')],['Business crime',x=>cell(x,'Business crime within 1 mi')],['Industrial jobs',x=>cell(x,'Industrial jobs within 5 mi')],['Truck restrictions',x=>cell(x,'Truck restrictions within 2 mi')],['Road projects',x=>cell(x,'Road projects within 1 mi')],['Transit',x=>cell(x,'Transit (METRO)')],
     ['sec','Labor (30 min by car)'],
     ['Labor force',x=>x._lab?fmtK(x._lab.lf):'…'],['Prod. and warehouse workers',x=>x._lab?fmtK(x._lab.ptm):'…'],['Their median pay',x=>x._lab?(x._lab.ewn?'$'+Math.round(x._lab.ew/x._lab.ewn/1000)+'k':NA):'…'],
     ['Industrial jobs nearby',x=>x._lab?fmtK(x._lab.wac):'…'],
@@ -2240,7 +2315,7 @@ async function openCompare(){
       .map(([key,lab])=>[OCC.occ.findIndex(o=>o.key===key),lab]).filter(([k])=>k>=0)
       .map(([k,lab])=>[lab+' (30 min)',x=>x._lab&&x._lab.occ?fmtK(x._lab.occ[k]):'…']):[]),
     ['sec','Site'],
-    ['Zoning',x=>cell(x,'Zoning')],['Flood zone',x=>cell(x,'Flood zone')],['Wetlands',x=>cell(x,'Wetlands')],['Evacuation zone',x=>cell(x,'Evacuation zone')],
+    ['Zoning',x=>cell(x,'Zoning')],['City ETJ',x=>cell(x,'City ETJ')],['Flood zone',x=>cell(x,'Flood zone')],['Wetlands',x=>cell(x,'Wetlands')],['Evacuation zone',x=>cell(x,'Evacuation zone')],
     ['Opportunity Zone',x=>cell(x,'Opportunity Zone')],['Enterprise Zone',x=>cell(x,'Enterprise Zone')],['Foreign-Trade Zone',x=>cell(x,'Foreign-Trade Zone')],
     ['Electric utility',x=>cell(x,'Electric utility')],['Gas utility',x=>cell(x,'Gas utility')],['Watershed',x=>cell(x,'Watershed (HCFCD)')],['Nearest cleanup site',x=>cell(x,'Nearest cleanup site')],
   ];

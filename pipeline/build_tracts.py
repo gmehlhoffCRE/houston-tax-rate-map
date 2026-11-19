@@ -21,6 +21,9 @@ For every 2020 census tract in the 8 counties:
     prod     production
     trans    transportation (drivers and other transportation jobs)
     matl     material moving (warehouse, freight and stock handlers)
+  w...       jobs located in the tract (where people work), LEHD LODES 8 workplace area characteristics, 2024:
+             w all jobs, wm manufacturing, wt transportation and warehousing, ww wholesale trade, wc construction,
+             wo oil, gas and mining; wi = wm + wt + ww; wi19 = manufacturing + transportation/warehousing + wholesale jobs in 2019
   co_g       county population growth 2020-2024, percent (Census population estimates, vintage 2024)
 
 Inputs (www2.census.gov, all in --census):
@@ -30,8 +33,9 @@ Inputs (www2.census.gov, all in --census):
   tab20_tract20_tract10_st48.txt                      /geo/docs/maps-data/data/rel2020/tract/
   acsdt5y2023-b01003.dat, acsdt5y2023-c24010.dat      /programs-surveys/acs/summary_file/2023/table-based-SF/data/5YRData/
   co-est2024-alldata.csv                              /programs-surveys/popest/datasets/2020-2024/counties/totals/
+  tx_wac_S000_JT00_2024.csv.gz, ..._2019.csv.gz       lehd.ces.census.gov /data/lodes/LODES8/tx/wac/
 """
-import argparse, csv, io, json, os, zipfile
+import argparse, csv, gzip, io, json, os, zipfile
 from collections import defaultdict
 import geopandas as gpd
 
@@ -79,6 +83,20 @@ def sf(path):
                 r = dict(zip(head, ln.rstrip("\n").split("|")))
                 if keep(r["GEO_ID"][-11:]):
                     yield r["GEO_ID"][-11:], r
+
+
+WAC = {"w": "C000", "wm": "CNS05", "wt": "CNS08", "ww": "CNS06", "wc": "CNS04", "wo": "CNS02"}
+
+
+def wac(path, cols):
+    out = defaultdict(lambda: defaultdict(int))
+    with gzip.open(path, "rt") as f:
+        for r in csv.DictReader(f):
+            g = r["w_geocode"][:11]
+            if keep(g):
+                for k, c in cols.items():
+                    out[g][k] += int(r[c])
+    return out
 
 
 def num(v):
@@ -136,6 +154,11 @@ def main():
                 co[r["COUNTY"]] = round(100 * (e24 - b) / b, 1)
     print("county growth 2020-2024 (%):", {COUNTIES[k]: v for k, v in co.items()})
 
+    w24 = wac(c("tx_wac_S000_JT00_2024.csv.gz"), WAC)
+    w19 = wac(c("tx_wac_S000_JT00_2019.csv.gz"), {"wm": "CNS05", "wt": "CNS08", "ww": "CNS06"})
+    print("jobs located in the 8 counties, 2024:", {k: sum(v[k] for v in w24.values()) for k in WAC},
+          " industrial 2019:", sum(v["wm"] + v["wt"] + v["ww"] for v in w19.values()))
+
     g = gpd.read_file("zip://" + c("tl_2020_48_tract20.zip"))
     g = g[g.COUNTYFP20.isin(COUNTIES)].copy()
     g = g[g.ALAND20.astype(float) > 0]   # skip all-water tracts
@@ -144,7 +167,8 @@ def main():
     for r in g.itertuples():
         t = r.GEOID20
         props = {"t": t, "p10": int(round(p10.get(t, 0))), "p20": p20.get(t, 0), "p23": p23.get(t, 0),
-                 "co_g": co.get(t[2:5]), "sqmi": round(float(r.ALAND20) / 2589988.11, 2), **jobs.get(t, {"emp": 0})}
+                 "co_g": co.get(t[2:5]), "sqmi": round(float(r.ALAND20) / 2589988.11, 2), **jobs.get(t, {"emp": 0}),
+                 **{k: w24[t][k] for k in WAC}, "wi": w24[t]["wm"] + w24[t]["wt"] + w24[t]["ww"], "wi19": w19[t]["wm"] + w19[t]["wt"] + w19[t]["ww"]}
         geo = json.loads(gpd.GeoSeries([r.geometry]).to_json())["features"][0]["geometry"]
         def rnd(x):
             return [rnd(v) for v in x] if isinstance(x, list) and x and isinstance(x[0], list) else [round(x[0], 5), round(x[1], 5)]
