@@ -9,9 +9,9 @@ the registry is a good early signal of new buildings.
 
 Steps:
   1. List every project registered in the 8 counties since --since (TABS project search, 100 per request).
-  2. Fetch the details page for candidates: any project whose name looks industrial (warehouse, distribution,
-     manufacturing...) at $250k+, and other new construction or additions at $5M+. Pages are cached in --raw, so
-     reruns only fetch new projects. Requests are paced (1.5 s apart; TDLR resets faster clients).
+  2. Fetch the details page (it has the street address the list lacks) for projects whose name looks industrial
+     (warehouse, distribution, manufacturing...) at $250k+. Pages are cached in --raw, so reruns only fetch new
+     projects. Requests are paced (1.5 s apart; TDLR resets faster clients).
   3. Classify: industrial (warehouse, distribution, logistics, manufacturing, plant, cold storage, data center, flex,
      industrial park...) or other commercial; self storage is its own class.
   4. Locate: the project address is matched to an appraisal account address in the same city (the map's parcel
@@ -100,8 +100,12 @@ SUFFIX = {"STREET": "ST", "DRIVE": "DR", "ROAD": "RD", "AVENUE": "AVE", "AV": "A
 
 
 def norm(a):
-    a = re.sub(r"[.,#]", " ", (a or "").upper())
-    a = re.sub(r"\b(STE|SUITE|UNIT|BLDG|BUILDING)\b.*$", "", a)
+    a = (a or "").upper()
+    a = re.sub(r",.*$", "", a) if re.match(r"^\d+[^,]*,", a) else a        # "222 Holmes Rd, Houston, TX ..." -> street only
+    a = re.sub(r"[.,#]", " ", a)
+    a = re.sub(r"\b(STE|SUITE|UNIT|BLDG|BUILDING|PHASE|LOT)\b.*$", "", a)
+    a = re.sub(r"\s+[A-Z ]+\s+TX\s+\d{5}.*$", "", a)                      # trailing "Houston TX 77045"
+    a = re.sub(r"^(\d+)\s+1/2\b", r"\1", a)
     w = [SUFFIX.get(x, x) for x in a.split()]
     return " ".join(w)
 
@@ -112,6 +116,7 @@ def main():
     ap.add_argument("--embed", required=True, help="parcel build folder with bucket/shards (address -> location)")
     ap.add_argument("--out", default="out")
     ap.add_argument("--since", default="01/01/2025")
+    ap.add_argument("--places", default=None, help="places.json (city centers, to pick among same-named streets)")
     a = ap.parse_args()
     os.makedirs(a.raw, exist_ok=True)
 
@@ -121,12 +126,12 @@ def main():
         cost, w = r.get("EstimatedCost") or 0, r.get("TypeOfWork")
         name = f"{r.get('ProjectName') or ''} {r.get('FacilityName') or ''}"
         ind = bool(IND.search(name)) and not NOT_IND.search(name)
-        return (ind and cost >= 250_000) or (w in (9001, 9003) and cost >= 5_000_000)
-    cands = sorted((r for r in rows if cand(r)), key=lambda r: not IND.search(f"{r.get('ProjectName')} {r.get('FacilityName')}"))   # industrial first
+        return ind and cost >= 250_000
+    cands = [r for r in rows if cand(r)]
     print(f"{len(rows):,} projects; {len(cands):,} candidates for details", flush=True)
 
     # address index from the parcel records
-    idx, idx_a = {}, {}
+    idx, idx_a, idx_s = {}, {}, {}
     for f in glob.glob(os.path.join(a.embed, "bucket", "shards", "a", "*.json")):
         for r in json.load(open(f))["r"]:
             ad, city, x, y = norm(r[2]), (r[3] or "").upper().strip(), r[9], r[10]
@@ -134,8 +139,15 @@ def main():
                 continue
             idx.setdefault((ad, city), (x / 1e5, y / 1e5, r[0]))
             idx_a.setdefault(ad, []).append((x / 1e5, y / 1e5, r[0]))
+            m = re.match(r"^(\d+) (.+)$", ad)
+            if m:
+                idx_s.setdefault(m.group(2), []).append((int(m.group(1)), x / 1e5, y / 1e5))
     print(f"address index: {len(idx):,} addresses", flush=True)
 
+    ctr = {}
+    if a.places:
+        P = json.load(open(a.places))
+        ctr = {n.upper(): c for n, c in zip(P["n"], P["c"])}
     today = date.today(); feats = []; miss = 0; n = 0
     for r in cands:
         n += 1
@@ -148,9 +160,23 @@ def main():
             cityzip = m.group(1)
         city = re.sub(r",.*$", "", cityzip).upper().strip()
         hit = idx.get((norm(addr), city))
+        cc = ctr.get(city)
+        near = lambda q: cc is None or abs(q[0] - cc[0]) < .3 and abs(q[1] - cc[1]) < .3     # within ~20 mi of the city
         if not hit:
-            c = idx_a.get(norm(addr), [])
-            hit = c[0] if len(c) == 1 or (c and all(abs(q[0] - c[0][0]) < .01 and abs(q[1] - c[0][1]) < .01 for q in c)) else None
+            c = [q for q in idx_a.get(norm(addr), []) if near(q)]
+            if c and all(abs(q[0] - c[0][0]) < .01 and abs(q[1] - c[0][1]) < .01 for q in c):
+                hit = c[0]
+            elif c and cc:
+                hit = min(c, key=lambda q: (q[0] - cc[0]) ** 2 + (q[1] - cc[1]) ** 2)
+        if not hit:     # nearest house number on the same street (new buildings often have no parcel address yet)
+            m = re.match(r"^(\d+) (.+)$", norm(addr))
+            if m:
+                n0 = int(m.group(1))
+                c = [q for q in idx_s.get(m.group(2), []) if abs(q[0] - n0) <= 400 and near(q[1:])]
+                if c:
+                    q = min(c, key=lambda q: abs(q[0] - n0))
+                    if all(abs(o[1] - q[1]) < .05 and abs(o[2] - q[2]) < .05 for o in c if abs(o[0] - n0) <= 400):
+                        hit = (q[1], q[2], None)
         if not hit:
             miss += 1; continue
         scope = field(t, "Scope of Work"); sqft = field(t, "Square Footage")
@@ -169,13 +195,11 @@ def main():
         else:
             stage = "building"
         feats.append({"type": "Feature", "geometry": {"type": "Point", "coordinates": [round(hit[0], 5), round(hit[1], 5)]},
-                      "properties": {"id": r["ProjectNumber"], "name": name.strip()[:90], "fac": fac.strip()[:60],
-                                     "addr": addr.title(), "city": city.title(), "co": COUNTIES.get(r.get("County"), ""),
+                      "properties": {"name": name.strip()[:90],
+                                     "addr": addr.title(), "city": city.title(),
                                      "work": WORK.get(r.get("TypeOfWork"), ""), "cost": int(r.get("EstimatedCost") or 0),
                                      "sqft": sq, "start": st.isoformat() if st else "", "end": en.isoformat() if en else "",
-                                     "stage": stage, "kind": kind, "owner": field(t, "Owner Name")[:70],
-                                     "scope": scope[:220], "status": STATUS.get(r.get("ProjectStatus"), ""),
-                                     "reg": (r.get("ProjectCreatedOn") or "")[:10]}})
+                                     "stage": stage, "kind": kind}})
     od = os.path.join(a.out, "web", "data", "layers"); os.makedirs(od, exist_ok=True)
     out = os.path.join(od, "dev_projects.json")
     json.dump({"type": "FeatureCollection", "features": feats,

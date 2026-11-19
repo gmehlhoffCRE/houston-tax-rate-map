@@ -1037,17 +1037,16 @@ const IND=[
     tip:p=>`<b>Texas Enterprise Zone</b><br>${esc(p.county||'')} County · tract ${esc(p.tract||'')} ${esc(p.bg||'')}${p.pov!=null?'<br>Poverty rate '+Math.round(p.pov*100)+'%':''}`},
   {key:'dev_projects',group:'planning',label:'Development projects (TDLR)',kind:'point',sw:'rgb(214,90,20)',
     color:p=>DP_C[p.stage]||DP_C.building, radius:p=>Math.min(14,p.sqft?4+Math.sqrt(p.sqft)/60:4+Math.sqrt(p.cost||0)/700),
-    show:p=>state.dp[p.stage]&&(p.kind==='ind'||(p.kind==='other'&&state.dp.other)||(p.kind==='storage'&&state.dp.storage)),
+    show:p=>state.dp[p.stage]&&(p.kind!=='storage'||state.dp.storage),
     labelZ:12,text:p=>p.name,
     legend:()=>[['Under construction','dot',DP_C.building],['Planned (start date ahead)','dot',DP_C.planned],['Completed in the last 2 years','dot',DP_C.done],
-      ['Size = square feet. Commercial projects registered with TDLR since Jan 2025 ($50k+ by law); dates are owner estimates','note']],
+      ['Size = square feet. Industrial projects registered with TDLR since Jan 2025; dates are owner estimates','note']],
     name:p=>p.name,
-    tip:p=>`<b>${esc(p.name)}</b>${p.fac&&p.fac!==p.name&&!/^n\/?a$/i.test(p.fac)?' <span style="color:#8A93A8">· '+esc(p.fac)+'</span>':''}<br>${esc(p.addr)}, ${esc(p.city)}`+
-      `<br><span style="color:rgb(${DP_C[p.stage]})">&#9632;</span> ${DP_NAME[p.stage]} · ${esc(p.work)}${p.kind==='ind'?' · industrial':p.kind==='storage'?' · self storage':''}`+
+    tip:p=>`<b>${esc(p.name)}</b><br>${esc(p.addr)}, ${esc(p.city)}`+
+      `<br><span style="color:rgb(${DP_C[p.stage]})">&#9632;</span> ${DP_NAME[p.stage]} · ${esc(p.work)}${p.kind==='storage'?' · self storage':''}`+
       `<br>${[p.sqft?p.sqft.toLocaleString()+' sq ft':'',p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · ')}`+
       `<br><span style="color:#8A93A8">Est. start</span> ${dpDate(p.start)} <span style="color:#8A93A8">· finish</span> ${dpDate(p.end)}`+
-      `${p.owner?'<br><span style="color:#8A93A8">Owner:</span> '+esc(p.owner):''}${p.scope?'<br><span style="color:#8A93A8">'+esc(p.scope.length>140?p.scope.slice(0,140)+'...':p.scope)+'</span>':''}`+
-      `<br><span style="color:#8A93A8">TDLR ${esc(p.id)} · ${esc(p.status)}</span>`},
+      ''},
   {key:'opp_zones',group:'planning',label:'Opportunity Zones 2.0',kind:'fill',sw:'rgb(30,140,80)',
     fill:p=>p.rural?[0,120,110,60]:[30,140,80,50],line:p=>p.rural?[0,100,95]:[20,110,60],
     legend:()=>[['Opportunity Zone 2.0, Jan 1, 2027 to Dec 31, 2036','fill',[30,140,80]],['Rural Opportunity Zone (larger rural fund benefit)','fill',[0,120,110]]],
@@ -1058,7 +1057,7 @@ const IND=[
     tip:p=>`<b>Opportunity Zone 1.0 (2018)</b><br>Designation ends Dec 31, 2026; investments already made keep their benefits<br><span style="color:#8A93A8">2010 census tract ${esc(p.tract||'')}</span>`},
 ];
 const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
-state.occSel=0; state.jobSel='matl'; state.dp={building:true,planned:true,done:true,other:false,storage:false}; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
+state.occSel=0; state.jobSel='matl'; state.dp={building:true,planned:true,done:true,storage:false}; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
 const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports'&&o.key!=='airports');
 async function loadLayerData(key){
   const src=(IND.find(o=>o.key===key)||{}).src;
@@ -1923,7 +1922,7 @@ for(const [gk,gt] of GROUPS){
     }
     if(o.key==='dev_projects'){
       const sub=document.createElement('div'); sub.id='dpOpts'; sub.style.display='none';
-      sub.innerHTML=[['building','Under construction'],['planned','Planned'],['done','Completed (last 2 years)'],['other','Include other commercial'],['storage','Include self storage']]
+      sub.innerHTML=[['building','Under construction'],['planned','Planned'],['done','Completed (last 2 years)'],['storage','Include self storage']]
         .map(([k,tx])=>`<label class="chk sub"><input type="checkbox" data-k="${k}" ${state.dp[k]?'checked':''}>${CHK}${DP_C[k]?`<span class="pdot" style="background:rgb(${DP_C[k]})"></span>`:''}<span>${tx}</span></label>`).join('');
       sub.querySelectorAll('input').forEach(i=>i.onchange=()=>{ state.dp[i.dataset.k]=i.checked; for(const k in showCache) if(k.startsWith('dev_projects:')) delete showCache[k]; refresh(); scheduleUrl(); });
       body.appendChild(sub);
