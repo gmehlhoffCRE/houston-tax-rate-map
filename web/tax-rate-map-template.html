@@ -841,6 +841,9 @@ function jobBreaks(k){ if(JOB_BR[k]) return JOB_BR[k]; const d=indData.tracts; i
 const GROW_C=[[120,150,170],[240,236,246],[208,190,230],[164,124,206],[120,66,172],[72,18,130]];
 const GROW_LAB=['Lost population','0 to 10%','10 to 25%','25 to 50%','50 to 100%','More than doubled'];
 function growClass(p){ if(p.p10<100) return p.p20>500?5:1; const g=(p.p20-p.p10)/p.p10; return g<0?0:g<.1?1:g<.25?2:g<.5?3:g<1?4:5; }
+// development projects (TDLR TABS)
+const DP_C={building:[214,90,20],planned:[0,110,190],done:[120,128,145]}, DP_NAME={building:'Under construction',planned:'Planned',done:'Completed'};
+const dpDate=s=>s?new Date(s+'T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'}):'n/a';
 let OCC=null; const OCC_C=[[255,244,214],[255,214,140],[247,166,60],[214,104,30],[150,50,20]];
 const occShare=(pu,k)=>{ const P=OCC&&OCC.puma[pu]; return P&&P.emp?P.c[k]/P.emp:0; };
 const occBreaks=k=>{ if(!OCC) return [0,0,0,0]; const v=Object.values(OCC.puma).map(P=>P.emp?1000*P.c[k]/P.emp:0).sort((a,b)=>a-b); const q=f=>v[Math.min(v.length-1,Math.floor(f*v.length))]; return [q(.2),q(.4),q(.6),q(.8)]; };
@@ -1032,6 +1035,19 @@ const IND=[
   {key:'tez',group:'planning',label:'Texas Enterprise Zones',kind:'fill',sw:'rgb(210,120,30)',fill:()=>[210,120,30,40],line:()=>[190,100,20],
     legend:()=>[['Enterprise Zone eligible block group (2020)','fill',[210,120,30]],['Eligibility only; a project still needs local nomination','note']],name:()=>'Enterprise Zone',
     tip:p=>`<b>Texas Enterprise Zone</b><br>${esc(p.county||'')} County · tract ${esc(p.tract||'')} ${esc(p.bg||'')}${p.pov!=null?'<br>Poverty rate '+Math.round(p.pov*100)+'%':''}`},
+  {key:'dev_projects',group:'planning',label:'Development projects (TDLR)',kind:'point',sw:'rgb(214,90,20)',
+    color:p=>DP_C[p.stage]||DP_C.building, radius:p=>Math.min(14,p.sqft?4+Math.sqrt(p.sqft)/60:4+Math.sqrt(p.cost||0)/700),
+    show:p=>state.dp[p.stage]&&(p.kind==='ind'||(p.kind==='other'&&state.dp.other)||(p.kind==='storage'&&state.dp.storage)),
+    labelZ:12,text:p=>p.name,
+    legend:()=>[['Under construction','dot',DP_C.building],['Planned (start date ahead)','dot',DP_C.planned],['Completed in the last 2 years','dot',DP_C.done],
+      ['Size = square feet. Commercial projects registered with TDLR since Jan 2025 ($50k+ by law); dates are owner estimates','note']],
+    name:p=>p.name,
+    tip:p=>`<b>${esc(p.name)}</b>${p.fac&&p.fac!==p.name&&!/^n\/?a$/i.test(p.fac)?' <span style="color:#8A93A8">· '+esc(p.fac)+'</span>':''}<br>${esc(p.addr)}, ${esc(p.city)}`+
+      `<br><span style="color:rgb(${DP_C[p.stage]})">&#9632;</span> ${DP_NAME[p.stage]} · ${esc(p.work)}${p.kind==='ind'?' · industrial':p.kind==='storage'?' · self storage':''}`+
+      `<br>${[p.sqft?p.sqft.toLocaleString()+' sq ft':'',p.cost?money$(p.cost)+' est.':''].filter(Boolean).join(' · ')}`+
+      `<br><span style="color:#8A93A8">Est. start</span> ${dpDate(p.start)} <span style="color:#8A93A8">· finish</span> ${dpDate(p.end)}`+
+      `${p.owner?'<br><span style="color:#8A93A8">Owner:</span> '+esc(p.owner):''}${p.scope?'<br><span style="color:#8A93A8">'+esc(p.scope.length>140?p.scope.slice(0,140)+'...':p.scope)+'</span>':''}`+
+      `<br><span style="color:#8A93A8">TDLR ${esc(p.id)} · ${esc(p.status)}</span>`},
   {key:'opp_zones',group:'planning',label:'Opportunity Zones 2.0',kind:'fill',sw:'rgb(30,140,80)',
     fill:p=>p.rural?[0,120,110,60]:[30,140,80,50],line:p=>p.rural?[0,100,95]:[20,110,60],
     legend:()=>[['Opportunity Zone 2.0, Jan 1, 2027 to Dec 31, 2036','fill',[30,140,80]],['Rural Opportunity Zone (larger rural fund benefit)','fill',[0,120,110]]],
@@ -1042,7 +1058,7 @@ const IND=[
     tip:p=>`<b>Opportunity Zone 1.0 (2018)</b><br>Designation ends Dec 31, 2026; investments already made keep their benefits<br><span style="color:#8A93A8">2010 census tract ${esc(p.tract||'')}</span>`},
 ];
 const indData={}; state.ind=Object.fromEntries(IND.map(o=>[o.key,!!o.on])); state.indOp=Object.fromEntries(IND.map(o=>[o.key,1]));
-state.occSel=0; state.jobSel='matl'; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
+state.occSel=0; state.jobSel='matl'; state.dp={building:true,planned:true,done:true,other:false,storage:false}; state.focus=true; state.color='rate'; state.railOnly=false; state.dev={on:false,ac:10}; state.proj={now:true,soon:true,later:true,done:false,routine:false};
 const anyIndOn=()=>IND.some(o=>state.ind[o.key]&&o.key!=='ports'&&o.key!=='airports');
 async function loadLayerData(key){
   const src=(IND.find(o=>o.key===key)||{}).src;
@@ -1905,6 +1921,13 @@ for(const [gk,gt] of GROUPS){
       sub.querySelectorAll('input').forEach(i=>i.onchange=()=>{ state.proj[i.dataset.k]=i.checked; renderLegend(); refresh(); scheduleUrl(); });
       body.appendChild(sub);
     }
+    if(o.key==='dev_projects'){
+      const sub=document.createElement('div'); sub.id='dpOpts'; sub.style.display='none';
+      sub.innerHTML=[['building','Under construction'],['planned','Planned'],['done','Completed (last 2 years)'],['other','Include other commercial'],['storage','Include self storage']]
+        .map(([k,tx])=>`<label class="chk sub"><input type="checkbox" data-k="${k}" ${state.dp[k]?'checked':''}>${CHK}${DP_C[k]?`<span class="pdot" style="background:rgb(${DP_C[k]})"></span>`:''}<span>${tx}</span></label>`).join('');
+      sub.querySelectorAll('input').forEach(i=>i.onchange=()=>{ state.dp[i.dataset.k]=i.checked; for(const k in showCache) if(k.startsWith('dev_projects:')) delete showCache[k]; refresh(); scheduleUrl(); });
+      body.appendChild(sub);
+    }
     if(o.key==='pumas'){ const sub=document.createElement('div'); sub.id='occOpts'; sub.className='occopts'; sub.style.display='none'; body.appendChild(sub); }
     if(o.key==='jobs_tract'){ const sub=document.createElement('div'); sub.id='jobOpts'; sub.className='occopts'; sub.style.display='none';
       sub.innerHTML=`<select id="jobSel" aria-label="Job group shown on the map">${Object.entries(JOB_NAME).map(([k,l])=>`<option value="${k}" ${k===state.jobSel?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
@@ -1930,6 +1953,7 @@ function syncPanel(){
   for(const g of indEl.querySelectorAll('.grp')){ const n=IND.filter(o=>o.group===g.dataset.g&&state.ind[o.key]).length; g.querySelector('.n').textContent=n||''; }
   $('railOnlyRow').style.display=state.ind.rail_served?'':'none';
   $('projOpts').style.display=state.ind.road_projects?'':'none';
+  if($('dpOpts')) $('dpOpts').style.display=state.ind.dev_projects?'':'none';
   if($('occOpts')) $('occOpts').style.display=state.ind.pumas?'':'none';
   if($('jobOpts')) $('jobOpts').style.display=state.ind.jobs_tract?'':'none';
   if(!state.ind.rail_served&&state.railOnly){ state.railOnly=false; $('railOnly').checked=false; filterVer++; }
@@ -1993,7 +2017,7 @@ const miles=(a,b)=>{ const k=Math.PI/180, dx=(b[0]-a[0])*Math.cos((a[1]+b[1])/2*
 async function siteChecks(p){
   const el=$('siteChk'); if(!el) return;
   if(p.lon==null){ el.innerHTML='<div class="k">No parcel location</div><div></div>'; return; }
-  const keys=['rail_served','zoning','opp_zones','opp_zones_v1','tracts','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
+  const keys=['rail_served','zoning','opp_zones','opp_zones_v1','tracts','dev_projects','flood','wetlands','evac','contam','road_projects','bridges','freight','transit','tez','electric','gas_util','watersheds','ftz','rail_terminals','container_yards','rail_yards']; await Promise.all(keys.map(loadLayerData));
   if(!$('siteChk')||state.sel!==p.acct) return;
   const x=p.lon,y=p.lat, out=[], D=indData;
   if(D.rail_served){ const r=RS&&RS[p.acct]; out.push(['Rail',r?`${esc(RAIL_NAME[r[0]]||r[0]||'Unknown')} track <span>${r[1]} ft</span>`:'<span>No track within 100 ft</span>']); }
@@ -2013,6 +2037,9 @@ async function siteChecks(p){
   if(D.opp_zones){ const f=featAt(D.opp_zones,x,y), v1=D.opp_zones_v1&&featAt(D.opp_zones_v1,x,y);
     out.push(['Opportunity Zone 2.0',(f?`Yes${f.properties.rural?', rural':''} <span>from Jan 1, 2027 · tract ${esc(f.properties.tract||'')}</span>`:'<span>No</span>')+
       (v1?`<br><span>In a 2018 zone (OZ 1.0) until Dec 31, 2026</span>`:'')]); }
+  if(D.dev_projects&&D.dev_projects.features){ const near=D.dev_projects.features.filter(f=>f.properties.kind==='ind'&&f.properties.stage!=='done').map(f=>[miles([x,y],f.geometry.coordinates),f.properties]).filter(q=>q[0]<=3).sort((a,b)=>a[0]-b[0]);
+    const sf=near.reduce((s,q)=>s+(q[1].sqft||0),0);
+    out.push(['Industrial projects within 3 mi',near.length?`${near.length} planned or under construction${sf?' · '+Math.round(sf/1000).toLocaleString()+'k sq ft':''}<span>Nearest: ${esc(near[0][1].name)}, ${near[0][0].toFixed(1)} mi</span>`:'<span>None registered with TDLR since 2025</span>']); }
   if(D.tracts){ const f=featAt(D.tracts,x,y); if(f){ const p=f.properties, g=p.p10>=100?(p.p20-p.p10)/p.p10*100:null, s=v=>(v>0?'+':'')+v.toFixed(Math.abs(v)<10?1:0)+'%';
     out.push(['Population growth',`${g==null?'New area since 2010':s(g)+' in the tract, 2010 to 2020'}<span>${p.co_g!=null?'County '+s(p.co_g)+' 2020 to 2024 · ':''}${p.p23.toLocaleString()} people (2019-2023)</span>`]); } }
   if(D.tez){ const f=featAt(D.tez,x,y); out.push(['Enterprise Zone',f?'Eligible <span>block group</span>':'<span>No</span>']); }
